@@ -7,4 +7,6 @@ chromadb
 sentence-transformers
 streamlit
 rank_bm25
+langchain-chroma
+
 langchain-groq
