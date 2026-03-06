@@ -1,0 +1,21 @@
+# Sanal Ortam
+venv/
+.venv/
+env/
+
+# Python Önbellekleri
+__pycache__/
+*.pyc
+
+# IDE Ayarları
+.vscode/
+.idea/
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# Hassas Bilgiler (Hala kodun içindeyse dikkat!)
+.env
+
+veritabani_olustur.py
