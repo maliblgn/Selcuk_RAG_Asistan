@@ -1,3 +1,4 @@
+import gc
 import streamlit as st
 import pickle
 import os
@@ -29,12 +30,17 @@ if "yeni_dokumanlar" not in st.session_state:
 # --- YAN MENÜ (SIDEBAR) AŞAĞIYA TAŞINDI ---
 
 # 2. SİSTEMİ YÜKLEME
+# Embedding modelini her seferinde baştan yüklemek yerine tek bir cache üzerinden yönetiyoruz (RAM fix)
+@st.cache_resource
+def get_embedding_model():
+    return HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
+
 # Cache hash bypass: session_state içerisindeki döküman sayısı değiştiğinde yeniden tetikletmek için parametre ekledik.
 @st.cache_resource
 def sistemi_yukle(yeni_doc_count):
     try:
         # 1. Semantik Arama (Chroma DB - Önceden oluşturulmuş)
-        embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
+        embedding_model = get_embedding_model()
         db_yolu = os.path.abspath("./chroma_db")
         vektordb = Chroma(persist_directory=db_yolu, embedding_function=embedding_model)
         chroma_retriever = vektordb.as_retriever(search_kwargs={"k": 3})
@@ -142,14 +148,35 @@ with st.sidebar:
                     splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
                     parcalar = splitter.split_documents(docs)
                     
-                    # Mevcut vektordb nesnesi üzerinden ekleme yaparak dosya kilidini aşıyoruz
-                    vektordb.add_documents(parcalar)
+                    # 1) RAM Optimizasyonu: Parçalama bittikten sonra 'docs' serbest bırakılarak RAM temizlenir
+                    del docs
+                    gc.collect()
                     
-                    # Cache bağlantısını tazele
+                    # 2) Mevcut arama motoru bağlantısını geçici olarak serbest bırak
+                    global zincir
+                    del zincir
+                    gc.collect()
+                    
+                    # 3) Mevcut vektordb nesnesi üzerinden kilitlenmeye (lock) karşı retry mekanizması ile ekleme
+                    max_deneme = 3
+                    for deneme in range(max_deneme):
+                        try:
+                            vektordb.add_documents(parcalar)
+                            break
+                        except Exception as e:
+                            if deneme == max_deneme - 1:
+                                raise Exception("Sistem şu an meşgul, lütfen tekrar deneyin.")
+                            time.sleep(1)
+                    
+                    # 4) Yazma işlemi bittikten HEYMEN SONRA cache temizlenerek bağlantı tazelenir
                     st.cache_resource.clear()
                     
-                    # BM25 için session hafızasına ekle
+                    # 5) BM25 için session hafızasına ekle
                     st.session_state.yeni_dokumanlar.extend(parcalar)
+                    
+                    # 6) RAM Optimizasyonu: 'parcalar' listesini işimiz bittiğinde temizle
+                    del parcalar
+                    gc.collect()
                     
                     st.success(f"✅ '{yuklenen_pdf.name}' başarıyla eklendi ve sistem tarafından öğrenildi!")
                     time.sleep(2)
