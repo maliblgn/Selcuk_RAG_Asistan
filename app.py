@@ -26,59 +26,7 @@ if not os.environ.get("GROQ_API_KEY"):
 if "yeni_dokumanlar" not in st.session_state:
     st.session_state.yeni_dokumanlar = []
 
-# --- YAN MENÜ (SIDEBAR) ---
-with st.sidebar:
-    st.header("⚙️ Ayarlar")
-    
-    st.divider()
-    st.header("📄 PDF Yükle ve Öğret")
-    yuklenen_pdf = st.file_uploader("Öğretmek için PDF seçin", type=["pdf"])
-    if st.button("Sisteme Öğret"):
-        if yuklenen_pdf:
-            with st.spinner("İşleniyor, lütfen bekleyin..."):
-                tmp_dosya_yolu = ""
-                try:
-                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
-                        tmp.write(yuklenen_pdf.getvalue())
-                        tmp_dosya_yolu = tmp.name
-                    
-                    loader = PyPDFLoader(tmp_dosya_yolu)
-                    docs = loader.load()
-                    for d in docs: 
-                        d.metadata["source"] = yuklenen_pdf.name
-                    
-                    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
-                    parcalar = splitter.split_documents(docs)
-                    
-                    # Chroma'ya kalıcı olarak ekle (Yeni instance açarak read-only kilidini bypass ediyoruz)
-                    yazici_vektordb = Chroma(
-                        persist_directory="./chroma_db", 
-                        embedding_function=HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
-                    )
-                    yazici_vektordb.add_documents(parcalar)
-                    
-                    # BM25 için session hafızasına ekle
-                    st.session_state.yeni_dokumanlar.extend(parcalar)
-                    
-                    # Cache'i manuel sıfırla ki güncel BM25 objesi yeniden yaratılsın
-                    st.cache_resource.clear()
-                    
-                    st.success(f"✅ '{yuklenen_pdf.name}' başarıyla eklendi ve sistem tarafından öğrenildi!")
-                    time.sleep(2)
-                    st.rerun()
-                except Exception as e:
-                    st.error(f"Sisteme eklenirken bir hata oluştu: {str(e)}")
-                finally:
-                    if tmp_dosya_yolu and os.path.exists(tmp_dosya_yolu):
-                        try:
-                            os.remove(tmp_dosya_yolu)
-                        except Exception:
-                            pass
-
-    st.divider()
-    if st.button("🗑️ Sohbeti Temizle"):
-        st.session_state.mesajlar = []
-        st.success("Sohbet geçmişi temizlendi!")
+# --- YAN MENÜ (SIDEBAR) AŞAĞIYA TAŞINDI ---
 
 # 2. SİSTEMİ YÜKLEME
 # Cache hash bypass: session_state içerisindeki döküman sayısı değiştiğinde yeniden tetikletmek için parametre ekledik.
@@ -87,7 +35,8 @@ def sistemi_yukle(yeni_doc_count):
     try:
         # 1. Semantik Arama (Chroma DB - Önceden oluşturulmuş)
         embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
-        vektordb = Chroma(persist_directory="./chroma_db", embedding_function=embedding_model)
+        db_yolu = os.path.abspath("./chroma_db")
+        vektordb = Chroma(persist_directory=db_yolu, embedding_function=embedding_model)
         chroma_retriever = vektordb.as_retriever(search_kwargs={"k": 3})
         
         # 2. BM25 DB (Anahtar Kelime Araması - Diske kaydedilmiş pkl'den yükleniyor)
@@ -151,7 +100,7 @@ def sistemi_yukle(yeni_doc_count):
                  source_documents=lambda x: x["raw_docs"]
             )
         )
-        return {"durum": "basarili", "zincir": rag_zinciri}
+        return {"durum": "basarili", "zincir": rag_zinciri, "vektordb": vektordb}
         
     except FileNotFoundError:
         return {"durum": "hata", "mesaj": "⚠️ BM25 İndeksi (`bm25_index.pkl`) veya Chroma DB bulunamadı. Lütfen önce `python veritabani_olustur.py` komutunu çalıştırın."}
@@ -167,6 +116,58 @@ if sistem["durum"] == "hata":
     st.stop()
 else:
     zincir = sistem["zincir"]
+    vektordb = sistem["vektordb"]
+
+# --- YAN MENÜ (SIDEBAR) (Dinamik Yükleme) ---
+with st.sidebar:
+    st.header("⚙️ Ayarlar")
+    
+    st.divider()
+    st.header("📄 PDF Yükle ve Öğret")
+    yuklenen_pdf = st.file_uploader("Öğretmek için PDF seçin", type=["pdf"])
+    if st.button("Sisteme Öğret"):
+        if yuklenen_pdf:
+            with st.spinner("İşleniyor, lütfen bekleyin..."):
+                tmp_dosya_yolu = ""
+                try:
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+                        tmp.write(yuklenen_pdf.getvalue())
+                        tmp_dosya_yolu = tmp.name
+                    
+                    loader = PyPDFLoader(tmp_dosya_yolu)
+                    docs = loader.load()
+                    for d in docs: 
+                        d.metadata["source"] = yuklenen_pdf.name
+                    
+                    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+                    parcalar = splitter.split_documents(docs)
+                    
+                    # Mevcut vektordb nesnesi üzerinden ekleme yaparak dosya kilidini aşıyoruz
+                    vektordb.add_documents(parcalar)
+                    
+                    # Cache bağlantısını tazele
+                    st.cache_resource.clear()
+                    
+                    # BM25 için session hafızasına ekle
+                    st.session_state.yeni_dokumanlar.extend(parcalar)
+                    
+                    st.success(f"✅ '{yuklenen_pdf.name}' başarıyla eklendi ve sistem tarafından öğrenildi!")
+                    time.sleep(2)
+                    st.rerun()
+                except Exception as e:
+                    # Yazma işlemini try-except bloğunda kilide karşı koruma
+                    st.error(f"Sistem şu an meşgul, lütfen tekrar deneyin.\n(Detay: {str(e)})")
+                finally:
+                    if tmp_dosya_yolu and os.path.exists(tmp_dosya_yolu):
+                        try:
+                            os.remove(tmp_dosya_yolu)
+                        except Exception:
+                            pass
+
+    st.divider()
+    if st.button("🗑️ Sohbeti Temizle"):
+        st.session_state.mesajlar = []
+        st.success("Sohbet geçmişi temizlendi!")
 
 # 3. SOHBET GEÇMİŞİNİ HAFIZADA TUTMA
 if "mesajlar" not in st.session_state:
