@@ -1,14 +1,17 @@
 import streamlit as st
 import pickle
+import os
+import tempfile
+import time
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
-import os
 from langchain_core.output_parsers import StrOutputParser
-
-# Yeni Eklenenler: Hibrit Arama (BM25 + Ensemble)
 from langchain_classic.retrievers import EnsembleRetriever
+from langchain_community.document_loaders import PyPDFLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.retrievers import BM25Retriever
 
 # 1. STREAMLIT SAYFA AYARLARI
 st.set_page_config(page_title="Selçuk RAG Asistanı", page_icon="🎓")
@@ -19,41 +22,98 @@ if not os.environ.get("GROQ_API_KEY"):
     st.error("⚠️ Groq API anahtarı (GROQ_API_KEY) bulunamadı. Lütfen ortam değişkenlerini kontrol edin (örn. Streamlit Cloud'da Secrets bölümü).")
     st.stop()
 
+# Dinamik PDF'ler için Session State hafızası
+if "yeni_dokumanlar" not in st.session_state:
+    st.session_state.yeni_dokumanlar = []
+
 # --- YAN MENÜ (SIDEBAR) ---
 with st.sidebar:
     st.header("⚙️ Ayarlar")
+    
+    st.divider()
+    st.header("📄 PDF Yükle ve Öğret")
+    yuklenen_pdf = st.file_uploader("Öğretmek için PDF seçin", type=["pdf"])
+    if st.button("Sisteme Öğret"):
+        if yuklenen_pdf:
+            with st.spinner("İşleniyor, lütfen bekleyin..."):
+                tmp_dosya_yolu = ""
+                try:
+                    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+                        tmp.write(yuklenen_pdf.getvalue())
+                        tmp_dosya_yolu = tmp.name
+                    
+                    loader = PyPDFLoader(tmp_dosya_yolu)
+                    docs = loader.load()
+                    for d in docs: 
+                        d.metadata["source"] = yuklenen_pdf.name
+                    
+                    splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=100)
+                    parcalar = splitter.split_documents(docs)
+                    
+                    # Chroma'ya kalıcı olarak ekle (Yeni instance açarak read-only kilidini bypass ediyoruz)
+                    yazici_vektordb = Chroma(
+                        persist_directory="./chroma_db", 
+                        embedding_function=HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
+                    )
+                    yazici_vektordb.add_documents(parcalar)
+                    
+                    # BM25 için session hafızasına ekle
+                    st.session_state.yeni_dokumanlar.extend(parcalar)
+                    
+                    # Cache'i manuel sıfırla ki güncel BM25 objesi yeniden yaratılsın
+                    st.cache_resource.clear()
+                    
+                    st.success(f"✅ '{yuklenen_pdf.name}' başarıyla eklendi ve sistem tarafından öğrenildi!")
+                    time.sleep(2)
+                    st.rerun()
+                except Exception as e:
+                    st.error(f"Sisteme eklenirken bir hata oluştu: {str(e)}")
+                finally:
+                    if tmp_dosya_yolu and os.path.exists(tmp_dosya_yolu):
+                        try:
+                            os.remove(tmp_dosya_yolu)
+                        except Exception:
+                            pass
+
+    st.divider()
     if st.button("🗑️ Sohbeti Temizle"):
         st.session_state.mesajlar = []
         st.success("Sohbet geçmişi temizlendi!")
 
 # 2. SİSTEMİ YÜKLEME
+# Cache hash bypass: session_state içerisindeki döküman sayısı değiştiğinde yeniden tetikletmek için parametre ekledik.
 @st.cache_resource
-def sistemi_yukle():
+def sistemi_yukle(yeni_doc_count):
     try:
         # 1. Semantik Arama (Chroma DB - Önceden oluşturulmuş)
         embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
         vektordb = Chroma(persist_directory="./chroma_db", embedding_function=embedding_model)
-        chroma_retriever = vektordb.as_retriever(search_kwargs={"k": 2})
+        chroma_retriever = vektordb.as_retriever(search_kwargs={"k": 3})
         
         # 2. BM25 DB (Anahtar Kelime Araması - Diske kaydedilmiş pkl'den yükleniyor)
-        # Eğer dosya yoksa veritabani_olustur.py henüz çalıştırılmamıştır
         with open("bm25_index.pkl", "rb") as f:
             bm25_retriever = pickle.load(f)
+            
+        # Eğer çalışma zamanında yeni doküman yüklenmişse, statik BM25'i baştan dinamik olarak yaratıyoruz.
+        if hasattr(bm25_retriever, 'docs') and len(st.session_state.yeni_dokumanlar) > 0:
+            tum_docs = bm25_retriever.docs + st.session_state.yeni_dokumanlar
+            bm25_retriever = BM25Retriever.from_documents(tum_docs)
+            
+        bm25_retriever.k = 2
             
         # 3. Ensemble Retriever (Hibrit Arama)
         ensemble_retriever = EnsembleRetriever(
             retrievers=[chroma_retriever, bm25_retriever],
-            weights=[0.5, 0.5]
+            weights=[0.6, 0.4]
         )
         
         llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0)
         
         sistem_istemi = (
-            "Sen Selçuk Üniversitesi RAG Asistanısın.\n\n"
-            "KESİN KURALLAR:\n"
-            "1. Aşağıdaki BAĞLAMDA net bir rakam veya bilgi yoksa KESİNLİKLE UYDURMA. Doğrudan 'Yönetmeliklerde bu bilgi geçmemektedir' de.\n"
-            "2. SADECE TÜRKÇE KONUŞ. İngilizce kelimeler kullanma.\n"
-            "3. Sadece BAĞLAM'daki bilgileri kullanarak cevap ver.\n\n"
+            "Sen Selçuk Üniversitesi Döküman Uzmanısın. Görevin sadece dökümanlardaki gerçekleri söylemektir.\n\n"
+            "KURAL 1: Eğer cevap bağlamda (context) yoksa, asla genel bilgini kullanma, uydurma. 'Bu bilgi dökümanlarda yer almıyor' de.\n"
+            "KURAL 2: Mezuniyet ortalaması, kredi sayısı, tarihler gibi rakamsal verilerde dökümandaki değerlere %100 sadık kal.\n"
+            "KURAL 3: Sadece döküman odaklı çalış, dış sitelere veya API'lere bağlanma.\n\n"
             "--- GEÇMİŞ SOHBET ---\n{chat_history}\n\n"
             "--- BAĞLAM (BİLGİ KAYNAĞI) ---\n{context}\n\n"
             "Cevap:"
@@ -99,7 +159,7 @@ def sistemi_yukle():
         return {"durum": "hata", "mesaj": f"⚠️ Sistem yüklenirken bir hata oluştu: {str(e)}"}
 
 # Sistemi Yükle
-sistem = sistemi_yukle()
+sistem = sistemi_yukle(len(st.session_state.get("yeni_dokumanlar", [])))
 
 # Eğer veritabanları yoksa uyarı göster ve durdur
 if sistem["durum"] == "hata":
