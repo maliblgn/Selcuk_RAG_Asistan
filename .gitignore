@@ -18,8 +18,7 @@ Thumbs.db
 # Hassas Bilgiler
 .env
 
-# Veritabanı ve Index (yeniden oluşturulabilir)
-chroma_db/
+# Artık dosyalar
 bm25_index.pkl
 
 veritabani_olustur.py
