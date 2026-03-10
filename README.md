@@ -1,6 +1,10 @@
 # 🎓 Selçuk Üniversitesi RAG Asistanı
 
-Selçuk Üniversitesi yönetmeliklerini sorgulayan, yapay zeka destekli bir chatbot uygulamasıdır. PDF dokümanlarından bilgi çıkararak soruları **kaynak göstererek** yanıtlar.
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://selcuk-rag-asistan.streamlit.app/)
+
+🔗 **Canlı Demo:** [https://selcuk-rag-asistan.streamlit.app](https://selcuk-rag-asistan.streamlit.app/)
+
+Selçuk Üniversitesi yönetmeliklerini sorgulayan, yapay zeka destekli bir chatbot uygulamasıdır. PDF dokümanlarından bilgi çıkararak soruları yanıtlar.
 
 ## 🛠️ Teknoloji Yığını
 
@@ -50,7 +54,7 @@ Selcuk_RAG_Cloud/
 ├── app.py                # Streamlit arayüzü ve sohbet mantığı
 ├── rag_engine.py         # RAG zinciri, retriever ve LLM motoru
 ├── data_ingestion.py     # PDF → ChromaDB veri aktarım scripti
-├── requirements.txt      # Sabitlenmiş bağımlılıklar
+├── requirements.txt      # Bağımlılıklar
 ├── .env.example          # Ortam değişkenleri şablonu
 ├── data/                 # Kaynak PDF yönetmelikleri
 │   ├── Burs Yönergesi.pdf
@@ -58,7 +62,7 @@ Selcuk_RAG_Cloud/
 │   ├── Diploma ... Yönerge.pdf
 │   ├── Haklı ve Geçerli Mazeretler Yönergesi.pdf
 │   └── Staj Yönergesi.pdf
-├── chroma_db/            # Oluşturulan vektör veritabanı (git'te yok)
+├── chroma_db/            # Vektör veritabanı
 └── .devcontainer/        # GitHub Codespaces yapılandırması
 ```
 
@@ -66,7 +70,6 @@ Selcuk_RAG_Cloud/
 
 - **Soru sorun**: Metin kutusuna yönetmeliklerle ilgili sorularınızı yazın
 - **PDF yükleyin**: Yan menüden ek PDF dokümanları yükleyerek oturum süresince asistanın bilgi tabanını genişletin
-- **Kaynakları görün**: Her cevabın altındaki "📚 Kaynakları Gör" ile hangi dokümanlardan yanıt üretildiğini kontrol edin
 
 ## ☁️ Codespaces ile Kullanım
 
