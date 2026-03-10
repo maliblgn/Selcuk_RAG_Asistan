@@ -1,0 +1,25 @@
+# Sanal Ortam
+venv/
+.venv/
+env/
+
+# Python Önbellekleri
+__pycache__/
+*.pyc
+
+# IDE Ayarları
+.vscode/
+.idea/
+
+# İşletim Sistemi Dosyaları
+.DS_Store
+Thumbs.db
+
+# Hassas Bilgiler
+.env
+
+# Veritabanı ve Index (yeniden oluşturulabilir)
+chroma_db/
+bm25_index.pkl
+
+veritabani_olustur.py
