@@ -1,7 +1,6 @@
 import streamlit as st
 import os
 import tempfile
-import time
 import logging
 from dotenv import load_dotenv
 from langchain_community.document_loaders import PyPDFLoader
@@ -79,7 +78,7 @@ motor = get_engine()
 def get_data_pdfs():
     data_dir = os.path.join(os.path.dirname(__file__), "data")
     if os.path.exists(data_dir):
-        return [f for f in os.listdir(data_dir) if f.lower().endswith(".pdf")]
+        return sorted(f for f in os.listdir(data_dir) if f.lower().endswith(".pdf"))
     return []
 
 # ─────────────────── YAN MENÜ ───────────────────
@@ -110,19 +109,20 @@ with st.sidebar:
                     tmp.write(yuklenen_pdf.getvalue())
                     tmp_dosya_yolu = tmp.name
                 
-                loader = PyPDFLoader(tmp_dosya_yolu)
-                docs = loader.load()
-                for d in docs: 
-                    d.metadata["source"] = yuklenen_pdf.name
+                try:
+                    loader = PyPDFLoader(tmp_dosya_yolu)
+                    docs = loader.load()
+                    for d in docs: 
+                        d.metadata["source"] = yuklenen_pdf.name
+                    
+                    splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+                    parcalar = splitter.split_documents(docs)
+                    
+                    st.session_state.yeni_dokumanlar.extend(parcalar)
+                    st.success(f"✅ '{yuklenen_pdf.name}' eklendi!")
+                finally:
+                    os.remove(tmp_dosya_yolu)
                 
-                splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-                parcalar = splitter.split_documents(docs)
-                
-                st.session_state.yeni_dokumanlar.extend(parcalar)
-                os.remove(tmp_dosya_yolu)
-                
-                st.success(f"✅ '{yuklenen_pdf.name}' eklendi!")
-                time.sleep(1)
                 st.rerun()
     
     st.divider()

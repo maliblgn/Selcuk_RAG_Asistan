@@ -18,7 +18,7 @@ class SelcukRAGEngine:
         self.embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
         
         # 2. Statik Veritabanını Bağla
-        self.db_dir = os.path.abspath("./chroma_db")
+        self.db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
         self.static_db = Chroma(persist_directory=self.db_dir, embedding_function=self.embeddings)
         self.static_retriever = self.static_db.as_retriever(
             search_type="mmr",
@@ -29,7 +29,7 @@ class SelcukRAGEngine:
         self._temp_db = None
         
         # 3. LLM Ayarları (Groq Llama 3.1)
-        self.llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0)
+        self.llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
         
         # 4. Katı Prompt (Zero-Hallucination + Kaynak Alıntı Kuralı)
         self.prompt = ChatPromptTemplate.from_template(
@@ -92,9 +92,10 @@ class SelcukRAGEngine:
         if dynamic_docs and len(dynamic_docs) > 0:
             if self._temp_db is not None:
                 try:
-                    del self._temp_db
+                    self._temp_db.delete_collection()
                 except Exception:
                     pass
+                self._temp_db = None
             
             self._temp_db = Chroma.from_documents(dynamic_docs, self.embeddings)
             dynamic_retriever = self._temp_db.as_retriever(search_kwargs={"k": 3})
