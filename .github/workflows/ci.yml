@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu İndir
+        uses: actions/checkout@v4
+
+      - name: Python Kur (3.11)
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Bağımlılıkları Yükle
+        run: pip install pytest langchain-core langchain-groq langchain-huggingface langchain-chroma
+
+      - name: Testleri Çalıştır
+        run: pytest tests/ -v

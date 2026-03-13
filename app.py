@@ -115,7 +115,7 @@ with st.sidebar:
                 for d in docs: 
                     d.metadata["source"] = yuklenen_pdf.name
                 
-                splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=100)
+                splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
                 parcalar = splitter.split_documents(docs)
                 
                 st.session_state.yeni_dokumanlar.extend(parcalar)

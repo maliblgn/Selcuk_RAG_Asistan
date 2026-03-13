@@ -13,7 +13,7 @@ def statik_veritabani_olustur():
     print("🧹 Eski veritabanı temizleniyor...")
     if os.path.exists(DB_DIR):
         shutil.rmtree(DB_DIR)
-        
+
     print(f"📥 '{DATA_DIR}' klasöründeki PDF'ler okunuyor...")
     loader = PyPDFDirectoryLoader(DATA_DIR)
     docs = loader.load()
@@ -27,13 +27,13 @@ def statik_veritabani_olustur():
 
     print("🧠 Vektörler (Embeddings) oluşturulup Chroma'ya kaydediliyor...")
     embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
-    
+
     Chroma.from_documents(
         documents=parcalar,
         embedding=embedding_model,
         persist_directory=DB_DIR
     )
-    
+
     print("🚀 İŞLEM TAMAM! Statik veritabanı kusursuz bir şekilde hazırlandı.")
 
 if __name__ == "__main__":
