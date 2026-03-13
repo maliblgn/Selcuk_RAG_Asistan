@@ -33,8 +33,8 @@ def statik_veritabani_olustur():
         embedding=embedding_model,
         persist_directory=DB_DIR
     )
-    
+
     print("🚀 İŞLEM TAMAM! Statik veritabanı kusursuz bir şekilde hazırlandı.")
 
 if __name__ == "__main__":
-    statik_veritabani_olustur()
+    statik_veritabani_olustur()     
