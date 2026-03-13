@@ -8,6 +8,9 @@ from langchain_core.output_parsers import StrOutputParser
 
 logger = logging.getLogger(__name__)
 
+# Gönderilecek bağlamın maksimum karakter sayısı (token taşmasını önler)
+MAX_CONTEXT_CHARS = 12_000
+
 class SelcukRAGEngine:
     def __init__(self):
         logger.info("SelcukRAGEngine başlatılıyor...")
@@ -28,15 +31,16 @@ class SelcukRAGEngine:
         # 3. LLM Ayarları (Groq Llama 3.1)
         self.llm = ChatGroq(model_name="llama-3.1-8b-instant", temperature=0)
         
-        # 4. Katı Prompt (Zero-Hallucination Kuralı)
+        # 4. Katı Prompt (Zero-Hallucination + Kaynak Alıntı Kuralı)
         self.prompt = ChatPromptTemplate.from_template(
             "Sen Selçuk Üniversitesi Döküman Uzmanısın. Görevin sadece sana verilen bağlamdaki gerçekleri söylemektir.\n\n"
             "KESİN KURALLAR:\n"
             "1. Eğer cevap bağlamda (context) yoksa ASLA uydurma. 'Bu bilgi dökümanlarda yer almıyor' de.\n"
             "2. Bağlamdaki rakamlara %100 sadık kal. Kendi bildiğin rakamları söyleme.\n"
             "3. Sadece Türkçe konuş.\n"
-            "4. Cevabını madde madde ve okunaklı şekilde formatla.\n\n"
-            "--- BAĞLAM ---\n{context}\n\n"
+            "4. Cevabını madde madde ve okunaklı şekilde formatla.\n"
+            "5. Cevabının sonuna '📄 Kaynak: <belge adı>' satırını ekleyerek bilginin hangi belgeden geldiğini belirt.\n\n"
+            "--- BAĞLAM (kaynaklarla birlikte) ---\n{context}\n\n"
             "--- GEÇMİŞ SOHBET ---\n{chat_history}\n\n"
             "--- SORU ---\n{input}\n\n"
             "Cevap:"
@@ -112,8 +116,17 @@ class SelcukRAGEngine:
         return active_retriever.invoke(question)
 
     def format_context(self, docs):
-        """Dokümanları bağlam metnine çevir."""
-        return "\n\n".join(doc.page_content for doc in docs)
+        """Dokümanları kaynak bilgisiyle birlikte bağlam metnine çevir."""
+        chunks = []
+        for doc in docs:
+            source = os.path.basename(doc.metadata.get("source", "Bilinmeyen Belge"))
+            source = source.replace(".pdf", "")
+            chunks.append(f"[Kaynak: {source}]\n{doc.page_content}")
+        context = "\n\n".join(chunks)
+        # Token taşmasını önlemek için maksimum karakter sayısını uygula
+        if len(context) > MAX_CONTEXT_CHARS:
+            context = context[:MAX_CONTEXT_CHARS] + "\n...[bağlam kısaltıldı]"
+        return context
 
     def stream_answer(self, question, context, chat_history=""):
         """Cevabı token token stream eder (generator)."""

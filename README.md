@@ -1,6 +1,7 @@
 # 🎓 Selçuk Üniversitesi RAG Asistanı
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://selcuk-rag-asistan.streamlit.app/)
+[![CI](https://github.com/maliblgn/Selcuk_RAG_Asistan/actions/workflows/ci.yml/badge.svg)](https://github.com/maliblgn/Selcuk_RAG_Asistan/actions/workflows/ci.yml)
 
 🔗 **Canlı Demo:** [https://selcuk-rag-asistan.streamlit.app](https://selcuk-rag-asistan.streamlit.app/)
 
@@ -47,10 +48,16 @@ python data_ingestion.py
 streamlit run app.py
 ```
 
+## 🧪 Testler
+
+```bash
+pytest tests/ -v
+```
+
 ## 📂 Proje Yapısı
 
 ```
-Selcuk_RAG_Cloud/
+Selcuk_RAG_Asistan/
 ├── app.py                # Streamlit arayüzü ve sohbet mantığı
 ├── rag_engine.py         # RAG zinciri, retriever ve LLM motoru
 ├── data_ingestion.py     # PDF → ChromaDB veri aktarım scripti
@@ -63,6 +70,11 @@ Selcuk_RAG_Cloud/
 │   ├── Haklı ve Geçerli Mazeretler Yönergesi.pdf
 │   └── Staj Yönergesi.pdf
 ├── chroma_db/            # Vektör veritabanı
+├── tests/                # Pytest birim testleri
+│   └── test_rag_engine.py
+├── .github/
+│   └── workflows/
+│       └── ci.yml        # GitHub Actions CI pipeline
 └── .devcontainer/        # GitHub Codespaces yapılandırması
 ```
 
@@ -70,6 +82,7 @@ Selcuk_RAG_Cloud/
 
 - **Soru sorun**: Metin kutusuna yönetmeliklerle ilgili sorularınızı yazın
 - **PDF yükleyin**: Yan menüden ek PDF dokümanları yükleyerek oturum süresince asistanın bilgi tabanını genişletin
+- **Kaynak alıntısı**: Her yanıtın sonunda `📄 Kaynak: <belge adı>` bilgisi görünür
 
 ## ☁️ Codespaces ile Kullanım
 
