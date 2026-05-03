@@ -590,8 +590,6 @@ if "admin_loggedin" not in st.session_state:
 def get_engine():
     return SelcukRAGEngine()
 
-motor = get_engine()
-
 
 # ══════════════════════════════════════════════════════════
 #  SIDEBAR
@@ -865,8 +863,8 @@ else:
         with st.chat_message("assistant", avatar="🎓"):
             try:
                 # 1. Sohbet geçmişi
-                if motor.is_source_inventory_question(kullanici_sorusu):
-                    cevap = motor.build_source_inventory_answer()
+                if SelcukRAGEngine.is_source_inventory_question(kullanici_sorusu):
+                    cevap = SelcukRAGEngine.build_source_inventory_answer_from_db()
                     st.markdown(cevap)
                     st.session_state.mesajlar.append({
                         "rol": "assistant",
@@ -877,6 +875,7 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
+                motor = get_engine()
                 history = "\n".join([f"{m['rol']}: {m['icerik']}" for m in st.session_state.mesajlar[-4:]])
 
                 # 2. Soru yeniden yazma (takip soruları için)

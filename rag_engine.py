@@ -370,6 +370,22 @@ class SelcukRAGEngine:
             "source_type_counts": dict(source_type_counts),
         }
 
+    @classmethod
+    def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=120):
+        """RAG motorunu baslatmadan ChromaDB kaynak envanteri cevabi uret."""
+        db_dir = db_dir or os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        try:
+            db = Chroma(persist_directory=db_dir)
+            engine = cls.__new__(cls)
+            engine.static_db = db
+            return engine.build_source_inventory_answer(max_sources=max_sources)
+        except Exception as exc:
+            logger.warning("Kaynak envanteri hafif modda alinamadi: %s", exc)
+            return (
+                "Su an veritabanindaki kaynak listesini okuyamadim. "
+                "Canli ortamda ChromaDB dosyalari veya veritabani baglantisi kontrol edilmeli."
+            )
+
     def build_source_inventory_answer(self, max_sources=120):
         """Mevcut veritabanindaki kaynaklari kullaniciya okunur sekilde anlat."""
         inventory = self.get_source_inventory()
