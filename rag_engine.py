@@ -80,7 +80,7 @@ class SelcukRAGEngine:
         self._temp_db = None
         
         # 3. LLM Ayarları (Groq Llama 3.1)
-        self.llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
+        self.llm = ChatGroq(model=os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"), temperature=0)
         
         # 4. Modlara Özel Promptlar (Multi-Agent UI)
         common_rules = (
@@ -144,7 +144,11 @@ class SelcukRAGEngine:
         )
         
         # 8. Reranker (FlashRank)
-        self.reranker = FlashrankRerank(top_n=5)
+        try:
+            self.reranker = FlashrankRerank(top_n=5)
+        except Exception as e:
+            logger.warning("FlashRank yuklenemedi, reranking devre disi: %s", e)
+            self.reranker = None
         
         logger.info("SelcukRAGEngine hazır.")
 
@@ -226,6 +230,10 @@ class SelcukRAGEngine:
             return []
             
         # 4. Cross-Encoder Re-ranking
+        if self.reranker is None:
+            logger.info("Reranker devre disi, ilk 5 dokuman donduruluyor.")
+            return unique_docs[:5]
+
         try:
             reranked_docs = self.reranker.compress_documents(unique_docs, question)
             logger.info(f"Reranking sonrası {len(reranked_docs)} doküman seçildi.")
