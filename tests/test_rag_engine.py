@@ -254,6 +254,25 @@ class TestSourceInventory:
         assert "renci" in label
         assert "nergesi" in label
 
+    @patch("rag_engine.Chroma")
+    def test_hafif_kaynak_envanteri_motor_baslatmadan_uretirilir(self, mock_chroma):
+        fake_db = MagicMock()
+        fake_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Test.pdf",
+                    "source_type": "web_pdf",
+                }
+            ]
+        }
+        mock_chroma.return_value = fake_db
+
+        cevap = rag_engine.SelcukRAGEngine.build_source_inventory_answer_from_db()
+
+        assert "1 benzersiz kaynak" in cevap
+        assert "Test" in cevap
+        mock_chroma.assert_called_once()
+
 
 # ---------------------------------------------------------------------------
 # MAX_CONTEXT_CHARS sabit testi
