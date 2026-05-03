@@ -7,7 +7,7 @@ import time
 import hashlib
 from dataclasses import dataclass
 from typing import List, Sequence, Tuple
-from urllib.parse import urljoin, urlparse
+from urllib.parse import quote, unquote, urljoin, urlparse, urlunparse
 from urllib.robotparser import RobotFileParser
 
 import requests
@@ -108,6 +108,24 @@ class URLValidator:
     @staticmethod
     def normalize_url(url: str) -> str:
         return (url or "").strip()
+
+    @staticmethod
+    def normalize_discovered_url(url: str) -> str:
+        """HTML icinden bulunan URL'leri requests icin guvenli hale getir."""
+        raw = (url or "").strip()
+        if not raw:
+            return raw
+        parsed = urlparse(raw)
+        path = quote(unquote(parsed.path), safe="/:%[]")
+        query = quote(unquote(parsed.query), safe="=&?/:,%[]")
+        return urlunparse((
+            parsed.scheme,
+            parsed.netloc,
+            path,
+            parsed.params,
+            query,
+            "",
+        ))
 
     @staticmethod
     def split_url_and_selector(url_entry: str) -> Tuple[str, str | None]:
@@ -369,7 +387,7 @@ class WebScraper:
             href = anchor["href"].strip()
             if not href:
                 continue
-            absolute = urljoin(base_url, href)
+            absolute = URLValidator.normalize_discovered_url(urljoin(base_url, href))
             if ".pdf" not in absolute.lower():
                 continue
             if absolute not in seen:

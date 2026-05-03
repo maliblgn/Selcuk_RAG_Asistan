@@ -174,6 +174,20 @@ def test_extract_pdf_links_supports_relative_and_absolute():
     ]
 
 
+def test_extract_pdf_links_encodes_turkish_and_spaces():
+    html = """
+    <html><body>
+      <a href="https://webadmin.selcuk.edu.tr/uploads/contents/main/icerik/2448/Burs Yönergesi 2021.pdf">Burs</a>
+      <a href="/contents/main/icerik/2448/Çift Ana Dal Yönergesi.pdf">ÇAP</a>
+    </body></html>
+    """
+    links = WebScraper.extract_pdf_links(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert links == [
+        "https://webadmin.selcuk.edu.tr/uploads/contents/main/icerik/2448/Burs%20Y%C3%B6nergesi%202021.pdf",
+        "https://selcuk.edu.tr/contents/main/icerik/2448/%C3%87ift%20Ana%20Dal%20Y%C3%B6nergesi.pdf",
+    ]
+
+
 def test_scrape_urls_with_linked_pdfs_uses_page_flow(monkeypatch):
     monkeypatch.setattr(URLValidator, "is_allowed_by_robots", lambda *_args, **_kwargs: True)
 
