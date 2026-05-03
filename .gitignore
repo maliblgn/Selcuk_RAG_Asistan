@@ -30,5 +30,9 @@ failed_docs.json
 
 # Generated reports
 index_report.json
+index_report_*.json
 discovery_report.json
+*_ingestion_*.log
+central_batch_*.log
+ingestion_*.log
 source_inventory*.json

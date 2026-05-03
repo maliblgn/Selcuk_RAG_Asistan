@@ -15,7 +15,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
-from web_scraper import WebScraper, ScraperConfig, ScrapingError, parse_urls_from_text
+from web_scraper import WebScraper, ScraperConfig, ScrapingError, URLValidator, parse_urls_from_text
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger(__name__)
@@ -101,6 +101,122 @@ def _load_web_documents(urls_file):
         return []
 
     return _scrape_url_entries(urls, urls_file)
+
+
+def _read_urls_file(urls_file: str) -> List[str]:
+    logger.info("URL listesi okunuyor: %s", urls_file)
+    if not os.path.exists(urls_file):
+        available = [f for f in os.listdir(_BASE_DIR) if f.endswith(".txt")]
+        hint = f" Mevcut .txt dosyalari: {', '.join(available)}" if available else ""
+        raise FileNotFoundError(f"URL dosyasi bulunamadi: {urls_file}.{hint}")
+
+    with open(urls_file, "r", encoding="utf-8") as f:
+        return parse_urls_from_text(f.read())
+
+
+def _persist_doc_batch(docs: List[Document], label: str) -> int:
+    if not docs:
+        return 0
+    logger.info("%s: %d dokuman sayfasi Chroma'ya aktariliyor.", label, len(docs))
+    chunks = _split_documents(docs)
+    _persist_documents(chunks, clear_existing=False)
+    return len(chunks)
+
+
+def build_url_ingestion_batched(urls_file: str, batch_size: int = 10, clear_existing: bool = False):
+    """URL dosyasini PDF batch'leri halinde isleyip Chroma'ya artimli yazar."""
+    urls = _read_urls_file(urls_file)
+    if not urls:
+        raise ValueError("URL dosyasinda islenecek satir bulunamadi.")
+
+    if clear_existing:
+        _clear_db()
+
+    scraper = WebScraper(ScraperConfig.from_env())
+    errors: List[str] = []
+    seen_pdf_urls: Set[str] = set()
+    pdf_batch: List[str] = []
+    processed_pdf_count = 0
+    processed_page_count = 0
+    total_chunks = 0
+
+    def flush_pdf_batch():
+        nonlocal processed_pdf_count, total_chunks
+        if not pdf_batch:
+            return
+        current = list(pdf_batch)
+        pdf_batch.clear()
+        docs: List[Document] = []
+        for pdf_url in current:
+            try:
+                docs.extend(scraper._pdf_url_to_documents(pdf_url))
+                processed_pdf_count += 1
+                logger.info("PDF islendi (%d): %s", processed_pdf_count, pdf_url)
+            except ScrapingError as exc:
+                logger.warning("PDF atlaniyor: %s", exc)
+                errors.append(str(exc))
+        total_chunks += _persist_doc_batch(docs, f"PDF batch ({len(current)} aday)")
+
+    for raw_url in urls:
+        normalized, css_selector = URLValidator.split_url_and_selector(raw_url)
+        normalized = URLValidator.normalize_url(normalized)
+
+        if normalized.lower().endswith(".pdf"):
+            if normalized not in seen_pdf_urls:
+                seen_pdf_urls.add(normalized)
+                pdf_batch.append(normalized)
+            if len(pdf_batch) >= batch_size:
+                flush_pdf_batch()
+            continue
+
+        try:
+            if not URLValidator.is_valid_url(normalized):
+                raise ScrapingError(f"Gecersiz URL: {normalized}")
+            if scraper.config.enable_domain_whitelist and not URLValidator.is_allowed_domain(
+                normalized,
+                scraper.config.allowed_domains,
+            ):
+                raise ScrapingError(f"Whitelist disi domain: {normalized}")
+            if not scraper._is_allowed_by_robots(normalized):
+                raise ScrapingError(f"robots.txt erisim izni vermiyor: {normalized}")
+
+            response = scraper._request_with_retry(normalized, "URL cekilemedi")
+            page_doc = scraper._build_page_document_from_html(
+                normalized,
+                response.text,
+                css_selector=css_selector,
+            )
+            total_chunks += _persist_doc_batch([page_doc], f"Sayfa: {normalized}")
+            processed_page_count += 1
+
+            pdf_links = WebScraper.extract_pdf_links(response.text, normalized)
+            logger.info("%s icin %d PDF linki bulundu.", normalized, len(pdf_links))
+            for pdf_url in pdf_links:
+                if pdf_url in seen_pdf_urls:
+                    continue
+                seen_pdf_urls.add(pdf_url)
+                pdf_batch.append(pdf_url)
+                if len(pdf_batch) >= batch_size:
+                    flush_pdf_batch()
+        except ScrapingError as exc:
+            logger.warning("URL atlaniyor: %s", exc)
+            errors.append(str(exc))
+
+    flush_pdf_batch()
+
+    if errors:
+        _write_failed_docs(errors)
+    else:
+        _write_failed_docs([])
+
+    logger.info(
+        "Batch ingestion tamamlandi: %d sayfa, %d benzersiz PDF adayi, %d basarili PDF, %d chunk, %d hata",
+        processed_page_count,
+        len(seen_pdf_urls),
+        processed_pdf_count,
+        total_chunks,
+        len(errors),
+    )
 
 
 def load_manifest_urls(manifest_file: str) -> List[str]:
@@ -426,6 +542,7 @@ def build_ingestion(
     crawl_depth=None,
     crawl_max_pages=None,
     clear_existing=False,
+    batch_size=None,
 ):
     """Ana veri aktarım fonksiyonu.
 
@@ -437,6 +554,14 @@ def build_ingestion(
         crawl_max_pages: Crawler maks sayfa sayısı.
         clear_existing: Mevcut DB'yi temizle.
     """
+    if batch_size and urls_file and not manifest_file and not crawl:
+        build_url_ingestion_batched(
+            urls_file=urls_file,
+            batch_size=batch_size,
+            clear_existing=clear_existing,
+        )
+        return
+
     docs = []
     if urls_file:
         docs.extend(_load_web_documents(urls_file))
@@ -473,6 +598,8 @@ def _parse_args():
                         help="Crawler tarama derinligi (varsayilan: .env'den)")
     parser.add_argument("--crawl-max-pages", type=int, default=None,
                         help="Maksimum taranacak sayfa sayisi")
+    parser.add_argument("--batch-size", type=int, default=None,
+                        help="URL dosyasi icin PDF'leri batch halinde artimli Chroma'ya yazar")
     parser.add_argument("--clear", action="store_true", help="Mevcut veritabanini temizleyip yeniden olusturur")
     return parser.parse_args()
 
@@ -493,6 +620,7 @@ def main():
         crawl_depth=args.crawl_depth,
         crawl_max_pages=args.crawl_max_pages,
         clear_existing=args.clear,
+        batch_size=args.batch_size,
     )
 
 if __name__ == "__main__":
