@@ -86,6 +86,28 @@
   ],
   "known_direct_sources": [
     {
+      "id": "central_regulations_listing",
+      "title": "Selcuk Universitesi Yonetmelikler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39873",
+      "category": "yonetmelik",
+      "source_type": "web_listing",
+      "priority": "critical",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Yonetmelik PDF'lerini listeleyen resmi sayfa; yetkili kaynak modunda sayfadaki tum PDF linkleri islenir."
+    },
+    {
+      "id": "central_directives_listing",
+      "title": "Selcuk Universitesi Yonergeler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "category": "yonerge",
+      "source_type": "web_listing",
+      "priority": "critical",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Yonerge PDF'lerini listeleyen resmi sayfa; yetkili kaynak modunda sayfadaki tum PDF linkleri islenir."
+    },
+    {
       "id": "academic_calendar_2025_2026",
       "title": "2025-2026 Genel Akademik Takvimi",
       "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
