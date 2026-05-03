@@ -22,3 +22,13 @@ Thumbs.db
 bm25_index.pkl
 
 veritabani_olustur.py
+
+# Crawler state
+crawled_urls.json
+crawler_state.db
+failed_docs.json
+
+# Generated reports
+index_report.json
+discovery_report.json
+source_inventory*.json

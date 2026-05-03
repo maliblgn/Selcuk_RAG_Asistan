@@ -1,0 +1,158 @@
+{
+  "version": 2,
+  "strategy": "web_only_discovery",
+  "description": "Bilgi tabani yerel PDF'lerden degil, Selcuk Universitesi resmi web sayfalari uzerinden kesfedilen HTML/PDF kaynaklardan uretilir.",
+  "crawl_defaults": {
+    "max_depth": 1,
+    "max_pages": 20,
+    "delay_sec": 1.0
+  },
+  "allowed_domains": [
+    "selcuk.edu.tr",
+    "www.selcuk.edu.tr",
+    "eski.selcuk.edu.tr",
+    "yemek.selcuk.edu.tr"
+  ],
+  "crawl_seeds": [
+    {
+      "id": "selcuk_home",
+      "title": "Selcuk Universitesi Anasayfa",
+      "url": "https://www.selcuk.edu.tr",
+      "category": "genel",
+      "priority": "medium",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Genel duyuru, haber ve alt sayfa kesfi icin ana baslangic noktasi."
+    },
+    {
+      "id": "student_portal",
+      "title": "Ogrenci Sayfasi",
+      "url": "https://selcuk.edu.tr/anasayfa/ogrenci",
+      "category": "ogrenci",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Ogrenci odakli resmi sayfalar ve yonerge linkleri icin."
+    },
+    {
+      "id": "academic_portal",
+      "title": "Akademik Sayfa",
+      "url": "https://selcuk.edu.tr/Anasayfa/Akademik",
+      "category": "akademik",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Akademik birim ve akademik mevzuat linkleri icin."
+    },
+    {
+      "id": "central_regulations",
+      "title": "Merkezi Mevzuat Sayfasi",
+      "url": "https://selcuk.edu.tr/birim/icerik/0/mevzuat-75136",
+      "category": "mevzuat",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Discovery sonucunda ana sayfadan kesfedildi; yonetmelik/yonerge PDF linkleri icin en kritik seed."
+    },
+    {
+      "id": "technology_faculty",
+      "title": "Teknoloji Fakultesi Sayfasi",
+      "url": "https://selcuk.edu.tr/birim/teknoloji/5348",
+      "category": "birim",
+      "priority": "medium",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Birim sayfasi uzerinden staj ve fakulte dokumani kesfi icin."
+    },
+    {
+      "id": "technology_regulations",
+      "title": "Teknoloji Fakultesi Yonerge ve Yonetmelikler",
+      "url": "https://selcuk.edu.tr/birim/sayfa/5348/yonerge-ve-yonetmelikler-5077",
+      "category": "birim_mevzuat",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "Discovery sonucunda kesfedildi; teknoloji fakültesi staj/IME dokumanlari icin kritik seed."
+    },
+    {
+      "id": "cafeteria_menu",
+      "title": "Yemekhane Menu Servisi",
+      "url": "https://yemek.selcuk.edu.tr/Menu/MenuGetir",
+      "category": "kampus_yasami",
+      "priority": "medium",
+      "active": true,
+      "notes": "Kampus yasami modu icin dinamik web kaynak."
+    }
+  ],
+  "known_direct_sources": [
+    {
+      "id": "academic_calendar_2025_2026",
+      "title": "2025-2026 Genel Akademik Takvimi",
+      "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+      "category": "akademik_takvim",
+      "source_type": "web_pdf",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "webadmin robots/erisim kontrolu nedeniyle otomatik isleme alinmaz; kurumsal izin veya robots-allowed alternatif kaynak gerekir."
+    },
+    {
+      "id": "technology_internship_directive_2023",
+      "title": "Teknoloji Fakultesi Staj Yonergesi 2023",
+      "url": "https://webadmin.selcuk.edu.tr/uploads/contents/teknoloji/page/55771/staj_yonerge_2023[1]_638457681520738557.pdf",
+      "category": "staj",
+      "source_type": "web_pdf",
+      "priority": "high",
+      "active": false,
+      "requires_permission": true,
+      "notes": "webadmin robots/erisim kontrolu nedeniyle otomatik isleme alinmaz; yetkili kaynak modu veya robots-allowed alternatif gerekir."
+    },
+    {
+      "id": "free_meal_scholarship_directive_2021",
+      "title": "Ucretsiz Yemek Bursu Yonergesi 2021",
+      "url": "https://eski.selcuk.edu.tr/contents/076/icerik/%C3%9Ccretsiz%20Yemek%20Bursu%20Y%C3%B6nergesi2021_637926976061139192.pdf",
+      "category": "burs",
+      "source_type": "web_pdf",
+      "priority": "high",
+      "active": true,
+      "notes": "Robots kontroluyle islenebilen resmi web PDF kaynagi."
+    }
+  ],
+  "expected_documents": [
+    {
+      "id": "internship_directive",
+      "title": "Staj Yonergesi",
+      "keywords": ["staj", "yonerge", "yönerge"],
+      "priority": "high",
+      "notes": "Yerel PDF beklenmez; resmi web taramasinda PDF/HTML olarak kesfedilmesi hedeflenir."
+    },
+    {
+      "id": "scholarship_directive",
+      "title": "Burs Yonergesi",
+      "keywords": ["burs", "yonerge", "yönerge"],
+      "priority": "high",
+      "notes": "Ornek sorular icin kritik beklenen dokuman."
+    },
+    {
+      "id": "double_major_directive",
+      "title": "Cift Ana Dal Yonergesi",
+      "keywords": ["cift", "çift", "anadal", "ana dal", "cap", "çap", "yonerge", "yönerge"],
+      "priority": "high",
+      "notes": "Ornek sorular icin kritik beklenen dokuman."
+    },
+    {
+      "id": "diploma_supplement_directive",
+      "title": "Diploma, Diploma Eki ve Diger Belgeler Yonergesi",
+      "keywords": ["diploma", "diploma eki", "belge", "yonerge", "yönerge"],
+      "priority": "high",
+      "notes": "Ornek sorular icin kritik beklenen dokuman."
+    },
+    {
+      "id": "excuse_directive",
+      "title": "Hakli ve Gecerli Mazeretler Yonergesi",
+      "keywords": ["mazeret", "hakli", "haklı", "gecerli", "geçerli", "yonerge", "yönerge"],
+      "priority": "high",
+      "notes": "Mazeret ve sinav haklari gibi sorular icin beklenen dokuman."
+    }
+  ]
+}
