@@ -10,6 +10,23 @@ from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 # .env dosyasından ortam değişkenlerini yükle
 load_dotenv()
 
+
+def load_streamlit_secrets_to_env():
+    """Streamlit Cloud secrets degerlerini os.environ icine guvenli sekilde aktar."""
+    for key in ("GROQ_API_KEY", "ADMIN_PASSWORD"):
+        if os.environ.get(key):
+            os.environ[key] = os.environ[key].strip().strip('"').strip("'")
+            continue
+        try:
+            value = st.secrets.get(key)
+        except Exception:
+            value = None
+        if value:
+            os.environ[key] = str(value).strip().strip('"').strip("'")
+
+
+load_streamlit_secrets_to_env()
+
 # Loglama yapılandırması
 logging.basicConfig(
     level=logging.INFO,
@@ -912,6 +929,10 @@ else:
 
             except Exception as e:
                 error_msg = str(e).lower()
+                safe_detail = str(e)
+                groq_key = os.environ.get("GROQ_API_KEY", "")
+                if groq_key:
+                    safe_detail = safe_detail.replace(groq_key, "[GROQ_API_KEY]")
 
                 if "rate_limit" in error_msg or "429" in error_msg or "rate limit" in error_msg:
                     logger.warning(f"Groq rate limit aşıldı: {e}")
@@ -922,11 +943,16 @@ else:
                 elif "connection" in error_msg or "timeout" in error_msg or "unreachable" in error_msg:
                     logger.error(f"Bağlantı hatası: {e}")
                     hata_mesaji = "🌐 Sunucuya bağlanılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin."
+                elif "groq" in error_msg or "chatgroq" in error_msg or "model" in error_msg:
+                    logger.error(f"Groq/model hatasÄ±: {e}")
+                    hata_mesaji = "⚠️ Yapay zeka modeli çağrılırken hata oluştu. Streamlit Secrets içindeki **GROQ_API_KEY** değerini ve Groq hesabı erişimini kontrol edin."
                 else:
                     logger.error(f"RAG zinciri hatası: {e}")
                     hata_mesaji = "⚠️ Bir hata oluştu. Lütfen tekrar deneyin."
 
                 st.error(hata_mesaji)
+                with st.expander("Teknik hata ayrıntısı", expanded=False):
+                    st.code(safe_detail[:2000])
                 st.session_state.mesajlar.append({"rol": "assistant", "icerik": hata_mesaji})
 
 # ─────────────────── FOOTER ───────────────────
