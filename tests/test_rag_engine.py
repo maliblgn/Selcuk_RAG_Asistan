@@ -235,6 +235,25 @@ class TestSourceInventory:
         assert "Burs Yonergesi" in cevap
         assert "2 parca" in cevap
 
+    def test_url_kodlu_pdf_adi_okunur_gosterilir(self):
+        engine = self._get_engine()
+        engine.static_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/uploads/%C3%96%C4%9Frenci%20Y%C3%B6nergesi_638315843142205508.pdf",
+                    "source_type": "web_pdf",
+                },
+            ]
+        }
+
+        cevap = engine.build_source_inventory_answer()
+
+        label = cevap.split("[", 1)[1].split("](", 1)[0]
+        assert "%C3%96" not in label
+        assert "_638315843142205508" not in label
+        assert "renci" in label
+        assert "nergesi" in label
+
 
 # ---------------------------------------------------------------------------
 # MAX_CONTEXT_CHARS sabit testi
