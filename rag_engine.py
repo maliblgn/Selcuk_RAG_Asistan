@@ -1,5 +1,6 @@
 import os
 import logging
+import re
 import unicodedata
 from collections import Counter
 from urllib.parse import unquote
@@ -294,8 +295,15 @@ class SelcukRAGEngine:
         return has_storage_term and has_source_term and has_list_intent
 
     @staticmethod
+    def _clean_source_name(name):
+        name = unquote(str(name or "").strip())
+        if name.lower().endswith(".pdf"):
+            name = name[:-4]
+        return re.sub(r"_[0-9]{10,}$", "", name)
+
+    @staticmethod
     def _source_display_name(source, title=""):
-        title = str(title or "").strip()
+        title = SelcukRAGEngine._clean_source_name(title)
         if title:
             return title
 
@@ -305,9 +313,10 @@ class SelcukRAGEngine:
 
         parsed = urlparse(source)
         path = parsed.path if parsed.scheme else source
-        filename = os.path.basename(unquote(path).replace("\\", "/"))
+        normalized_path = unquote(path).replace("\\", "/").rstrip("/")
+        filename = normalized_path.rsplit("/", 1)[-1]
         if filename:
-            return filename[:-4] if filename.lower().endswith(".pdf") else filename
+            return SelcukRAGEngine._clean_source_name(filename)
         return source
 
     def get_source_inventory(self):
