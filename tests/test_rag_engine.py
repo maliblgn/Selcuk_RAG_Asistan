@@ -183,6 +183,60 @@ class TestSuggestFollowups:
 
 
 # ---------------------------------------------------------------------------
+# Kaynak envanteri testleri
+# ---------------------------------------------------------------------------
+
+class TestSourceInventory:
+    def _get_engine(self):
+        engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+        engine.static_db = MagicMock()
+        return engine
+
+    def test_kaynak_envanteri_sorusu_yakalanir(self):
+        assert rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Su an veritabaninda hangi kaynaklar var?"
+        )
+        assert rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Basariyla islenen PDF'ler hangileri?"
+        )
+
+    def test_normal_mevzuat_sorusu_envanter_sayilmaz(self):
+        assert not rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Staj muafiyet sartlari nelerdir?"
+        )
+
+    def test_kaynak_envanteri_cevabi_uretirilir(self):
+        engine = self._get_engine()
+        engine.static_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Burs%20Yonergesi.pdf",
+                    "title": "Burs Yonergesi",
+                    "source_type": "web_pdf",
+                },
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Burs%20Yonergesi.pdf",
+                    "title": "Burs Yonergesi",
+                    "source_type": "web_pdf",
+                },
+                {
+                    "source": "https://selcuk.edu.tr/anasayfa/detay/39873",
+                    "title": "Yonetmelikler",
+                    "source_type": "web_page",
+                },
+            ]
+        }
+
+        cevap = engine.build_source_inventory_answer()
+
+        assert "2 benzersiz kaynak" in cevap
+        assert "1 PDF" in cevap
+        assert "1 web sayfasi" in cevap
+        assert "Burs Yonergesi" in cevap
+        assert "2 parca" in cevap
+
+
+# ---------------------------------------------------------------------------
 # MAX_CONTEXT_CHARS sabit testi
 # ---------------------------------------------------------------------------
 

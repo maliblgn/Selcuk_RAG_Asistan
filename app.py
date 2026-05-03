@@ -865,6 +865,18 @@ else:
         with st.chat_message("assistant", avatar="🎓"):
             try:
                 # 1. Sohbet geçmişi
+                if motor.is_source_inventory_question(kullanici_sorusu):
+                    cevap = motor.build_source_inventory_answer()
+                    st.markdown(cevap)
+                    st.session_state.mesajlar.append({
+                        "rol": "assistant",
+                        "icerik": cevap,
+                        "soru": kullanici_sorusu,
+                        "docs": []
+                    })
+                    st.session_state.oneriler = []
+                    st.rerun()
+
                 history = "\n".join([f"{m['rol']}: {m['icerik']}" for m in st.session_state.mesajlar[-4:]])
 
                 # 2. Soru yeniden yazma (takip soruları için)
