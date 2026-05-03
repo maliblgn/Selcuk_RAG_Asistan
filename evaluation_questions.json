@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "description": "RAG kalitesini olcmek icin baslangic degerlendirme seti. Her soru resmi kaynak isabeti, cevap dogrulugu ve yok-bilgi davranisi acisindan kontrol edilir.",
+  "questions": [
+    {
+      "id": "academic_calendar_start",
+      "question": "2025-2026 akademik yilinda guz yariyili ne zaman basliyor?",
+      "expected_source_contains": "Akademik%20Takvimi",
+      "category": "akademik_takvim",
+      "answer_type": "date_lookup"
+    },
+    {
+      "id": "academic_calendar_exam",
+      "question": "Final sinav tarihleri akademik takvimde hangi aralikta gorunuyor?",
+      "expected_source_contains": "Akademik%20Takvimi",
+      "category": "akademik_takvim",
+      "answer_type": "date_lookup"
+    },
+    {
+      "id": "cafeteria_menu",
+      "question": "Bugun yemekhanede hangi yemekler var?",
+      "expected_source_contains": "yemek.selcuk.edu.tr",
+      "category": "kampus_yasami",
+      "answer_type": "dynamic_content"
+    },
+    {
+      "id": "student_services",
+      "question": "Ogrenciler icin resmi sayfada hangi hizmetlere veya duyurulara ulasilabilir?",
+      "expected_source_contains": "anasayfa/ogrenci",
+      "category": "ogrenci",
+      "answer_type": "summary"
+    },
+    {
+      "id": "unknown_policy",
+      "question": "Selcuk Universitesi ogrencileri icin uzay yolculugu bursu kosullari nelerdir?",
+      "expected_source_contains": "",
+      "category": "negative_control",
+      "answer_type": "not_found",
+      "expected_behavior": "Belgelerde bu konuda bilgi olmadigini soylemeli; uydurma kosul yazmamali."
+    }
+  ]
+}

@@ -29,24 +29,6 @@ def _make_stub_modules():
     lc_groq.ChatGroq = MagicMock()
     sys.modules.setdefault("langchain_groq", lc_groq)
 
-    # langchain_core.prompts
-    lc_core_prompts = types.ModuleType("langchain_core.prompts")
-    class FakePromptTemplate:
-        @staticmethod
-        def from_template(template):
-            obj = MagicMock()
-            obj._template = template
-            return obj
-    lc_core_prompts.ChatPromptTemplate = FakePromptTemplate
-    sys.modules.setdefault("langchain_core", types.ModuleType("langchain_core"))
-    sys.modules.setdefault("langchain_core.prompts", lc_core_prompts)
-
-    # langchain_core.output_parsers
-    lc_core_parsers = types.ModuleType("langchain_core.output_parsers")
-    lc_core_parsers.StrOutputParser = MagicMock()
-    sys.modules.setdefault("langchain_core.output_parsers", lc_core_parsers)
-
-
 _make_stub_modules()
 
 # Proje kökünü sys.path'e ekle
@@ -124,6 +106,22 @@ class TestFormatContext:
         docs = [FakeDoc("metin", "/klasor/Burs Yönergesi.pdf")]
         ctx = engine.format_context(docs)
         assert ".pdf" not in ctx.split("\n")[0]
+
+    def test_url_kaynagi_domain_olarak_gorunur(self):
+        engine = self._get_engine()
+        docs = [FakeDoc("web metni", "https://www.selcuk.edu.tr/yonetmelik/staj")]
+        ctx = engine.format_context(docs)
+        assert "[Kaynak: www.selcuk.edu.tr]" in ctx
+
+    def test_pdf_ve_url_kaynaklari_birlikte_formatlanir(self):
+        engine = self._get_engine()
+        docs = [
+            FakeDoc("pdf metni", "Kural.pdf"),
+            FakeDoc("web metni", "https://www.selcuk.edu.tr/burs"),
+        ]
+        ctx = engine.format_context(docs)
+        assert "[Kaynak: Kural]" in ctx
+        assert "[Kaynak: www.selcuk.edu.tr]" in ctx
 
 
 # ---------------------------------------------------------------------------

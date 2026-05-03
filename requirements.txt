@@ -11,3 +11,13 @@ sentence-transformers
 streamlit
 python-dotenv
 pytest
+requests
+beautifulsoup4
+lxml
+pytesseract
+pdf2image
+tqdm
+trafilatura
+langchain-experimental
+rank_bm25
+flashrank

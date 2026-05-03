@@ -1,0 +1,9 @@
+# Kontrollu web-only demo bilgi tabani kaynaklari.
+# Bu liste yerel PDF kullanmaz; sadece robots.txt politikasina uygun URL'ler aktif tutulur.
+#
+# Pasif kaynaklar:
+# - selcuk.edu.tr ana/ogrenci/akademik/birim sayfalari robots.txt nedeniyle otomatik isleme alinmaz.
+# - webadmin.selcuk.edu.tr PDF kaynaklari robots/erisim kontrolu nedeniyle kurumsal izin gerektirir.
+
+https://yemek.selcuk.edu.tr/Menu/MenuGetir
+https://eski.selcuk.edu.tr/contents/076/icerik/%C3%9Ccretsiz%20Yemek%20Bursu%20Y%C3%B6nergesi2021_637926976061139192.pdf
