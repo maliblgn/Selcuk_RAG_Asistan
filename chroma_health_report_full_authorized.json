@@ -1,0 +1,17 @@
+{
+  "generated_at": "2026-05-04T23:45:40+00:00",
+  "db_path": "C:\\Users\\User\\Desktop\\Selcuk_RAG_Cloud_main_rebuild\\chroma_db",
+  "sqlite_path": "C:\\Users\\User\\Desktop\\Selcuk_RAG_Cloud_main_rebuild\\chroma_db\\chroma.sqlite3",
+  "db_exists": true,
+  "sqlite_exists": true,
+  "status": "ok",
+  "ok": true,
+  "reason": "ChromaDB okunabilir.",
+  "collection_readable": true,
+  "document_count": 2985,
+  "unique_source_count": 149,
+  "source_type_counts": {
+    "web_pdf": 2985
+  },
+  "error": null
+}

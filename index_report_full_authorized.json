@@ -1,0 +1,877 @@
+{
+  "exists": true,
+  "embedding_count": 2985,
+  "unique_sources": 149,
+  "sources": [
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm%20Fakultesi%20Staj%20Yonergesi_638551901905953169.pdf",
+      "title": "Turizm%20Fakultesi%20Staj%20Yonergesi_638551901905953169.pdf",
+      "chunks": 60
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "chunks": 58
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "chunks": 58
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm%20Fakultesi%20Staj%20Yonergesi_638882812446690236.pdf",
+      "title": "Turizm%20Fakultesi%20Staj%20Yonergesi_638882812446690236.pdf",
+      "chunks": 55
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20BAP%20Y%C3%B6nergesi%20ve%20Uygulama_638218312294745117.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20BAP%20Y%C3%B6nergesi%20ve%20Uygulama_638218312294745117.pdf",
+      "chunks": 54
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yay%C4%B1n%20Y%C3%B6nergesi_638277775465129915.pdf",
+      "title": "Yay%C4%B1n%20Y%C3%B6nergesi_638277775465129915.pdf",
+      "chunks": 53
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20KONSEY%C4%B0%20Y%C3%96NERGES%C4%B0_638218312304399616.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20KONSEY%C4%B0%20Y%C3%96NERGES%C4%B0_638218312304399616.pdf",
+      "chunks": 47
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20KANUNUNUN%20UYGULANMASINA_638218311039291120.pdf",
+      "title": "B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20KANUNUNUN%20UYGULANMASINA_638218311039291120.pdf",
+      "chunks": 46
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURULU%20AR%C5%9E%C4%B0V%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060537899.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURULU%20AR%C5%9E%C4%B0V%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060537899.pdf",
+      "chunks": 45
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TEKNOLOJ%C4%B0%20GEL%C4%B0%C5%9ET%C4%B0RME%20B%C3%96LGELER%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059461395.pdf",
+      "title": "TEKNOLOJ%C4%B0%20GEL%C4%B0%C5%9ET%C4%B0RME%20B%C3%96LGELER%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059461395.pdf",
+      "chunks": 42
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TIP%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638635650166490282.pdf",
+      "title": "TIP%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638635650166490282.pdf",
+      "chunks": 41
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C4%B0%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20ve%20G%C3%BCvenli%C4%9Fi%20Y%C3%B6nergesi_638218312298781539.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C4%B0%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20ve%20G%C3%BCvenli%C4%9Fi%20Y%C3%B6nergesi_638218312298781539.pdf",
+      "chunks": 40
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20ARASINDA%20%C3%96%C4%9ERENC%C4%B0%20VE%20%C3%96%C4%9ERET%C4%B0M%20%C3%9CYES%C4%B0%20DE%C4%9E%C4%B0%C5%9E%C4%B0M%20PRO%C4%9ERAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311061029102.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20ARASINDA%20%C3%96%C4%9ERENC%C4%B0%20VE%20%C3%96%C4%9ERET%C4%B0M%20%C3%9CYES%C4%B0%20DE%C4%9E%C4%B0%C5%9E%C4%B0M%20PRO%C4%9ERAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311061029102.pdf",
+      "chunks": 38
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VAKIF%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060222836.pdf",
+      "title": "VAKIF%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060222836.pdf",
+      "chunks": 35
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf",
+      "title": "RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf",
+      "chunks": 31
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VETER%C4%B0NER%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899176332021415.pdf",
+      "title": "VETER%C4%B0NER%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899176332021415.pdf",
+      "chunks": 31
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20PERSONEL%C4%B0%20%C3%96REVDE%20Y%C3%9CKSELME%20VE%20%C3%9CNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065333308.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20PERSONEL%C4%B0%20%C3%96REVDE%20Y%C3%9CKSELME%20VE%20%C3%9CNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065333308.pdf",
+      "chunks": 31
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AK%C5%9EEH%C4%B0R%20M%C3%9CHEND%C4%B0SL%C4%B0K%20VE%20M%C4%B0MARLIK%20FAK%C3%9CLTES%C4%B0%20%C4%B0%C5%9ELETMEDE%20MESLEK%20E%C4%9E%C4%B0T%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312294337016.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AK%C5%9EEH%C4%B0R%20M%C3%9CHEND%C4%B0SL%C4%B0K%20VE%20M%C4%B0MARLIK%20FAK%C3%9CLTES%C4%B0%20%C4%B0%C5%9ELETMEDE%20MESLEK%20E%C4%9E%C4%B0T%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312294337016.pdf",
+      "chunks": 29
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/s_%C3%BC_ecz_fak_birim_etik_kurul_y%C3%B6nergesi_638270135090842710.pdf",
+      "title": "s_%C3%BC_ecz_fak_birim_etik_kurul_y%C3%B6nergesi_638270135090842710.pdf",
+      "chunks": 29
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.%C3%9C.%20ECZ.%20FAK.%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0%201_638479283392570138.pdf",
+      "title": "S.%C3%9C.%20ECZ.%20FAK.%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0%201_638479283392570138.pdf",
+      "chunks": 29
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0LEK%20SABANCI%20DEVLET%20KONSERVATUVARI%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899175173608173.pdf",
+      "title": "D%C4%B0LEK%20SABANCI%20DEVLET%20KONSERVATUVARI%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899175173608173.pdf",
+      "chunks": 28
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "chunks": 28
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "chunks": 28
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%BCksek%C3%B6%C4%9Fretim_Kurumlar%C4%B1_Bilimsel_Ara%C5%9Ft%C4%B1rma_Projeleri_Hakk%C4%B1nda_Y%C3%B6netmelik_638218311066227331.pdf",
+      "title": "Y%C3%BCksek%C3%B6%C4%9Fretim_Kurumlar%C4%B1_Bilimsel_Ara%C5%9Ft%C4%B1rma_Projeleri_Hakk%C4%B1nda_Y%C3%B6netmelik_638218311066227331.pdf",
+      "chunks": 28
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DILEK-SABANCI-EGT-OGR-SINAV-YONETMELIGI_638218311040514839.pdf",
+      "title": "DILEK-SABANCI-EGT-OGR-SINAV-YONETMELIGI_638218311040514839.pdf",
+      "chunks": 27
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20DE%C4%9EERLEND%C4%B0RME%20VE%20KAL%C4%B0TE%20GEL%C4%B0%C5%9ET%C4%B0RME%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063044031.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20DE%C4%9EERLEND%C4%B0RME%20VE%20KAL%C4%B0TE%20GEL%C4%B0%C5%9ET%C4%B0RME%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063044031.pdf",
+      "chunks": 27
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali%20Egitimler%20Yonergesi_638507780585773005.pdf",
+      "title": "Uygulamali%20Egitimler%20Yonergesi_638507780585773005.pdf",
+      "chunks": 27
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali%20Egitimler%20Yonergesi_638513656794865023.pdf",
+      "title": "Uygulamali%20Egitimler%20Yonergesi_638513656794865023.pdf",
+      "chunks": 27
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0%C5%9E%20HEK%C4%B0ML%C4%B0%C4%9E%C4%B0%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638914509492090889.pdf",
+      "title": "D%C4%B0%C5%9E%20HEK%C4%B0ML%C4%B0%C4%9E%C4%B0%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638914509492090889.pdf",
+      "chunks": 26
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "title": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "chunks": 26
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20UZAKTAN%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312309758084.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20UZAKTAN%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312309758084.pdf",
+      "chunks": 26
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "title": "87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "chunks": 25
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KAMU%20KURUM%20VE%20KURULU%C5%9ELARINDA%20G%C3%96REVDE%20Y%C3%9CKSELME%20VE%20UNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20ESASLARINA%20DA%C4%B0R%20GENEL%20Y%C3%96NETMEL%C4%B0K_638218311042851616.pdf",
+      "title": "KAMU%20KURUM%20VE%20KURULU%C5%9ELARINDA%20G%C3%96REVDE%20Y%C3%9CKSELME%20VE%20UNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20ESASLARINA%20DA%C4%B0R%20GENEL%20Y%C3%96NETMEL%C4%B0K_638218311042851616.pdf",
+      "chunks": 25
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/28b90a79-bd78-4853-9588-8280fa176b1d.pdf",
+      "title": "28b90a79-bd78-4853-9588-8280fa176b1d.pdf",
+      "chunks": 25
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YABANCI-DILLER-YUKSEKOKULU-YABANCI-DILLER-BOLUMU-EGITIM-OGRETIM-VE-SINAV-YONETMELIGI_638218311058783114.pdf",
+      "title": "S-U-YABANCI-DILLER-YUKSEKOKULU-YABANCI-DILLER-BOLUMU-EGITIM-OGRETIM-VE-SINAV-YONETMELIGI_638218311058783114.pdf",
+      "chunks": 25
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURTDI%C5%9EINDAK%C4%B0%20KAPSAMA%20DAH%C4%B0L%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLOARIYLA%20ORTAK%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKINNINDA%20Y%C3%96NETMEL%C4%B0K_638218311064645228.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURTDI%C5%9EINDAK%C4%B0%20KAPSAMA%20DAH%C4%B0L%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLOARIYLA%20ORTAK%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKINNINDA%20Y%C3%96NETMEL%C4%B0K_638218311064645228.pdf",
+      "chunks": 25
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HOB%C4%B0%20BAH%C3%87ELER%C4%B0%20Y%C3%96NERGES%C4%B0_638218312298181807.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HOB%C4%B0%20BAH%C3%87ELER%C4%B0%20Y%C3%96NERGES%C4%B0_638218312298181807.pdf",
+      "chunks": 24
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20K%C3%9CT%C3%9CPHANE%20Y%C3%96NERGES%C4%B0_638218312300819134.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20K%C3%9CT%C3%9CPHANE%20Y%C3%96NERGES%C4%B0_638218312300819134.pdf",
+      "chunks": 24
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bey%C5%9Fehir%20Ali%20Akkanat%20Uygulamal%C4%B1%20Bilimler%20Y%C3%BCksekokulu%20Mesleki%20Uygulama%20Ve%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi%2005.12.2023_638373624444734757.pdf",
+      "title": "Bey%C5%9Fehir%20Ali%20Akkanat%20Uygulamal%C4%B1%20Bilimler%20Y%C3%BCksekokulu%20Mesleki%20Uygulama%20Ve%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi%2005.12.2023_638373624444734757.pdf",
+      "chunks": 23
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C4%B0letisim%20Fakultesi%20Staj%20yonergesi_638872233776952453.pdf",
+      "title": "%C4%B0letisim%20Fakultesi%20Staj%20yonergesi_638872233776952453.pdf",
+      "chunks": 23
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/MESLEK%20Y%C3%9CKSEKOKULLARI%20STAJ%20Y%C3%96NERGES%C4%B0_638434090898463058.pdf",
+      "title": "MESLEK%20Y%C3%9CKSEKOKULLARI%20STAJ%20Y%C3%96NERGES%C4%B0_638434090898463058.pdf",
+      "chunks": 23
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20N%C3%9CKLEER%20MALZEMELER%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049335075.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20N%C3%9CKLEER%20MALZEMELER%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049335075.pdf",
+      "chunks": 22
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20%C3%96%C4%9ERET%C4%B0M%20ELEMANLARI%20%C4%B0LE%20YABANCI%20UYRUKLU%20ELEMANLOARI%20GEL%C4%B0%C5%9ET%C4%B0RME%20E%C4%9E%C4%B0T%C4%B0M%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062310220.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20%C3%96%C4%9ERET%C4%B0M%20ELEMANLARI%20%C4%B0LE%20YABANCI%20UYRUKLU%20ELEMANLOARI%20GEL%C4%B0%C5%9ET%C4%B0RME%20E%C4%9E%C4%B0T%C4%B0M%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062310220.pdf",
+      "chunks": 22
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.%C3%9C._Diploma%2C_Diploma_Eki_ve_Di%C4%9Fer_Belgelerin_D%C3%BCzenlenmesine_%C4%B0li%C5%9Fkin_Y%C3%B6nerge_638227874273054099.pdf",
+      "title": "S.%C3%9C._Diploma%2C_Diploma_Eki_ve_Di%C4%9Fer_Belgelerin_D%C3%BCzenlenmesine_%C4%B0li%C5%9Fkin_Y%C3%B6nerge_638227874273054099.pdf",
+      "chunks": 22
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ilahiyat_Fakultesi_Yatay_Gecis_Dikey_Gecis_Intibak_Ve_Muafiyet_Yonergesi_638727245270573124.pdf",
+      "title": "Ilahiyat_Fakultesi_Yatay_Gecis_Dikey_Gecis_Intibak_Ve_Muafiyet_Yonergesi_638727245270573124.pdf",
+      "chunks": 22
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20Mesleki%20Uygulama%20ve%20Staj%20Y%C3%B6nergesi_638218312306786325.pdf",
+      "title": "Sel%C3%A7uk%20%C3%9Cniversitesi%20Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20Mesleki%20Uygulama%20ve%20Staj%20Y%C3%B6nergesi_638218312306786325.pdf",
+      "chunks": 22
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KULTUR-SANAT-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311043276564.pdf",
+      "title": "KULTUR-SANAT-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311043276564.pdf",
+      "chunks": 21
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OTOMOT%C4%B0V%20TEKNOLOJ%C4%B0LER%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEKL%C4%B0%C4%9E%C4%B0_638218311050893258.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OTOMOT%C4%B0V%20TEKNOLOJ%C4%B0LER%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEKL%C4%B0%C4%9E%C4%B0_638218311050893258.pdf",
+      "chunks": 21
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_639053866535483478.pdf",
+      "title": "%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_639053866535483478.pdf",
+      "chunks": 21
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/2468/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+      "title": "2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+      "title": "2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20LAZER%20UYARIMLI%20PROTON%20TERAP%C4%B0%20UYGULAMA_638218311047945982.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20LAZER%20UYARIMLI%20PROTON%20TERAP%C4%B0%20UYGULAMA_638218311047945982.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20PROJE%20GEL%C4%B0%C5%9ET%C4%B0RME%20VE%20Y%C3%96NET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311052571249.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20PROJE%20GEL%C4%B0%C5%9ET%C4%B0RME%20VE%20Y%C3%96NET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311052571249.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SAVUNMA%20TEKNOLOJ%C4%B0S%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053410501.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SAVUNMA%20TEKNOLOJ%C4%B0S%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053410501.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20S%C3%9CREKL%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053997266.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20S%C3%9CREKL%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053997266.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20%C4%B0LA%C3%87%20M%C3%9CKEMMEL%C4%B0YET%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056023925.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20%C4%B0LA%C3%87%20M%C3%9CKEMMEL%C4%B0YET%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056023925.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%2C%20MED%C4%B0KO-SOSYAL%20SA%C4%9ELIK%2C%20K%C3%9CLT%C3%9CR%20VE%20SPOR%20%C4%B0%C5%9ELER%C4%B0%20DA%C4%B0RES%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062690142.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%2C%20MED%C4%B0KO-SOSYAL%20SA%C4%9ELIK%2C%20K%C3%9CLT%C3%9CR%20VE%20SPOR%20%C4%B0%C5%9ELER%C4%B0%20DA%C4%B0RES%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062690142.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20VE%20YAYIN%20ET%C4%B0%C4%9E%C4%B0%20Y%C3%96NERGES%C4%B0_638218312295145334.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20VE%20YAYIN%20ET%C4%B0%C4%9E%C4%B0%20Y%C3%96NERGES%C4%B0_638218312295145334.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ECZACILIK%20FAK%C3%9CLTES%C4%B0%20STAJ%20Y%C3%96NERGES%C4%B0_638218312296022864.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ECZACILIK%20FAK%C3%9CLTES%C4%B0%20STAJ%20Y%C3%96NERGES%C4%B0_638218312296022864.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/FTR%20klinik%20uygulamalar%20yonergesi-_638549965896528688.pdf",
+      "title": "FTR%20klinik%20uygulamalar%20yonergesi-_638549965896528688.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Makine_Muhendisligi_Staj_Y%C3%B6nergesi_638218312291939492.pdf",
+      "title": "Makine_Muhendisligi_Staj_Y%C3%B6nergesi_638218312291939492.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ogrenci%20Topluluklari%20Koordinatorlugu%20Yonergesi_638723707484981148.pdf",
+      "title": "Ogrenci%20Topluluklari%20Koordinatorlugu%20Yonergesi_638723707484981148.pdf",
+      "chunks": 20
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DOGAL-URUNLER_638218311041373728.pdf",
+      "title": "DOGAL-URUNLER_638218311041373728.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-HAVACILIK-VE-UZAY-TEKNOLOJILERI-UYG-VE-ARS-MERKEZI_638218311057748926.pdf",
+      "title": "S-U-HAVACILIK-VE-UZAY-TEKNOLOJILERI-UYG-VE-ARS-MERKEZI_638218311057748926.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-IS-SAG-VE-GUV-MES-HAST-ARS-UYG-MERK-YONETMELIGI_638218311058085256.pdf",
+      "title": "SU-IS-SAG-VE-GUV-MES-HAST-ARS-UYG-MERK-YONETMELIGI_638218311058085256.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96L%C3%87ME%2C%20DE%C4%9EERLEND%C4%B0RME%2C%20BELGELEND%C4%B0RME%20VE%20MESLEK%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311051292347.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96L%C3%87ME%2C%20DE%C4%9EERLEND%C4%B0RME%2C%20BELGELEND%C4%B0RME%20VE%20MESLEK%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311051292347.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/T%C3%9CRK%C4%B0YE%20B%C3%9CY%C3%9CK%20M%C4%B0LLET%20MECL%C4%B0S%C4%B0%20BA%C5%9EKANLI%C4%9EI%20B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059751548.pdf",
+      "title": "T%C3%9CRK%C4%B0YE%20B%C3%9CY%C3%9CK%20M%C4%B0LLET%20MECL%C4%B0S%C4%B0%20BA%C5%9EKANLI%C4%9EI%20B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059751548.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/-IMZA-YETKILERI-YONERGESI_638398964105804809.pdf",
+      "title": "-IMZA-YETKILERI-YONERGESI_638398964105804809.pdf",
+      "chunks": 19
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/BILGISAYAR-BILIMLERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311039697179.pdf",
+      "title": "BILGISAYAR-BILIMLERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311039697179.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.%C3%9C.Klinik_Ara%C5%9Ft._Uygl._ve_Ara%C5%9Ft.Mrk.Y%C3%B6nt_638218311046539081.pdf",
+      "title": "S.%C3%9C.Klinik_Ara%C5%9Ft._Uygl._ve_Ara%C5%9Ft.Mrk.Y%C3%B6nt_638218311046539081.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-KUCUKBAS-HAYVANCILIK-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311047494191.pdf",
+      "title": "SELCUK-UNIVERSITESI-KUCUKBAS-HAYVANCILIK-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311047494191.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ORTADO%C4%9EU%20ARA%C5%9ETIRMALARI%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049731180.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ORTADO%C4%9EU%20ARA%C5%9ETIRMALARI%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049731180.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%C3%87E%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%2C_638218311055267504.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%C3%87E%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%2C_638218311055267504.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20G%C3%96%C3%87%20VE%20D%C4%B0ASPORA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311055694693.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20G%C3%96%C3%87%20VE%20D%C4%B0ASPORA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311055694693.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20YEN%C4%B0LENEB%C4%B0L%C4%B0R%20VE%20TEM%C4%B0Z%20ENERJ%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056719604.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20YEN%C4%B0LENEB%C4%B0L%C4%B0R%20VE%20TEM%C4%B0Z%20ENERJ%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056719604.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bilimsel_Degerlendirme_Ve_Etik_Kurulu_Yonergesi_638727245270158362.pdf",
+      "title": "Bilimsel_Degerlendirme_Ve_Etik_Kurulu_Yonergesi_638727245270158362.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9Fretim%20%C3%9Cyesi%20D%C4%B1%C5%9F%C4%B1ndaki%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20Kadrolar%C4%B1na%20Yap%C4%B1lacak%20Atamalarda%20Uygulanacak%20Merkezi%20S%C4%B1nav%20%C4%B0le%20Giri%C5%9F%20S%C4%B1navlar%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar%20Hakk%C4%B1nda%20Y%C3%B6netmelik_638373859246718163.pdf",
+      "title": "%C3%96%C4%9Fretim%20%C3%9Cyesi%20D%C4%B1%C5%9F%C4%B1ndaki%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20Kadrolar%C4%B1na%20Yap%C4%B1lacak%20Atamalarda%20Uygulanacak%20Merkezi%20S%C4%B1nav%20%C4%B0le%20Giri%C5%9F%20S%C4%B1navlar%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar%20Hakk%C4%B1nda%20Y%C3%B6netmelik_638373859246718163.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Veteriner%20Fak%C3%BCltesi%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendirme%20Esaslari%20Y%C3%B6nergesi_24.11.2023_638364398819183448.pdf",
+      "title": "Veteriner%20Fak%C3%BCltesi%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendirme%20Esaslari%20Y%C3%B6nergesi_24.11.2023_638364398819183448.pdf",
+      "chunks": 18
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-BITKI-ISLAHI-VE-TOHUMLUK-TEKNOLOJILERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311046967527.pdf",
+      "title": "SELCUK-UNIVERSITESI-BITKI-ISLAHI-VE-TOHUMLUK-TEKNOLOJILERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311046967527.pdf",
+      "chunks": 17
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURT%C4%B0%C3%87%C4%B0NDEK%C4%B0%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARIYLA%20ORTAK%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311064964316.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURT%C4%B0%C3%87%C4%B0NDEK%C4%B0%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARIYLA%20ORTAK%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311064964316.pdf",
+      "chunks": 17
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_638519844865932884.pdf",
+      "title": "Sel%C3%A7uk%20%C3%9Cniversitesi%20%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_638519844865932884.pdf",
+      "chunks": 17
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96d%C3%BCl%20Y%C3%B6nergesi_638230470360240408.pdf",
+      "title": "%C3%96d%C3%BCl%20Y%C3%B6nergesi_638230470360240408.pdf",
+      "chunks": 17
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+      "title": "S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/IMAM-MATURIDI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311041773138.pdf",
+      "title": "IMAM-MATURIDI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311041773138.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-KADIN-AILE-VE-TOPLUM-HIZM-ARS-UY-MERK-%20YONETMELIGI_638218311058473688.pdf",
+      "title": "SU-KADIN-AILE-VE-TOPLUM-HIZM-ARS-UY-MERK-%20YONETMELIGI_638218311058473688.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20NASREDD%C4%B0N%20HOCA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311048915710.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20NASREDD%C4%B0N%20HOCA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311048915710.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OSMANLI%20TAR%C4%B0H%C4%B0%20VE%20MEDEN%C4%B0YET%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050100194.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OSMANLI%20TAR%C4%B0H%C4%B0%20VE%20MEDEN%C4%B0YET%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050100194.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OT%C4%B0ZM%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050458469.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OT%C4%B0ZM%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050458469.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.%C3%9C.%20TARIMSAL%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0_638218311046044270.pdf",
+      "title": "S.%C3%9C.%20TARIMSAL%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0_638218311046044270.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C3%9C%C4%B0VERS%C4%B0TES%C4%B0%20ARA%C3%87%20%C4%B0%C5%9ELETME%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20Y%C3%96NERGES%C4%B0_638218312311914341.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C3%9C%C4%B0VERS%C4%B0TES%C4%B0%20ARA%C3%87%20%C4%B0%C5%9ELETME%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20Y%C3%96NERGES%C4%B0_638218312311914341.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ET%C4%B0K%20DAVRANI%C5%9E%20%C4%B0LKELER%C4%B0%20VE%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0_638218312296983014.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ET%C4%B0K%20DAVRANI%C5%9E%20%C4%B0LKELER%C4%B0%20VE%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0_638218312296983014.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hem%C5%9Firelik%20Fak%C3%BCltesi%20Mesleki%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi_638727247292052556.pdf",
+      "title": "Hem%C5%9Firelik%20Fak%C3%BCltesi%20Mesleki%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi_638727247292052556.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96n%20Li%CC%87sans%20Ve%20Li%CC%87sans%20Programlari%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendi%CC%87rme%20Esaslari%20Y%C3%B6nergesi%CC%87_14.11.2023_638355676883242220.pdf",
+      "title": "%C3%96n%20Li%CC%87sans%20Ve%20Li%CC%87sans%20Programlari%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendi%CC%87rme%20Esaslari%20Y%C3%B6nergesi%CC%87_14.11.2023_638355676883242220.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sa%C4%9Fl%C4%B1k%20Hizmetleri%20Meslek%20Y%C3%BCksekokulu%20Uygulama%20Yonergesi_638555132367852769.pdf",
+      "title": "Sa%C4%9Fl%C4%B1k%20Hizmetleri%20Meslek%20Y%C3%BCksekokulu%20Uygulama%20Yonergesi_638555132367852769.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz%20Okulu%20Y%C3%B6nergesi_03.11.2023_638345987738246943.pdf",
+      "title": "Yaz%20Okulu%20Y%C3%B6nergesi_03.11.2023_638345987738246943.pdf",
+      "chunks": 16
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/ASI-GELISTIRME-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311038909528.pdf",
+      "title": "ASI-GELISTIRME-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311038909528.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/INSAN-HAKLARI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311042200354.pdf",
+      "title": "INSAN-HAKLARI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311042200354.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Sel%C3%A7uk%20%C3%9Cniversitesi%20Uzaktan%20E%C4%9Fitim%20Uygulama%20Ve%20Ara%C5%9Ft%C4%B1rma%20Merkezi%20Y%C3%B6netmeli%C4%9Fi_638218311056421195.pdf",
+      "title": "Sel%C3%A7uk%20%C3%9Cniversitesi%20Uzaktan%20E%C4%9Fitim%20Uygulama%20Ve%20Ara%C5%9Ft%C4%B1rma%20Merkezi%20Y%C3%B6netmeli%C4%9Fi_638218311056421195.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ek%20Ders%20Uygulama%20Y%C3%B6nergesi_638868716133787179.pdf",
+      "title": "Ek%20Ders%20Uygulama%20Y%C3%B6nergesi_638868716133787179.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selcuk%20_Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+      "title": "Selcuk%20_Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hem%C5%9Firelik%20Fak%C3%BCltesi%20Muafiyet%20Ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi%20Hk_638218312291189615.pdf",
+      "title": "Hem%C5%9Firelik%20Fak%C3%BCltesi%20Muafiyet%20Ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi%20Hk_638218312291189615.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20RADYASYON%20G%C3%9CVENL%C4%B0%C4%9E%C4%B0%20%C3%9CST%20KURULU%20KURULU%C5%9E%20VE%20%C3%87ALI%C5%9EMA%20ESASLARI%20Y%C3%96NERGES%C4%B0_638218312306169128.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20RADYASYON%20G%C3%9CVENL%C4%B0%C4%9E%C4%B0%20%C3%9CST%20KURULU%20KURULU%C5%9E%20VE%20%C3%87ALI%C5%9EMA%20ESASLARI%20Y%C3%96NERGES%C4%B0_638218312306169128.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C4%B0CAR%C4%B0%20REKLAM%2C%20%C4%B0LAN%2C%20AF%C4%B0%C5%9E%2C%20STANT%20VE%20TANITIM%20ARA%C3%87LARI%20%C4%B0LE%20%C3%9CN%C4%B0VERS%C4%B0TE%20F%C4%B0Z%C4%B0K%C4%B0%20MEKANLARININ%20KULLAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20UYGULAMA%20Y%C3%96NERGES%C4%B0_638218312308883391.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C4%B0CAR%C4%B0%20REKLAM%2C%20%C4%B0LAN%2C%20AF%C4%B0%C5%9E%2C%20STANT%20VE%20TANITIM%20ARA%C3%87LARI%20%C4%B0LE%20%C3%9CN%C4%B0VERS%C4%B0TE%20F%C4%B0Z%C4%B0K%C4%B0%20MEKANLARININ%20KULLAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20UYGULAMA%20Y%C3%96NERGES%C4%B0_638218312308883391.pdf",
+      "chunks": 15
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Meslek%20Y%C3%BCksekokullar%C4%B1%20Koordinat%C3%B6rl%C3%BC%C4%9F%C3%BC%20%28MYK%29%20Y%C3%B6nergesi_638218312301763938.pdf",
+      "title": "Sel%C3%A7uk%20%C3%9Cniversitesi%20Meslek%20Y%C3%BCksekokullar%C4%B1%20Koordinat%C3%B6rl%C3%BC%C4%9F%C3%BC%20%28MYK%29%20Y%C3%B6nergesi_638218312301763938.pdf",
+      "chunks": 14
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TEKNOLOJI%20GELISTIRME%20YONERGESI_638218312308568817.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TEKNOLOJI%20GELISTIRME%20YONERGESI_638218312308568817.pdf",
+      "chunks": 14
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TURK%20DILI%20BOLUMU%20BASKANLIGI%20EGITIM%20OGRETIM%20VE%20ISLEYIS%20YONERGESI_638218312309394694.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TURK%20DILI%20BOLUMU%20BASKANLIGI%20EGITIM%20OGRETIM%20VE%20ISLEYIS%20YONERGESI_638218312309394694.pdf",
+      "chunks": 14
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/2809-SAYILI-YUKSEKOGRETIM-KURUMLARI-TESKILATI-KANUNUNUN-EK-55-INCI-MADDESINDE-BELIRTILEN-OZEL-HESABIN-OLUSTURULMASI-KULLANIMI-VE-DENETIMINE-DAIR-YONETMELIK_638218311037386811.pdf",
+      "title": "2809-SAYILI-YUKSEKOGRETIM-KURUMLARI-TESKILATI-KANUNUNUN-EK-55-INCI-MADDESINDE-BELIRTILEN-OZEL-HESABIN-OLUSTURULMASI-KULLANIMI-VE-DENETIMINE-DAIR-YONETMELIK_638218311037386811.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Akademik%20Te%C5%9Fvik%20Y%C3%B6netmeli%C4%9Fi_638695962474551552.pdf",
+      "title": "Akademik%20Te%C5%9Fvik%20Y%C3%B6netmeli%C4%9Fi_638695962474551552.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/MESLEK%20Y%C3%9CKSEKOKULLARI%20VE%20A%C3%87IK%C3%96%C4%9ERET%C4%B0M%20%C3%96N%20L%C4%B0SANS%20PROGRAMLARI%20MEZUNLARININ%20L%C4%B0SANS%20%C3%96%C4%9EREN%C4%B0M%C4%B0NE%20DEVAMLARI%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311043714906.pdf",
+      "title": "MESLEK%20Y%C3%9CKSEKOKULLARI%20VE%20A%C3%87IK%C3%96%C4%9ERET%C4%B0M%20%C3%96N%20L%C4%B0SANS%20PROGRAMLARI%20MEZUNLARININ%20L%C4%B0SANS%20%C3%96%C4%9EREN%C4%B0M%C4%B0NE%20DEVAMLARI%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311043714906.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20S%C4%B0C%C4%B0L%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065857444.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20S%C4%B0C%C4%B0L%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065857444.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami%20%C3%96%C4%9Frenim%20S%C3%BCresi%20Dolan%20%C3%96%C4%9Frenciler%20%C4%B0%C3%A7in%20Ek%20S%C4%B1nav%20Hakk%C4%B1%20Verilmesine%20%C4%B0li%C5%9Fkin%20Y%C3%B6nerge_638345667733775054.pdf",
+      "title": "Azami%20%C3%96%C4%9Frenim%20S%C3%BCresi%20Dolan%20%C3%96%C4%9Frenciler%20%C4%B0%C3%A7in%20Ek%20S%C4%B1nav%20Hakk%C4%B1%20Verilmesine%20%C4%B0li%C5%9Fkin%20Y%C3%B6nerge_638345667733775054.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/B%C3%9CT%C3%9CNLE%C5%9E%C4%B0K%20Y%C3%9CKSEK%20L%C4%B0SANS%20Y%C3%96NERGES%C4%B0_639065062208480845.pdf",
+      "title": "B%C3%9CT%C3%9CNLE%C5%9E%C4%B0K%20Y%C3%9CKSEK%20L%C4%B0SANS%20Y%C3%96NERGES%C4%B0_639065062208480845.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bitirme%20Calismasi%20Yonergesi_638872233776617209.pdf",
+      "title": "Bitirme%20Calismasi%20Yonergesi_638872233776617209.pdf",
+      "chunks": 13
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%20HALK%20K%C3%9CLT%C3%9CR%C3%9C%20UYGULAMA%20ve%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311054769922.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%20HALK%20K%C3%9CLT%C3%9CR%C3%9C%20UYGULAMA%20ve%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311054769922.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20D%C3%96NER%20SERMAYE%20GEL%C4%B0RLER%C4%B0NDEN%20YAPILACAK%20EK%20%C3%96DEMEN%C4%B0N%20DEA%C4%9EITILMASINDA%20UYGULANACAK%20USUL%20VE%20ESALARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311063679593.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20D%C3%96NER%20SERMAYE%20GEL%C4%B0RLER%C4%B0NDEN%20YAPILACAK%20EK%20%C3%96DEMEN%C4%B0N%20DEA%C4%9EITILMASINDA%20UYGULANACAK%20USUL%20VE%20ESALARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311063679593.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Burs%20Y%C3%B6nergesi_03.11.2023_638345987520846452.pdf",
+      "title": "Burs%20Y%C3%B6nergesi_03.11.2023_638345987520846452.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fikri%20M%C3%BClkiyet%20Haklar%C4%B1n%C4%B1n%20Y%C3%B6netimi%20ve%20Ticarile%C5%9Ftirilmesi%20%C4%B0le%20%C4%B0lgili%20Usul%20ve%20Esaslar%20Y%C3%B6nergesi_638515421465806146.pdf",
+      "title": "Fikri%20M%C3%BClkiyet%20Haklar%C4%B1n%C4%B1n%20Y%C3%B6netimi%20ve%20Ticarile%C5%9Ftirilmesi%20%C4%B0le%20%C4%B0lgili%20Usul%20ve%20Esaslar%20Y%C3%B6nergesi_638515421465806146.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S%C3%9C%20Hakl%C4%B1%20ve%20Ge%C3%A7erli%20Mazeretler%20Y%C3%B6nergesi_29.02.2024_638452342491637621.pdf",
+      "title": "S%C3%9C%20Hakl%C4%B1%20ve%20Ge%C3%A7erli%20Mazeretler%20Y%C3%B6nergesi_29.02.2024_638452342491637621.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLI%C4%9EI%20Y%C3%96NERGES%C4%B0_639017609925321383.pdf",
+      "title": "%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLI%C4%9EI%20Y%C3%96NERGES%C4%B0_639017609925321383.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20S%C4%B1nav%20Y%C3%B6nergesi_638267366009233830.pdf",
+      "title": "Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20S%C4%B1nav%20Y%C3%B6nergesi_638267366009233830.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uzmanl%C4%B1k%20%C3%96%C4%9Frencisi%20Temsilcili%C4%9Fi%20Y%C3%B6nergesi%20De%C4%9Fi%C5%9Fikli%C4%9Fi%20Hk._638380735512766928.pdf",
+      "title": "Uzmanl%C4%B1k%20%C3%96%C4%9Frencisi%20Temsilcili%C4%9Fi%20Y%C3%B6nergesi%20De%C4%9Fi%C5%9Fikli%C4%9Fi%20Hk._638380735512766928.pdf",
+      "chunks": 12
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/6111%20SAYILI%20KANUNUN%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0ME%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20H%C3%9CK%C3%9CMLER%C4%B0N%C4%B0N%20UYGULAMA_638218311037853300.pdf",
+      "title": "6111%20SAYILI%20KANUNUN%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0ME%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20H%C3%9CK%C3%9CMLER%C4%B0N%C4%B0N%20UYGULAMA_638218311037853300.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20YABANCI%20D%C4%B0L%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20VE%20YABANCI%20D%C4%B0LLE%20%C3%96%C4%9ERET%C4%B0M%20YAPILMASINDA%20UYULACAK%20ESASLARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311064206229.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20YABANCI%20D%C4%B0L%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20VE%20YABANCI%20D%C4%B0LLE%20%C3%96%C4%9ERET%C4%B0M%20YAPILMASINDA%20UYULACAK%20ESASLARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311064206229.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%87ift%20Ana%20Dal%20Y%C3%B6nergesi_14.11.2023_638355676883070863.pdf",
+      "title": "%C3%87ift%20Ana%20Dal%20Y%C3%B6nergesi_14.11.2023_638355676883070863.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/E%C4%9E%C4%B0T%C4%B0M%20KOM%C4%B0SYONU%20Y%C3%96NERGES%C4%B0_27.02.2025_._638771941216793327.pdf",
+      "title": "E%C4%9E%C4%B0T%C4%B0M%20KOM%C4%B0SYONU%20Y%C3%96NERGES%C4%B0_27.02.2025_._638771941216793327.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HATA%2C%20USULS%C3%9CZL%C3%9CK%20VE%20YOLSUZLUKLARIN%20B%C4%B0LD%C4%B0R%C4%B0LMES%C4%B0%20Y%C3%96NERGES%C4%B0_638218312297623704.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HATA%2C%20USULS%C3%9CZL%C3%9CK%20VE%20YOLSUZLUKLARIN%20B%C4%B0LD%C4%B0R%C4%B0LMES%C4%B0%20Y%C3%96NERGES%C4%B0_638218312297623704.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20KORUMA%20VE%20G%C3%9CVENL%C4%B0K%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20G%C3%96REV%20VE%20%C3%87ALI%C5%9EMA%20Y%C3%96NERGES%C4%B0_638218312299221197.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20KORUMA%20VE%20G%C3%9CVENL%C4%B0K%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20G%C3%96REV%20VE%20%C3%87ALI%C5%9EMA%20Y%C3%96NERGES%C4%B0_638218312299221197.pdf",
+      "chunks": 11
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20KURULLARIN%20OLU%C5%9ETURULMASI%20VE%20B%C4%B0L%C4%B0MSEL%20DENET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063366951.pdf",
+      "title": "Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20KURULLARIN%20OLU%C5%9ETURULMASI%20VE%20B%C4%B0L%C4%B0MSEL%20DENET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063366951.pdf",
+      "chunks": 10
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami%20S%C3%BCre%20Sonu%20Ek%20S%C4%B1navlarla%20%C4%B0lgili%20Uygulama%20Esaslar%C4%B1RetryClaude%20can%20make%20mistakes.26_05_2025_638866295929060330.pdf",
+      "title": "Azami%20S%C3%BCre%20Sonu%20Ek%20S%C4%B1navlarla%20%C4%B0lgili%20Uygulama%20Esaslar%C4%B1RetryClaude%20can%20make%20mistakes.26_05_2025_638866295929060330.pdf",
+      "chunks": 10
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen%20Fak%C3%BCltesi%20Muafiyet%20ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi_638218312290714893.pdf",
+      "title": "Fen%20Fak%C3%BCltesi%20Muafiyet%20ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi_638218312290714893.pdf",
+      "chunks": 10
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%20UYGULAMA%20ESASLARI_638218312301339191.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%20UYGULAMA%20ESASLARI_638218312301339191.pdf",
+      "chunks": 10
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20%C4%B0stihdam%C4%B1yla%20%C4%B0lgili%20Usul%20ve%20Esaslar_638467017445638590.pdf",
+      "title": "Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20%C4%B0stihdam%C4%B1yla%20%C4%B0lgili%20Usul%20ve%20Esaslar_638467017445638590.pdf",
+      "chunks": 10
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen%20Fak%C3%BCltesi%20Anket%20Y%C3%B6nergesi_638252922861174062.pdf",
+      "title": "Fen%20Fak%C3%BCltesi%20Anket%20Y%C3%B6nergesi_638252922861174062.pdf",
+      "chunks": 9
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96zel_%C3%96%C4%9Frenci_Y%C3%B6nergesi_02.11.2023_638345376513147986.pdf",
+      "title": "%C3%96zel_%C3%96%C4%9Frenci_Y%C3%B6nergesi_02.11.2023_638345376513147986.pdf",
+      "chunks": 9
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SEL%C3%87UKLU%20ARA%C5%9ETIRMALARI%20ENST%C4%B0T%C3%9C%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20YAZMA%20VE%20NAD%C4%B0R%20BASMA%20ESERLER%20Y%C3%96NERGES%C4%B0_638218312307297094.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SEL%C3%87UKLU%20ARA%C5%9ETIRMALARI%20ENST%C4%B0T%C3%9C%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20YAZMA%20VE%20NAD%C4%B0R%20BASMA%20ESERLER%20Y%C3%96NERGES%C4%B0_638218312307297094.pdf",
+      "chunks": 9
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yandal_y%C3%B6nergesi_14.11.2023_638355676883393438.pdf",
+      "title": "Yandal_y%C3%B6nergesi_14.11.2023_638355676883393438.pdf",
+      "chunks": 9
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AD%20VERME%20Y%C3%96NERGES%C4%B0_638218312293941207.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AD%20VERME%20Y%C3%96NERGES%C4%B0_638218312293941207.pdf",
+      "chunks": 8
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Merkezi%20Yerle%C5%9Ftirme%20Puan%C4%B1%20%C4%B0le%20Yatay%20Ge%C3%A7i%C5%9F%20%28Ek%20Madde%201%29_638249319506183889.pdf",
+      "title": "Merkezi%20Yerle%C5%9Ftirme%20Puan%C4%B1%20%C4%B0le%20Yatay%20Ge%C3%A7i%C5%9F%20%28Ek%20Madde%201%29_638249319506183889.pdf",
+      "chunks": 8
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20AS%C4%B0STANLIK%20Y%C3%96NERGES%C4%B0_638218312303583379.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20AS%C4%B0STANLIK%20Y%C3%96NERGES%C4%B0_638218312303583379.pdf",
+      "chunks": 8
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+      "title": "S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+      "chunks": 7
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hemsirelik%20Fakultesi%20Etik%20Kurul%20Yonergesi_638768607863299544.pdf",
+      "title": "Hemsirelik%20Fakultesi%20Etik%20Kurul%20Yonergesi_638768607863299544.pdf",
+      "chunks": 7
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf",
+      "title": "Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf",
+      "chunks": 7
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf",
+      "title": "Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf",
+      "chunks": 7
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurum%20%C4%B0%C3%A7i%20%28%C3%9Cniversite%20%C4%B0%C3%A7i%29%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20ilkeleri_638889705470747742.pdf",
+      "title": "Kurum%20%C4%B0%C3%A7i%20%28%C3%9Cniversite%20%C4%B0%C3%A7i%29%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20ilkeleri_638889705470747742.pdf",
+      "chunks": 6
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurumsal%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20%C4%B0lkeleri_638249319505983112.pdf",
+      "title": "Kurumsal%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20%C4%B0lkeleri_638249319505983112.pdf",
+      "chunks": 5
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLIK%20Y%C3%96NERGES%C4%B0_638218312303944886.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLIK%20Y%C3%96NERGES%C4%B0_638218312303944886.pdf",
+      "chunks": 4
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0KEY%20GE%C3%87%C4%B0%C5%9E%20UYGULAMASINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20SENATO%20KARARI_638218311040085713.pdf",
+      "title": "D%C4%B0KEY%20GE%C3%87%C4%B0%C5%9E%20UYGULAMASINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20SENATO%20KARARI_638218311040085713.pdf",
+      "chunks": 2
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9Fretim%20%C3%9Cyeli%C4%9Fi%20Atanma%20ve%20Y%C3%BCkseltilme%20Kriterleri%20Yonergesi%20%28Y%C3%96K%20Genel%20Kurul%27un%2004.04.2024%20tarihli%20toplant%C4%B1s%C4%B1nda%20uygun%20g%C3%B6r%C3%BClm%C3%BC%C5%9Ft%C3%BCr%29_638493937535652261.pdf",
+      "title": "%C3%96%C4%9Fretim%20%C3%9Cyeli%C4%9Fi%20Atanma%20ve%20Y%C3%BCkseltilme%20Kriterleri%20Yonergesi%20%28Y%C3%96K%20Genel%20Kurul%27un%2004.04.2024%20tarihli%20toplant%C4%B1s%C4%B1nda%20uygun%20g%C3%B6r%C3%BClm%C3%BC%C5%9Ft%C3%BCr%29_638493937535652261.pdf",
+      "chunks": 2
+    }
+  ],
+  "source_type_counts": {
+    "web_pdf": 2985
+  },
+  "doc_type_counts": {
+    "akademik_takvim": 40,
+    "yönetmelik": 2,
+    "yönerge": 122,
+    "genel": 67,
+    "karar": 9,
+    "duyuru": 1,
+    "mezuniyet": 4
+  },
+  "unit_counts": {
+    "Genel": 245
+  },
+  "generated_at": "2026-05-04T23:45:40+00:00",
+  "db_path": "C:\\Users\\User\\Desktop\\Selcuk_RAG_Cloud_main_rebuild\\chroma_db\\chroma.sqlite3",
+  "manifest_path": "C:\\Users\\User\\Desktop\\Selcuk_RAG_Cloud_main_rebuild\\source_manifest.json",
+  "manifest": {
+    "manifest_active_count": 2,
+    "manifest_missing_from_index": [
+      {
+        "id": "cafeteria_menu",
+        "title": "Yemekhane Menu Servisi",
+        "url": "https://yemek.selcuk.edu.tr/Menu/MenuGetir",
+        "priority": "medium",
+        "section": "crawl_seeds"
+      },
+      {
+        "id": "free_meal_scholarship_directive_2021",
+        "title": "Ucretsiz Yemek Bursu Yonergesi 2021",
+        "url": "https://eski.selcuk.edu.tr/contents/076/icerik/%C3%9Ccretsiz%20Yemek%20Bursu%20Y%C3%B6nergesi2021_637926976061139192.pdf",
+        "priority": "high",
+        "section": "known_direct_sources"
+      }
+    ],
+    "expected_documents": [
+      {
+        "id": "internship_directive",
+        "title": "Staj Yonergesi",
+        "priority": "high",
+        "matched": true,
+        "matched_keywords": [
+          "staj",
+          "yonerge"
+        ],
+        "keywords": [
+          "staj",
+          "yonerge",
+          "yönerge"
+        ]
+      },
+      {
+        "id": "scholarship_directive",
+        "title": "Burs Yonergesi",
+        "priority": "high",
+        "matched": true,
+        "matched_keywords": [
+          "burs",
+          "yonerge"
+        ],
+        "keywords": [
+          "burs",
+          "yonerge",
+          "yönerge"
+        ]
+      },
+      {
+        "id": "double_major_directive",
+        "title": "Cift Ana Dal Yonergesi",
+        "priority": "high",
+        "matched": false,
+        "matched_keywords": [
+          "yonerge"
+        ],
+        "keywords": [
+          "cift",
+          "çift",
+          "anadal",
+          "ana dal",
+          "cap",
+          "çap",
+          "yonerge",
+          "yönerge"
+        ]
+      },
+      {
+        "id": "diploma_supplement_directive",
+        "title": "Diploma, Diploma Eki ve Diger Belgeler Yonergesi",
+        "priority": "high",
+        "matched": true,
+        "matched_keywords": [
+          "diploma",
+          "belge",
+          "yonerge"
+        ],
+        "keywords": [
+          "diploma",
+          "diploma eki",
+          "belge",
+          "yonerge",
+          "yönerge"
+        ]
+      },
+      {
+        "id": "excuse_directive",
+        "title": "Hakli ve Gecerli Mazeretler Yonergesi",
+        "priority": "high",
+        "matched": true,
+        "matched_keywords": [
+          "mazeret",
+          "yonerge"
+        ],
+        "keywords": [
+          "mazeret",
+          "hakli",
+          "haklı",
+          "gecerli",
+          "geçerli",
+          "yonerge",
+          "yönerge"
+        ]
+      }
+    ]
+  }
+}

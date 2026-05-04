@@ -1,0 +1,45 @@
+{
+  "failed_count": 5,
+  "failures": [
+    {
+      "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Enerji%20Y%C3%B6netim%20Birimi%20Y%C3%B6nergesi_638218312296503534.pdf",
+      "title": "Enerji Yönetim Birimi Yönergesi",
+      "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "error_type": "ocr_failed",
+      "reason": "OCR metin cikartma hatasi: https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Enerji%20Y%C3%B6netim%20Birimi%20Y%C3%B6nergesi_638218312296503534.pdf ((1, 'Error opening data file C:\\\\Program Files\\\\Tesseract-OCR/tessdata/tur.traineddata Please make sure the TESSDATA_PREFIX environment variable is set to your \"tessdata\" directory. Failed loading language \\'tur\\' Tesseract couldn\\'t load any languages! Could not initialize tesseract.'))",
+      "retryable": false
+    },
+    {
+      "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SU%20GSF%20OYS%20Yonergesi_638953635258282325.pdf",
+      "title": "Güzel Sanatlar Fakültesi Özel Yetenek Sınavı Yönergesi",
+      "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "error_type": "ocr_failed",
+      "reason": "OCR metin cikartma hatasi: https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SU%20GSF%20OYS%20Yonergesi_638953635258282325.pdf ((1, 'Error opening data file C:\\\\Program Files\\\\Tesseract-OCR/tessdata/tur.traineddata Please make sure the TESSDATA_PREFIX environment variable is set to your \"tessdata\" directory. Failed loading language \\'tur\\' Tesseract couldn\\'t load any languages! Could not initialize tesseract.'))",
+      "retryable": false
+    },
+    {
+      "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TASINMAZLARIN%20IDARESI%20YONERGESI_638218312308139950.pdf",
+      "title": "Semâ Toplulugu Yönergesi",
+      "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "error_type": "ocr_failed",
+      "reason": "OCR metin cikartma hatasi: https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TASINMAZLARIN%20IDARESI%20YONERGESI_638218312308139950.pdf ((1, 'Error opening data file C:\\\\Program Files\\\\Tesseract-OCR/tessdata/tur.traineddata Please make sure the TESSDATA_PREFIX environment variable is set to your \"tessdata\" directory. Failed loading language \\'tur\\' Tesseract couldn\\'t load any languages! Could not initialize tesseract.'))",
+      "retryable": false
+    },
+    {
+      "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/uluslarasi%20iliskiler%20koordinatorlugu%20yonergesi_639087405997618620.pdf",
+      "title": "Uluslarası İlişkiler Koordinatörlüğü Yönergesi",
+      "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "error_type": "ocr_failed",
+      "reason": "OCR metin cikartma hatasi: https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/uluslarasi%20iliskiler%20koordinatorlugu%20yonergesi_639087405997618620.pdf ((1, 'Error opening data file C:\\\\Program Files\\\\Tesseract-OCR/tessdata/tur.traineddata Please make sure the TESSDATA_PREFIX environment variable is set to your \"tessdata\" directory. Failed loading language \\'tur\\' Tesseract couldn\\'t load any languages! Could not initialize tesseract.'))",
+      "retryable": false
+    },
+    {
+      "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Y%C3%BCksek%C3%B6%C4%9Fretim%20Kurumlar%C4%B1nda%20Emeklilik%20Ya%C5%9F%20Haddini%20Doldurmu%C5%9F%20%C3%96%C4%9Fretim%20%C3%9Cyelerinin%20S%C3%B6zle%C5%9Fmeli%20Olarak%20%C3%87al%C4%B1%C5%9Ft%C4%B1r%C4%B1lmas%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar_638218312313371176.pdf",
+      "title": "Yüksekögretim Kurumlarinda Emeklilik Yas Haddini Doldurmus Ögretim Üyelerinin Sözlesmeli Olarak Çalistirilmasina Iliskin Usul ve Esaslar",
+      "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "error_type": "ocr_failed",
+      "reason": "OCR metin cikartma hatasi: https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Y%C3%BCksek%C3%B6%C4%9Fretim%20Kurumlar%C4%B1nda%20Emeklilik%20Ya%C5%9F%20Haddini%20Doldurmu%C5%9F%20%C3%96%C4%9Fretim%20%C3%9Cyelerinin%20S%C3%B6zle%C5%9Fmeli%20Olarak%20%C3%87al%C4%B1%C5%9Ft%C4%B1r%C4%B1lmas%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar_638218312313371176.pdf ((1, 'Error opening data file C:\\\\Program Files\\\\Tesseract-OCR/tessdata/tur.traineddata Please make sure the TESSDATA_PREFIX environment variable is set to your \"tessdata\" directory. Failed loading language \\'tur\\' Tesseract couldn\\'t load any languages! Could not initialize tesseract.'))",
+      "retryable": false
+    }
+  ]
+}
