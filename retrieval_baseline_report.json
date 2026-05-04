@@ -1,0 +1,979 @@
+{
+  "generated_at": "2026-05-04T09:16:26+00:00",
+  "mode": "retrieval_baseline_current_index",
+  "retrieval_method": "read_only_sqlite_bm25",
+  "question_count": 15,
+  "top_k": 5,
+  "document_count": 659,
+  "metrics": {
+    "document_hit_at_1": 0.8666666666666667,
+    "document_hit_at_3": 1.0,
+    "document_hit_at_5": 1.0,
+    "article_hit_at_1": 0.6666666666666666,
+    "article_hit_at_3": 0.7333333333333333,
+    "article_hit_at_5": 0.8,
+    "expected_terms_hit_at_5": 0.7333333333333333
+  },
+  "results": [
+    {
+      "id": "lisansustu_akts_tanim",
+      "question": "Selçuk Üniversitesi lisansüstü eğitiminde AKTS kısaltması hangi sistemin adıdır?",
+      "expected_article_no": "4",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf",
+          "title": "RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf",
+          "page": 2,
+          "article_no": "9",
+          "article_title": null,
+          "score": 10.13775269949221,
+          "content_preview": "[Bağlam: RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf] esastır. Rapor, form ve analiz gibi özelliği olan metinlerde farklı yazı tipi ve karakter boyutu kullanılabilir. ÜÇÜNCÜ BÖLÜM Resmî Yazıların Bölümleri Başlık Madde 9 - Başlık, yazıyı gönderen kurum ve kuruluşun adının belirtildiği bölümdür. Bu bölümde amblem d e yer alabilir. Başlık, kağıdın yazı alanının üst kısmına ortalanarak yazılır. İlk satıra \"T.C.\" kısaltm"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+          "page": 1,
+          "article_no": "6",
+          "article_title": null,
+          "score": 9.975483287375788,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf] Merkezin faaliyet alanları MADDE 6 – (1) Merkez amacını gerçekleştirmek için aşağıdaki faaliyetlerde bulunur: a) Sağlık ve araştırma faaliyetinde bulunmak, sağlık alanında kişi ve kuruluşlardan gelen talepleri değerlendirmek, b) Klinik dalları ve diğer disiplinlerle toplum sağlığına yönelik araştırmalar konusunda işb"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 4,
+          "article_no": "12",
+          "article_title": null,
+          "score": 9.182365579805223,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] MADDE 12 - (1) Üniversitedeki veya diğer bir yükseköğretim kurumundaki bir lisansüstü programda en az bir yarıyıl ders alan ve o zamana kadar aldığı derslerin tümünden başarılı olan öğrenci gerekli belgelerle (Mülga ibare:RG -3/4/2020-31088) (…) ilgili enstitüye dilekçe ile başvurması durumunda, EAB/anasanat dalı kurulunun yazılı görüşü alınarak, enstitü yöneti"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 7,
+          "article_no": "20",
+          "article_title": null,
+          "score": 8.936512796560805,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Derslere devam, sınavlar ve başarı koşulları MADDE 20 - (1) Bir lisansüstü dersin kredi değeri, dersin haftalık teorik bir ders saati veya iki saat uygulama/laboratuvar çalışmasının yüküdür. Lisansüstü derslerin AKTS kredileri de ayrıca belirlenir. (2) Öğrencilerin final ve bütünleme sınavlarına girebilmeleri için teorik derslerin %70’ine, uygulama ve laboratuv"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 4,
+          "article_no": "13",
+          "article_title": null,
+          "score": 8.112201742345077,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Yatay geçişi kabul edilen öğrenciye, geldiği kurumda ders yükümlülüğünü tamamlamış olsa dahi yeni dersler verilebilir. (6) Üniversitede kayıtlı tezli yüksek lisans öğrencilerinin, bütünleştirilmiş doktora programına yatay geçiş yoluyla kabul edilmeleri için ikinci yarıyıl sonunda enstitüye başvurmaları ve aşağıda belirtilen koşulları sağlamış olmaları gerekir: "
+        }
+      ],
+      "document_hit_at_1": false,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": false,
+      "article_hit_at_3": false,
+      "article_hit_at_5": false,
+      "expected_terms_hit_at_5": false
+    },
+    {
+      "id": "lisansustu_intihal_tanim",
+      "question": "Selçuk Üniversitesi lisansüstü eğitiminde intihal nasıl tanımlanır?",
+      "expected_article_no": "4",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+          "page": 1,
+          "article_no": "6",
+          "article_title": null,
+          "score": 9.975483287375788,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf] Merkezin faaliyet alanları MADDE 6 – (1) Merkez amacını gerçekleştirmek için aşağıdaki faaliyetlerde bulunur: a) Sağlık ve araştırma faaliyetinde bulunmak, sağlık alanında kişi ve kuruluşlardan gelen talepleri değerlendirmek, b) Klinik dalları ve diğer disiplinlerle toplum sağlığına yönelik araştırmalar konusunda işb"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 1,
+          "article_no": "3",
+          "article_title": null,
+          "score": 9.423062591552924,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Yönetmelik] Dayanak MADDE 3 - (1) Bu Yönetmelik, 4/11/1981 tarihli ve 2547 sayılı Yükseköğretim Kanununun 14 üncü ve 44 üncü maddelerine dayanılarak hazırlanmıştır. Tanımlar MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Doktora program"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 1,
+          "article_no": "3",
+          "article_title": null,
+          "score": 8.627127923274994,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Yönetmelik] Dayanak MADDE 3 - (1) Bu Yönetmelik, 4/11/1981 tarihli ve 2547 sayılı Yükseköğretim Kan ununun 14 üncü ve 44 üncü maddelerine dayanılarak hazırlanmıştır. Tanımlar MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Dokt"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 18,
+          "article_no": "52",
+          "article_title": null,
+          "score": 8.440660777014969,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Sanatta yeterlik çalışmasının niteliğinin birden fazla tez danışmanı gerektirdiği durumlarda ikinci tez danışmanı atanabilir. Sanatta yeterlik programlarında tez, sergi, proje, resital, konser, temsil gibi çalışmalar yönetilebilmesi için, başarıyla tamamlanmış en az bir yüksek lisans tezi yönetmiş olmak gerekir. İkinci tez danışmanı Üniversite kadrosu dışından "
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 16,
+          "article_no": null,
+          "article_title": null,
+          "score": 8.119264273963964,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Karar] Sosyal bilimler alanında ise 40 ıncı maddenin birinci fıkrasının (ç) bendinde sayılan dillerden birisinde yazabilirler. Bu durumda ilgili öğrencinin danışmanı yabancı dilde tez yazma talebini bir dilekçe ile enstitüye bildirir ve bu talep Enstitü Yönetim Kurulu kararıyla kesinleşir. b) (Değişik:RG-3/4/2020-31088) Öğrencinin alanı ile ilgili en az bir ad"
+        }
+      ],
+      "document_hit_at_1": false,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": false,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": false
+    },
+    {
+      "id": "lisansustu_butunlesik_doktora_tanim",
+      "question": "Selçuk Üniversitesi lisansüstü eğitiminde bütünleştirilmiş doktora ne demektir?",
+      "expected_article_no": "4",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 13,
+          "article_no": null,
+          "article_title": null,
+          "score": 16.13708919468749,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] b) Adayların; ALES’ten başvurduğu programın puan türünden en az 55,00 puan almış olması gerekir. Bütünleştirilmiş doktora programına başvuran adaylar için gerekli ALES puanı en az 80,00’dir. Öngörülen ALES puanları Senato tarafından artırılabilir. An cak güzel sanatlar fakülteleri ile konservatuvarlara öğrenci kabulünde ALES koşulu aranmaz. c) Bütünleştirilmiş "
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "43",
+          "article_title": null,
+          "score": 15.631538176266643,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 1,
+          "article_no": "1",
+          "article_title": null,
+          "score": 15.441238945228013,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Resmî Gazete Tarihi: 21.09.2018 Resmî Gazete Sayısı: 30542 SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ BİRİNCİ BÖLÜM Amaç, Kapsam, Dayanak ve Tanımlar Amaç MADDE 1 - (1) Bu Yönetmeliğin amacı, Selçuk Üniversitesine bağlı enstitülerde yürütülen lisansüstü eğitim ve öğretim faaliyetlerine ilişkin usul ve esasları düzenlemektir. Kapsam MADDE 2 - ("
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 1,
+          "article_no": "1",
+          "article_title": null,
+          "score": 15.01003807256674,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ BİRİNCİ BÖLÜM Amaç, Kapsam, Dayanak ve Tanımlar Amaç MADDE 1 - (1) Bu Yönetmeliğin amacı, Selçuk Üniversitesine bağlı enstitülerde yürütülen lisansüstü eğitim ve öğretim faaliyetlerine ilişkin usul ve esasları düzenlemektir. Kapsam MADDE 2 - (1) Bu Yönetmelik; Selçuk Üniversitesinde tezli yü"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 4,
+          "article_no": "13",
+          "article_title": null,
+          "score": 15.009871625073387,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Yatay geçişi kabul edilen öğrenciye, geldiği kurumda ders yükümlülüğünü tamamlamış olsa dahi yeni dersler verilebilir. (6) Üniversitede kayıtlı tezli yüksek lisans öğrencilerinin, bütünleştirilmiş doktora programına yatay geçiş yoluyla kabul edilmeleri için ikinci yarıyıl sonunda enstitüye başvurmaları ve aşağıda belirtilen koşulları sağlamış olmaları gerekir: "
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": false,
+      "article_hit_at_3": false,
+      "article_hit_at_5": false,
+      "expected_terms_hit_at_5": false
+    },
+    {
+      "id": "lisansustu_doktora_yeterlik_esaslar",
+      "question": "Selçuk Üniversitesi’nde doktora yeterlik sınavları ile ilgili esaslar nelerdir?",
+      "expected_article_no": "43",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "43",
+          "article_title": null,
+          "score": 20.634879856969093,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "43",
+          "article_title": null,
+          "score": 17.61714879475397,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik s"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 17,
+          "article_no": "47",
+          "article_title": null,
+          "score": 14.945154692475635,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Uygulama sınavında ikinci kez başarısız olan öğrencinin ilgili program ile ilişiği kesilir. Doktora diploması MADDE 47 –(1)Tez savunmasında başarılı olmak ve diğer koşulları da sağlamak kaydıyla doktora tezinin ciltlenmiş en az üç kopyasını tez sınavına giriş tarihinden itibaren bir ay içinde ilgili enstitüye teslim eden ve tezi şekil yönünden uygun bulunan öğr"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": null,
+          "article_title": null,
+          "score": 14.626160140500602,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu iki sınav dönemi dışında yeterlik sınavı yapılmaz. c) Yeterlik sınavları, enstitü anabilim/anasanat dalı kurulu tarafından önerilen ve enstitü yönetim kurulu tarafından onaylanan beş kişilik doktora yeterlik komitesi tarafından düzenlenir ve yürütülür. Komite, farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürileri kurar."
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 14.041839120371135,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_doktora_yeterlik_sure",
+      "question": "Selçuk Üniversitesi’nde doktora öğrencisi yeterlik sınavına en geç ne zaman girer?",
+      "expected_article_no": "43",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "43",
+          "article_title": null,
+          "score": 22.45915076022637,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "43",
+          "article_title": null,
+          "score": 19.37063278233944,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik s"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 16.02183139323064,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 17,
+          "article_no": "47",
+          "article_title": null,
+          "score": 14.95582812891944,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Uygulama sınavında ikinci kez başarısız olan öğrencinin ilgili program ile ilişiği kesilir. Doktora diploması MADDE 47 –(1)Tez savunmasında başarılı olmak ve diğer koşulları da sağlamak kaydıyla doktora tezinin ciltlenmiş en az üç kopyasını tez sınavına giriş tarihinden itibaren bir ay içinde ilgili enstitüye teslim eden ve tezi şekil yönünden uygun bulunan öğr"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 17,
+          "article_no": null,
+          "article_title": null,
+          "score": 14.026876258945746,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] yeniden savunur. Bu savunmada da başarısız bulunan öğrencinin ilgili program ile ilişiği kesilir. Tezde başarılı olamayan öğrencilere talepleri halinde 42 nci maddenin üçüncü fıkrasına göre tezsiz yüksek lisans diploması verilir. g) Sanat içerikli doktora programları öğrencileri tez çalışmalarının kabul edilmesi son rasında, aynı jüri tarafından, aynı gün veya "
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_butunlesik_doktora_yeterlik_sure",
+      "question": "Selçuk Üniversitesi’nde bütünleştirilmiş doktora öğrencisi yeterlik sınavına en geç ne zaman girer?",
+      "expected_article_no": "43",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "43",
+          "article_title": null,
+          "score": 27.958907482051117,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "43",
+          "article_title": null,
+          "score": 23.589124893948664,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik s"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 18.16779943182773,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 7,
+          "article_no": null,
+          "article_title": null,
+          "score": 15.879265702292791,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Tablo 1. Lisansüstü programlardaki başarı notu aralıkları ve açıklamaları Yüzlük Sistemdeki Not Aralıkları Başarı Notu Harf Notu Karşılığı AKTS Notu Açıklaması 88 - 100 4.00 AA A Yüksek Lisans/Doktora Başarılı 80 - 87 3.50 BA B Yüksek Lisans/Doktora Başarılı 73 - 79 3.00 BB C Yüksek Lisans/Doktora Başarılı 66 - 72 2.50 CB D Yüksek Lisansta Başarılı Doktorada Ba"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 15.537189717655247,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_doktora_yeterlik_basarisiz",
+      "question": "Selçuk Üniversitesi’nde doktora yeterlik sınavında başarısız olan öğrencinin durumu ne olur?",
+      "expected_article_no": "43",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 20.851271208069814,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 7,
+          "article_no": null,
+          "article_title": null,
+          "score": 19.752470427015044,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Tablo 1. Lisansüstü programlardaki başarı notu aralıkları ve açıklamaları Yüzlük Sistemdeki Not Aralıkları Başarı Notu Harf Notu Karşılığı AKTS Notu Açıklaması 88 - 100 4.00 AA A Yüksek Lisans/Doktora Başarılı 80 - 87 3.50 BA B Yüksek Lisans/Doktora Başarılı 73 - 79 3.00 BB C Yüksek Lisans/Doktora Başarılı 66 - 72 2.50 CB D Yüksek Lisansta Başarılı Doktorada Ba"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 10,
+          "article_no": null,
+          "article_title": null,
+          "score": 17.37111439389732,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Uygulama sınavında başarısız bulunan öğrenci en geç üç ay içinde gereğini yaparak ikinci bir sınava girer. Uygulama sınavında ikinci kez başarısız olan öğrencinin ilgili program ile ilişiği kesilir."
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "42",
+          "article_title": null,
+          "score": 17.07105505819617,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] resital, konser, temsil ve benzeri) ve diğer faaliyetler olmak üzere en az 240 AKTS kredisinden oluşur. Doktora programında bir yarıyıl, uzmanlık alanı dersi, seminer dersi ve alınan diğer dersler dahil olmak üzere 30 AKTS (Değişik ibare:RG-3/4/2020-31088) kredisidir.Lisans derecesi ile kabul edilmiş öğrenciler için de en az 42 kredilik 14 ders, uzmanlık alan d"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "43",
+          "article_title": null,
+          "score": 16.418440598638494,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": false,
+      "article_hit_at_3": false,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": false
+    },
+    {
+      "id": "lisansustu_tez_izleme_komitesi_olusturma",
+      "question": "Selçuk Üniversitesi’nde tez izleme komitesi nasıl oluşturulur?",
+      "expected_article_no": "44",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 26.54284972469439,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 17,
+          "article_no": "45",
+          "article_title": null,
+          "score": 22.765605314478876,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 16,
+          "article_no": "46",
+          "article_title": null,
+          "score": 20.029579263559853,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] bir yarıyıldaki tez çalışması başarısı, ilgili yarıyıldaki tez izleme komitesi değerlendirme sonucuna bağlı olarak, başarılı (G) harf notu veya başarısız (K) harf notu ile belirlenir. (Mülga cümle:RG-3/4/2020- 31088) (…) Komite tarafından üst üste iki kez veya aralıklı olarak üç kez başarısız bulunan (Ek ibare:RG- 3/4/2020-31088) ve tez izleme komitesi raporlar"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 19.95686506203057,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 20,
+          "article_no": "55",
+          "article_title": null,
+          "score": 9.982500305851357,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] (2) Yeterlik, seviye tespit veya ders başarılarını ölçen tüm sınavlar, kâğıt ortamında ve tüm adaylara eş zamanlı olarak yapılabileceği gibi, alan ve zorluk düzeyine gör e tasnif edilerek güvenli biçimde saklanan bir soru bankasından, her bir adaya farklı zamanlarda farklı soru sorulmasına izin verecek şekilde elektronik ortamda da yapılabilir. Sınavlarda sorul"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_tez_izleme_komitesi_uye_sayisi",
+      "question": "Selçuk Üniversitesi’nde tez izleme komitesi kaç öğretim üyesinden oluşur?",
+      "expected_article_no": "44",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 27.776179526108585,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 25.528602540609334,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 17,
+          "article_no": "45",
+          "article_title": null,
+          "score": 23.424769687032985,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 16,
+          "article_no": "46",
+          "article_title": null,
+          "score": 20.029579263559853,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] bir yarıyıldaki tez çalışması başarısı, ilgili yarıyıldaki tez izleme komitesi değerlendirme sonucuna bağlı olarak, başarılı (G) harf notu veya başarısız (K) harf notu ile belirlenir. (Mülga cümle:RG-3/4/2020- 31088) (…) Komite tarafından üst üste iki kez veya aralıklı olarak üç kez başarısız bulunan (Ek ibare:RG- 3/4/2020-31088) ve tez izleme komitesi raporlar"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": null,
+          "article_title": null,
+          "score": 15.498094960375923,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu iki sınav dönemi dışında yeterlik sınavı yapılmaz. c) Yeterlik sınavları, enstitü anabilim/anasanat dalı kurulu tarafından önerilen ve enstitü yönetim kurulu tarafından onaylanan beş kişilik doktora yeterlik komitesi tarafından düzenlenir ve yürütülür. Komite, farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürileri kurar."
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_ikinci_tez_danismani_komite",
+      "question": "Selçuk Üniversitesi’nde ikinci tez danışmanı tez izleme komitesi toplantılarına katılabilir mi?",
+      "expected_article_no": "44",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 38.91856806301866,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 17,
+          "article_no": "45",
+          "article_title": null,
+          "score": 31.28913677386923,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 31.189311425164792,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 16,
+          "article_no": "46",
+          "article_title": null,
+          "score": 29.307754695826894,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] bir yarıyıldaki tez çalışması başarısı, ilgili yarıyıldaki tez izleme komitesi değerlendirme sonucuna bağlı olarak, başarılı (G) harf notu veya başarısız (K) harf notu ile belirlenir. (Mülga cümle:RG-3/4/2020- 31088) (…) Komite tarafından üst üste iki kez veya aralıklı olarak üç kez başarısız bulunan (Ek ibare:RG- 3/4/2020-31088) ve tez izleme komitesi raporlar"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 18,
+          "article_no": "52",
+          "article_title": null,
+          "score": 19.583407747247527,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Sanatta yeterlik çalışmasının niteliğinin birden fazla tez danışmanı gerektirdiği durumlarda ikinci tez danışmanı atanabilir. Sanatta yeterlik programlarında tez, sergi, proje, resital, konser, temsil gibi çalışmalar yönetilebilmesi için, başarıyla tamamlanmış en az bir yüksek lisans tezi yönetmiş olmak gerekir. İkinci tez danışmanı Üniversite kadrosu dışından "
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_tez_onerisi_savunma_sure",
+      "question": "Selçuk Üniversitesi’nde doktora tez önerisi ne kadar süre içinde savunulmalıdır?",
+      "expected_article_no": "45",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 19.201490208076393,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 14,
+          "article_no": "42",
+          "article_title": null,
+          "score": 19.073120021582536,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] resital, konser, temsil ve benzeri) ve diğer faaliyetler olmak üzere en az 240 AKTS kredisinden oluşur. Doktora programında bir yarıyıl, uzmanlık alanı dersi, seminer dersi ve alınan diğer dersler dahil olmak üzere 30 AKTS (Değişik ibare:RG-3/4/2020-31088) kredisidir.Lisans derecesi ile kabul edilmiş öğrenciler için de en az 42 kredilik 14 ders, uzmanlık alan d"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 5,
+          "article_no": "15",
+          "article_title": null,
+          "score": 17.43979827446529,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Karar] Danışman değişikliği talebi EAB/anasanat dalı kurulunun önerisi ve enstitü yönetim kurulunun kararı ile kesinlik kazanır. (8) (Ek:RG-3/4/2020-31088) Lisansüstü program kontenjanları, Yükseköğretim Kurulu Başkanlığı tarafından belirlenen lisansüstü programlarda görev alabilecek öğretim üyesi sayısı ve mevcut öğretim üyesi başına düşen öğrenci sayısı dikk"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 15,
+          "article_no": "41",
+          "article_title": null,
+          "score": 16.865917894571258,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] ALES puanı istenildiği takdirde taban puan Senato tarafından belirlenir. Ders yükü MADDE 41 - (1) Doktora programı, tezli yüksek lisans derecesi ile kabul edilmiş öğrenciler için toplam 21 krediden az olmamak koşuluyla en az yedi ders, uzmanlık alan dersleri, seminer, yeterlik sınavı, tez önerisi ve tez çalışması; anasanat dalı programlarında uygulama"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 17,
+          "article_no": "45",
+          "article_title": null,
+          "score": 15.041114446287116,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_tez_onerisi_rapor_sure",
+      "question": "Selçuk Üniversitesi’nde doktora tez önerisi raporu savunmadan kaç gün önce komiteye verilir?",
+      "expected_article_no": "45",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 15,
+          "article_no": "44",
+          "article_title": null,
+          "score": 25.98536285574069,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 17,
+          "article_no": "45",
+          "article_title": null,
+          "score": 22.88858782877839,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 17,
+          "article_no": null,
+          "article_title": null,
+          "score": 16.204954715448455,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] yeniden savunur. Bu savunmada da başarısız bulunan öğrencinin ilgili program ile ilişiği kesilir. Tezde başarılı olamayan öğrencilere talepleri halinde 42 nci maddenin üçüncü fıkrasına göre tezsiz yüksek lisans diploması verilir. g) Sanat içerikli doktora programları öğrencileri tez çalışmalarının kabul edilmesi son rasında, aynı jüri tarafından, aynı gün veya "
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 16,
+          "article_no": null,
+          "article_title": null,
+          "score": 16.011418054152376,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Karar] Sosyal bilimler alanında ise 40 ıncı maddenin birinci fıkrasının (ç) bendinde sayılan dillerden birisinde yazabilirler. Bu durumda ilgili öğrencinin danışmanı yabancı dilde tez yazma talebini bir dilekçe ile enstitüye bildirir ve bu talep Enstitü Yönetim Kurulu kararıyla kesinleşir. b) (Değişik:RG-3/4/2020-31088) Öğrencinin alanı ile ilgili en az bir ad"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 15.816129724885554,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_tezli_yuksek_lisans_amac",
+      "question": "Selçuk Üniversitesi’nde tezli yüksek lisans programının amacı nedir?",
+      "expected_article_no": "24",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 8,
+          "article_no": "23",
+          "article_title": null,
+          "score": 19.580196589147576,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Karar] Verilen karar, başvuru tarihinden itibaren en geç yedi iş günü içinde öğrenciye ve dersin sorumlu öğretim üyesine bildirilir. Kayıt silme MADDE 23 - (1) Aşağıdaki hallerde öğrencinin kaydı ilgili programdan silinir: a)İlgili mevzuat hükümlerine göre Üniversiteden çıkarma cezası almış olması durumunda, b) Kendi isteğiyle kayıtlı olduğu programdan kaydını"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 12,
+          "article_no": "38",
+          "article_title": null,
+          "score": 18.362854259022335,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] (5) Öğrenciler ilgili program için belirlenen öğrenim ücretinin tamamını ödemeden ve diğer şartları yerine getirmeden tezli yüksek lisans programına geçiş yapamaz ve mezun olamazlar. BEŞİNCİ BÖLÜM Doktora Programı Amaç MADDE 38 - (1) Doktora programının amacı; öğrenciye bağımsız bilimsel araştırma yapma, olayları geniş ve derin bir bakış açısı ile irdeleyerek y"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 12,
+          "article_no": "36",
+          "article_title": null,
+          "score": 17.337079614537053,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] tarafından belirlenen niteliklere sahip doktora derecesine sahip bir öğretim görevlisini en geç birinci yarıyılın sonuna kadar belirler. (2) Öğrenciler, dönem projelerini enstitünün tez yazım kurallarına uygun biçimde hazırlamak, ilgili EAB/anasanat dalı kurulu tarafından kurul an, danışmanı dâhil üç öğretim elemanı/üyesinden oluşan bir jüri karşısında savunmak"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 11,
+          "article_no": "31",
+          "article_title": null,
+          "score": 16.954422179974866,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sürede de ciltlenmiş ve jüri tarafından imzalanmış tezleri enstitüye teslim etmeyen öğrenci, tezleri teslim edinceye kadar diplomasını alamaz ve öğrencilik haklarından yararlanamaz. Azami öğrencilik süresinin dolması halinde ise programla ilişiği kesilir. (2) Tezli yüksek lisans diploması üzerinde öğrencinin kayıt lı olduğu EAB/anasanat dalındaki programın Y"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 13,
+          "article_no": "38",
+          "article_title": null,
+          "score": 16.288085086093822,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] (5) Öğrenciler ilgili program için belirlenen öğrenim ücretinin tamamını ödemeden ve diğer şartları yerine getirmeden tezli yüksek lisans programına geçiş yapamaz ve mezun olamazlar. BEŞİNCİ BÖLÜM Doktora Programı Amaç MADDE 38 - (1) Doktora programının amacı; öğrenciye bağımsız bilimsel araştırma yapma, olayları geniş ve derin bir bakış açısı ile ird"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_tezli_yuksek_lisans_ders_kredi",
+      "question": "Selçuk Üniversitesi’nde tezli yüksek lisans programı en az kaç ders ve kaç krediden oluşur?",
+      "expected_article_no": "26",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 9,
+          "article_no": "26",
+          "article_title": null,
+          "score": 26.4737216135348,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Mezuniyet] (5) Başarı notu hesaplanırken eşit toplam not sahibi olanlar arasında önceliğin belirlenmesinde, sırasıyla ALES puanı ve lisans mezuniyet ağırlıklı not ortalaması göz önüne alınır. Ders yükü MADDE 26 - (1)Tezli yüksek lisans programı, toplam 21 krediden az olmamak koşulu ile en az yedi ders, seminer, uzmanlık alan dersleri ve tez çalışmasından oluşu"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 13,
+          "article_no": "41",
+          "article_title": null,
+          "score": 26.428985492531673,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Mezuniyet] (8) Başarı notu hesaplamasında eşit toplam not sahibi olanlar arasında önceliğin belirlenmesinde, tercih sırasıyla; ALES puanı ve lisans (bütünleşik doktorada) veya yüksek lisans (doktorada) mezuniyet ağırlıklı not ortalaması dikkate alınır. Ders yükü MADDE 41 - (1) Doktora programı, tezli yüksek lisans derecesi ile kabul edilmiş öğrenciler için top"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 11,
+          "article_no": "31",
+          "article_title": null,
+          "score": 24.66568739792802,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sürede de ciltlenmiş ve jüri tarafından imzalanmış tezleri enstitüye teslim etmeyen öğrenci, tezleri teslim edinceye kadar diplomasını alamaz ve öğrencilik haklarından yararlanamaz. Azami öğrencilik süresinin dolması halinde ise programla ilişiği kesilir. (2) Tezli yüksek lisans diploması üzerinde öğrencinin kayıt lı olduğu EAB/anasanat dalındaki programın Y"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 10,
+          "article_no": "26",
+          "article_title": null,
+          "score": 22.272160870899935,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] a) Konservatuvar programları ile güzel sanatlar fakültelerinin sadece özel yetenek sınavı ile öğrenci kabul eden programlarının enstitülerdeki anasanat ve anabilim dallarına öğrenci kabulünde. b) Doktora/sanatta yeterlik/tıpta uzmanlık/diş hekimliğinde uzmanlık/veteriner hekimliğinde uzmanlık/eczacılıkta uzmanlık mezunlarının yüksek lisans programları"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 15,
+          "article_no": "41",
+          "article_title": null,
+          "score": 22.15786809428436,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] ALES puanı istenildiği takdirde taban puan Senato tarafından belirlenir. Ders yükü MADDE 41 - (1) Doktora programı, tezli yüksek lisans derecesi ile kabul edilmiş öğrenciler için toplam 21 krediden az olmamak koşuluyla en az yedi ders, uzmanlık alan dersleri, seminer, yeterlik sınavı, tez önerisi ve tez çalışması; anasanat dalı programlarında uygulama"
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": true,
+      "article_hit_at_3": true,
+      "article_hit_at_5": true,
+      "expected_terms_hit_at_5": true
+    },
+    {
+      "id": "lisansustu_yuksek_lisans_tez_savunma_jurisi",
+      "question": "Selçuk Üniversitesi’nde yüksek lisans tez savunma jürisi nasıl oluşturulur?",
+      "expected_article_no": "29",
+      "top_results": [
+        {
+          "rank": 1,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 10,
+          "article_no": null,
+          "article_title": null,
+          "score": 18.58392802067806,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] olması veya en az bir karma sanatsal etkinliğe katılmış olması şartlarından birini/birkaçını yerine getirmesi, yüksek lisans tez savunma jürisinin kurulması için ön şart olarak aranır. c) Tamamlanan tezli yüksek lisans tezi veya düzeltme verilen tezlerde ise düzeltilmiş olan tez, öğrenci tarafından danışmana sunulur. Danışman, tezin savunulabilir olduğuna ilişk"
+        },
+        {
+          "rank": 2,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "page": 11,
+          "article_no": "30",
+          "article_title": null,
+          "score": 18.355849199859943,
+          "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] h) Tez savunma sınavına geçerli mazereti nedeniyle katılamayan öğrenci, 27 nci maddede belirtilen azami süreler içerisinde olmak şartıyla, mazeretini gösterir belge ile birlikte mazeretinin bitiş tarihinden itibaren en geç bir hafta içinde enstitüye başv urur. Enstitü Yönetim Kurulu tarafından mazereti uygun görülen öğrenciye ve jüri üyelerine yeniden sınav tar"
+        },
+        {
+          "rank": 3,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 16,
+          "article_no": "44",
+          "article_title": null,
+          "score": 15.260803700669523,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr"
+        },
+        {
+          "rank": 4,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 11,
+          "article_no": null,
+          "article_title": null,
+          "score": 15.112036704937571,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] İlgili karar Senatonun onayı ile yürürlüğe girer. c) (Değişik:RG-11/1/2024-32426) Tamamlanan tezli yüksek lisans tezi veya düzeltme verilen tezlerde düzeltilmiş olan tez, öğ renci tarafından danışmana sunulur. Danışman, tezin savunulabilir olduğuna ilişkin görüşü ile birlikte teze ilişkin intihal yazılım programı raporunu ve tezi enstitüye gön"
+        },
+        {
+          "rank": 5,
+          "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "page": 12,
+          "article_no": "30",
+          "article_title": null,
+          "score": 14.90564742800662,
+          "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] Uygulama sınavında ikinci kez başarısız olan öğrencinin ilgili program ile ilişiği kesilir. h) Tez savunma sınavına geçerli mazereti nedeniyle katılamayan öğ renci, 27 nci maddede belirtilen azami süreler içerisinde olmak şartıyla, mazeretini gösterir belge ile birlikte mazeretinin bitiş tarihinden itibaren en geç bir hafta içinde enstitüye başvurur. "
+        }
+      ],
+      "document_hit_at_1": true,
+      "document_hit_at_3": true,
+      "document_hit_at_5": true,
+      "article_hit_at_1": false,
+      "article_hit_at_3": false,
+      "article_hit_at_5": false,
+      "expected_terms_hit_at_5": true
+    }
+  ]
+}

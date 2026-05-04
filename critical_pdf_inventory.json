@@ -1,0 +1,59 @@
+{
+  "generated_at": "2026-05-04T08:36:35+00:00",
+  "mode": "pdf_inventory_only",
+  "manifest_path": "source_manifest.json",
+  "source_ids": [
+    "central_regulations_listing",
+    "central_directives_listing"
+  ],
+  "include_inactive": true,
+  "sources": [
+    {
+      "source_id": "central_regulations_listing",
+      "title": "Selcuk Universitesi Yonetmelikler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39873",
+      "active": false,
+      "requires_permission": true,
+      "fetch_ok": false,
+      "error": "Kaynak requires_permission=true ve AUTHORIZED_SOURCE_MODE kapali.",
+      "pdf_count": 0,
+      "pdf_links": [],
+      "access_policy": {
+        "can_attempt_fetch": false,
+        "blocked_by": "requires_permission",
+        "requires_permission": true,
+        "authorized_source_mode": false,
+        "robots_override": false,
+        "robots_allowed": false,
+        "message": "Kaynak requires_permission=true ve AUTHORIZED_SOURCE_MODE kapali."
+      }
+    },
+    {
+      "source_id": "central_directives_listing",
+      "title": "Selcuk Universitesi Yonergeler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "active": false,
+      "requires_permission": true,
+      "fetch_ok": false,
+      "error": "Kaynak requires_permission=true ve AUTHORIZED_SOURCE_MODE kapali.",
+      "pdf_count": 0,
+      "pdf_links": [],
+      "access_policy": {
+        "can_attempt_fetch": false,
+        "blocked_by": "requires_permission",
+        "requires_permission": true,
+        "authorized_source_mode": false,
+        "robots_override": false,
+        "robots_allowed": false,
+        "message": "Kaynak requires_permission=true ve AUTHORIZED_SOURCE_MODE kapali."
+      }
+    }
+  ],
+  "totals": {
+    "source_count": 2,
+    "fetch_ok": 0,
+    "fetch_failed": 2,
+    "pdf_count": 0,
+    "unique_pdf_count": 0
+  }
+}

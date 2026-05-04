@@ -188,6 +188,67 @@ def test_extract_pdf_links_encodes_turkish_and_spaces():
     ]
 
 
+def test_extract_pdf_link_inventory_uses_anchor_text():
+    html = """
+    <html><body>
+      <a href="https://webadmin.selcuk.edu.tr/files/staj.pdf">Staj Yönergesi</a>
+    </body></html>
+    """
+    links = WebScraper.extract_pdf_link_inventory(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert links == [
+        {
+            "title": "Staj Yönergesi",
+            "url": "https://webadmin.selcuk.edu.tr/files/staj.pdf",
+            "normalized_url": "https://webadmin.selcuk.edu.tr/files/staj.pdf",
+            "domain": "webadmin.selcuk.edu.tr",
+            "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874",
+        }
+    ]
+
+
+def test_extract_pdf_link_inventory_relative_url_absolute():
+    html = '<html><body><a href="/uploads/burs.pdf">Burs</a></body></html>'
+    links = WebScraper.extract_pdf_link_inventory(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert links[0]["url"] == "https://selcuk.edu.tr/uploads/burs.pdf"
+    assert links[0]["normalized_url"] == "https://selcuk.edu.tr/uploads/burs.pdf"
+    assert links[0]["domain"] == "selcuk.edu.tr"
+
+
+def test_extract_pdf_link_inventory_title_from_filename_when_anchor_empty():
+    html = """
+    <html><body>
+      <a href="/uploads/%C3%87ift%20Ana%20Dal%20Y%C3%B6nergesi_638315843142205508.pdf"></a>
+    </body></html>
+    """
+    links = WebScraper.extract_pdf_link_inventory(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert links[0]["title"] == "Çift Ana Dal Yönergesi"
+
+
+def test_extract_pdf_link_inventory_deduplicates_normalized_pdf_links():
+    html = """
+    <html><body>
+      <a href="/uploads/a.pdf">A</a>
+      <a href="https://selcuk.edu.tr/uploads/a.pdf">A tekrar</a>
+    </body></html>
+    """
+    links = WebScraper.extract_pdf_link_inventory(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert len(links) == 1
+    assert links[0]["title"] == "A"
+
+
+def test_extract_pdf_link_inventory_ignores_non_pdf_links():
+    html = """
+    <html><body>
+      <a href="/uploads/a.docx">DOCX</a>
+      <a href="/uploads/page.html">HTML</a>
+      <a href="/uploads/a.pdf">PDF</a>
+    </body></html>
+    """
+    links = WebScraper.extract_pdf_link_inventory(html, "https://selcuk.edu.tr/anasayfa/detay/39874")
+    assert len(links) == 1
+    assert links[0]["normalized_url"] == "https://selcuk.edu.tr/uploads/a.pdf"
+
+
 def test_scrape_urls_with_linked_pdfs_uses_page_flow(monkeypatch):
     monkeypatch.setattr(URLValidator, "is_allowed_by_robots", lambda *_args, **_kwargs: True)
 
