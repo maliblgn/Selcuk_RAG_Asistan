@@ -114,16 +114,21 @@ def _read_urls_file(urls_file: str) -> List[str]:
         return parse_urls_from_text(f.read())
 
 
-def _persist_doc_batch(docs: List[Document], label: str) -> int:
+def _persist_doc_batch(docs: List[Document], label: str, legal_chunking: bool = False) -> int:
     if not docs:
         return 0
     logger.info("%s: %d dokuman sayfasi Chroma'ya aktariliyor.", label, len(docs))
-    chunks = _split_documents(docs)
+    chunks = _split_documents(docs, legal_chunking=legal_chunking)
     _persist_documents(chunks, clear_existing=False)
     return len(chunks)
 
 
-def build_url_ingestion_batched(urls_file: str, batch_size: int = 10, clear_existing: bool = False):
+def build_url_ingestion_batched(
+    urls_file: str,
+    batch_size: int = 10,
+    clear_existing: bool = False,
+    legal_chunking: bool = False,
+):
     """URL dosyasini PDF batch'leri halinde isleyip Chroma'ya artimli yazar."""
     urls = _read_urls_file(urls_file)
     if not urls:
@@ -155,7 +160,11 @@ def build_url_ingestion_batched(urls_file: str, batch_size: int = 10, clear_exis
             except ScrapingError as exc:
                 logger.warning("PDF atlaniyor: %s", exc)
                 errors.append(str(exc))
-        total_chunks += _persist_doc_batch(docs, f"PDF batch ({len(current)} aday)")
+        total_chunks += _persist_doc_batch(
+            docs,
+            f"PDF batch ({len(current)} aday)",
+            legal_chunking=legal_chunking,
+        )
 
     for raw_url in urls:
         normalized, css_selector = URLValidator.split_url_and_selector(raw_url)
@@ -186,7 +195,11 @@ def build_url_ingestion_batched(urls_file: str, batch_size: int = 10, clear_exis
                 response.text,
                 css_selector=css_selector,
             )
-            total_chunks += _persist_doc_batch([page_doc], f"Sayfa: {normalized}")
+            total_chunks += _persist_doc_batch(
+                [page_doc],
+                f"Sayfa: {normalized}",
+                legal_chunking=legal_chunking,
+            )
             processed_page_count += 1
 
             pdf_links = WebScraper.extract_pdf_links(response.text, normalized)
@@ -279,7 +292,7 @@ def _write_failed_docs(errors):
     logger.info("Basarisiz dokuman logu yazildi: %s (%d kayit)", FAILED_DOCS_PATH, len(unique_entries))
 
 
-def _split_documents(docs):
+def _split_documents_default(docs):
     logger.info("Metinler anlam butunlugune gore parcalaniyor...")
     try:
         from content_processor import SmartChunker, MetadataEnricher
@@ -294,6 +307,22 @@ def _split_documents(docs):
         parcalar = text_splitter.split_documents(docs)
         logger.info("Toplam %d parca olusturuldu.", len(parcalar))
         return parcalar
+
+
+def _split_documents(docs, legal_chunking: bool = False):
+    try:
+        from legal_ingestion import legal_chunking_enabled, split_documents_with_optional_legal_chunking
+    except ImportError:
+        return _split_documents_default(docs)
+
+    enabled = legal_chunking_enabled(explicit=legal_chunking)
+    if enabled:
+        logger.info("Legal chunking aktif: mevzuat metinleri MADDE bazli bolunmeye calisilacak.")
+    return split_documents_with_optional_legal_chunking(
+        docs,
+        fallback_splitter_func=_split_documents_default,
+        enabled=enabled,
+    )
 
 
 def _persist_documents(parcalar, clear_existing=False):
@@ -543,6 +572,7 @@ def build_ingestion(
     crawl_max_pages=None,
     clear_existing=False,
     batch_size=None,
+    legal_chunking=False,
 ):
     """Ana veri aktarım fonksiyonu.
 
@@ -559,6 +589,7 @@ def build_ingestion(
             urls_file=urls_file,
             batch_size=batch_size,
             clear_existing=clear_existing,
+            legal_chunking=legal_chunking,
         )
         return
 
@@ -584,7 +615,7 @@ def build_ingestion(
     if not docs:
         raise ValueError("Islenecek dokuman bulunamadi.")
 
-    parcalar = _split_documents(docs)
+    parcalar = _split_documents(docs, legal_chunking=legal_chunking)
     _persist_documents(parcalar, clear_existing=clear_existing)
 
 
@@ -600,6 +631,8 @@ def _parse_args():
                         help="Maksimum taranacak sayfa sayisi")
     parser.add_argument("--batch-size", type=int, default=None,
                         help="URL dosyasi icin PDF'leri batch halinde artimli Chroma'ya yazar")
+    parser.add_argument("--legal-chunking", action="store_true",
+                        help="Mevzuat benzeri metinleri opsiyonel olarak MADDE bazli parcalar")
     parser.add_argument("--clear", action="store_true", help="Mevcut veritabanini temizleyip yeniden olusturur")
     return parser.parse_args()
 
@@ -621,6 +654,7 @@ def main():
         crawl_max_pages=args.crawl_max_pages,
         clear_existing=args.clear,
         batch_size=args.batch_size,
+        legal_chunking=args.legal_chunking,
     )
 
 if __name__ == "__main__":

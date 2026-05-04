@@ -8,6 +8,8 @@ from urllib.parse import unquote
 from dotenv import load_dotenv
 
 from web_crawler import CrawlerConfig, SelcukCrawler
+from web_scraper import ScraperConfig, ScrapingError, URLValidator, WebScraper
+from source_access_policy import build_access_policy_decision
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -40,6 +42,13 @@ def normalize_text(value):
     return value.lower().replace("%20", " ")
 
 
+def env_bool(name, default=False):
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def match_expected_documents(urls, expected_documents):
     normalized_urls = [(url, normalize_text(url)) for url in urls]
     matches = []
@@ -58,6 +67,321 @@ def match_expected_documents(urls, expected_documents):
             "matched_urls": matched_urls[:10],
         })
     return matches
+
+
+def manifest_sources_by_id(manifest, source_ids, include_inactive=False):
+    """Manifest icindeki kaynaklari id'ye gore bul."""
+    wanted = set(source_ids or [])
+    items = []
+    for section in ("crawl_seeds", "known_direct_sources", "sources"):
+        for item in manifest.get(section, []):
+            if wanted and item.get("id") not in wanted:
+                continue
+            if not include_inactive and not item.get("active", True):
+                continue
+            if not item.get("url"):
+                continue
+            enriched = dict(item)
+            enriched["_manifest_section"] = section
+            items.append(enriched)
+    return items
+
+
+def fetch_pdf_inventory_for_source(source, scraper):
+    """Tek liste sayfasindan PDF link envanteri cikar; PDF indirmez."""
+    url = source.get("url", "")
+    result = {
+        "source_id": source.get("id"),
+        "title": source.get("title"),
+        "url": url,
+        "active": bool(source.get("active", True)),
+        "requires_permission": bool(source.get("requires_permission", False)),
+        "fetch_ok": False,
+        "error": None,
+        "pdf_count": 0,
+        "pdf_links": [],
+        "access_policy": None,
+    }
+
+    normalized = URLValidator.normalize_url(url)
+    if not URLValidator.is_valid_url(normalized):
+        result["error"] = f"Gecersiz URL: {url}"
+        return result
+
+    if scraper.config.enable_domain_whitelist and not URLValidator.is_allowed_domain(
+        normalized,
+        scraper.config.allowed_domains,
+    ):
+        result["error"] = f"Whitelist disi domain: {normalized}"
+        return result
+
+    robots_allowed = URLValidator.is_allowed_by_robots_strict(normalized, scraper.config.user_agent)
+    access_policy = build_access_policy_decision(
+        source,
+        include_inactive=True,
+        authorized_source_mode=env_bool("AUTHORIZED_SOURCE_MODE", False),
+        robots_override=env_bool("WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE", False),
+        robots_allowed=robots_allowed,
+        url=normalized,
+    )
+    result["access_policy"] = access_policy
+    if not access_policy["can_attempt_fetch"]:
+        result["error"] = access_policy["message"]
+        return result
+
+    try:
+        response = scraper._request_with_retry(normalized, "Liste sayfasi cekilemedi")
+    except ScrapingError as exc:
+        result["error"] = str(exc)
+        return result
+
+    pdf_links = WebScraper.extract_pdf_link_inventory(response.text, normalized)
+    result["fetch_ok"] = True
+    result["pdf_links"] = pdf_links
+    result["pdf_count"] = len(pdf_links)
+    return result
+
+
+def build_pdf_inventory_report(manifest_path, source_ids=None, include_inactive=False):
+    manifest = load_manifest(manifest_path)
+    sources = manifest_sources_by_id(
+        manifest,
+        source_ids=source_ids,
+        include_inactive=include_inactive,
+    )
+    scraper = WebScraper(ScraperConfig.from_env())
+    reports = [fetch_pdf_inventory_for_source(source, scraper) for source in sources]
+
+    unique_pdfs = {
+        pdf["normalized_url"]
+        for source in reports
+        for pdf in source.get("pdf_links", [])
+        if pdf.get("normalized_url")
+    }
+
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "mode": "pdf_inventory_only",
+        "manifest_path": manifest_path,
+        "source_ids": source_ids or [],
+        "include_inactive": include_inactive,
+        "sources": reports,
+        "totals": {
+            "source_count": len(reports),
+            "fetch_ok": sum(1 for source in reports if source.get("fetch_ok")),
+            "fetch_failed": sum(1 for source in reports if not source.get("fetch_ok")),
+            "pdf_count": sum(source.get("pdf_count", 0) for source in reports),
+            "unique_pdf_count": len(unique_pdfs),
+        },
+    }
+
+
+def build_access_preflight_report(manifest_path, source_ids=None, include_inactive=False):
+    manifest = load_manifest(manifest_path)
+    sources = manifest_sources_by_id(
+        manifest,
+        source_ids=source_ids,
+        include_inactive=include_inactive,
+    )
+    scraper_config = ScraperConfig.from_env()
+    authorized_source_mode = env_bool("AUTHORIZED_SOURCE_MODE", False)
+    robots_override = env_bool("WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE", False)
+    reports = []
+
+    for source in sources:
+        url = source.get("url", "")
+        normalized = URLValidator.normalize_url(url)
+        robots_allowed = None
+        error = None
+        if not URLValidator.is_valid_url(normalized):
+            error = f"Gecersiz URL: {url}"
+        elif scraper_config.enable_domain_whitelist and not URLValidator.is_allowed_domain(
+            normalized,
+            scraper_config.allowed_domains,
+        ):
+            error = f"Whitelist disi domain: {normalized}"
+        else:
+            robots_allowed = URLValidator.is_allowed_by_robots_strict(
+                normalized,
+                scraper_config.user_agent,
+            )
+
+        access_policy = build_access_policy_decision(
+            source,
+            include_inactive=include_inactive,
+            authorized_source_mode=authorized_source_mode,
+            robots_override=robots_override,
+            robots_allowed=robots_allowed,
+            url=normalized,
+        )
+        if error:
+            access_policy["can_attempt_fetch"] = False
+            access_policy["blocked_by"] = "network" if "Whitelist" not in error and "Gecersiz" not in error else access_policy["blocked_by"]
+            access_policy["message"] = error
+
+        reports.append({
+            "source_id": source.get("id"),
+            "title": source.get("title"),
+            "url": url,
+            "active": bool(source.get("active", True)),
+            "requires_permission": bool(source.get("requires_permission", False)),
+            "access_policy": access_policy,
+        })
+
+    return {
+        "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "mode": "access_preflight_only",
+        "manifest_path": manifest_path,
+        "source_ids": source_ids or [],
+        "include_inactive": include_inactive,
+        "sources": reports,
+        "totals": {
+            "source_count": len(reports),
+            "can_attempt_fetch": sum(
+                1 for source in reports
+                if source.get("access_policy", {}).get("can_attempt_fetch")
+            ),
+            "blocked": sum(
+                1 for source in reports
+                if not source.get("access_policy", {}).get("can_attempt_fetch")
+            ),
+        },
+    }
+
+
+def write_access_policy_markdown(report, path, command):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    lines = [
+        "# Faz 1B Erişim Politikası Raporu",
+        "",
+        f"Rapor tarihi: {report.get('generated_at')}",
+        "",
+        "## 1. Amaç",
+        "",
+        "Bu rapor kritik kaynaklar için robots.txt ve permission durumunu güvenli şekilde raporlar. Preflight modu sayfa HTML'i çekmez, PDF link çıkarmaz, PDF indirmez, ingestion çalıştırmaz ve ChromaDB'ye dokunmaz.",
+        "",
+        "## 2. Varsayılan Güvenli Mod",
+        "",
+        "`AUTHORIZED_SOURCE_MODE=false` iken `requires_permission=true` kaynaklar fetch denemesine alınmaz. `WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE=false` iken robots.txt engeli aşılmaz. Pasif kaynaklar sadece `--include-inactive` ile raporlama amacıyla değerlendirilir; manifestteki `active=false` değerleri değiştirilmez.",
+        "",
+        "## 3. Kritik Kaynakların Preflight Sonucu",
+        "",
+        "| source_id | active | requires_permission | authorized_source_mode | robots_override | robots_allowed | can_attempt_fetch | blocked_by | message |",
+        "|---|---:|---:|---:|---:|---:|---:|---|---|",
+    ]
+
+    for source in report.get("sources", []):
+        policy = source.get("access_policy", {})
+        lines.append(
+            "| {source_id} | {active} | {requires_permission} | {authorized} | {override} | {robots_allowed} | {can_fetch} | {blocked_by} | {message} |".format(
+                source_id=source.get("source_id"),
+                active=str(source.get("active")).lower(),
+                requires_permission=str(source.get("requires_permission")).lower(),
+                authorized=str(policy.get("authorized_source_mode")).lower(),
+                override=str(policy.get("robots_override")).lower(),
+                robots_allowed=str(policy.get("robots_allowed")).lower(),
+                can_fetch=str(policy.get("can_attempt_fetch")).lower(),
+                blocked_by=policy.get("blocked_by"),
+                message=policy.get("message"),
+            )
+        )
+
+    lines.extend([
+        "",
+        "## 4. İzinli Mod Notu",
+        "",
+        "Kritik kaynaklar için kurumsal/yazılı izin varsa izinli mod `.env` üzerinden bilinçli şekilde açılmalıdır: `AUTHORIZED_SOURCE_MODE=true`. robots engelini yetkili modda aşmak gerekiyorsa ayrıca `WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE=true` gerekir. Bu iki ayar varsayılan olarak kapalı kalmalıdır ve açıkken raporlarda/loglarda görünür olmalıdır.",
+        "",
+        "## 5. Sonraki Teknik Adım",
+        "",
+        "Kaynaklar izinli modda erişilebilir hale getirilirse önce PDF inventory dry-run tekrar çalıştırılmalı, ardından ayrı bir fazda PDF fetch dayanıklılığı ve ingestion öncesi kaynak seçimi ele alınmalıdır.",
+        "",
+        "## Çalıştırılan Komut",
+        "",
+        "```powershell",
+        command,
+        "```",
+    ])
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
+
+
+def write_pdf_inventory_markdown(report, path, command):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    lines = [
+        "# Faz 1A Kritik PDF Envanter Raporu",
+        "",
+        f"Rapor tarihi: {report.get('generated_at')}",
+        "",
+        "## 1. Amaç",
+        "",
+        "Bu rapor PDF indirme, PDF parse etme, ChromaDB'ye yazma veya ingestion amacı taşımaz. Sadece manifestteki kritik liste sayfalarının HTML içeriğinden PDF link envanteri çıkarmak için üretilmiştir.",
+        "",
+        "## 2. Çalıştırılan Komut",
+        "",
+        "```powershell",
+        command,
+        "```",
+        "",
+        "## 3. Kaynak Bazlı Sonuçlar",
+        "",
+    ]
+
+    for source in report.get("sources", []):
+        lines.extend([
+            f"### {source.get('source_id')}",
+            "",
+            f"- Başlık: {source.get('title')}",
+            f"- URL: `{source.get('url')}`",
+            f"- Active: `{str(source.get('active')).lower()}`",
+            f"- Requires permission: `{str(source.get('requires_permission')).lower()}`",
+            f"- Fetch sonucu: {'Başarılı' if source.get('fetch_ok') else 'Başarısız'}",
+            f"- Hata: {source.get('error') or 'Yok'}",
+            f"- Bulunan PDF sayısı: {source.get('pdf_count', 0)}",
+            "",
+        ])
+        links = source.get("pdf_links", [])[:10]
+        if links:
+            lines.extend([
+                "| # | PDF başlığı | URL |",
+                "|---:|---|---|",
+            ])
+            for index, pdf in enumerate(links, start=1):
+                lines.append(f"| {index} | {pdf.get('title')} | `{pdf.get('normalized_url')}` |")
+            lines.append("")
+        else:
+            lines.extend(["İlk 10 PDF listesi: PDF linki bulunamadı.", ""])
+
+    totals = report.get("totals", {})
+    lines.extend([
+        "## 4. Toplamlar",
+        "",
+        f"- Toplam kaynak: {totals.get('source_count', 0)}",
+        f"- Başarıyla okunan liste sayfası: {totals.get('fetch_ok', 0)}",
+        f"- Başarısız liste sayfası: {totals.get('fetch_failed', 0)}",
+        f"- Toplam PDF linki: {totals.get('pdf_count', 0)}",
+        f"- Benzersiz PDF linki: {totals.get('unique_pdf_count', 0)}",
+        "",
+        "## 5. Risk ve Gözlemler",
+        "",
+    ])
+
+    if totals.get("pdf_count", 0) == 0:
+        lines.extend([
+            "- PDF linki bulunamadıysa sayfa HTML yapısı beklenenden farklı olabilir.",
+            "- Linkler JavaScript ile sonradan yükleniyor olabilir.",
+            "- Liste sayfasında PDF linkleri doğrudan `<a href=\"...pdf\">` olarak bulunmuyor olabilir.",
+            "- robots.txt, whitelist, SSL veya network engeli liste sayfasının okunmasını engellemiş olabilir.",
+        ])
+    else:
+        lines.extend([
+            "- PDF linkleri bulundu; bu fazda PDF dosyaları indirilmedi ve parse edilmedi.",
+            "- Bir sonraki fazda PDF fetch dayanıklılığı, robots/izin politikası ve ingestion öncesi kaynak seçimi ele alınabilir.",
+        ])
+
+    with open(path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines) + "\n")
 
 
 def run_seed(seed, defaults, allowed_domains):
@@ -171,6 +495,15 @@ def parse_args():
     parser.add_argument("--manifest", default=DEFAULT_MANIFEST, help="Kaynak manifesti JSON yolu")
     parser.add_argument("--max-depth", type=int, default=None, help="Manifest derinligini override eder")
     parser.add_argument("--max-pages", type=int, default=None, help="Manifest sayfa limitini override eder")
+    parser.add_argument("--source-id", action="append", default=[], help="Sadece belirtilen manifest source id'sini isle")
+    parser.add_argument("--pdf-inventory-only", action="store_true", help="Liste sayfalarindan sadece PDF link envanteri cikar")
+    parser.add_argument("--access-preflight-only", action="store_true", help="Kaynak erisim politikasini HTML cekmeden raporla")
+    parser.add_argument("--include-inactive", action="store_true", help="Pasif manifest kaynaklarini sadece raporlama amaciyla dahil et")
+    parser.add_argument(
+        "--markdown-out",
+        default=None,
+        help="PDF envanter modu icin Markdown rapor yolu",
+    )
     parser.add_argument("--json", action="store_true", help="Raporu JSON olarak yazdir")
     parser.add_argument("--out", help="JSON raporu dosyaya yaz")
     return parser.parse_args()
@@ -179,12 +512,69 @@ def parse_args():
 def main():
     load_dotenv()
     args = parse_args()
-    report = build_discovery_report(args.manifest, args.max_depth, args.max_pages)
+    if args.access_preflight_only:
+        report = build_access_preflight_report(
+            args.manifest,
+            source_ids=args.source_id,
+            include_inactive=args.include_inactive,
+        )
+        command = (
+            ".\\venv\\Scripts\\python.exe discovery_report.py "
+            f"--manifest {args.manifest} "
+            + " ".join(f"--source-id {source_id}" for source_id in args.source_id)
+            + (" --include-inactive" if args.include_inactive else "")
+            + " --access-preflight-only"
+            + (" --json" if args.json else "")
+            + (f" --out {args.out}" if args.out else "")
+        )
+        markdown_out = args.markdown_out or os.path.join(
+            BASE_DIR,
+            "docs",
+            "FAZ1B_ERISIM_POLITIKASI_RAPORU.md",
+        )
+        write_access_policy_markdown(report, markdown_out, command.strip())
+    elif args.pdf_inventory_only:
+        report = build_pdf_inventory_report(
+            args.manifest,
+            source_ids=args.source_id,
+            include_inactive=args.include_inactive,
+        )
+        command = (
+            ".\\venv\\Scripts\\python.exe discovery_report.py "
+            f"--manifest {args.manifest} "
+            + " ".join(f"--source-id {source_id}" for source_id in args.source_id)
+            + (" --pdf-inventory-only" if args.pdf_inventory_only else "")
+            + (" --include-inactive" if args.include_inactive else "")
+            + (" --json" if args.json else "")
+            + (f" --out {args.out}" if args.out else "")
+        )
+        markdown_out = args.markdown_out or os.path.join(
+            BASE_DIR,
+            "docs",
+            "FAZ1A_KRITIK_PDF_ENVANTER_RAPORU.md",
+        )
+        write_pdf_inventory_markdown(report, markdown_out, command.strip())
+    else:
+        report = build_discovery_report(args.manifest, args.max_depth, args.max_pages)
     if args.out:
         with open(args.out, "w", encoding="utf-8") as f:
             json.dump(report, f, ensure_ascii=False, indent=2)
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
+    elif args.access_preflight_only:
+        totals = report.get("totals", {})
+        print("=== Selcuk Access Preflight Report ===")
+        print(f"Sources           : {totals.get('source_count', 0)}")
+        print(f"Can attempt fetch : {totals.get('can_attempt_fetch', 0)}")
+        print(f"Blocked           : {totals.get('blocked', 0)}")
+    elif args.pdf_inventory_only:
+        totals = report.get("totals", {})
+        print("=== Selcuk PDF Inventory Report ===")
+        print(f"Sources          : {totals.get('source_count', 0)}")
+        print(f"Fetch OK         : {totals.get('fetch_ok', 0)}")
+        print(f"Fetch failed     : {totals.get('fetch_failed', 0)}")
+        print(f"PDF links        : {totals.get('pdf_count', 0)}")
+        print(f"Unique PDF links : {totals.get('unique_pdf_count', 0)}")
     else:
         print_human(report)
 

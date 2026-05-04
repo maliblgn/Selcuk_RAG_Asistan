@@ -36,3 +36,15 @@ discovery_report.json
 central_batch_*.log
 ingestion_*.log
 source_inventory*.json
+
+# Safety ignores for local secrets, caches, and vector DB artifacts
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+chroma_db/
+chroma_db_legal_test/
+*.sqlite3
+*.sqlite
+*.db

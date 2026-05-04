@@ -1,5 +1,9 @@
 import os
 import logging
+import re
+import unicodedata
+from collections import Counter
+from urllib.parse import unquote
 from urllib.parse import urlparse
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -15,6 +19,22 @@ logger = logging.getLogger(__name__)
 
 # Gönderilecek bağlamın maksimum karakter sayısı (token taşmasını önler)
 MAX_CONTEXT_CHARS = 12_000
+
+SOURCE_INVENTORY_TERMS = (
+    "veritabaninda hangi kaynak",
+    "veri tabaninda hangi kaynak",
+    "veritabaninda ne var",
+    "veri tabaninda ne var",
+    "hangi kaynaklar var",
+    "hangi pdfler var",
+    "hangi pdf'ler var",
+    "islenen pdf",
+    "indexlenen pdf",
+    "kaynak listes",
+    "kaynak envanter",
+    "dokuman listes",
+    "belge listes",
+)
 
 class SelcukRAGEngine:
     def __init__(self):
@@ -60,7 +80,7 @@ class SelcukRAGEngine:
         self._temp_db = None
         
         # 3. LLM Ayarları (Groq Llama 3.1)
-        self.llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
+        self.llm = ChatGroq(model=os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"), temperature=0)
         
         # 4. Modlara Özel Promptlar (Multi-Agent UI)
         common_rules = (
@@ -124,7 +144,11 @@ class SelcukRAGEngine:
         )
         
         # 8. Reranker (FlashRank)
-        self.reranker = FlashrankRerank(top_n=5)
+        try:
+            self.reranker = FlashrankRerank(top_n=5)
+        except Exception as e:
+            logger.warning("FlashRank yuklenemedi, reranking devre disi: %s", e)
+            self.reranker = None
         
         logger.info("SelcukRAGEngine hazır.")
 
@@ -206,6 +230,10 @@ class SelcukRAGEngine:
             return []
             
         # 4. Cross-Encoder Re-ranking
+        if self.reranker is None:
+            logger.info("Reranker devre disi, ilk 5 dokuman donduruluyor.")
+            return unique_docs[:5]
+
         try:
             reranked_docs = self.reranker.compress_documents(unique_docs, question)
             logger.info(f"Reranking sonrası {len(reranked_docs)} doküman seçildi.")
@@ -242,6 +270,180 @@ class SelcukRAGEngine:
         if label.lower().endswith(".pdf"):
             label = label[:-4]
         return label or "Bilinmeyen Belge"
+
+    @staticmethod
+    def _normalize_question_text(text):
+        text = str(text or "").casefold()
+        text = "".join(
+            char for char in unicodedata.normalize("NFKD", text)
+            if not unicodedata.combining(char)
+        )
+        replacements = {
+            "ı": "i",
+            "ğ": "g",
+            "ü": "u",
+            "ş": "s",
+            "ö": "o",
+            "ç": "c",
+        }
+        for old, new in replacements.items():
+            text = text.replace(old, new)
+        return " ".join(text.split())
+
+    @classmethod
+    def is_source_inventory_question(cls, question):
+        """Kullanicinin mevcut index/kaynak envanterini istedigini yakala."""
+        normalized = cls._normalize_question_text(question)
+        if any(term in normalized for term in SOURCE_INVENTORY_TERMS):
+            return True
+
+        has_storage_term = any(term in normalized for term in ("veritabani", "veri tabani", "index", "chroma"))
+        has_source_term = any(term in normalized for term in ("kaynak", "pdf", "dokuman", "belge"))
+        has_list_intent = any(term in normalized for term in ("hangi", "liste", "neler", "var", "goster"))
+        return has_storage_term and has_source_term and has_list_intent
+
+    @staticmethod
+    def _clean_source_name(name):
+        name = unquote(str(name or "").strip())
+        if name.lower().endswith(".pdf"):
+            name = name[:-4]
+        return re.sub(r"_[0-9]{10,}$", "", name)
+
+    @staticmethod
+    def _source_display_name(source, title=""):
+        title = SelcukRAGEngine._clean_source_name(title)
+        if title:
+            return title
+
+        source = str(source or "").strip()
+        if not source:
+            return "Bilinmeyen Kaynak"
+
+        parsed = urlparse(source)
+        path = parsed.path if parsed.scheme else source
+        normalized_path = unquote(path).replace("\\", "/").rstrip("/")
+        filename = normalized_path.rsplit("/", 1)[-1]
+        if filename:
+            return SelcukRAGEngine._clean_source_name(filename)
+        return source
+
+    def get_source_inventory(self):
+        """ChromaDB icindeki benzersiz kaynaklari ve parca sayilarini dondur."""
+        try:
+            data = self.static_db.get(include=["metadatas"])
+        except TypeError:
+            data = self.static_db.get()
+        except Exception as exc:
+            logger.warning("Kaynak envanteri alinamadi: %s", exc)
+            return {
+                "ok": False,
+                "error": str(exc),
+                "total_chunks": 0,
+                "sources": [],
+                "source_type_counts": {},
+            }
+
+        metadatas = data.get("metadatas") or []
+        source_items = {}
+        source_type_counts = Counter()
+
+        for metadata in metadatas:
+            metadata = metadata or {}
+            source = metadata.get("source") or "Bilinmeyen Kaynak"
+            item = source_items.setdefault(source, {
+                "source": source,
+                "title": metadata.get("title") or "",
+                "source_type": metadata.get("source_type") or "unknown",
+                "chunks": 0,
+            })
+            item["chunks"] += 1
+            if not item.get("title") and metadata.get("title"):
+                item["title"] = metadata.get("title")
+            if item.get("source_type") == "unknown" and metadata.get("source_type"):
+                item["source_type"] = metadata.get("source_type")
+
+        for item in source_items.values():
+            source_type_counts[item.get("source_type") or "unknown"] += 1
+
+        sources = sorted(
+            source_items.values(),
+            key=lambda item: (-item["chunks"], self._source_display_name(item["source"], item.get("title")).casefold())
+        )
+
+        return {
+            "ok": True,
+            "total_chunks": len(metadatas),
+            "unique_sources": len(sources),
+            "sources": sources,
+            "source_type_counts": dict(source_type_counts),
+        }
+
+    @classmethod
+    def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=120):
+        """RAG motorunu baslatmadan ChromaDB kaynak envanteri cevabi uret."""
+        db_dir = db_dir or os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        try:
+            db = Chroma(persist_directory=db_dir)
+            engine = cls.__new__(cls)
+            engine.static_db = db
+            return engine.build_source_inventory_answer(max_sources=max_sources)
+        except Exception as exc:
+            logger.warning("Kaynak envanteri hafif modda alinamadi: %s", exc)
+            return (
+                "Su an veritabanindaki kaynak listesini okuyamadim. "
+                "Canli ortamda ChromaDB dosyalari veya veritabani baglantisi kontrol edilmeli."
+            )
+
+    def build_source_inventory_answer(self, max_sources=120):
+        """Mevcut veritabanindaki kaynaklari kullaniciya okunur sekilde anlat."""
+        inventory = self.get_source_inventory()
+        if not inventory.get("ok"):
+            return (
+                "Su an veritabanindaki kaynak listesini okuyamadim. "
+                "ChromaDB baglantisi veya yerel veritabani dosyalari kontrol edilmeli."
+            )
+
+        sources = inventory.get("sources", [])
+        if not sources:
+            return "Su an veritabaninda kayitli bir kaynak gorunmuyor."
+
+        type_counts = inventory.get("source_type_counts", {})
+        pdf_count = type_counts.get("web_pdf", 0)
+        web_count = type_counts.get("web_page", 0)
+        unknown_count = type_counts.get("unknown", 0)
+
+        summary_parts = []
+        if pdf_count:
+            summary_parts.append(f"{pdf_count} PDF")
+        if web_count:
+            summary_parts.append(f"{web_count} web sayfasi")
+        if unknown_count:
+            summary_parts.append(f"{unknown_count} diger kaynak")
+        summary = ", ".join(summary_parts) if summary_parts else f"{len(sources)} kaynak"
+
+        lines = [
+            "Su an acik olan veritabaninda indekslenmis kaynaklar sunlar:",
+            "",
+            f"Toplam: {inventory.get('unique_sources', len(sources))} benzersiz kaynak ({summary}) ve {inventory.get('total_chunks', 0)} metin parcasi.",
+            "",
+        ]
+
+        visible_sources = sources[:max_sources]
+        for index, item in enumerate(visible_sources, start=1):
+            source = item.get("source", "")
+            name = self._source_display_name(source, item.get("title"))
+            chunk_text = f"{item.get('chunks', 0)} parca"
+            if str(source).startswith("http"):
+                lines.append(f"{index}. [{name}]({source}) - {chunk_text}")
+            else:
+                lines.append(f"{index}. {name} - {chunk_text}")
+
+        remaining = len(sources) - len(visible_sources)
+        if remaining > 0:
+            lines.append("")
+            lines.append(f"...ve {remaining} kaynak daha var. Daha kisa bir liste icin belge turu veya birim adiyla sorabilirsin.")
+
+        return "\n".join(lines)
 
     def format_context(self, docs):
         """Dokümanları kaynak bilgisiyle birlikte bağlam metnine çevir."""

@@ -170,6 +170,22 @@ class URLValidator:
             logger.warning("robots.txt okunamadi, URL guvenli tarafta bloklandi (%s): %s", robots_url, exc)
             return False
 
+    @staticmethod
+    def is_allowed_by_robots_strict(url: str, user_agent: str) -> bool:
+        """robots.txt kontrolunu authorized override kullanmadan yap."""
+        if isinstance(user_agent, tuple):
+            user_agent = user_agent[0] if user_agent else "*"
+        parsed = urlparse(url)
+        robots_url = f"{parsed.scheme}://{parsed.netloc}/robots.txt"
+        rp = RobotFileParser()
+        rp.set_url(robots_url)
+        try:
+            rp.read()
+            return rp.can_fetch(user_agent, url)
+        except Exception as exc:
+            logger.warning("robots.txt okunamadi, URL guvenli tarafta bloklandi (%s): %s", robots_url, exc)
+            return False
+
 
 class ContentCleaner:
     @staticmethod
@@ -393,6 +409,51 @@ class WebScraper:
             if absolute not in seen:
                 seen.add(absolute)
                 found.append(absolute)
+        return found
+
+    @staticmethod
+    def _title_from_pdf_url(pdf_url: str) -> str:
+        parsed = urlparse(pdf_url)
+        filename = unquote(parsed.path.rstrip("/").rsplit("/", 1)[-1])
+        if filename.lower().endswith(".pdf"):
+            filename = filename[:-4]
+        filename = filename.replace("_", " ").replace("-", " ")
+        filename = re.sub(r"\s+", " ", filename).strip()
+        filename = re.sub(r"[\s_,-]*(?:\d{12,}|[0-9a-fA-F]{24,})$", "", filename).strip()
+        return filename or "PDF Belgesi"
+
+    @classmethod
+    def extract_pdf_link_inventory(cls, html: str, base_url: str) -> List[dict]:
+        """HTML icindeki PDF linklerini baslik ve normalize URL bilgisiyle cikar."""
+        soup = BeautifulSoup(html, "lxml")
+        found: List[dict] = []
+        seen = set()
+
+        for anchor in soup.find_all("a", href=True):
+            href = anchor["href"].strip()
+            if not href:
+                continue
+
+            absolute = urljoin(base_url, href)
+            normalized = URLValidator.normalize_discovered_url(absolute)
+            if ".pdf" not in normalized.lower():
+                continue
+            if normalized in seen:
+                continue
+            seen.add(normalized)
+
+            title = anchor.get_text(separator=" ", strip=True)
+            if not title:
+                title = cls._title_from_pdf_url(normalized)
+
+            found.append({
+                "title": title,
+                "url": absolute,
+                "normalized_url": normalized,
+                "domain": urlparse(normalized).netloc,
+                "source_page": base_url,
+            })
+
         return found
 
     def _pdf_url_to_documents(self, pdf_url: str) -> List[Document]:

@@ -183,6 +183,98 @@ class TestSuggestFollowups:
 
 
 # ---------------------------------------------------------------------------
+# Kaynak envanteri testleri
+# ---------------------------------------------------------------------------
+
+class TestSourceInventory:
+    def _get_engine(self):
+        engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+        engine.static_db = MagicMock()
+        return engine
+
+    def test_kaynak_envanteri_sorusu_yakalanir(self):
+        assert rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Su an veritabaninda hangi kaynaklar var?"
+        )
+        assert rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Basariyla islenen PDF'ler hangileri?"
+        )
+
+    def test_normal_mevzuat_sorusu_envanter_sayilmaz(self):
+        assert not rag_engine.SelcukRAGEngine.is_source_inventory_question(
+            "Staj muafiyet sartlari nelerdir?"
+        )
+
+    def test_kaynak_envanteri_cevabi_uretirilir(self):
+        engine = self._get_engine()
+        engine.static_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Burs%20Yonergesi.pdf",
+                    "title": "Burs Yonergesi",
+                    "source_type": "web_pdf",
+                },
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Burs%20Yonergesi.pdf",
+                    "title": "Burs Yonergesi",
+                    "source_type": "web_pdf",
+                },
+                {
+                    "source": "https://selcuk.edu.tr/anasayfa/detay/39873",
+                    "title": "Yonetmelikler",
+                    "source_type": "web_page",
+                },
+            ]
+        }
+
+        cevap = engine.build_source_inventory_answer()
+
+        assert "2 benzersiz kaynak" in cevap
+        assert "1 PDF" in cevap
+        assert "1 web sayfasi" in cevap
+        assert "Burs Yonergesi" in cevap
+        assert "2 parca" in cevap
+
+    def test_url_kodlu_pdf_adi_okunur_gosterilir(self):
+        engine = self._get_engine()
+        engine.static_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/uploads/%C3%96%C4%9Frenci%20Y%C3%B6nergesi_638315843142205508.pdf",
+                    "source_type": "web_pdf",
+                },
+            ]
+        }
+
+        cevap = engine.build_source_inventory_answer()
+
+        label = cevap.split("[", 1)[1].split("](", 1)[0]
+        assert "%C3%96" not in label
+        assert "_638315843142205508" not in label
+        assert "renci" in label
+        assert "nergesi" in label
+
+    @patch("rag_engine.Chroma")
+    def test_hafif_kaynak_envanteri_motor_baslatmadan_uretirilir(self, mock_chroma):
+        fake_db = MagicMock()
+        fake_db.get.return_value = {
+            "metadatas": [
+                {
+                    "source": "https://webadmin.selcuk.edu.tr/Test.pdf",
+                    "source_type": "web_pdf",
+                }
+            ]
+        }
+        mock_chroma.return_value = fake_db
+
+        cevap = rag_engine.SelcukRAGEngine.build_source_inventory_answer_from_db()
+
+        assert "1 benzersiz kaynak" in cevap
+        assert "Test" in cevap
+        mock_chroma.assert_called_once()
+
+
+# ---------------------------------------------------------------------------
 # MAX_CONTEXT_CHARS sabit testi
 # ---------------------------------------------------------------------------
 

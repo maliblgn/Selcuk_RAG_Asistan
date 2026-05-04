@@ -1,0 +1,77 @@
+{
+  "generated_at": "2026-05-04T08:45:55+00:00",
+  "looks_like_legal_text": true,
+  "article_count": 4,
+  "articles": [
+    {
+      "article_no": "1",
+      "article_title": "Amaç",
+      "start_char": 38,
+      "end_char": 133,
+      "content_preview": "MADDE 1 - Amaç\n(1) Bu Yönetmeliğin amacı örnek madde bazlı chunklama davranışını göstermektir."
+    },
+    {
+      "article_no": "2",
+      "article_title": "Tanımlar",
+      "start_char": 134,
+      "end_char": 215,
+      "content_preview": "MADDE 2 – Tanımlar\n(1) Bu Yönetmelikte geçen AKTS, öğrenci iş yükünü ifade eder."
+    },
+    {
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavları ile ilgili esaslar şunlardır",
+      "start_char": 216,
+      "end_char": 332,
+      "content_preview": "MADDE 43-(1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır:\na) Yeterlik sınavı yılda iki kez yapılabilir."
+    },
+    {
+      "article_no": "44",
+      "article_title": "Yürürlük",
+      "start_char": 333,
+      "end_char": 405,
+      "content_preview": "MADDE 44 - (1) Yürürlük\nBu Yönetmelik yayımı tarihinde yürürlüğe girer."
+    }
+  ],
+  "document_metadata_preview": [
+    {
+      "source": "demo",
+      "doc_type": "demo_yonetmelik",
+      "article_no": "1",
+      "article_title": "Amaç",
+      "page_start": null,
+      "page_end": null,
+      "chunk_type": "article",
+      "legal_chunker": true
+    },
+    {
+      "source": "demo",
+      "doc_type": "demo_yonetmelik",
+      "article_no": "2",
+      "article_title": "Tanımlar",
+      "page_start": null,
+      "page_end": null,
+      "chunk_type": "article",
+      "legal_chunker": true
+    },
+    {
+      "source": "demo",
+      "doc_type": "demo_yonetmelik",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavları ile ilgili esaslar şunlardır",
+      "page_start": null,
+      "page_end": null,
+      "chunk_type": "article",
+      "legal_chunker": true
+    },
+    {
+      "source": "demo",
+      "doc_type": "demo_yonetmelik",
+      "article_no": "44",
+      "article_title": "Yürürlük",
+      "page_start": null,
+      "page_end": null,
+      "chunk_type": "article",
+      "legal_chunker": true
+    }
+  ]
+}

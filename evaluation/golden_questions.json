@@ -1,0 +1,152 @@
+[
+  {
+    "id": "lisansustu_akts_tanim",
+    "question": "Selçuk Üniversitesi lisansüstü eğitiminde AKTS kısaltması hangi sistemin adıdır?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "4",
+    "expected_article_title_contains": ["Tanımlar"],
+    "expected_answer_terms": ["Avrupa Kredi Transfer Sistemi"],
+    "type": "definition",
+    "difficulty": "easy"
+  },
+  {
+    "id": "lisansustu_intihal_tanim",
+    "question": "Selçuk Üniversitesi lisansüstü eğitiminde intihal nasıl tanımlanır?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "4",
+    "expected_article_title_contains": ["Tanımlar"],
+    "expected_answer_terms": ["intihal", "bilimsel usullere uygun biçimde atıf"],
+    "type": "definition",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_butunlesik_doktora_tanim",
+    "question": "Selçuk Üniversitesi lisansüstü eğitiminde bütünleştirilmiş doktora ne demektir?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "4",
+    "expected_article_title_contains": ["Tanımlar"],
+    "expected_answer_terms": ["Bütünleştirilmiş doktora", "lisans derecesi"],
+    "type": "definition",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_doktora_yeterlik_esaslar",
+    "question": "Selçuk Üniversitesi’nde doktora yeterlik sınavları ile ilgili esaslar nelerdir?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "43",
+    "expected_article_title_contains": ["Doktora yeterlik sınavı"],
+    "expected_answer_terms": ["Doktora yeterlik sınavları", "esaslar"],
+    "type": "procedure",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_doktora_yeterlik_sure",
+    "question": "Selçuk Üniversitesi’nde doktora öğrencisi yeterlik sınavına en geç ne zaman girer?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "43",
+    "expected_article_title_contains": ["Doktora yeterlik sınavı"],
+    "expected_answer_terms": ["en geç beşinci yarıyılda", "yeterlik sınavına"],
+    "type": "deadline",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_butunlesik_doktora_yeterlik_sure",
+    "question": "Selçuk Üniversitesi’nde bütünleştirilmiş doktora öğrencisi yeterlik sınavına en geç ne zaman girer?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "43",
+    "expected_article_title_contains": ["Doktora yeterlik sınavı"],
+    "expected_answer_terms": ["bütünleştirilmiş doktora programında", "en geç yedinci yarıyılda"],
+    "type": "deadline",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_doktora_yeterlik_basarisiz",
+    "question": "Selçuk Üniversitesi’nde doktora yeterlik sınavında başarısız olan öğrencinin durumu ne olur?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "43",
+    "expected_article_title_contains": ["Doktora yeterlik sınavı"],
+    "expected_answer_terms": ["başarısız olan öğrenci", "bir sonraki yarıyılda tekrar sınava alınır"],
+    "type": "procedure",
+    "difficulty": "hard"
+  },
+  {
+    "id": "lisansustu_tez_izleme_komitesi_olusturma",
+    "question": "Selçuk Üniversitesi’nde tez izleme komitesi nasıl oluşturulur?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "44",
+    "expected_article_title_contains": ["Tez izleme komitesi"],
+    "expected_answer_terms": ["tez izleme komitesi", "enstitü yönetim kurulu kararı"],
+    "type": "procedure",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_tez_izleme_komitesi_uye_sayisi",
+    "question": "Selçuk Üniversitesi’nde tez izleme komitesi kaç öğretim üyesinden oluşur?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "44",
+    "expected_article_title_contains": ["Tez izleme komitesi"],
+    "expected_answer_terms": ["üç öğretim üyesinden oluşur"],
+    "type": "fact",
+    "difficulty": "easy"
+  },
+  {
+    "id": "lisansustu_ikinci_tez_danismani_komite",
+    "question": "Selçuk Üniversitesi’nde ikinci tez danışmanı tez izleme komitesi toplantılarına katılabilir mi?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "44",
+    "expected_article_title_contains": ["Tez izleme komitesi"],
+    "expected_answer_terms": ["ikinci tez danışmanı", "oy hakkı olmaksızın katılabilir"],
+    "type": "fact",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_tez_onerisi_savunma_sure",
+    "question": "Selçuk Üniversitesi’nde doktora tez önerisi ne kadar süre içinde savunulmalıdır?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "45",
+    "expected_article_title_contains": ["Tez önerisi savunması"],
+    "expected_answer_terms": ["tez önerisi", "altı ay içinde"],
+    "type": "deadline",
+    "difficulty": "hard"
+  },
+  {
+    "id": "lisansustu_tez_onerisi_rapor_sure",
+    "question": "Selçuk Üniversitesi’nde doktora tez önerisi raporu savunmadan kaç gün önce komiteye verilir?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "45",
+    "expected_article_title_contains": ["Tez önerisi savunması"],
+    "expected_answer_terms": ["on beş gün önce", "yazılı bir rapor"],
+    "type": "deadline",
+    "difficulty": "hard"
+  },
+  {
+    "id": "lisansustu_tezli_yuksek_lisans_amac",
+    "question": "Selçuk Üniversitesi’nde tezli yüksek lisans programının amacı nedir?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "24",
+    "expected_article_title_contains": ["Amaç ve kapsam"],
+    "expected_answer_terms": ["bilimsel araştırma yaparak", "bilgilere erişme"],
+    "type": "definition",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_tezli_yuksek_lisans_ders_kredi",
+    "question": "Selçuk Üniversitesi’nde tezli yüksek lisans programı en az kaç ders ve kaç krediden oluşur?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "26",
+    "expected_article_title_contains": ["Ders yükü"],
+    "expected_answer_terms": ["en az yedi ders", "21 krediden"],
+    "type": "fact",
+    "difficulty": "medium"
+  },
+  {
+    "id": "lisansustu_yuksek_lisans_tez_savunma_jurisi",
+    "question": "Selçuk Üniversitesi’nde yüksek lisans tez savunma jürisi nasıl oluşturulur?",
+    "expected_document_contains": ["LİSANSÜSTÜ", "LISANSUSTU", "Lisansüstü", "Lisansustu"],
+    "expected_article_no": "29",
+    "expected_article_title_contains": ["Yüksek lisans tezinin sonuçlanması"],
+    "expected_answer_terms": ["tez jürisi", "enstitü yönetim kurulu"],
+    "type": "procedure",
+    "difficulty": "hard"
+  }
+]

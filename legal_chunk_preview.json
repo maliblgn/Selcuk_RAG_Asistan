@@ -1,0 +1,100 @@
+{
+  "generated_at": "2026-05-04T08:56:17+00:00",
+  "mode": "read_only_chroma_legal_preview",
+  "db_path": "C:\\Users\\User\\Desktop\\Selcuk_RAG_Cloud\\chroma_db\\chroma.sqlite3",
+  "db_exists": true,
+  "original_embedding_count": 659,
+  "filters": {
+    "source_contains": [
+      "L%C4%B0SANS%C3%9CST%C3%9C"
+    ],
+    "title_contains": [],
+    "limit_sources": 2
+  },
+  "sources": [
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "original_chunk_count": 59,
+      "article_count": 59,
+      "unique_article_count": 58,
+      "duplicate_article_numbers": [
+        "58"
+      ],
+      "first_article_numbers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "reconstruction_mode": "page_metadata",
+      "source_type": "web_pdf",
+      "doc_type": "genel",
+      "has_article_4": true,
+      "article_4_title": "Bu Yönetmelikte geçen",
+      "article_4_preview": "MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Doktora programına lisans derecesi ile başvuru imkânı sağlayan üstün başarılı öğrencilere yönelik, yüksek lisans ve doktorayı birleştiren programı, ç) DUS: Diş Hekimliğinde Uzmanlık Sınavını, d) (Değişik ibare:RG-11/1/2024-32426) Enstitü anabilim dalı (EAB) /anasanat dalı: İlgili enstitü anabilim/anasanat dalını, e) EAB/an...",
+      "article_4_page_start": 1,
+      "article_4_page_end": 2,
+      "has_article_43": true,
+      "article_43_title": "Doktora yeterlik sınavları ile ilgili esaslar şunlardır",
+      "article_43_preview": "MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik sınavına tabi tutulur. (Ek cümleler:RG -3/4/2020-31088) Geçerli bir mazereti olmaksızın, belirtilen bu sürelerde yeterlik sınavına girmeyen öğren...",
+      "article_43_page_start": 16,
+      "article_43_page_end": 16,
+      "has_article_44": true,
+      "article_44_title": "Yeterlik sınavında başarılı bulunan öğrenci için, danışmanın görüşü alınarak",
+      "article_44_preview": "MADDE 44 - (1) Yeterlik sınavında başarılı bulunan öğrenci için, danışmanın görüşü alınarak ilgili EAB/anasanat dalı kurulunun önerisi ve enstitü yönetim kurulu kararı ile bir ay içi nde tez izleme komitesi oluşturulur. (2) Tez izleme komitesi üç öğretim üyesinden oluşur. Komitede danışmandan başka EAB/anasanat dalı içinden ve dışından birer üye yer alır. İkinci tez danışmanının olması durumunda ikinci tez danışmanı dilerse komite toplantılarına oy hakkı olmaksızın katılabilir. [Bağlam: L%C4%...",
+      "article_44_page_start": 16,
+      "article_44_page_end": 17
+    },
+    {
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "original_chunk_count": 53,
+      "article_count": 59,
+      "unique_article_count": 58,
+      "duplicate_article_numbers": [
+        "57"
+      ],
+      "first_article_numbers": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10"
+      ],
+      "reconstruction_mode": "page_metadata",
+      "source_type": "web_pdf",
+      "doc_type": "genel",
+      "has_article_4": true,
+      "article_4_title": "Bu Yönetmelikte geçen",
+      "article_4_preview": "MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Doktora programına lisans derec esi ile başvuru imkânı sağlayan üstün başarılı öğrencilere yönelik, yüksek lisans ve doktorayı birleştiren programı, ç) DUS: Diş Hekimliğinde Uzmanlık Sınavını, d) EAB/anasanat dalı: İlgili enstitü anabilim/anasanat dalını, e) EAB/anasanat dalı başkanı: İlgili EAB/anasanat dalı başkanını, f)...",
+      "article_4_page_start": 1,
+      "article_4_page_end": 2,
+      "has_article_43": true,
+      "article_43_title": "Doktora yeterlik sınavları ile ilgili esaslar şunlardır",
+      "article_43_preview": "MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik sınavına tabi tutulur. (Ek cümleler:RG-3/4/2020-31088) Geçerli bir mazereti olmaksızın, belirtilen bu sürelerde yeterlik sınavına girmeyen öğrenc...",
+      "article_43_page_start": 14,
+      "article_43_page_end": 15,
+      "has_article_44": true,
+      "article_44_title": "Yeterlik sınavında başarılı bulunan öğrenci için, danışmanın görüşü alınarak ilgili",
+      "article_44_preview": "MADDE 44 - (1) Yeterlik sınavında başarılı bulunan öğrenci için, danışmanın görüşü alınarak ilgili EAB/anasanat dalı kurulunun önerisi ve enstitü yönetim kurulu kararı ile bir ay içinde tez izleme komitesi oluşturulur. (2) Tez izleme komitesi üç öğret im üyesinden oluşur. Komitede danışmandan başka EAB/anasanat dalı içinden ve dışından birer üye yer alır. İkinci tez danışmanının olması durumunda ikinci tez danışmanı dilerse komite toplantılarına oy hakkı olmaksızın katılabilir. (3) Tez izleme...",
+      "article_44_page_start": 15,
+      "article_44_page_end": 15
+    }
+  ],
+  "totals": {
+    "selected_source_count": 2,
+    "total_articles": 118
+  }
+}
