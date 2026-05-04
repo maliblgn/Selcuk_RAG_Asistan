@@ -261,6 +261,66 @@ def _load_manifest_documents(manifest_file: str):
     return _scrape_url_entries(urls, manifest_file)
 
 
+def _load_local_pdf_documents(local_pdf_dir: str) -> List[Document]:
+    """Commit edilmeyen yerel PDF klasorundeki dosyalari Document listesine cevir."""
+    if not os.path.isdir(local_pdf_dir):
+        raise FileNotFoundError(f"Local PDF klasoru bulunamadi: {local_pdf_dir}")
+
+    try:
+        from pypdf import PdfReader
+    except ImportError as exc:
+        raise RuntimeError("Local PDF ingestion icin pypdf bagimliligi gerekli.") from exc
+
+    pdf_paths: List[str] = []
+    for root, _dirs, files in os.walk(local_pdf_dir):
+        for file_name in files:
+            if file_name.lower().endswith(".pdf"):
+                pdf_paths.append(os.path.join(root, file_name))
+    pdf_paths.sort()
+
+    docs: List[Document] = []
+    errors: List[str] = []
+    for pdf_path in pdf_paths:
+        abs_path = os.path.abspath(pdf_path)
+        title = os.path.splitext(os.path.basename(pdf_path))[0]
+        try:
+            reader = PdfReader(abs_path)
+            total_pages = len(reader.pages)
+            added_pages = 0
+            for index, page in enumerate(reader.pages, start=1):
+                text = page.extract_text() or ""
+                text = text.strip()
+                if not text:
+                    continue
+                docs.append(Document(
+                    page_content=text,
+                    metadata={
+                        "source": abs_path,
+                        "title": title,
+                        "source_type": "local_pdf",
+                        "doc_type": "manual_pdf",
+                        "page": index,
+                        "total_pages": total_pages,
+                        "extraction_method": "local_pdf_pypdf",
+                    },
+                ))
+                added_pages += 1
+            if added_pages == 0:
+                errors.append(f"empty_pdf_text: {abs_path}")
+        except Exception as exc:
+            errors.append(f"local_pdf_error ({abs_path}): {exc}")
+
+    if errors:
+        _write_failed_docs(errors)
+    logger.info(
+        "Local PDF klasoru okundu: %d PDF, %d metin sayfasi, %d hata",
+        len(pdf_paths),
+        len(docs),
+        len(errors),
+    )
+    return docs
+
+
 def _extract_url_from_error(error_message):
     match = re.search(r"https?://[^\s)]+", error_message or "")
     return match.group(0) if match else None
@@ -568,6 +628,7 @@ def _load_manifest_crawled_documents(
 def build_ingestion(
     urls_file=None,
     manifest_file=None,
+    local_pdf_dir=None,
     crawl=False,
     crawl_depth=None,
     crawl_max_pages=None,
@@ -607,6 +668,8 @@ def build_ingestion(
             crawl = False
         else:
             docs.extend(_load_manifest_documents(manifest_file))
+    if local_pdf_dir:
+        docs.extend(_load_local_pdf_documents(local_pdf_dir))
     if crawl:
         docs.extend(_load_crawled_documents(
             crawl_depth=crawl_depth,
@@ -624,6 +687,8 @@ def _parse_args():
     parser = argparse.ArgumentParser(description="Web kaynaklarini taranip ChromaDB'ye aktarir.")
     parser.add_argument("--urls", type=str, help="URL listesini tutan .txt dosya yolu")
     parser.add_argument("--manifest", type=str, help="JSON kaynak manifesti dosya yolu")
+    parser.add_argument("--local-pdf-dir", type=str,
+                        help="Commit edilmeyen yerel PDF klasorunu ChromaDB'ye ekler")
     parser.add_argument("--crawl", action="store_true",
                         help="Otonom crawler'i calistirip bulunan URL'leri isle")
     parser.add_argument("--crawl-depth", type=int, default=None,
@@ -643,13 +708,14 @@ def main():
 
     # Eger hicbir arguman verilmediyse crawler'i calistir
     crawl = args.crawl
-    if not args.urls and not args.manifest and not args.crawl:
+    if not args.urls and not args.manifest and not args.local_pdf_dir and not args.crawl:
         logger.info("Hicbir arguman verilmedi, varsayilan olarak crawler calistirilacak.")
         crawl = True
 
     build_ingestion(
         urls_file=args.urls,
         manifest_file=args.manifest,
+        local_pdf_dir=args.local_pdf_dir,
         crawl=crawl,
         crawl_depth=args.crawl_depth,
         crawl_max_pages=args.crawl_max_pages,

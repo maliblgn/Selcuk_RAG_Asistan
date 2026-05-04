@@ -1,0 +1,1153 @@
+{
+  "generated_at": "2026-05-04T19:22:03+00:00",
+  "mode": "pdf_inventory_only",
+  "manifest_path": "source_manifest.json",
+  "source_ids": [
+    "central_regulations_listing",
+    "central_directives_listing"
+  ],
+  "include_inactive": true,
+  "sources": [
+    {
+      "source_id": "central_regulations_listing",
+      "title": "Selcuk Universitesi Yonetmelikler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39873",
+      "active": false,
+      "requires_permission": true,
+      "fetch_ok": true,
+      "error": null,
+      "pdf_count": 72,
+      "pdf_links": [
+        {
+          "title": "Akademik Takvim",
+          "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/2468/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/2468/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Akademik Takvim",
+          "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "2809 Sayili Yüksekögretim Kurumlari Teskilati Kanununun Ek 55. Maddesinde Belirtilen Özel Hesabin Olusturulmasi, Kullanimi ve Denetimine Dair Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/2809-SAYILI-YUKSEKOGRETIM-KURUMLARI-TESKILATI-KANUNUNUN-EK-55-INCI-MADDESINDE-BELIRTILEN-OZEL-HESABIN-OLUSTURULMASI-KULLANIMI-VE-DENETIMINE-DAIR-YONETMELIK_638218311037386811.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/2809-SAYILI-YUKSEKOGRETIM-KURUMLARI-TESKILATI-KANUNUNUN-EK-55-INCI-MADDESINDE-BELIRTILEN-OZEL-HESABIN-OLUSTURULMASI-KULLANIMI-VE-DENETIMINE-DAIR-YONETMELIK_638218311037386811.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "6111 Sayili Kanunun Yüksekögretime Iliskin Hükümlerinin Uygulamasi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/6111 SAYILI KANUNUN YÜKSEKÖĞRETİME İLİŞKİN HÜKÜMLERİNİN UYGULAMA_638218311037853300.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/6111%20SAYILI%20KANUNUN%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0ME%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20H%C3%9CK%C3%9CMLER%C4%B0N%C4%B0N%20UYGULAMA_638218311037853300.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Akademik Teşvik Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Akademik Teşvik Yönetmeliği_638695962474551552.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Akademik%20Te%C5%9Fvik%20Y%C3%B6netmeli%C4%9Fi_638695962474551552.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Anadolu Arkeolojisi Seramigi Uygulama ve Arastirma Merkezi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Asi Gelistirme Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/ASI-GELISTIRME-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311038909528.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/ASI-GELISTIRME-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311038909528.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Bilgi Edinme Hakki Kanununun Uygulanmasina",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/BİLGİ EDİNME HAKKI KANUNUNUN UYGULANMASINA_638218311039291120.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20KANUNUNUN%20UYGULANMASINA_638218311039291120.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Bilgisayar Bilimleri Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/BILGISAYAR-BILIMLERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311039697179.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/BILGISAYAR-BILIMLERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311039697179.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Bitki Islahi ve Tohumluk Teknolojileri Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-BITKI-ISLAHI-VE-TOHUMLUK-TEKNOLOJILERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311046967527.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-BITKI-ISLAHI-VE-TOHUMLUK-TEKNOLOJILERI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311046967527.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Dikey Geçis Uygulamasina Iliskin Senato Karari",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DİKEY GEÇİŞ UYGULAMASINA İLİŞKİN SENATO KARARI_638218311040085713.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0KEY%20GE%C3%87%C4%B0%C5%9E%20UYGULAMASINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20SENATO%20KARARI_638218311040085713.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Dilek-Sabanci Egitim Ögretim Sinav Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DILEK-SABANCI-EGT-OGR-SINAV-YONETMELIGI_638218311040514839.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DILEK-SABANCI-EGT-OGR-SINAV-YONETMELIGI_638218311040514839.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Dilek Sabancı Devlet Konservatuvarı Eğitim-Öğretim Ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DİLEK SABANCI DEVLET KONSERVATUVARI EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ_638899175173608173.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0LEK%20SABANCI%20DEVLET%20KONSERVATUVARI%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899175173608173.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Diş Hekimliği Fakültesi Eğitim-Öğretim Ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DİŞ HEKİMLİĞİ FAKÜLTESİ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ_638914509492090889.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/D%C4%B0%C5%9E%20HEK%C4%B0ML%C4%B0%C4%9E%C4%B0%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638914509492090889.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Dogal Ürünler Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DOGAL-URUNLER_638218311041373728.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/DOGAL-URUNLER_638218311041373728.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Havacilik ve Uzay Teknolojileri Uygulama ve Arastirma Merkezi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-HAVACILIK-VE-UZAY-TEKNOLOJILERI-UYG-VE-ARS-MERKEZI_638218311057748926.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-HAVACILIK-VE-UZAY-TEKNOLOJILERI-UYG-VE-ARS-MERKEZI_638218311057748926.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Hukuk Fakültesi Eğitim-Öğretim ve Sınav Yönetmeliği.pdf",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Imam Maturidi Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/IMAM-MATURIDI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311041773138.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/IMAM-MATURIDI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311041773138.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Insan Haklari Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/INSAN-HAKLARI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311042200354.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/INSAN-HAKLARI-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311042200354.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Güzel Sanatlar Fakültesi Eğitim-Öğretim ve Sınav Yönetmeliği.pdf",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Is Sagligi ve Güvenligi Meslek Hastaliklari Arastirma Uygulama Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-IS-SAG-VE-GUV-MES-HAST-ARS-UYG-MERK-YONETMELIGI_638218311058085256.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-IS-SAG-VE-GUV-MES-HAST-ARS-UYG-MERK-YONETMELIGI_638218311058085256.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Kadin Aile ve Toplum Hizmetleri Arastirma Uygulama Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-KADIN-AILE-VE-TOPLUM-HIZM-ARS-UY-MERK- YONETMELIGI_638218311058473688.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SU-KADIN-AILE-VE-TOPLUM-HIZM-ARS-UY-MERK-%20YONETMELIGI_638218311058473688.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Kamu Kurum ve Kuruluslarinda Görevde Yükselme ve Unvan Degisikligi Esaslarina Dair Genel Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KAMU KURUM VE KURULUŞLARINDA GÖREVDE YÜKSELME VE UNVAN DEĞİŞİKLİĞİ ESASLARINA DAİR GENEL YÖNETMELİK_638218311042851616.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KAMU%20KURUM%20VE%20KURULU%C5%9ELARINDA%20G%C3%96REVDE%20Y%C3%9CKSELME%20VE%20UNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20ESASLARINA%20DA%C4%B0R%20GENEL%20Y%C3%96NETMEL%C4%B0K_638218311042851616.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Klinik Arastirmalar Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.Ü.Klinik_Araşt._Uygl._ve_Araşt.Mrk.Yönt_638218311046539081.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.%C3%9C.Klinik_Ara%C5%9Ft._Uygl._ve_Ara%C5%9Ft.Mrk.Y%C3%B6nt_638218311046539081.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Küçükbas Hayvancilik Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-KUCUKBAS-HAYVANCILIK-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311047494191.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELCUK-UNIVERSITESI-KUCUKBAS-HAYVANCILIK-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311047494191.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Kültür Sanat Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KULTUR-SANAT-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311043276564.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/KULTUR-SANAT-UYGULAMA-VE-ARASTIRMA-MERKEZI-YONETMELIGI_638218311043276564.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Lisansüstü Egitim ve Ögretim Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE_638218311048381336.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Lazer Uyarimli Proton Terapi Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ LAZER UYARIMLI PROTON TERAPİ UYGULAMA_638218311047945982.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20LAZER%20UYARIMLI%20PROTON%20TERAP%C4%B0%20UYGULAMA_638218311047945982.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Lisansüstü Eğitim Ve Öğretim Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ_638959464713301934.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Meslek Yüksekokullari ve Açikögretim Ön Lisans Programlari Mezunlarinin Lisans Ögrenimine Devami Hakkinda Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/MESLEK YÜKSEKOKULLARI VE AÇIKÖĞRETİM ÖN LİSANS PROGRAMLARI MEZUNLARININ LİSANS ÖĞRENİMİNE DEVAMLARI HAKKINDA YÖNETMELİK_638218311043714906.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/MESLEK%20Y%C3%9CKSEKOKULLARI%20VE%20A%C3%87IK%C3%96%C4%9ERET%C4%B0M%20%C3%96N%20L%C4%B0SANS%20PROGRAMLARI%20MEZUNLARININ%20L%C4%B0SANS%20%C3%96%C4%9EREN%C4%B0M%C4%B0NE%20DEVAMLARI%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311043714906.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Nasreddin Hoca Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ NASREDDİN HOCA UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311048915710.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20NASREDD%C4%B0N%20HOCA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311048915710.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Nükleer Malzemeler Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ NÜKLEER MALZEMELER UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311049335075.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20N%C3%9CKLEER%20MALZEMELER%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049335075.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Orta Dogu Arastirmalari Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ ORTADOĞU ARAŞTIRMALARI UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311049731180.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ORTADO%C4%9EU%20ARA%C5%9ETIRMALARI%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311049731180.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Osmanli Tarihi ve Medeniyeti Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ OSMANLI TARİHİ VE MEDENİYETİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311050100194.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OSMANLI%20TAR%C4%B0H%C4%B0%20VE%20MEDEN%C4%B0YET%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050100194.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Otizm Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ OTİZM UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311050458469.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OT%C4%B0ZM%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311050458469.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Otomotiv Teknolojileri Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ OTOMOTİV TEKNOLOJİLERİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMEKLİĞİ_638218311050893258.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20OTOMOT%C4%B0V%20TEKNOLOJ%C4%B0LER%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEKL%C4%B0%C4%9E%C4%B0_638218311050893258.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği_638315843142205508.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Ölçme, Degerlendirme, Belgeleme ve Mesleki Egitim Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ ÖLÇME, DEĞERLENDİRME, BELGELENDİRME VE MESLEKİ EĞİTİM UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311051292347.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96L%C3%87ME%2C%20DE%C4%9EERLEND%C4%B0RME%2C%20BELGELEND%C4%B0RME%20VE%20MESLEK%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311051292347.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği_638893979669167204.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Proje Gelistirme ve Yönetimi Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ PROJE GELİŞTİRME VE YÖNETİMİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311052571249.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20PROJE%20GEL%C4%B0%C5%9ET%C4%B0RME%20VE%20Y%C3%96NET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311052571249.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Resmi Yazismalarda Uygulanacak Esas ve Usuller Hakkinda Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/RESMÎ YAZIŞMALARDA UYGULANACAK ESAS VE USULLER HAKKINDA YÖNETMELİK_638218311045321312.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/RESM%C3%8E%20YAZI%C5%9EMALARDA%20UYGULANACAK%20ESAS%20VE%20USULLER%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311045321312.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Saglik Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ SAĞLIK UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİİĞİ_638218311052921921.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SA%C4%9ELIK%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%B0%C4%9E%C4%B0_638218311052921921.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Savunma Teknolojisi Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ SAVUNMA TEKNOLOJİSİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311053410501.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SAVUNMA%20TEKNOLOJ%C4%B0S%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053410501.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Sürekli Egitim Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ SÜREKLİ EĞİTİM UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311053997266.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20S%C3%9CREKL%C4%B0%20E%C4%9E%C4%B0T%C4%B0M%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311053997266.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Tarimsal Uygulama ve Arastirma Merkezi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.Ü. TARIMSAL UYGULAMA VE ARAŞTIRMA MERKEZİ_638218311046044270.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S.%C3%9C.%20TARIMSAL%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0_638218311046044270.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Teknoloji Gelistirme Bölgeleri Uygulama Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TEKNOLOJİ GELİŞTİRME BÖLGELERİ UYGULAMA YÖNETMELİĞİ_638218311059461395.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TEKNOLOJ%C4%B0%20GEL%C4%B0%C5%9ET%C4%B0RME%20B%C3%96LGELER%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059461395.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Tip Fakültesi Egitim-Ögretim ve Sinav Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TIP FAKÜLTESİ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ_638635650166490282.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TIP%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638635650166490282.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Türk Halk Kültürü Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ TÜRK HALK KÜLTÜRÜ UYGULAMA ve ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311054769922.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%20HALK%20K%C3%9CLT%C3%9CR%C3%9C%20UYGULAMA%20ve%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311054769922.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Türkçe Ögretimi Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ TÜRKÇE ÖĞRETİMİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ,_638218311055267504.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C3%9CRK%C3%87E%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%2C_638218311055267504.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Türkiye Büyük Millet Meclisi Baskanligi Bilgi Edinme Hakki Uygulama Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/TÜRKİYE BÜYÜK MİLLET MECLİSİ BAŞKANLIĞI BİLGİ EDİNME HAKKI UYGULAMA YÖNETMELİĞİ_638218311059751548.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/T%C3%9CRK%C4%B0YE%20B%C3%9CY%C3%9CK%20M%C4%B0LLET%20MECL%C4%B0S%C4%B0%20BA%C5%9EKANLI%C4%9EI%20B%C4%B0LG%C4%B0%20ED%C4%B0NME%20HAKKI%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311059751548.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Uluslararasi Göç ve Diaspora Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ ULUSLARARASI GÖÇ VE DİASPORA UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311055694693.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20G%C3%96%C3%87%20VE%20D%C4%B0ASPORA%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311055694693.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Uluslararasi Ilaç Mükemmeliyet Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ ULUSLARARASI İLAÇ MÜKEMMELİYET UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311056023925.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ULUSLARARASI%20%C4%B0LA%C3%87%20M%C3%9CKEMMEL%C4%B0YET%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056023925.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Uzaktan Egitim Uygulama ve Arastirma Merkezi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Selçuk Üniversitesi Uzaktan Eğitim Uygulama Ve Araştırma Merkezi Yönetmeliği_638218311056421195.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Sel%C3%A7uk%20%C3%9Cniversitesi%20Uzaktan%20E%C4%9Fitim%20Uygulama%20Ve%20Ara%C5%9Ft%C4%B1rma%20Merkezi%20Y%C3%B6netmeli%C4%9Fi_638218311056421195.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yenilenebilir Ve Temiz Enerji Uygulama Ve Araştırma Merkezi Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SELÇUK ÜNİVERSİTESİ YENİLENEBİLİR VE TEMİZ ENERJİ UYGULAMA VE ARAŞTIRMA MERKEZİ YÖNETMELİĞİ_638218311056719604.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20YEN%C4%B0LENEB%C4%B0L%C4%B0R%20VE%20TEM%C4%B0Z%20ENERJ%C4%B0%20UYGULAMA%20VE%20ARA%C5%9ETIRMA%20MERKEZ%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311056719604.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Vakif Yüksekögretim Kurumlari Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VAKIF YÜKSEKÖĞRETİM KURUMLARI YÖNETMELİĞİ_638218311060222836.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VAKIF%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060222836.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Veteriner Fakültesi Eğitim-Öğretim Ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VETERİNER FAKÜLTESİ EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ_638899176332021415.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/VETER%C4%B0NER%20FAK%C3%9CLTES%C4%B0%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20VE%20SINAV%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638899176332021415.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yabancı Diller Yüksekokulu Yabancı Diller Bölümü Eğitim-Öğretim Ve Sınav Yönetmeliği",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/28b90a79-bd78-4853-9588-8280fa176b1d.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/28b90a79-bd78-4853-9588-8280fa176b1d.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yabanci Diller Yüksekokulu Yabanci Diller Bölümü Egitim Ögretim ve Sinav Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YABANCI-DILLER-YUKSEKOKULU-YABANCI-DILLER-BOLUMU-EGITIM-OGRETIM-VE-SINAV-YONETMELIGI_638218311058783114.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YABANCI-DILLER-YUKSEKOKULU-YABANCI-DILLER-BOLUMU-EGITIM-OGRETIM-VE-SINAV-YONETMELIGI_638218311058783114.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yaz Okulu Uygulama Esaslari",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlari Arasinda Ögrenci ve Ögretim Üyesi Degisim Programina Iliskin Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARI ARASINDA ÖĞRENCİ VE ÖĞRETİM ÜYESİ DEĞİŞİM PROĞRAMINA İLİŞKİN YÖNETMELİK_638218311061029102.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20ARASINDA%20%C3%96%C4%9ERENC%C4%B0%20VE%20%C3%96%C4%9ERET%C4%B0M%20%C3%9CYES%C4%B0%20DE%C4%9E%C4%B0%C5%9E%C4%B0M%20PRO%C4%9ERAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311061029102.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurulu Arsiv Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURULU ARŞİV YÖNETMELİĞİ_638218311060537899.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURULU%20AR%C5%9E%C4%B0V%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311060537899.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinda Akademik Degerlendirme ve Kalite Gelistirme Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARINDA AKADEMİK DEĞERLENDİRME VE KALİTE GELİŞTİRME YÖNETMELİĞİ_638218311063044031.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20DE%C4%9EERLEND%C4%B0RME%20VE%20KAL%C4%B0TE%20GEL%C4%B0%C5%9ET%C4%B0RME%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063044031.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinda Akademik Kurullarin Olusturulmasi ve Bilimsel Denetim Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARINDA AKADEMİK KURULLARIN OLUŞTURULMASI VE BİLİMSEL DENETİM YÖNETMELİĞİ_638218311063366951.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20AKADEM%C4%B0K%20KURULLARIN%20OLU%C5%9ETURULMASI%20VE%20B%C4%B0L%C4%B0MSEL%20DENET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311063366951.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlari Bilimsel Arastirma Projeleri Hakkinda Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Yükseköğretim_Kurumları_Bilimsel_Araştırma_Projeleri_Hakkında_Yönetmelik_638218311066227331.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%BCksek%C3%B6%C4%9Fretim_Kurumlar%C4%B1_Bilimsel_Ara%C5%9Ft%C4%B1rma_Projeleri_Hakk%C4%B1nda_Y%C3%B6netmelik_638218311066227331.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinda Döner Sermaye Gelirlerinden Yapilacak Ek Ödemenin Dagitilmasinda Uygulanacak Usul ve Esaslara Iliskin Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARINDA DÖNER SERMAYE GELİRLERİNDEN YAPILACAK EK ÖDEMENİN DEAĞITILMASINDA UYGULANACAK USUL VE ESALARA İLİŞKİN YÖNETMELİK_638218311063679593.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20D%C3%96NER%20SERMAYE%20GEL%C4%B0RLER%C4%B0NDEN%20YAPILACAK%20EK%20%C3%96DEMEN%C4%B0N%20DEA%C4%9EITILMASINDA%20UYGULANACAK%20USUL%20VE%20ESALARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311063679593.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlari, Mediko-Sosyal Saglik, Kültür ve Spor Isleri Dairesi Uygulama Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARI, MEDİKO-SOSYAL SAĞLIK, KÜLTÜR VE SPOR İŞLERİ DAİRESİ UYGULAMA YÖNETMELİĞİ_638218311062690142.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%2C%20MED%C4%B0KO-SOSYAL%20SA%C4%9ELIK%2C%20K%C3%9CLT%C3%9CR%20VE%20SPOR%20%C4%B0%C5%9ELER%C4%B0%20DA%C4%B0RES%C4%B0%20UYGULAMA%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062690142.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlari Ögretim Elemanlari ile Yabanci Uyruklu Elemanlarinin Gelistirme Egitimi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARI ÖĞRETİM ELEMANLARI İLE YABANCI UYRUKLU ELEMANLOARI GELİŞTİRME EĞİTİMİ YÖNETMELİĞİ_638218311062310220.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20%C3%96%C4%9ERET%C4%B0M%20ELEMANLARI%20%C4%B0LE%20YABANCI%20UYRUKLU%20ELEMANLOARI%20GEL%C4%B0%C5%9ET%C4%B0RME%20E%C4%9E%C4%B0T%C4%B0M%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311062310220.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinda Yabanci Dil Ögretimi ve Yabanci Dille Ögretim Yapilmasinda Uyulacak Esaslara Iliskin Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARINDA YABANCI DİL ÖĞRETİMİ VE YABANCI DİLLE ÖĞRETİM YAPILMASINDA UYULACAK ESASLARA İLİŞKİN YÖNETMELİK_638218311064206229.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARINDA%20YABANCI%20D%C4%B0L%20%C3%96%C4%9ERET%C4%B0M%C4%B0%20VE%20YABANCI%20D%C4%B0LLE%20%C3%96%C4%9ERET%C4%B0M%20YAPILMASINDA%20UYULACAK%20ESASLARA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20Y%C3%96NETMEL%C4%B0K_638218311064206229.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinin Yurtdisindaki Kapsama Dahil Yüksekögretim Kurumlariyla Ortak Egitim ve Ögretim Programlari Tesisi Hakkinda Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARININ YURTDIŞINDAKİ KAPSAMA DAHİL YÜKSEKÖĞRETİM KURUMLOARIYLA ORTAK EĞİTİM VE ÖĞRETİM PROĞRAMLARI TESİSİ HAKINNINDA YÖNETMELİK_638218311064645228.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURTDI%C5%9EINDAK%C4%B0%20KAPSAMA%20DAH%C4%B0L%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLOARIYLA%20ORTAK%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKINNINDA%20Y%C3%96NETMEL%C4%B0K_638218311064645228.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinin Yurtiçindeki Yüksekögretim Kurumlariyla Ortak Lisansüstü Egitim ve Ögretim Programlari Tesisi Hakkinda Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM KURUMLARININ YURTİÇİNDEKİ YÜKSEKÖĞRETİM KURUMLARIYLA ORTAK LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM PROĞRAMLARI TESİSİ HAKKINDA YÖNETMELİK_638218311064964316.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARININ%20YURT%C4%B0%C3%87%C4%B0NDEK%C4%B0%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARIYLA%20ORTAK%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20PRO%C4%9ERAMLARI%20TES%C4%B0S%C4%B0%20HAKKINDA%20Y%C3%96NETMEL%C4%B0K_638218311064964316.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Üst Kuruluslari Ile Yüksekögretim Kurumlari Personeli Özverde Yükselme ve Unvan Degisikligi Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM ÜST KURULUŞLARI İLE YÜKSEKÖĞRETİM KURUMLARI PERSONELİ ÖREVDE YÜKSELME VE ÜNVAN DEĞİŞİKLİĞİ YÖNETMELİĞİ_638218311065333308.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20PERSONEL%C4%B0%20%C3%96REVDE%20Y%C3%9CKSELME%20VE%20%C3%9CNVAN%20DE%C4%9E%C4%B0%C5%9E%C4%B0KL%C4%B0%C4%9E%C4%B0%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065333308.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        },
+        {
+          "title": "Yüksekögretim Üst Kuruluslari Ile Yüksekögretim Kurumlari Sicil Yönetmeligi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/YÜKSEKÖĞRETİM ÜST KURULUŞLARI İLE YÜKSEKÖĞRETİM KURUMLARI SİCİL YÖNETMELİĞİ_638218311065857444.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20%C3%9CST%20KURULU%C5%9ELARI%20%C4%B0LE%20Y%C3%9CKSEK%C3%96%C4%9ERET%C4%B0M%20KURUMLARI%20S%C4%B0C%C4%B0L%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638218311065857444.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39873"
+        }
+      ],
+      "access_policy": {
+        "can_attempt_fetch": true,
+        "blocked_by": "none",
+        "requires_permission": true,
+        "authorized_source_mode": true,
+        "robots_override": true,
+        "robots_allowed": false,
+        "message": "Yetkili mod aktif: AUTHORIZED_SOURCE_MODE ve WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE acik oldugu icin robots engeli bilincli/yetkili modda asiliyor."
+      }
+    },
+    {
+      "source_id": "central_directives_listing",
+      "title": "Selcuk Universitesi Yonergeler Listesi",
+      "url": "https://selcuk.edu.tr/anasayfa/detay/39874",
+      "active": false,
+      "requires_permission": true,
+      "fetch_ok": true,
+      "error": null,
+      "pdf_count": 84,
+      "pdf_links": [
+        {
+          "title": "Akademik Takvim",
+          "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/2468/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/2468/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Akademik Takvim",
+          "url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads/Contents/main/icerik/3252/2025-2026%20E%C4%9Fitim-%C3%96%C4%9Fretim%20Y%C4%B1l%C4%B1%20Genel%20Akademik%20Takvimi_638895488876249013.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ad Verme Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ AD VERME YÖNERGESİ_638218312293941207.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AD%20VERME%20Y%C3%96NERGES%C4%B0_638218312293941207.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Akşehir Mühendislik ve Mimarlık Fakültesi İşletmede Meslek Eğitimi Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ AKŞEHİR MÜHENDİSLİK VE MİMARLIK FAKÜLTESİ İŞLETMEDE MESLEK EĞİTİM YÖNERGESİ_638218312294337016.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20AK%C5%9EEH%C4%B0R%20M%C3%9CHEND%C4%B0SL%C4%B0K%20VE%20M%C4%B0MARLIK%20FAK%C3%9CLTES%C4%B0%20%C4%B0%C5%9ELETMEDE%20MESLEK%20E%C4%9E%C4%B0T%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312294337016.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Araç İşletme Müdürlüğü Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNÜİVERSİTESİ ARAÇ İŞLETME MÜDÜRLÜĞÜ YÖNERGESİ_638218312311914341.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C3%9C%C4%B0VERS%C4%B0TES%C4%B0%20ARA%C3%87%20%C4%B0%C5%9ELETME%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20Y%C3%96NERGES%C4%B0_638218312311914341.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Azami Öğrenim Süresi Dolan Öğrenciler İçin Ek Sınav Hakkı Verilmesine İlişkin Yönerge",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami Öğrenim Süresi Dolan Öğrenciler İçin Ek Sınav Hakkı Verilmesine İlişkin Yönerge_638345667733775054.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami%20%C3%96%C4%9Frenim%20S%C3%BCresi%20Dolan%20%C3%96%C4%9Frenciler%20%C4%B0%C3%A7in%20Ek%20S%C4%B1nav%20Hakk%C4%B1%20Verilmesine%20%C4%B0li%C5%9Fkin%20Y%C3%B6nerge_638345667733775054.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Azami Süre Sonu Ek Sınavlarla İlgili Uygulama Esasları",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami Süre Sonu Ek Sınavlarla İlgili Uygulama EsaslarıRetryClaude can make mistakes.26_05_2025_638866295929060330.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Azami%20S%C3%BCre%20Sonu%20Ek%20S%C4%B1navlarla%20%C4%B0lgili%20Uygulama%20Esaslar%C4%B1RetryClaude%20can%20make%20mistakes.26_05_2025_638866295929060330.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "BAP Yönergesi ve Uygulama",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ BAP Yönergesi ve Uygulama_638218312294745117.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20BAP%20Y%C3%B6nergesi%20ve%20Uygulama_638218312294745117.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Beyşehir Ali Akkanat Uygulamalı Bilimler Yüksekokulu Mesleki Uygulama Ve Uygulamalı Ders Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Beyşehir Ali Akkanat Uygulamalı Bilimler Yüksekokulu Mesleki Uygulama Ve Uygulamalı Ders Yönergesi 05.12.2023_638373624444734757.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bey%C5%9Fehir%20Ali%20Akkanat%20Uygulamal%C4%B1%20Bilimler%20Y%C3%BCksekokulu%20Mesleki%20Uygulama%20Ve%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi%2005.12.2023_638373624444734757.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Beyşehir Ali Akkanat Turizm Fakültesi Uygulamalı Eğitimler Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali Egitimler Yonergesi_638507780585773005.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali%20Egitimler%20Yonergesi_638507780585773005.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "BÜTÜNLEŞİK YÜKSEK LİSANS YÖNERGESİ",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/BÜTÜNLEŞİK YÜKSEK LİSANS YÖNERGESİ_639065062208480845.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/B%C3%9CT%C3%9CNLE%C5%9E%C4%B0K%20Y%C3%9CKSEK%20L%C4%B0SANS%20Y%C3%96NERGES%C4%B0_639065062208480845.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Bilimsel Arastirma ve Yayin Etik Kurallari Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ BİLİMSEL ARAŞTIRMA VE YAYIN ETİĞİ YÖNERGESİ_638218312295145334.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20VE%20YAYIN%20ET%C4%B0%C4%9E%C4%B0%20Y%C3%96NERGES%C4%B0_638218312295145334.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Bitirme Çalışması Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bitirme Calismasi Yonergesi_638872233776617209.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bitirme%20Calismasi%20Yonergesi_638872233776617209.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Burs Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Burs Yönergesi_03.11.2023_638345987520846452.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Burs%20Y%C3%B6nergesi_03.11.2023_638345987520846452.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Çift Ana Dal Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Çift Ana Dal Yönergesi_14.11.2023_638355676883070863.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%87ift%20Ana%20Dal%20Y%C3%B6nergesi_14.11.2023_638355676883070863.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ders Görevlendirme ve Ek Ders Uygulama Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ek Ders Uygulama Yönergesi_638868716133787179.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ek%20Ders%20Uygulama%20Y%C3%B6nergesi_638868716133787179.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Diploma, Diploma Eki ve Diger Belgelerin Düzenlenmesine Iliskin Yönerge",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.Ü._Diploma,_Diploma_Eki_ve_Diğer_Belgelerin_Düzenlenmesine_İlişkin_Yönerge_638227874273054099.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.%C3%9C._Diploma%2C_Diploma_Eki_ve_Di%C4%9Fer_Belgelerin_D%C3%BCzenlenmesine_%C4%B0li%C5%9Fkin_Y%C3%B6nerge_638227874273054099.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Eğitim Komisyonu Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/EĞİTİM KOMİSYONU YÖNERGESİ_27.02.2025_._638771941216793327.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/E%C4%9E%C4%B0T%C4%B0M%20KOM%C4%B0SYONU%20Y%C3%96NERGES%C4%B0_27.02.2025_._638771941216793327.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Eczacilik Fakültesi Birim Etik Kurul Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/s_ü_ecz_fak_birim_etik_kurul_yönergesi_638270135090842710.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/s_%C3%BC_ecz_fak_birim_etik_kurul_y%C3%B6nergesi_638270135090842710.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Eczacilik Fakültesi Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ ECZACILIK FAKÜLTESİ STAJ YÖNERGESİ_638218312296022864.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ECZACILIK%20FAK%C3%9CLTES%C4%B0%20STAJ%20Y%C3%96NERGES%C4%B0_638218312296022864.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Enerji Yönetim Birimi Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selçuk Üniversitesi Enerji Yönetim Birimi Yönergesi_638218312296503534.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Enerji%20Y%C3%B6netim%20Birimi%20Y%C3%B6nergesi_638218312296503534.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Etik Davranis Ilkeleri ve Etik Kurul Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ ETİK DAVRANIŞ İLKELERİ VE ETİK KURUL YÖNERGESİ_638218312296983014.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20ET%C4%B0K%20DAVRANI%C5%9E%20%C4%B0LKELER%C4%B0%20VE%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0_638218312296983014.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Fakültesi Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selcuk _Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selcuk%20_Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Fen Fakültesi Anket Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen Fakültesi Anket Yönergesi_638252922861174062.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen%20Fak%C3%BCltesi%20Anket%20Y%C3%B6nergesi_638252922861174062.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Fen Fakültesi Muafiyet ve Intibak Islemleri Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen Fakültesi Muafiyet ve İntibak İşlemleri Yönergesi_638218312290714893.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fen%20Fak%C3%BCltesi%20Muafiyet%20ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi_638218312290714893.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Fikri Mülkiyet Haklarının Yönetimi ve Ticarileştirilmesi İle İlgili Usul ve Esaslar Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fikri Mülkiyet Haklarının Yönetimi ve Ticarileştirilmesi İle İlgili Usul ve Esaslar Yönergesi_638515421465806146.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Fikri%20M%C3%BClkiyet%20Haklar%C4%B1n%C4%B1n%20Y%C3%B6netimi%20ve%20Ticarile%C5%9Ftirilmesi%20%C4%B0le%20%C4%B0lgili%20Usul%20ve%20Esaslar%20Y%C3%B6nergesi_638515421465806146.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "FTR Klinik Uygulamalar Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/FTR klinik uygulamalar yonergesi-_638549965896528688.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/FTR%20klinik%20uygulamalar%20yonergesi-_638549965896528688.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Güzel Sanatlar Fakültesi Özel Yetenek Sınavı Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SU GSF OYS Yonergesi_638953635258282325.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SU%20GSF%20OYS%20Yonergesi_638953635258282325.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Hemşirelik Fakültesi Etik Kurul Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hemsirelik Fakultesi Etik Kurul Yonergesi_638768607863299544.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hemsirelik%20Fakultesi%20Etik%20Kurul%20Yonergesi_638768607863299544.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Hemsirelik Fakültesi Muafiyet ve Intibak Islemleri Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hemşirelik Fakültesi Muafiyet Ve İntibak İşlemleri Yönergesi Hk_638218312291189615.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hem%C5%9Firelik%20Fak%C3%BCltesi%20Muafiyet%20Ve%20%C4%B0ntibak%20%C4%B0%C5%9Flemleri%20Y%C3%B6nergesi%20Hk_638218312291189615.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Hemşirelik Fakültesi Mesleki Uygulamalı Ders Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hemşirelik Fakültesi Mesleki Uygulamalı Ders Yönergesi_638727247292052556.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Hem%C5%9Firelik%20Fak%C3%BCltesi%20Mesleki%20Uygulamal%C4%B1%20Ders%20Y%C3%B6nergesi_638727247292052556.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Haklı ve Geçerli Mazeretler Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SÜ Haklı ve Geçerli Mazeretler Yönergesi_29.02.2024_638452342491637621.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S%C3%9C%20Hakl%C4%B1%20ve%20Ge%C3%A7erli%20Mazeretler%20Y%C3%B6nergesi_29.02.2024_638452342491637621.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Hata, Usulsüzlük ve Yolsuzluklarin Bildirilmesi Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ HATA, USULSÜZLÜK VE YOLSUZLUKLARIN BİLDİRİLMESİ YÖNERGESİ_638218312297623704.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HATA%2C%20USULS%C3%9CZL%C3%9CK%20VE%20YOLSUZLUKLARIN%20B%C4%B0LD%C4%B0R%C4%B0LMES%C4%B0%20Y%C3%96NERGES%C4%B0_638218312297623704.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Hobi Bahçeleri Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ HOBİ BAHÇELERİ YÖNERGESİ_638218312298181807.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20HOB%C4%B0%20BAH%C3%87ELER%C4%B0%20Y%C3%96NERGES%C4%B0_638218312298181807.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "İlahiyat Fakültesi Bilimsel Değerlendirme ve Etik Kurulu Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bilimsel_Degerlendirme_Ve_Etik_Kurulu_Yonergesi_638727245270158362.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Bilimsel_Degerlendirme_Ve_Etik_Kurulu_Yonergesi_638727245270158362.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "İlahiyat Fakültesi Yatay Geçiş Dikey Geçiş İntibak ve Muafiyet Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ilahiyat_Fakultesi_Yatay_Gecis_Dikey_Gecis_Intibak_Ve_Muafiyet_Yonergesi_638727245270573124.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ilahiyat_Fakultesi_Yatay_Gecis_Dikey_Gecis_Intibak_Ve_Muafiyet_Yonergesi_638727245270573124.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "İş Sağlığı ve Güvenliği Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ İş Sağlığı ve Güvenliği Yönergesi_638218312298781539.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C4%B0%C5%9F%20Sa%C4%9Fl%C4%B1%C4%9F%C4%B1%20ve%20G%C3%BCvenli%C4%9Fi%20Y%C3%B6nergesi_638218312298781539.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "İletişim Fakültesi Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/İletisim Fakultesi Staj yonergesi_638872233776952453.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C4%B0letisim%20Fakultesi%20Staj%20yonergesi_638872233776952453.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "İmza Yetkileri Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/-IMZA-YETKILERI-YONERGESI_638398964105804809.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/-IMZA-YETKILERI-YONERGESI_638398964105804809.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Koruma ve Güvenlik Müdürlügü Görev ve Çalisma Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ KORUMA VE GÜVENLİK MÜDÜRLÜĞÜ GÖREV VE ÇALIŞMA YÖNERGESİ_638218312299221197.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20KORUMA%20VE%20G%C3%9CVENL%C4%B0K%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20G%C3%96REV%20VE%20%C3%87ALI%C5%9EMA%20Y%C3%96NERGES%C4%B0_638218312299221197.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Kurum İçi (Üniversite İçi) Yatay Geçiş Uygulama ilkeleri",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurum İçi (Üniversite İçi) Yatay Geçiş Uygulama ilkeleri_638889705470747742.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurum%20%C4%B0%C3%A7i%20%28%C3%9Cniversite%20%C4%B0%C3%A7i%29%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20ilkeleri_638889705470747742.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Kurumlararasi Yatay Geçis Uygulama Ilkeleri",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurumsal Yatay Geçiş Uygulama İlkeleri_638249319505983112.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Kurumsal%20Yatay%20Ge%C3%A7i%C5%9F%20Uygulama%20%C4%B0lkeleri_638249319505983112.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Kütüphane Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ KÜTÜPHANE YÖNERGESİ_638218312300819134.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20K%C3%9CT%C3%9CPHANE%20Y%C3%96NERGES%C4%B0_638218312300819134.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Lisansüstü Egitim-Ögretim Yönetmeligi Uygulama Esaslari",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM-ÖĞRETİM YÖNETMELİĞİ UYGULAMA ESASLARI_638218312301339191.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M-%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0%20UYGULAMA%20ESASLARI_638218312301339191.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Makine Mühendisligi Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Makine_Muhendisligi_Staj_Yönergesi_638218312291939492.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Makine_Muhendisligi_Staj_Y%C3%B6nergesi_638218312291939492.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ögrenci Danismanlik Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ ÖĞRENCİ DANIŞMANLIK YÖNERGESİ_638218312303944886.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLIK%20Y%C3%96NERGES%C4%B0_638218312303944886.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Merkezi Yerlestirme Puani Ile Yatay Geçis (Ek Madde 1)",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Merkezi Yerleştirme Puanı İle Yatay Geçiş (Ek Madde 1)_638249319506183889.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Merkezi%20Yerle%C5%9Ftirme%20Puan%C4%B1%20%C4%B0le%20Yatay%20Ge%C3%A7i%C5%9F%20%28Ek%20Madde%201%29_638249319506183889.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Meslek Yüksekokullari Koordinatörlügü (MYK) Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selçuk Üniversitesi Meslek Yüksekokulları Koordinatörlüğü (MYK) Yönergesi_638218312301763938.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Meslek%20Y%C3%BCksekokullar%C4%B1%20Koordinat%C3%B6rl%C3%BC%C4%9F%C3%BC%20%28MYK%29%20Y%C3%B6nergesi_638218312301763938.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Önlisans ve Lisans Düzeyinde Yurt Dışından veya Yabancı Uyruklu Öğrenci Kabulü Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selçuk Üniversitesi Önlisans ve Lisans Düzeyinde Yurt Dışından veya Yabancı Uyruklu Öğrenci Kabulü Yönergesi_638519844865932884.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_638519844865932884.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Meslek Yüksekokulları Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/MESLEK YÜKSEKOKULLARI STAJ YÖNERGESİ_638434090898463058.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/MESLEK%20Y%C3%9CKSEKOKULLARI%20STAJ%20Y%C3%96NERGES%C4%B0_638434090898463058.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Öğretim Üyeliği Atanma ve Yükseltilme Kriterleri Yonergesi (YÖK Genel Kurul`un 04.04.2024 tarihli toplantısında uygun görülmüştür)",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Öğretim Üyeliği Atanma ve Yükseltilme Kriterleri Yonergesi (YÖK Genel Kurul'un 04.04.2024 tarihli toplantısında uygun görülmüştür)_638493937535652261.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9Fretim%20%C3%9Cyeli%C4%9Fi%20Atanma%20ve%20Y%C3%BCkseltilme%20Kriterleri%20Yonergesi%20%28Y%C3%96K%20Genel%20Kurul%27un%2004.04.2024%20tarihli%20toplant%C4%B1s%C4%B1nda%20uygun%20g%C3%B6r%C3%BClm%C3%BC%C5%9Ft%C3%BCr%29_638493937535652261.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Öğretim Üyesi Dışındaki Öğretim Elemanı Kadrolarına Yapılacak Atamalarda Uygulanacak Merkezi Sınav İle Giriş Sınavlarına İlişkin Usul Ve Esaslar Hakkında Yönetmelik",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Öğretim Üyesi Dışındaki Öğretim Elemanı Kadrolarına Yapılacak Atamalarda Uygulanacak Merkezi Sınav İle Giriş Sınavlarına İlişkin Usul Ve Esaslar Hakkında Yönetmelik_638373859246718163.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9Fretim%20%C3%9Cyesi%20D%C4%B1%C5%9F%C4%B1ndaki%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20Kadrolar%C4%B1na%20Yap%C4%B1lacak%20Atamalarda%20Uygulanacak%20Merkezi%20S%C4%B1nav%20%C4%B0le%20Giri%C5%9F%20S%C4%B1navlar%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar%20Hakk%C4%B1nda%20Y%C3%B6netmelik_638373859246718163.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ödül Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ödül Yönergesi_638230470360240408.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96d%C3%BCl%20Y%C3%B6nergesi_638230470360240408.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ögrenci Asistanlik Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ ÖĞRENCİ ASİSTANLIK YÖNERGESİ_638218312303583379.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20AS%C4%B0STANLIK%20Y%C3%96NERGES%C4%B0_638218312303583379.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Öğrenci Danışmanlığı Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/ÖĞRENCİ DANIŞMANLIĞI YÖNERGESİ_639017609925321383.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96%C4%9ERENC%C4%B0%20DANI%C5%9EMANLI%C4%9EI%20Y%C3%96NERGES%C4%B0_639017609925321383.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ögrenci Konseyi Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ ÖĞRENCİ KONSEYİ YÖNERGESİ_638218312304399616.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20%C3%96%C4%9ERENC%C4%B0%20KONSEY%C4%B0%20Y%C3%96NERGES%C4%B0_638218312304399616.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Önlisans ve Lisans Düzeyinde Yurt Dışından veya Yabancı Uyruklu Öğrenci Kabulü Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Önlisans ve Lisans Düzeyinde Yurt Dışından veya Yabancı Uyruklu Öğrenci Kabulü Yönergesi_639053866535483478.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96nlisans%20ve%20Lisans%20D%C3%BCzeyinde%20Yurt%20D%C4%B1%C5%9F%C4%B1ndan%20veya%20Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Frenci%20Kabul%C3%BC%20Y%C3%B6nergesi_639053866535483478.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Önli̇sans Ve Li̇sans Programlari Ölçme Ve Değerlendi̇rme Esaslari Yönergesi̇",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ön Li̇sans Ve Li̇sans Programlari Ölçme Ve Değerlendi̇rme Esaslari Yönergesi̇_14.11.2023_638355676883242220.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96n%20Li%CC%87sans%20Ve%20Li%CC%87sans%20Programlari%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendi%CC%87rme%20Esaslari%20Y%C3%B6nergesi%CC%87_14.11.2023_638355676883242220.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Özel Öğrenci Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Özel_Öğrenci_Yönergesi_02.11.2023_638345376513147986.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96zel_%C3%96%C4%9Frenci_Y%C3%B6nergesi_02.11.2023_638345376513147986.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Öğrenci Toplulukları Koordinatörlüğü Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ogrenci Topluluklari Koordinatorlugu Yonergesi_638723707484981148.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Ogrenci%20Topluluklari%20Koordinatorlugu%20Yonergesi_638723707484981148.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Pedagojik Formasyon Uygulama Esasları",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Pedagojik Formasyon Uygulama Esasları 09.01.2024_638421879917944654.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Radyasyon Güvenligi Üst Kurulu Kurulus ve Çalisma Esaslari Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ RADYASYON GÜVENLİĞİ ÜST KURULU KURULUŞ VE ÇALIŞMA ESASLARI YÖNERGESİ_638218312306169128.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20RADYASYON%20G%C3%9CVENL%C4%B0%C4%9E%C4%B0%20%C3%9CST%20KURULU%20KURULU%C5%9E%20VE%20%C3%87ALI%C5%9EMA%20ESASLARI%20Y%C3%96NERGES%C4%B0_638218312306169128.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Eczacılık Fakültesi Bilimsel Araştırma Etik Kurul Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.Ü. ECZ. FAK. BİLİMSEL ARAŞTIRMA ETİK KURUL YÖNERGESİ 1_638479283392570138.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.%C3%9C.%20ECZ.%20FAK.%20B%C4%B0L%C4%B0MSEL%20ARA%C5%9ETIRMA%20ET%C4%B0K%20KURUL%20Y%C3%96NERGES%C4%B0%201_638479283392570138.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Saglik Bilimleri Fakültesi Egitim-Ögretim ve Sinav Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sağlık Bilimleri Fakültesi Sınav Yönergesi_638267366009233830.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20S%C4%B1nav%20Y%C3%B6nergesi_638267366009233830.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Turizm Fakultesi Staj Yonergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm Fakultesi Staj Yonergesi_638551901905953169.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm%20Fakultesi%20Staj%20Yonergesi_638551901905953169.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Sağlik Bilimleri Fakültesi Mesleki Uygulama ve Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selçuk Üniversitesi Sağlık Bilimleri Fakültesi Mesleki Uygulama ve Staj Yönergesi_638218312306786325.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sel%C3%A7uk%20%C3%9Cniversitesi%20Sa%C4%9Fl%C4%B1k%20Bilimleri%20Fak%C3%BCltesi%20Mesleki%20Uygulama%20ve%20Staj%20Y%C3%B6nergesi_638218312306786325.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Sağlık Hizmetleri Meslek Yüksekokulu Uygulama Yonergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sağlık Hizmetleri Meslek Yüksekokulu Uygulama Yonergesi_638555132367852769.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Sa%C4%9Fl%C4%B1k%20Hizmetleri%20Meslek%20Y%C3%BCksekokulu%20Uygulama%20Yonergesi_638555132367852769.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Selçuklu Arastirmalari Enstitü Müdürlügü Yazma ve Nadir Basma Eserler Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ SELÇUKLU ARAŞTIRMALARI ENSTİTÜ MÜDÜRLÜĞÜ YAZMA VE NADİR BASMA ESERLER YÖNERGESİ_638218312307297094.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20SEL%C3%87UKLU%20ARA%C5%9ETIRMALARI%20ENST%C4%B0T%C3%9C%20M%C3%9CD%C3%9CRL%C3%9C%C4%9E%C3%9C%20YAZMA%20VE%20NAD%C4%B0R%20BASMA%20ESERLER%20Y%C3%96NERGES%C4%B0_638218312307297094.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Semâ Toplulugu Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ TASINMAZLARIN IDARESI YONERGESI_638218312308139950.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TASINMAZLARIN%20IDARESI%20YONERGESI_638218312308139950.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Teknoloji Gelistirme Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ TEKNOLOJI GELISTIRME YONERGESI_638218312308568817.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TEKNOLOJI%20GELISTIRME%20YONERGESI_638218312308568817.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Ticari Reklam, Ilan, Afis, Stant ve Tanitim Araçlari ile Üniversite Fiziki Mekanlarinin Kullanimina Iliskin Uygulama Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ TİCARİ REKLAM, İLAN, AFİŞ, STANT VE TANITIM ARAÇLARI İLE ÜNİVERSİTE FİZİKİ MEKANLARININ KULLAMINA İLİŞKİN UYGULAMA YÖNERGESİ_638218312308883391.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20T%C4%B0CAR%C4%B0%20REKLAM%2C%20%C4%B0LAN%2C%20AF%C4%B0%C5%9E%2C%20STANT%20VE%20TANITIM%20ARA%C3%87LARI%20%C4%B0LE%20%C3%9CN%C4%B0VERS%C4%B0TE%20F%C4%B0Z%C4%B0K%C4%B0%20MEKANLARININ%20KULLAMINA%20%C4%B0L%C4%B0%C5%9EK%C4%B0N%20UYGULAMA%20Y%C3%96NERGES%C4%B0_638218312308883391.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Türk Dili Bölümü Baskanligi Egitim Ögretim ve Isleyis Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ TURK DILI BOLUMU BASKANLIGI EGITIM OGRETIM VE ISLEYIS YONERGESI_638218312309394694.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20TURK%20DILI%20BOLUMU%20BASKANLIGI%20EGITIM%20OGRETIM%20VE%20ISLEYIS%20YONERGESI_638218312309394694.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Turizm Fakültesi Staj Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm Fakultesi Staj Yonergesi_638882812446690236.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Turizm%20Fakultesi%20Staj%20Yonergesi_638882812446690236.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Turizm İşletmeciliği Uygulamalı Eğitimler Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali Egitimler Yonergesi_638513656794865023.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uygulamali%20Egitimler%20Yonergesi_638513656794865023.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Uluslarası İlişkiler Koordinatörlüğü Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/uluslarasi iliskiler koordinatorlugu yonergesi_639087405997618620.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/uluslarasi%20iliskiler%20koordinatorlugu%20yonergesi_639087405997618620.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Uzaktan Ögretim Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SELÇUK ÜNİVERSİTESİ UZAKTAN ÖĞRETİM YÖNERGESİ_638218312309758084.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20UZAKTAN%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NERGES%C4%B0_638218312309758084.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Uzmanlık Öğrencisi Temsilciliği Yönergesi Değişikliği Hk.",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uzmanlık Öğrencisi Temsilciliği Yönergesi Değişikliği Hk._638380735512766928.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Uzmanl%C4%B1k%20%C3%96%C4%9Frencisi%20Temsilcili%C4%9Fi%20Y%C3%B6nergesi%20De%C4%9Fi%C5%9Fikli%C4%9Fi%20Hk._638380735512766928.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Veteriner Fakültesi Ölçme Ve Değerlendirme Esaslari Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Veteriner Fakültesi Ölçme Ve Değerlendirme Esaslari Yönergesi_24.11.2023_638364398819183448.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Veteriner%20Fak%C3%BCltesi%20%C3%96l%C3%A7me%20Ve%20De%C4%9Ferlendirme%20Esaslari%20Y%C3%B6nergesi_24.11.2023_638364398819183448.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yandal yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yandal_yönergesi_14.11.2023_638355676883393438.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yandal_y%C3%B6nergesi_14.11.2023_638355676883393438.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yayin Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yayın Yönergesi_638277775465129915.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yay%C4%B1n%20Y%C3%B6nergesi_638277775465129915.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yaz Okulu Uygulama Esasları",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz Okulu Uygulama Esasları_07.11.2023_638349661886483418.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yaz Okulu Yönergesi",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz Okulu Yönergesi_03.11.2023_638345987738246943.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz%20Okulu%20Y%C3%B6nergesi_03.11.2023_638345987738246943.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yabancı Uyruklu Öğretim Elemanı İstihdamıyla İlgili Usul ve Esaslar",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yabancı Uyruklu Öğretim Elemanı İstihdamıyla İlgili Usul ve Esaslar_638467017445638590.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yabanc%C4%B1%20Uyruklu%20%C3%96%C4%9Fretim%20Eleman%C4%B1%20%C4%B0stihdam%C4%B1yla%20%C4%B0lgili%20Usul%20ve%20Esaslar_638467017445638590.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        },
+        {
+          "title": "Yüksekögretim Kurumlarinda Emeklilik Yas Haddini Doldurmus Ögretim Üyelerinin Sözlesmeli Olarak Çalistirilmasina Iliskin Usul ve Esaslar",
+          "url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yükseköğretim Kurumlarında Emeklilik Yaş Haddini Doldurmuş Öğretim Üyelerinin Sözleşmeli Olarak Çalıştırılmasına İlişkin Usul Ve Esaslar_638218312313371176.pdf",
+          "normalized_url": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Y%C3%BCksek%C3%B6%C4%9Fretim%20Kurumlar%C4%B1nda%20Emeklilik%20Ya%C5%9F%20Haddini%20Doldurmu%C5%9F%20%C3%96%C4%9Fretim%20%C3%9Cyelerinin%20S%C3%B6zle%C5%9Fmeli%20Olarak%20%C3%87al%C4%B1%C5%9Ft%C4%B1r%C4%B1lmas%C4%B1na%20%C4%B0li%C5%9Fkin%20Usul%20Ve%20Esaslar_638218312313371176.pdf",
+          "domain": "webadmin.selcuk.edu.tr",
+          "source_page": "https://selcuk.edu.tr/anasayfa/detay/39874"
+        }
+      ],
+      "access_policy": {
+        "can_attempt_fetch": true,
+        "blocked_by": "none",
+        "requires_permission": true,
+        "authorized_source_mode": true,
+        "robots_override": true,
+        "robots_allowed": false,
+        "message": "Yetkili mod aktif: AUTHORIZED_SOURCE_MODE ve WEB_SCRAPER_AUTHORIZED_ROBOTS_OVERRIDE acik oldugu icin robots engeli bilincli/yetkili modda asiliyor."
+      }
+    }
+  ],
+  "totals": {
+    "source_count": 2,
+    "fetch_ok": 2,
+    "fetch_failed": 0,
+    "pdf_count": 156,
+    "unique_pdf_count": 154
+  }
+}
