@@ -160,6 +160,7 @@ def build_url_ingestion_batched(
             except ScrapingError as exc:
                 logger.warning("PDF atlaniyor: %s", exc)
                 errors.append(str(exc))
+
         total_chunks += _persist_doc_batch(
             docs,
             f"PDF batch ({len(current)} aday)",
@@ -379,7 +380,7 @@ def _delete_old_vectors(url: str):
     try:
         embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
         db = Chroma(persist_directory=DB_DIR, embedding_function=embedding_model)
-        
+
         # ChromaDB collection'dan source = url olanlari sil
         collection = db._collection
         result = collection.get(where={"source": url}, include=["metadatas"])
@@ -455,26 +456,26 @@ def _load_crawled_documents(
     for url in iterable:
         try:
             page_docs, page_errors = _scrape_crawled_url(scraper, url)
-            
+
             # Hash kontrolu: Dokumanlarda bir degisiklik var mi?
             # Eger birden fazla dokuman donuyorsa (or: pdf sayfalari) tek bir birlesik hash kullanabiliriz.
             # Burada page_docs icerisindeki ana dokumanin hash'ine bakacagiz.
             if page_docs:
                 main_doc = page_docs[0]
                 new_hash = main_doc.metadata.get("content_hash")
-                
+
                 # DB'deki kaydi al
                 record = get_url_record(url)
                 old_hash = record.get("content_hash") if record else None
-                
+
                 if new_hash and old_hash and new_hash == old_hash:
                     # Icerik ayni, islemeye gerek yok
                     continue
-                
+
                 # Degismis veya yeni, eski vektorleri sil
                 if old_hash:
                     _delete_old_vectors(url)
-                
+
                 # DB'yi guncelle
                 upsert_url_record(
                     url=url,
@@ -484,9 +485,9 @@ def _load_crawled_documents(
                     links_found=record.get("links_found", 0) if record else 0,
                     content_hash=new_hash
                 )
-                
+
                 docs.extend(page_docs)
-            
+
             errors.extend(page_errors)
         except ScrapingError as exc:
             errors.append(str(exc))
@@ -656,6 +657,7 @@ def main():
         batch_size=args.batch_size,
         legal_chunking=args.legal_chunking,
     )
+
 
 if __name__ == "__main__":
     main()
