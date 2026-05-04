@@ -4,7 +4,13 @@ import tempfile
 import logging
 from dotenv import load_dotenv
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from rag_engine import SelcukRAGEngine
+from rag_engine import (
+    KnowledgeBaseUnavailableError,
+    LIVE_INDEX_UNAVAILABLE_MESSAGE,
+    SelcukRAGEngine,
+    is_chroma_collection_error,
+)
+from check_chroma_health import check_chroma_health
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 
 # .env dosyasından ortam değişkenlerini yükle
@@ -754,16 +760,27 @@ elif st.session_state.aktif_sayfa == "admin":
         with col2:
             try:
                 from data_ingestion import DB_DIR
-                from langchain_chroma import Chroma
-                from langchain_huggingface import HuggingFaceEmbeddings
-                embedding_model = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
-                db = Chroma(persist_directory=DB_DIR, embedding_function=embedding_model)
-                vector_count = db._collection.count()
+                chroma_health = check_chroma_health(DB_DIR)
+                vector_count = chroma_health.get("document_count", 0)
                 st.metric("Toplam Vektör Sayısı", vector_count)
             except Exception:
                 st.metric("Toplam Vektör Sayısı", "Bilinmiyor")
 
         st.markdown("### 👎 Düşük Kaliteli Sorgular")
+        try:
+            from data_ingestion import DB_DIR
+            chroma_health = check_chroma_health(DB_DIR)
+            st.markdown("### Index Durumu")
+            st.caption(f"ChromaDB path: `{chroma_health.get('db_path')}`")
+            hcol1, hcol2, hcol3 = st.columns(3)
+            hcol1.metric("DB var", "Evet" if chroma_health.get("db_exists") else "Hayir")
+            hcol2.metric("Collection", "Okunuyor" if chroma_health.get("collection_readable") else "Okunamiyor")
+            hcol3.metric("Kaynak", chroma_health.get("unique_source_count", 0))
+            if not chroma_health.get("ok"):
+                st.warning(chroma_health.get("reason") or chroma_health.get("error") or "ChromaDB hazir degil.")
+        except Exception as exc:
+            logger.warning("Index durumu gosterilemedi: %s", exc)
+
         if os.path.exists("low_quality_queries.log"):
             with open("low_quality_queries.log", "r", encoding="utf-8") as f:
                 content = f.read()
@@ -934,7 +951,10 @@ else:
                 if groq_key:
                     safe_detail = safe_detail.replace(groq_key, "[GROQ_API_KEY]")
 
-                if "rate_limit" in error_msg or "429" in error_msg or "rate limit" in error_msg:
+                if isinstance(e, KnowledgeBaseUnavailableError) or is_chroma_collection_error(e):
+                    logger.error("ChromaDB/index hatasi: %s", e)
+                    hata_mesaji = LIVE_INDEX_UNAVAILABLE_MESSAGE
+                elif "rate_limit" in error_msg or "429" in error_msg or "rate limit" in error_msg:
                     logger.warning(f"Groq rate limit aşıldı: {e}")
                     hata_mesaji = "⏳ API istek limiti aşıldı. Lütfen **30 saniye** bekleyip tekrar deneyin."
                 elif "authentication" in error_msg or "invalid_api_key" in error_msg or "unauthorized" in error_msg or "api_key" in error_msg or "401" in error_msg:

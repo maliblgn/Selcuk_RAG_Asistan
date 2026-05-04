@@ -14,6 +14,7 @@ from langchain_community.retrievers import BM25Retriever
 from langchain_classic.retrievers import EnsembleRetriever
 from langchain_community.document_compressors.flashrank_rerank import FlashrankRerank
 from langchain_core.documents import Document
+from check_chroma_health import check_chroma_health
 
 logger = logging.getLogger(__name__)
 
@@ -36,15 +37,55 @@ SOURCE_INVENTORY_TERMS = (
     "belge listes",
 )
 
+
+LIVE_INDEX_UNAVAILABLE_MESSAGE = (
+    "Bilgi tabani canli ortamda hazir degil. "
+    "Lutfen yonetici panelinden veri indeksleme islemini calistirin "
+    "veya ChromaDB kalici depolamasini kontrol edin."
+)
+
+
+class KnowledgeBaseUnavailableError(RuntimeError):
+    """ChromaDB index is missing, empty, or unreadable."""
+
+    def __init__(self, message=LIVE_INDEX_UNAVAILABLE_MESSAGE, health=None):
+        self.health = health or {}
+        detail = self.health.get("error") or self.health.get("reason") or ""
+        super().__init__(f"{message} Teknik durum: {detail}".strip())
+
+    @property
+    def user_message(self):
+        return LIVE_INDEX_UNAVAILABLE_MESSAGE
+
+
+def is_chroma_collection_error(error):
+    text = str(error or "").lower()
+    return (
+        "collection" in text
+        and ("does not exist" in text or "error getting collection" in text)
+    )
+
+
 class SelcukRAGEngine:
     def __init__(self):
         logger.info("SelcukRAGEngine başlatılıyor...")
         # 1. Embedding Modelini Yükle
+        self.db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        self.db_health = check_chroma_health(self.db_dir)
+        if not self.db_health.get("ok"):
+            logger.error("ChromaDB hazir degil: %s", self.db_health)
+            raise KnowledgeBaseUnavailableError(health=self.db_health)
+
         self.embeddings = HuggingFaceEmbeddings(model_name="intfloat/multilingual-e5-small")
         
         # 2. Statik Veritabanını Bağla
-        self.db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
-        self.static_db = Chroma(persist_directory=self.db_dir, embedding_function=self.embeddings)
+        try:
+            self.static_db = Chroma(persist_directory=self.db_dir, embedding_function=self.embeddings)
+        except Exception as exc:
+            logger.exception("ChromaDB collection baglantisi kurulamadi: %s", exc)
+            health = check_chroma_health(self.db_dir)
+            health["error"] = str(exc)
+            raise KnowledgeBaseUnavailableError(health=health) from exc
         self.vector_retriever = self.static_db.as_retriever(
             search_type="mmr",
             search_kwargs={"k": 10, "fetch_k": 20}
@@ -382,6 +423,10 @@ class SelcukRAGEngine:
     def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=120):
         """RAG motorunu baslatmadan ChromaDB kaynak envanteri cevabi uret."""
         db_dir = db_dir or os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        health = check_chroma_health(db_dir)
+        if not health.get("ok"):
+            logger.warning("Kaynak envanteri icin ChromaDB hazir degil: %s", health)
+            return LIVE_INDEX_UNAVAILABLE_MESSAGE
         try:
             db = Chroma(persist_directory=db_dir)
             engine = cls.__new__(cls)
