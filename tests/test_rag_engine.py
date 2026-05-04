@@ -254,8 +254,9 @@ class TestSourceInventory:
         assert "renci" in label
         assert "nergesi" in label
 
+    @patch("rag_engine.check_chroma_health")
     @patch("rag_engine.Chroma")
-    def test_hafif_kaynak_envanteri_motor_baslatmadan_uretirilir(self, mock_chroma):
+    def test_hafif_kaynak_envanteri_motor_baslatmadan_uretirilir(self, mock_chroma, mock_health):
         fake_db = MagicMock()
         fake_db.get.return_value = {
             "metadatas": [
@@ -266,6 +267,7 @@ class TestSourceInventory:
             ]
         }
         mock_chroma.return_value = fake_db
+        mock_health.return_value = {"ok": True}
 
         cevap = rag_engine.SelcukRAGEngine.build_source_inventory_answer_from_db()
 
