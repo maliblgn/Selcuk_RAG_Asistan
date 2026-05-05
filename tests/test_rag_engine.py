@@ -1,4 +1,4 @@
-"""
+﻿"""
 Selçuk RAG Asistanı – Birim Testleri
 Gerçek LLM / embedding çağrısı yapmadan saf Python mantığını test eder.
 """
@@ -49,9 +49,11 @@ from rag_engine import (  # noqa: E402
 # ---------------------------------------------------------------------------
 
 class FakeDoc:
-    def __init__(self, content, source="test.pdf"):
+    def __init__(self, content, source="test.pdf", metadata=None):
         self.page_content = content
         self.metadata = {"source": source}
+        if metadata:
+            self.metadata.update(metadata)
 
 
 # ---------------------------------------------------------------------------
@@ -71,7 +73,7 @@ class TestFormatContext:
         engine = self._get_engine()
         docs = [FakeDoc("Burslara başvuru şartları...", "Burs Yönergesi.pdf")]
         ctx = engine.format_context(docs)
-        assert "[Kaynak: Burs Yönergesi]" in ctx
+        assert "Kaynak: Burs Yönergesi" in ctx
         assert "Burslara başvuru şartları..." in ctx
 
     def test_birden_fazla_kaynak(self):
@@ -82,8 +84,8 @@ class TestFormatContext:
             FakeDoc("Diploma içeriği...", "Diploma Yönerge.pdf"),
         ]
         ctx = engine.format_context(docs)
-        assert "[Kaynak: Staj Yönergesi]" in ctx
-        assert "[Kaynak: Diploma Yönerge]" in ctx
+        assert "Kaynak: Staj Yönergesi" in ctx
+        assert "Kaynak: Diploma Yönerge" in ctx
 
     def test_bos_liste_bos_string_dondurur(self):
         engine = self._get_engine()
@@ -117,7 +119,7 @@ class TestFormatContext:
         engine = self._get_engine()
         docs = [FakeDoc("web metni", "https://www.selcuk.edu.tr/yonetmelik/staj")]
         ctx = engine.format_context(docs)
-        assert "[Kaynak: www.selcuk.edu.tr]" in ctx
+        assert "URL: https://www.selcuk.edu.tr/yonetmelik/staj" in ctx
 
     def test_pdf_ve_url_kaynaklari_birlikte_formatlanir(self):
         engine = self._get_engine()
@@ -126,8 +128,49 @@ class TestFormatContext:
             FakeDoc("web metni", "https://www.selcuk.edu.tr/burs"),
         ]
         ctx = engine.format_context(docs)
-        assert "[Kaynak: Kural]" in ctx
-        assert "[Kaynak: www.selcuk.edu.tr]" in ctx
+        assert "Kaynak: Kural" in ctx
+        assert "URL: https://www.selcuk.edu.tr/burs" in ctx
+
+    def test_context_contains_article_metadata(self):
+        engine = self._get_engine()
+        docs = [
+            FakeDoc(
+                "Tez izleme komitesi üç öğretim üyesinden oluşur.",
+                "https://webadmin.selcuk.edu.tr/lisansustu.pdf",
+                {
+                    "title": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+                    "article_no": "44",
+                    "article_title": "Tez izleme komitesi",
+                    "page_start": 16,
+                    "page_end": 17,
+                },
+            )
+        ]
+
+        ctx = engine.format_context(docs)
+
+        assert "Kaynak: LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ" in ctx
+        assert "Madde: 44 - Tez izleme komitesi" in ctx
+        assert "Sayfa: 16-17" in ctx
+
+    def test_source_metadata_helper_builds_panel_label(self):
+        doc = FakeDoc(
+            "metin",
+            "https://webadmin.selcuk.edu.tr/lisansustu.pdf",
+            {
+                "title": "Lisansüstü Eğitim ve Öğretim Yönetmeliği",
+                "article_no": "44",
+                "article_title": "Tez izleme komitesi",
+                "page_start": 16,
+            },
+        )
+
+        source_info = rag_engine.SelcukRAGEngine.build_source_metadata(doc)
+
+        assert source_info["label"] == "Lisansüstü Eğitim ve Öğretim Yönetmeliği"
+        assert source_info["article_label"] == "Madde 44 - Tez izleme komitesi"
+        assert source_info["page"] == "16"
+        assert source_info["url"] == "https://webadmin.selcuk.edu.tr/lisansustu.pdf"
 
 
 # ---------------------------------------------------------------------------
@@ -150,6 +193,38 @@ class TestRewriteQuery:
         engine = self._get_engine()
         soru = "Burs başvurusu nasıl yapılır?"
         assert engine.rewrite_query(soru, None) == soru
+
+
+class TestMultiQuerySafeMode:
+    def _get_engine(self):
+        engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+        return engine
+
+    def test_legal_safe_mode_filters_drifted_variations(self, monkeypatch):
+        engine = self._get_engine()
+
+        class FakePrompt:
+            def __or__(self, other):
+                return self
+
+            def invoke(self, payload):
+                return (
+                    "Tez danışmanlık komitesi kaç kişiden oluşur?\n"
+                    "Tez savunma komitesi kaç kişiden oluşur?\n"
+                    "Tez izleme komitesi üye sayısı nedir?"
+                )
+
+        monkeypatch.setenv("MULTI_QUERY_ENABLED", "true")
+        monkeypatch.setenv("MULTI_QUERY_LEGAL_SAFE_MODE", "true")
+        engine.multi_query_prompt = FakePrompt()
+        engine.llm = object()
+
+        queries = engine._generate_multi_queries("Tez izleme komitesi kaç öğretim üyesinden oluşur?")
+
+        assert queries == [
+            "Tez izleme komitesi kaç öğretim üyesinden oluşur?",
+            "Tez izleme komitesi üye sayısı nedir?",
+        ]
 
 
 # ---------------------------------------------------------------------------

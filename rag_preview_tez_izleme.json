@@ -1,0 +1,223 @@
+{
+  "question": "Selçuk Üniversitesi’nde tez izleme komitesi kaç öğretim üyesinden oluşur?",
+  "normalized_question": "Selçuk Üniversitesi’nde tez izleme komitesi kaç öğretim üyesinden oluşur?",
+  "top_k": 10,
+  "results": [
+    {
+      "rank": 1,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "16",
+      "flashrank_score": null,
+      "metadata_score": 30.0,
+      "metadata_strong_match": true,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "answer_sentence_uc_ogretim_uyesi",
+          "boost": 12.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr..."
+    },
+    {
+      "rank": 2,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "15",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu sınavda da başarılı olamadığı ya da geçerli mazereti olmaksızın yeterlik sınavına katılmadığı durumda öğrencinin doktora programı ile ilişiği kesilir. İkinci kez girdiği yazılı sınavda başarılı olup, sözlü sınavda başarılı olamayan öğrencinin doktora programı ile ilişiği kesilir. e) Yazılı sınava birinci girişinde başarılı olan öğrenci, sözlü sınavda başarıl..."
+    },
+    {
+      "rank": 3,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "17",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] (3) Tez izleme komitesinin kurulmasından sonraki yarıyıllarda, EAB/anasanat dalı kurulunun gerekçeli önerisi ve enstitü yönetim kurulunun kararı ile üyelerde değişiklik yapılabilir. Tez önerisi savunması ve tez izleme komitesi raporları MADDE 45 - (1) Doktora yeterlik sınavını başarı ile tamamlayan öğrenci en geç altı ay içinde yapacağı araştı..."
+    },
+    {
+      "rank": 4,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "16",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] bir yarıyıldaki tez çalışması başarısı, ilgili yarıyıldaki tez izleme komitesi değerlendirme sonucuna bağlı olarak, başarılı (G) harf notu veya başarısız (K) harf notu ile belirlenir. (Mülga cümle:RG-3/4/2020- 31088) (…) Komite tarafından üst üste iki kez veya aralıklı olarak üç kez başarısız bulunan (Ek ibare:RG- 3/4/2020-31088) ve tez izleme komitesi raporlar..."
+    },
+    {
+      "rank": 5,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "18",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] c) (Değişik:RG-11/1/2024-32426) Tamamlanan doktora tezi vey a düzeltme verilen tezlerde düzeltilmiş olan tez, öğrenci tarafından danışmana sunulur. Danışman, tezin savunulabilir olduğuna ilişkin görüşü ile birlikte teze ilişkin intihal yazılım programı raporunu ve tezi enstitüye teslim eder. Enstitü Yönetim Kurulun un kararı ile söz konusu teze ilişki..."
+    },
+    {
+      "rank": 6,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "16",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Karar] Sosyal bilimler alanında ise 40 ıncı maddenin birinci fıkrasının (ç) bendinde sayılan dillerden birisinde yazabilirler. Bu durumda ilgili öğrencinin danışmanı yabancı dilde tez yazma talebini bir dilekçe ile enstitüye bildirir ve bu talep Enstitü Yönetim Kurulu kararıyla kesinleşir. b) (Değişik:RG-3/4/2020-31088) Öğrencinin alanı ile ilgili en az bir ad..."
+    },
+    {
+      "rank": 7,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "20",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] (2) Yeterlik, seviye tespit veya ders başarılarını ölçen tüm sınavlar, kâğıt ortamında ve tüm adaylara eş zamanlı olarak yapılabileceği gibi, alan ve zorluk düzeyine gör e tasnif edilerek güvenli biçimde saklanan bir soru bankasından, her bir adaya farklı zamanlarda farklı soru sorulmasına izin verecek şekilde elektronik ortamda da yapılabilir. Sınavlarda sorul..."
+    },
+    {
+      "rank": 8,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "44",
+      "article_title": "Tez izleme komitesi",
+      "page": "22",
+      "flashrank_score": null,
+      "metadata_score": 18.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_tez_izleme_komitesi",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_tez_izleme_komitesi",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] (2) Yeterlik, seviye tespit veya ders başarılarını ölçen tüm sınavlar, kâğıt ortamında ve tüm adaylara eş zamanlı olarak yap ılabileceği gibi, alan ve zorluk düzeyine göre tasnif edilerek güvenli biçimde saklanan bir soru bankasından, her bir adaya farklı zamanlarda farklı soru sorulmasına izin verecek şekilde elektronik ortamda da yapılabilir. Sınavl..."
+    },
+    {
+      "rank": 9,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+      "title": "S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf",
+      "label": "S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI",
+      "article_no": null,
+      "article_title": "",
+      "page": "3",
+      "flashrank_score": 0.9991444945335388,
+      "metadata_score": 0.0,
+      "metadata_strong_match": false,
+      "explanation": [],
+      "content_preview": "[Bağlam: S-U-ANADOLU-ARKEOLOJISI-SERAMIGI-UYGULAMA-VE-ARASTIRMA-MERKEZI_638218311057088519.pdf] c) Danışma Kurulu. Müdür MADDE 8 – (1) Müdür; Selçuk Üniversitesi Arkeoloji Bölümü öğretim üyeleri arasından, Rektör tarafından üç yıl süre ile görevlendirilir. Süresi biten Müdür yeniden görevlendirilebilir. Müdür; Merkezi temsil eder ve Rektöre karşı sorumludur. Müdür, çalışmalarında kendisine yardımcı olmak üzere, Üniversite öğretim üyeleri/görevlileri ve uzmanlar arasından birini müdür yardımcısı..."
+    },
+    {
+      "rank": 10,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": null,
+      "article_title": "",
+      "page": "14",
+      "flashrank_score": 0.9990488290786743,
+      "metadata_score": 0.0,
+      "metadata_strong_match": false,
+      "explanation": [],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu iki sınav dönemi dışında yeterlik sınavı yapılmaz. c) Yeterlik sınavları, enstitü anabilim/anasanat dalı kurulu tarafından önerilen ve enstitü yönetim kurulu tarafından onaylanan beş kişilik doktora yeterlik komitesi tarafından düzenlenir ve yürütülür. Komite, farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürileri kurar...."
+    }
+  ]
+}

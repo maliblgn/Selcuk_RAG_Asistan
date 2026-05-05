@@ -1,0 +1,212 @@
+{
+  "question": "Selçuk Üniversitesi’nde doktora yeterlik sınavları ile ilgili esaslar nelerdir?",
+  "normalized_question": "Selçuk Üniversitesi’nde doktora yeterlik sınavları ile ilgili esaslar nelerdir?",
+  "top_k": 10,
+  "results": [
+    {
+      "rank": 1,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavı",
+      "page": "16",
+      "flashrank_score": null,
+      "metadata_score": 17.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_doktora_yeterlik",
+          "boost": 8.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda derinliğe sahip olup olmadığının belirlenmesi amacıyla en geç beşinci yarıyılda, bütünleştirilmiş doktora programında ise en geç yedinci yarıyılda bir yeterlik s..."
+    },
+    {
+      "rank": 2,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavı",
+      "page": "14",
+      "flashrank_score": null,
+      "metadata_score": 17.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_doktora_yeterlik",
+          "boost": 8.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bu iki sınav dönemi dışında yeterlik sınavı yapılmaz. c) Yeterlik sınavları, enstitü anabilim/anasanat dalı kurulu tarafından önerilen ve enstitü yönetim kurulu tarafından onaylanan beş kişilik doktora yeterlik komitesi tarafından düzenlenir ve yürütülür. Komite, farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürileri kurar...."
+    },
+    {
+      "rank": 3,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavı",
+      "page": "15",
+      "flashrank_score": null,
+      "metadata_score": 17.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_doktora_yeterlik",
+          "boost": 8.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] ç) Doktora yeterlik sınavı önce yazılı, sonra sözlü olmak üzere iki aşamadan oluşur. Yazılı ve sözlü sınav aşamalarında her bir jüri üyesi, sınavda sorduğu sorulara göre öğrencinin başarı notunu 100 tam puan üzerinden değerlendirir."
+    },
+    {
+      "rank": 4,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavı",
+      "page": "14",
+      "flashrank_score": null,
+      "metadata_score": 17.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_doktora_yeterlik",
+          "boost": 8.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Bütünleştirilmiş doktora programın ı on yarıyılda tamamlamayan öğrenciler ise on birinci yarıyıldan itibaren katkı payı ödemekle yükümlüdürler. Doktora yeterlik sınavı MADDE 43 - (1) Doktora yeterlik sınavları ile ilgili esaslar şunlardır: a) Öğrenci derslerini ve seminerini başarı ile tamamladıktan sonra, temel konular ve doktora alanı ile ilgili konularda der..."
+    },
+    {
+      "rank": 5,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "43",
+      "article_title": "Doktora yeterlik sınavı",
+      "page": "16",
+      "flashrank_score": null,
+      "metadata_score": 17.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        },
+        {
+          "reason": "exact_content_doktora_yeterlik",
+          "boost": 8.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf — Karar] Üniversiteden ayrılan veya emekli olan üyelerin yerine birinci cümledeki usulle yeni görevlendirme yapılır. Komite farklı alanlardaki sınavları hazırlamak, uygulamak ve değerlendirmek amacıyla sınav jürilerini Enstitü Yönetim Kuruluna önerir. Sınav jürisi Enstitü Yönetim Kurulunun Kararı ile kesinleşir. Sınav jürisi en az ikisi kendi yükseköğr..."
+    },
+    {
+      "rank": 6,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "label": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+      "article_no": null,
+      "article_title": "",
+      "page": "1",
+      "flashrank_score": 0.9992919564247131,
+      "metadata_score": 0.0,
+      "metadata_strong_match": false,
+      "explanation": [],
+      "content_preview": "[Bağlam: %C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf — Sınav] SELÇUK ÜNİVERSİTESİ ÖN LİSANS VE LİSANS EĞİTİM-ÖĞRETİM VE SINAV YÖNETMELİĞİ BİRİNCİ BÖLÜM Başlangıç Hükümleri Amaç ve kapsam MADDE 1- (1) Bu Yönetmeliğin amacı; Selçuk Üniversitesi Tıp Fakültesi, Diş Hekimliği Fakültesi, Güzel Sanatlar Fakültesi, Veterin er Fakültesi, Hukuk Fakültesi, Yabancı Diller Yüksekokulu Yabancı Diller Bölümü ve Dilek Sabancı De..."
+    },
+    {
+      "rank": 7,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": null,
+      "article_title": "",
+      "page": "19",
+      "flashrank_score": 0.9992197751998901,
+      "metadata_score": 9.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] (3) Doktora tezinin tesliminden itibaren, en geç üç ay içinde tezin bir kopyası elektronik ortamda, bilimsel araştırma ve faaliyetlerin hizmetine sunulmak üzere ilgili enstitü tarafından Yükseköğretim Kurulu Başkanlığına gönderilir. ALTINCI BÖLÜM Sanatta Yeterlik Programı Genel esaslar MADDE 48 - (1) Sanatta yeterlik çalışması, özgün bir sanat eserini..."
+    },
+    {
+      "rank": 8,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": null,
+      "article_title": "",
+      "page": "17",
+      "flashrank_score": null,
+      "metadata_score": 9.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf] Uygulama sınavında ikinci kez başarısız olan öğrencinin ilgili program ile ilişiği kesilir. Doktora diploması MADDE 47 –(1)Tez savunmasında başarılı olmak ve diğer koşulları da sağlamak kaydıyla doktora tezinin ciltlenmiş en az üç kopyasını tez sınavına giriş tarihinden itibaren bir ay içinde ilgili enstitüye teslim eden ve tezi şekil yönünden uygun bulunan öğr..."
+    },
+    {
+      "rank": 9,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": null,
+      "article_title": "",
+      "page": "1",
+      "flashrank_score": null,
+      "metadata_score": 9.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ BİRİNCİ BÖLÜM Amaç, Kapsam, Dayanak ve Tanımlar Amaç MADDE 1 - (1) Bu Yönetmeliğin amacı, Selçuk Üniversitesine bağlı enstitülerde yürütülen lisansüstü eğitim ve öğretim faaliyetlerine ilişkin usul ve esasları düzenlemektir. Kapsam MADDE 2 - (1) Bu Yönetmelik; Selçuk Üniversitesinde tezli yü..."
+    },
+    {
+      "rank": 10,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "title": "SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf",
+      "label": "SELÇUK ÜNİVERSİTESİ LİSANSÜSTÜ EĞİTİM VE",
+      "article_no": null,
+      "article_title": "",
+      "page": "1",
+      "flashrank_score": null,
+      "metadata_score": 9.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "content_query_phrase_overlap_doktora_yeterlik",
+          "boost": 9.0
+        }
+      ],
+      "content_preview": "[Bağlam: SEL%C3%87UK%20%C3%9CN%C4%B0VERS%C4%B0TES%C4%B0%20L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE_638218311048381336.pdf — Yönetmelik] Dayanak MADDE 3 - (1) Bu Yönetmelik, 4/11/1981 tarihli ve 2547 sayılı Yükseköğretim Kanununun 14 üncü ve 44 üncü maddelerine dayanılarak hazırlanmıştır. Tanımlar MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Doktora program..."
+    }
+  ]
+}

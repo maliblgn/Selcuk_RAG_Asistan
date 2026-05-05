@@ -857,13 +857,17 @@ else:
                 if docs:
                     with st.expander("📚 Kaynaklar", expanded=False):
                         for i, doc in enumerate(docs):
-                            source_url = str(doc.metadata.get('source', ''))
-                            title = doc.metadata.get('title', source_url.split('/')[-1] if source_url else 'Belge')
-                            
-                            st.markdown(f"**[{i+1}] {title}**")
+                            source_info = SelcukRAGEngine.build_source_metadata(doc)
+                            source_url = source_info["url"]
+
+                            st.markdown(f"**[{i+1}] {source_info['label']}**")
+                            if source_info["article_label"]:
+                                st.caption(source_info["article_label"])
+                            if source_info["page"]:
+                                st.caption(f"Sayfa: {source_info['page']}")
                             st.caption(doc.page_content[:200].replace("\n", " ") + "...")
-                            if source_url.startswith('http'):
-                                st.markdown(f"[🔗 Kaynağa Git]({source_url})")
+                            if source_url:
+                                st.markdown(f"[Kaynağa Git]({source_url})")
                             st.divider()
 
                 # Feedback ve İndirme butonları
@@ -944,7 +948,7 @@ else:
 
                 # 4. Streaming yanıt
                 def token_generator():
-                    for chunk in motor.stream_answer(kullanici_sorusu, context, history, mode=st.session_state.asistan_modu):
+                    for chunk in motor.stream_answer(yeniden_soru, context, history, mode=st.session_state.asistan_modu):
                         if hasattr(chunk, 'content'):
                             yield chunk.content
                         else:
