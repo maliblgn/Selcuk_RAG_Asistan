@@ -18,8 +18,15 @@ from check_chroma_health import check_chroma_health
 
 logger = logging.getLogger(__name__)
 
-# Gönderilecek bağlamın maksimum karakter sayısı (token taşmasını önler)
-MAX_CONTEXT_CHARS = 12_000
+# Gonderilecek prompt parcasi limitleri (Groq 6000 TPM limitini asmayacak sekilde)
+MAX_CHAT_HISTORY_CHARS = 2_500
+MAX_REWRITE_HISTORY_CHARS = 1_200
+MAX_ANSWER_CONTEXT_CHARS = 5_000
+MAX_RETRY_CONTEXT_CHARS = 2_500
+MAX_RETRY_HISTORY_CHARS = 800
+
+# Geriye uyumluluk: format_context bu sabiti kullanir.
+MAX_CONTEXT_CHARS = MAX_ANSWER_CONTEXT_CHARS
 
 SOURCE_INVENTORY_TERMS = (
     "veritabaninda hangi kaynak",
@@ -43,6 +50,101 @@ LIVE_INDEX_UNAVAILABLE_MESSAGE = (
     "Lutfen yonetici panelinden veri indeksleme islemini calistirin "
     "veya ChromaDB kalici depolamasini kontrol edin."
 )
+
+INVENTORY_HISTORY_PLACEHOLDER = (
+    "[Onceki mesajda veritabani kaynak envanteri listelendi; "
+    "detaylar prompttan cikarildi.]"
+)
+
+FOLLOWUP_REFERENCE_TERMS = (
+    "bu",
+    "bunu",
+    "bunun",
+    "onda",
+    "onu",
+    "onun",
+    "peki",
+    "az once",
+    "az önce",
+    "yukaridaki",
+    "yukarıdaki",
+    "onceki",
+    "önceki",
+    "devam",
+    "detaylandir",
+    "detaylandır",
+)
+
+
+def trim_text_for_prompt(text: str, max_chars: int) -> str:
+    """Prompt parcasini max_chars sinirinda tutup son kismi koru."""
+    text = str(text or "")
+    if max_chars <= 0:
+        return ""
+    if len(text) <= max_chars:
+        return text
+    marker = "[gecmis kisaltildi]\n"
+    keep = max(0, max_chars - len(marker))
+    return marker + text[-keep:]
+
+
+def is_long_inventory_answer(text: str) -> bool:
+    """Kaynak envanteri cevabinin chat_history'yi sisirmesini yakala."""
+    text = str(text or "")
+    normalized = SelcukRAGEngine._normalize_question_text(text)
+    if "su an acik olan veritabaninda indekslenmis kaynaklar" in normalized:
+        return True
+    if re.search(r"toplam:\s*\d+\s+benzersiz kaynak", normalized):
+        return True
+    return len(re.findall(r"\b\d+\.\s+.*?\bparca\b", normalized)) >= 8
+
+
+def sanitize_chat_history(chat_history: str, max_chars: int = MAX_CHAT_HISTORY_CHARS) -> str:
+    """Uzun envanter cevaplarini at ve history'yi prompt butcesine sigdir."""
+    text = str(chat_history or "").strip()
+    if not text:
+        return ""
+    if is_long_inventory_answer(text):
+        return INVENTORY_HISTORY_PLACEHOLDER
+
+    lines = []
+    inventory_block_seen = False
+    for line in text.splitlines():
+        if is_long_inventory_answer(line):
+            if not inventory_block_seen:
+                lines.append(INVENTORY_HISTORY_PLACEHOLDER)
+                inventory_block_seen = True
+            continue
+        lines.append(line)
+    return trim_text_for_prompt("\n".join(lines).strip(), max_chars)
+
+
+def is_question_independent(question: str) -> bool:
+    """Soru yeterince aciksa rewrite LLM cagrisini atla."""
+    normalized = SelcukRAGEngine._normalize_question_text(question)
+    tokens = set(normalized.split())
+    if len(tokens) < 5:
+        return False
+    for term in FOLLOWUP_REFERENCE_TERMS:
+        if " " in term:
+            if term in normalized:
+                return False
+        elif term in tokens:
+            return False
+    return True
+
+
+def is_prompt_size_error(error) -> bool:
+    text = str(error or "").lower()
+    return (
+        "413" in text
+        or "payload too large" in text
+        or "request too large" in text
+        or ("requested" in text and "tokens" in text and "limit" in text)
+        or "rate_limit" in text
+        or "rate limit" in text
+        or "tpm" in text
+    )
 
 
 class KnowledgeBaseUnavailableError(RuntimeError):
@@ -197,10 +299,20 @@ class SelcukRAGEngine:
         """Takip sorularını bağımsız sorulara çevir."""
         if not chat_history or len(chat_history.strip()) == 0:
             return question
+        if is_question_independent(question):
+            logger.info("Soru bagimsiz gorunuyor; rewrite LLM cagrisi atlandi.")
+            return question
+
+        safe_history = sanitize_chat_history(
+            chat_history,
+            max_chars=MAX_REWRITE_HISTORY_CHARS,
+        )
+        if not safe_history:
+            return question
         
         try:
             chain = self.rewrite_prompt | self.llm | StrOutputParser()
-            rewritten = chain.invoke({"question": question, "chat_history": chat_history})
+            rewritten = chain.invoke({"question": question, "chat_history": safe_history})
             logger.info(f"Soru yeniden yazıldı: '{question}' → '{rewritten.strip()}'")
             return rewritten.strip()
         except Exception as e:
@@ -217,7 +329,10 @@ class SelcukRAGEngine:
             clean_queries = [q.replace("1.", "").replace("2.", "").replace("3.", "").replace("-", "").strip() for q in queries]
             return [question] + clean_queries[:3]
         except Exception as e:
-            logger.warning(f"Multi-query üretilemedi: {e}")
+            if is_prompt_size_error(e):
+                logger.warning("Multi-query token/rate limit nedeniyle atlandi: %s", e)
+            else:
+                logger.warning(f"Multi-query üretilemedi: {e}")
             return [question]
 
     def retrieve(self, question, dynamic_docs=None):
@@ -420,7 +535,7 @@ class SelcukRAGEngine:
         }
 
     @classmethod
-    def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=120):
+    def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=30):
         """RAG motorunu baslatmadan ChromaDB kaynak envanteri cevabi uret."""
         db_dir = db_dir or os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
         health = check_chroma_health(db_dir)
@@ -439,7 +554,7 @@ class SelcukRAGEngine:
                 "Canli ortamda ChromaDB dosyalari veya veritabani baglantisi kontrol edilmeli."
             )
 
-    def build_source_inventory_answer(self, max_sources=120):
+    def build_source_inventory_answer(self, max_sources=30):
         """Mevcut veritabanindaki kaynaklari kullaniciya okunur sekilde anlat."""
         inventory = self.get_source_inventory()
         if not inventory.get("ok"):
@@ -505,12 +620,37 @@ class SelcukRAGEngine:
     def stream_answer(self, question, context, chat_history="", mode="Akademik Rehber"):
         """Cevabı token token stream eder (generator)."""
         prompt_template = self.prompts.get(mode, self.prompts["Akademik Rehber"])
-        prompt_value = prompt_template.invoke({
-            "context": context,
-            "chat_history": chat_history,
-            "input": question
-        })
-        return self.llm.stream(prompt_value)
+        safe_context = trim_text_for_prompt(context, MAX_ANSWER_CONTEXT_CHARS)
+        safe_history = sanitize_chat_history(chat_history, max_chars=MAX_CHAT_HISTORY_CHARS)
+
+        def _stream_once(context_text, history_text):
+            prompt_value = prompt_template.invoke({
+                "context": context_text,
+                "chat_history": history_text,
+                "input": question
+            })
+            yield from self.llm.stream(prompt_value)
+
+        def _safe_stream():
+            try:
+                yield from _stream_once(safe_context, safe_history)
+            except Exception as exc:
+                if not is_prompt_size_error(exc):
+                    raise
+                logger.warning("Groq prompt/token limiti asildi, kisa baglamla tekrar deneniyor: %s", exc)
+                yield "Yanıt oluştururken bağlam çok uzun geldi. Daha kısa bağlamla tekrar deniyorum.\n\n"
+                retry_context = trim_text_for_prompt(safe_context, MAX_RETRY_CONTEXT_CHARS)
+                retry_history = sanitize_chat_history(safe_history, max_chars=MAX_RETRY_HISTORY_CHARS)
+                try:
+                    yield from _stream_once(retry_context, retry_history)
+                except Exception as retry_exc:
+                    logger.warning("Kisa baglam retry denemesi basarisiz: %s", retry_exc)
+                    yield (
+                        "Yanıt oluştururken modelin token/istek limitine takıldım. "
+                        "Lütfen soruyu biraz daha daraltarak tekrar deneyin."
+                    )
+
+        return _safe_stream()
 
     def suggest_followups(self, question, answer):
         """Cevaba göre 3 adet takip sorusu öner."""

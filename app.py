@@ -7,8 +7,12 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from rag_engine import (
     KnowledgeBaseUnavailableError,
     LIVE_INDEX_UNAVAILABLE_MESSAGE,
+    MAX_CHAT_HISTORY_CHARS,
     SelcukRAGEngine,
     is_chroma_collection_error,
+    is_long_inventory_answer,
+    sanitize_chat_history,
+    trim_text_for_prompt,
 )
 from check_chroma_health import check_chroma_health
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
@@ -39,6 +43,23 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 )
 logger = logging.getLogger(__name__)
+
+
+def build_prompt_chat_history(messages, max_pairs=3, per_message_chars=800):
+    """Prompt icin son sohbet gecmisini kisa ve guvenli bicimde uret."""
+    safe_messages = []
+    for message in (messages or [])[-(max_pairs * 2):]:
+        role = message.get("rol", "")
+        content = str(message.get("icerik", "") or "")
+        if is_long_inventory_answer(content):
+            content = "[Onceki mesajda kaynak envanteri listelendi; detaylar prompttan cikarildi.]"
+        else:
+            content = trim_text_for_prompt(content, per_message_chars)
+        safe_messages.append(f"{role}: {content}")
+    return sanitize_chat_history(
+        "\n".join(safe_messages),
+        max_chars=MAX_CHAT_HISTORY_CHARS,
+    )
 
 # ─────────────────── SAYFA AYARLARI ───────────────────
 st.set_page_config(page_title="Selçuk RAG Asistanı", page_icon="🎓", layout="centered")
@@ -910,7 +931,7 @@ else:
                     st.rerun()
 
                 motor = get_engine()
-                history = "\n".join([f"{m['rol']}: {m['icerik']}" for m in st.session_state.mesajlar[-4:]])
+                history = build_prompt_chat_history(st.session_state.mesajlar[:-1])
 
                 # 2. Soru yeniden yazma (takip soruları için)
                 with st.spinner("Soru analiz ediliyor..."):

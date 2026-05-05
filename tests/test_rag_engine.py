@@ -35,7 +35,13 @@ _make_stub_modules()
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import rag_engine  # noqa: E402  (stub'lar hazır olduktan sonra import)
-from rag_engine import MAX_CONTEXT_CHARS  # noqa: E402
+from rag_engine import (  # noqa: E402
+    MAX_CONTEXT_CHARS,
+    INVENTORY_HISTORY_PLACEHOLDER,
+    is_long_inventory_answer,
+    sanitize_chat_history,
+    trim_text_for_prompt,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -283,3 +289,117 @@ class TestSourceInventory:
 def test_max_context_chars_pozitif_tamsayi():
     assert isinstance(MAX_CONTEXT_CHARS, int)
     assert MAX_CONTEXT_CHARS > 0
+
+
+def test_bagimsiz_soruda_rewrite_llm_cagrisi_atlanir():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+    engine.llm = MagicMock(side_effect=AssertionError("LLM cagrilmamali"))
+    soru = "Selcuk Universitesinde tez izleme komitesi kac ogretim uyesinden olusur?"
+
+    assert engine.rewrite_query(soru, "assistant: onceki uzun cevap") == soru
+
+
+def test_rewrite_history_sanitize_edilerek_gonderilir():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+    captured = {}
+
+    class FakeChain:
+        def __or__(self, other):
+            return self
+
+        def invoke(self, payload):
+            captured.update(payload)
+            return "Staj yonergesinde bunun sarti nedir?"
+
+    class FakePrompt:
+        def __or__(self, other):
+            return FakeChain()
+
+    engine.rewrite_prompt = FakePrompt()
+    engine.llm = MagicMock()
+    inventory = "Su an acik olan veritabaninda indekslenmis kaynaklar sunlar:\nToplam: 149 benzersiz kaynak\n" + "\n".join(
+        f"{i}. Kaynak - {i} parca" for i in range(20)
+    )
+
+    engine.rewrite_query("Peki bunun sarti nedir?", inventory)
+
+    assert captured["chat_history"] == INVENTORY_HISTORY_PLACEHOLDER
+
+
+def test_kaynak_envanteri_default_30_kaynakla_sinirli():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+    engine.static_db = MagicMock()
+    engine.static_db.get.return_value = {
+        "metadatas": [
+            {
+                "source": f"https://webadmin.selcuk.edu.tr/Kaynak{i:02d}.pdf",
+                "title": f"Kaynak {i:02d}",
+                "source_type": "web_pdf",
+            }
+            for i in range(35)
+        ]
+    }
+
+    cevap = engine.build_source_inventory_answer()
+
+    assert "31." not in cevap
+    assert "...ve 5 kaynak daha var" in cevap
+
+
+def test_trim_text_for_prompt_sinir_asmaz_ve_son_kismi_korur():
+    text = "a" * 100 + "SON"
+    trimmed = trim_text_for_prompt(text, 40)
+
+    assert len(trimmed) <= 40
+    assert trimmed.startswith("[gecmis kisaltildi]")
+    assert trimmed.endswith("SON")
+
+
+def test_uzun_source_inventory_history_placeholder_olur():
+    inventory = "Su an acik olan veritabaninda indekslenmis kaynaklar sunlar:\nToplam: 149 benzersiz kaynak\n" + "\n".join(
+        f"{i}. Kaynak - {i} parca" for i in range(15)
+    )
+
+    assert is_long_inventory_answer(inventory)
+    assert sanitize_chat_history(inventory) == INVENTORY_HISTORY_PLACEHOLDER
+
+
+def test_multi_query_hata_alinca_orijinal_soru_doner():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+
+    class BrokenPrompt:
+        def __or__(self, other):
+            raise RuntimeError("413 Payload Too Large")
+
+    engine.multi_query_prompt = BrokenPrompt()
+    engine.llm = MagicMock()
+
+    assert engine._generate_multi_queries("AKTS nedir?") == ["AKTS nedir?"]
+
+
+def test_stream_answer_413_hatasinda_kisa_baglamla_retry_yapar():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+
+    class FakePrompt:
+        def invoke(self, payload):
+            return payload
+
+    class FakeLLM:
+        def __init__(self):
+            self.calls = 0
+
+        def stream(self, payload):
+            self.calls += 1
+            if self.calls == 1:
+                raise RuntimeError("HTTP/1.1 413 Payload Too Large")
+            yield types.SimpleNamespace(content="kisa cevap")
+
+    engine.prompts = {"Akademik Rehber": FakePrompt()}
+    engine.llm = FakeLLM()
+
+    chunks = list(engine.stream_answer("Soru nedir?", "c" * 10000, "h" * 5000))
+    joined = "".join(chunk.content if hasattr(chunk, "content") else str(chunk) for chunk in chunks)
+
+    assert "daha kisa baglamla tekrar deniyorum" in rag_engine.SelcukRAGEngine._normalize_question_text(joined)
+    assert "kisa cevap" in joined
+    assert engine.llm.calls == 2
