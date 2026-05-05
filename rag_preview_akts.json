@@ -1,0 +1,197 @@
+{
+  "question": "AKTS nedir?",
+  "normalized_question": "AKTS nedir?",
+  "top_k": 10,
+  "results": [
+    {
+      "rank": 1,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "title": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "label": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "3",
+      "flashrank_score": 0.9967445731163025,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf] (3) Bir der sin teorik ve uygulama saatleri ile birlikte diğer çalışmalar göz önünde bulundurularak o dersin AKTS kredisi belirlenir. (4) Derslerin toplam AKTS kredisi; YÖK tarafından ilgili programın yer aldığı diploma düzeyi ve alan için yükseköğretim yeterlilikleri çerçevesine göre belirlenen kredi aralığına göre dört yıllık hukuk lisans programı için en az 240’tır. Yatay geçiş, intibak ve muafiyet MADDE 8- (1) Yatay geçişe, intibaka ve muafi..."
+    },
+    {
+      "rank": 2,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "title": "87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "label": "87d58e75-737b-4705-9796-e512c76bc572",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "4",
+      "flashrank_score": 0.9963947534561157,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: 87d58e75-737b-4705-9796-e512c76bc572.pdf] Kalan dersler ise bir sonraki aynı yarıyılda alınır. ç) GANO’su 1,50’nin altında olan öğren ci alttan aldığı derslerin kredileri dâhil bulunduğu yarıyılda en fazla açılan AKTS kredisi kadar kredide ders alabilir. GANO’su 1,50’nin üzerinde olan öğrenciler alttan aldığı derslerin kredileri dâhil bulunduğu yarıyılda açılan 30 AKTS kredisinin %50 fazlası olan 45 AKTS kredisine kadar ders alabilir. Son sınıf öğrencilerine kredi sınırlaması uygulanmaz..."
+    },
+    {
+      "rank": 3,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "label": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "4",
+      "flashrank_score": 0.9950346350669861,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: %C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf] Bu durumda alınan son not geçerli olur. e) Kayıt donduran, süreli uzaklaştırma cezası nedeniyle dönem kaybeden, ders kaydı yaptırmayan veya başarısızl ık nedeniyle bulundukları yarıyıldan ders alamayan öğrenciler; öğrenimlerine kaldıkları yarıyıldan devam eder, üst yarıyıldan ders alamaz. f) Programdan kaldırılan ve yerine yeni bir ders konulmayan herhangi bir..."
+    },
+    {
+      "rank": 4,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "title": "87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "label": "87d58e75-737b-4705-9796-e512c76bc572",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "5",
+      "flashrank_score": 0.9941136837005615,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: 87d58e75-737b-4705-9796-e512c76bc572.pdf] Bu durumda alınan son not geçerli olur. f) Kayıt donduran, süreli uzaklaştırma cezası nedeniyle dönem kaybeden, ders kaydı yaptırmayan veya başarısızlık nedeniyle bulundukları yarıyıldan ders alamayan öğrenciler öğrenimlerine kaldıkları yarıyıldan devam ederler, bir üst yarıyıldan ders alamazlar. g) Programdan kaldırılan ve yerine yeni bir ders konulmayan herhangi bir dersten başarısız olan öğrencinin o dersten sorumluluğu kaldırılır ve o ders t..."
+    },
+    {
+      "rank": 5,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf",
+      "label": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "5",
+      "flashrank_score": 0.9939886331558228,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: %C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638315843142205508.pdf] ğ) Öğrenci azlığı nedeniyle sınıf teşkil edilemediği için birinci ve ikinci öğretim programları birleştirilerek ders yapılan bölüm/programlar ile lisans tamamlama, mühendislik tamamlama, diploma denklik, çift ana dal ve yan dal programı öğ rencileri dışında birinci öğretim öğrencileri ikinci öğretimden, ikinci öğretim öğrencileri birinci öğretimden ders alamaz..."
+    },
+    {
+      "rank": 6,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "title": "87d58e75-737b-4705-9796-e512c76bc572.pdf",
+      "label": "87d58e75-737b-4705-9796-e512c76bc572",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "5",
+      "flashrank_score": null,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: 87d58e75-737b-4705-9796-e512c76bc572.pdf — Karar] bulunan derslerin toplam AKTS kredisinin %20’sine kadar bir üst yarıyıldan ders alabilir. Ön şartlı dersler ve ön şartlar, ilgili bölüm kurulunun teklifi ile Fakülte Kurulunun kararı ve Senatonun onayı ile belirlenir. e) Öğrenci bir önceki eğitim -öğretim yılında BB’den daha düşük not aldığı dersi/dersleri not yükseltmek için tekrar alabilir."
+    },
+    {
+      "rank": 7,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "title": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "label": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "4",
+      "flashrank_score": null,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf] Bu fıkra, geçmesi gereken zorunlu dersi bulunan öğrencilere güz dönemi sonunda üç ders sınavına girme hakkı vermez. (6) Öğrenci, danışmanın olumlu görüşü ile eğitim -öğretim yılı sonunda tüm derslerden başarılı olması ve GANO’sunun en az 3,00 olması şartı ile bulunduğu eğitim-öğretim yılında bulunan derslerin toplam AKTS kredisinin %20’sine kadar bir üst eğitim-öğretim yılından ders alabilir. (7) Öğrenci önceki eğitim -öğretim yıllarında BB’den..."
+    },
+    {
+      "rank": 8,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "7",
+      "flashrank_score": null,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf] Tablo 1. Lisansüstü programlardaki başarı notu aralıkları ve açıklamaları Yüzlük Sistemdeki Not Aralıkları Başarı Notu Harf Notu Karşılığı AKTS Notu Açıklaması 88 - 100 4.00 AA A Yüksek Lisans/Doktora Başarılı"
+    },
+    {
+      "rank": 9,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "title": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "label": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "4",
+      "flashrank_score": null,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf] (3) (Değişik:RG-9/11/2023-32364) Birinci sınıftan en az bir zorunlu ders alıp başarmış olmak kaydıyla ikinci sınıfa geçecek olan, ikinci sınıftan en az bir zorunlu ders al ıp başarmış olmak kaydıyla üçüncü sınıfa geçecek olan ve üçüncü sınıftan en az bir zorunlu ders alıp başarmış olmak kaydıyla dördüncü sınıfa geçecek olan öğrencilerden GANO’su 1,50’nin altında olan öğrenci alttan aldığı derslerin kredileri dâhil bulunduğu eğitim-öğretim yılınd..."
+    },
+    {
+      "rank": 10,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "title": "%C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf",
+      "label": "Ön Lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliği",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "4",
+      "flashrank_score": null,
+      "metadata_score": 2.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Bağlam: %C3%96n%20Lisans%20ve%20Lisans%20E%C4%9Fitim-%C3%96%C4%9Fretim%20ve%20S%C4%B1nav%20Y%C3%B6netmeli%C4%9Fi_638893979669167204.pdf] Daha önce aldığı bir seçmeli dersin tekrarında, aynı dersi almak zorunda değildir; bunun yerine aynı seçmeli gruptan başka bir dersi/dersleri alabilir. Öğrencinin transkriptinde son aldığı ve başarılı olduğu grup seçmeli dersi/dersleri yer alır ve öğrencinin başarısız olduğu ders/dersler transkriptinden kaldırılır. Öğrenci, alt sınıflardan başarısız olduğu der..."
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import os
+﻿import os
 import logging
 import re
 import unicodedata
@@ -15,6 +15,7 @@ from langchain_classic.retrievers import EnsembleRetriever
 from langchain_community.document_compressors.flashrank_rerank import FlashrankRerank
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
+from retrieval_rerank import legal_safe_query_allowed, rerank_documents
 
 logger = logging.getLogger(__name__)
 
@@ -45,6 +46,30 @@ LIVE_INDEX_UNAVAILABLE_MESSAGE = (
 )
 
 
+def env_bool(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
+def env_int(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, str(default)))
+    except (TypeError, ValueError):
+        return default
+
+
+def normalize_user_question_for_retrieval(question):
+    """Arama akisi icin liste numarasi ve gereksiz isaretleri temizle."""
+    text = str(question or "").strip()
+    for _ in range(3):
+        text = text.strip().strip("\"'“”‘’`")
+        text = re.sub(r"^\s*(?:[-*+]\s+)+", "", text)
+        text = re.sub(r"^\s*\d+\s*[\.)]\s*", "", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
 class KnowledgeBaseUnavailableError(RuntimeError):
     """ChromaDB index is missing, empty, or unreadable."""
 
@@ -67,7 +92,7 @@ def is_chroma_collection_error(error):
 
 
 class SelcukRAGEngine:
-    def __init__(self):
+    def __init__(self, enable_llm=True):
         logger.info("SelcukRAGEngine başlatılıyor...")
         # 1. Embedding Modelini Yükle
         self.db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
@@ -121,7 +146,9 @@ class SelcukRAGEngine:
         self._temp_db = None
         
         # 3. LLM Ayarları (Groq Llama 3.1)
-        self.llm = ChatGroq(model=os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"), temperature=0)
+        self.llm = None
+        if enable_llm:
+            self.llm = ChatGroq(model=os.getenv("GROQ_MODEL", "llama-3.1-8b-instant"), temperature=0)
         
         # 4. Modlara Özel Promptlar (Multi-Agent UI)
         common_rules = (
@@ -195,6 +222,7 @@ class SelcukRAGEngine:
 
     def rewrite_query(self, question, chat_history):
         """Takip sorularını bağımsız sorulara çevir."""
+        question = normalize_user_question_for_retrieval(question)
         if not chat_history or len(chat_history.strip()) == 0:
             return question
         
@@ -202,26 +230,38 @@ class SelcukRAGEngine:
             chain = self.rewrite_prompt | self.llm | StrOutputParser()
             rewritten = chain.invoke({"question": question, "chat_history": chat_history})
             logger.info(f"Soru yeniden yazıldı: '{question}' → '{rewritten.strip()}'")
-            return rewritten.strip()
+            return normalize_user_question_for_retrieval(rewritten)
         except Exception as e:
             logger.warning(f"Soru yeniden yazılamadı, orijinal kullanılıyor: {e}")
             return question
 
     def _generate_multi_queries(self, question):
-        """Kullanıcının sorgusunu alternatif 3 farklı sorguya çevirir."""
+        """Kullanicinin sorgusunu guvenli alternatif sorgulara cevirir."""
+        question = normalize_user_question_for_retrieval(question)
+        if not env_bool("MULTI_QUERY_ENABLED", True):
+            return [question]
+
         try:
             chain = self.multi_query_prompt | self.llm | StrOutputParser()
             result = chain.invoke({"question": question})
-            queries = [q.strip() for q in result.strip().split("\n") if q.strip() and not q.strip().startswith("-")]
-            # Sadece LLM'in urettigi gecerli sorulari al
-            clean_queries = [q.replace("1.", "").replace("2.", "").replace("3.", "").replace("-", "").strip() for q in queries]
+            queries = [q.strip() for q in result.strip().split("\n") if q.strip()]
+            clean_queries = []
+            for query in queries:
+                clean_query = normalize_user_question_for_retrieval(query)
+                if not clean_query or clean_query == question:
+                    continue
+                if env_bool("MULTI_QUERY_LEGAL_SAFE_MODE", True) and not legal_safe_query_allowed(question, clean_query):
+                    logger.info("Legal safe mode multi-query varyasyonunu eledi: %s", clean_query)
+                    continue
+                clean_queries.append(clean_query)
             return [question] + clean_queries[:3]
         except Exception as e:
             logger.warning(f"Multi-query üretilemedi: {e}")
             return [question]
 
-    def retrieve(self, question, dynamic_docs=None):
+    def retrieve(self, question, dynamic_docs=None, top_k=5):
         """Soruya en uygun doküman parçalarını getir."""
+        question = normalize_user_question_for_retrieval(question)
         active_retriever = self.static_retriever
         
         dynamic_retriever = None
@@ -270,30 +310,66 @@ class SelcukRAGEngine:
         if not unique_docs:
             return []
             
+        metadata_ranked_docs = unique_docs
+        if env_bool("METADATA_RERANK_ENABLED", True):
+            metadata_ranked_docs = rerank_documents(question, unique_docs)
+            candidate_k = max(top_k, env_int("METADATA_RERANK_CANDIDATE_K", 40))
+            metadata_ranked_docs = metadata_ranked_docs[:candidate_k]
+            logger.info(
+                "Metadata-aware rerank aktif: %d aday siralandi, en iyi skor %.2f",
+                len(metadata_ranked_docs),
+                metadata_ranked_docs[0].metadata.get("metadata_rerank_score", 0.0) if metadata_ranked_docs else 0.0,
+            )
+
+        strong_metadata_docs = [
+            doc for doc in metadata_ranked_docs
+            if doc.metadata.get("metadata_strong_match")
+            or doc.metadata.get("metadata_rerank_score", 0.0) >= 16.0
+        ]
+
         # 4. Cross-Encoder Re-ranking
         if self.reranker is None:
-            logger.info("Reranker devre disi, ilk 5 dokuman donduruluyor.")
-            return unique_docs[:5]
+            logger.info("Reranker devre disi, metadata sirali ilk dokumanlar donduruluyor.")
+            return metadata_ranked_docs[:top_k]
 
         try:
-            reranked_docs = self.reranker.compress_documents(unique_docs, question)
+            reranked_docs = self.reranker.compress_documents(metadata_ranked_docs, question)
             logger.info(f"Reranking sonrası {len(reranked_docs)} doküman seçildi.")
-            
-            # 5. Threshold (Eşik) Kontrolü
-            if reranked_docs:
-                top_score = reranked_docs[0].metadata.get("relevance_score", 1.0)
+
+            merged_docs = []
+            seen_after_rerank = set()
+
+            def add_doc(doc):
+                content_hash = hash(doc.page_content)
+                if content_hash in seen_after_rerank:
+                    return
+                seen_after_rerank.add(content_hash)
+                merged_docs.append(doc)
+
+            for doc in strong_metadata_docs[:top_k]:
+                add_doc(doc)
+            for doc in reranked_docs:
+                add_doc(doc)
+            for doc in metadata_ranked_docs:
+                add_doc(doc)
+
+            final_docs = merged_docs[:top_k]
+
+            # 5. Threshold kontrolu. Metadata guclu eslesme varsa sistem uyari dokumani uretme.
+            if final_docs:
+                top_score = final_docs[0].metadata.get("relevance_score", 1.0)
                 logger.info(f"En iyi doküman skoru: {top_score}")
-                if top_score < 0.6: # Eşik değeri
+                if top_score < 0.6 and not strong_metadata_docs:
                     logger.warning("Bulunan sonuçlar eşik değerinin altında (Güvensiz bilgi).")
                     return [Document(
-                        page_content="[SİSTEM UYARISI] Bu konuda veritabanında net ve yeterli bir bilgi bulunamadı. Lütfen kullanıcıya 'Üzgünüm, belgelerde bu konuda kesin bir bilgi bulamadım. Lütfen sorunuzu farklı kelimelerle veya daha detaylı sormayı deneyin.' şeklinde yanıt ver.",
+                        page_content="[SISTEM UYARISI] Bu konuda veritabanında net ve yeterli bir bilgi bulunamadı. Lütfen kullanıcıya 'Üzgünüm, belgelerde bu konuda kesin bir bilgi bulamadım. Lütfen sorunuzu farklı kelimelerle veya daha detaylı sormayı deneyin.' şeklinde yanıt ver.",
                         metadata={"source": "Sistem"}
                     )]
-            
-            return reranked_docs
+
+            return final_docs
         except Exception as e:
-            logger.warning(f"Reranker hatası: {e}. Orijinal sonuçlar dönülüyor.")
-            return unique_docs[:5]
+            logger.warning(f"Reranker hatası: {e}. Metadata sıralı sonuçlar dönülüyor.")
+            return metadata_ranked_docs[:top_k]
 
     @staticmethod
     def _format_source_label(source):
@@ -311,6 +387,43 @@ class SelcukRAGEngine:
         if label.lower().endswith(".pdf"):
             label = label[:-4]
         return label or "Bilinmeyen Belge"
+
+    @staticmethod
+    def _format_page_range(metadata):
+        page_start = metadata.get("page_start") or metadata.get("page")
+        page_end = metadata.get("page_end") or metadata.get("page")
+        if not page_start and not page_end:
+            return ""
+        if page_start and page_end and str(page_start) != str(page_end):
+            return f"{page_start}-{page_end}"
+        return str(page_start or page_end)
+
+    @classmethod
+    def build_source_metadata(cls, doc):
+        """UI ve LLM context icin ayni kaynak/madde etiketini uret."""
+        metadata = dict(getattr(doc, "metadata", {}) or {})
+        source = metadata.get("source") or ""
+        title = metadata.get("title") or ""
+        label = cls._source_display_name(source, title)
+        article_no = metadata.get("article_no")
+        article_title = metadata.get("article_title") or ""
+        page = cls._format_page_range(metadata)
+        article_label = ""
+        if article_no and article_title:
+            article_label = f"Madde {article_no} - {article_title}"
+        elif article_no:
+            article_label = f"Madde {article_no}"
+        elif article_title:
+            article_label = str(article_title)
+        return {
+            "label": label,
+            "source": source,
+            "article_no": article_no,
+            "article_title": article_title,
+            "article_label": article_label,
+            "page": page,
+            "url": source if str(source).startswith(("http://", "https://")) else "",
+        }
 
     @staticmethod
     def _normalize_question_text(text):
@@ -358,7 +471,7 @@ class SelcukRAGEngine:
 
         source = str(source or "").strip()
         if not source:
-            return "Bilinmeyen Kaynak"
+            return "Bilinmeyen Belge"
 
         parsed = urlparse(source)
         path = parsed.path if parsed.scheme else source
@@ -494,8 +607,16 @@ class SelcukRAGEngine:
         """Dokümanları kaynak bilgisiyle birlikte bağlam metnine çevir."""
         chunks = []
         for i, doc in enumerate(docs):
-            source = self._format_source_label(doc.metadata.get("source"))
-            chunks.append(f"[{i+1}] [Kaynak: {source}]\n{doc.page_content}")
+            source_info = self.build_source_metadata(doc)
+            header = [f"[{i+1}] Kaynak: {source_info['label']}"]
+            if source_info["article_label"]:
+                header.append(f"Madde: {source_info['article_label'].replace('Madde ', '', 1)}")
+            if source_info["page"]:
+                header.append(f"Sayfa: {source_info['page']}")
+            if source_info["url"]:
+                header.append(f"URL: {source_info['url']}")
+            header.append("İçerik:")
+            chunks.append("\n".join(header) + f"\n{doc.page_content}")
         context = "\n\n".join(chunks)
         # Token taşmasını önlemek için maksimum karakter sayısını uygula
         if len(context) > MAX_CONTEXT_CHARS:
@@ -504,6 +625,7 @@ class SelcukRAGEngine:
 
     def stream_answer(self, question, context, chat_history="", mode="Akademik Rehber"):
         """Cevabı token token stream eder (generator)."""
+        question = normalize_user_question_for_retrieval(question)
         prompt_template = self.prompts.get(mode, self.prompts["Akademik Rehber"])
         prompt_value = prompt_template.invoke({
             "context": context,
