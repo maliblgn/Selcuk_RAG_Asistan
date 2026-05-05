@@ -52,6 +52,11 @@ LIVE_INDEX_UNAVAILABLE_MESSAGE = (
     "veya ChromaDB kalici depolamasini kontrol edin."
 )
 
+PROMPT_SOURCE_RULE = (
+    "Cevabın sonunda Kaynak veya Kaynaklar başlığı açma. "
+    "URL yazma. Kaynak listesini uygulama gösterecek."
+)
+
 INVENTORY_HISTORY_PLACEHOLDER = (
     "[Onceki mesajda veritabani kaynak envanteri listelendi; "
     "detaylar prompttan cikarildi.]"
@@ -147,7 +152,6 @@ def is_prompt_size_error(error) -> bool:
         or "tpm" in text
     )
 
-
 def env_bool(name: str, default: bool = False) -> bool:
     value = os.getenv(name)
     if value is None:
@@ -170,6 +174,34 @@ def normalize_user_question_for_retrieval(question):
         text = re.sub(r"^\s*(?:[-*+]\s+)+", "", text)
         text = re.sub(r"^\s*\d+\s*[\.)]\s*", "", text)
     return re.sub(r"\s+", " ", text).strip()
+
+
+def strip_model_generated_sources(answer: str) -> str:
+    """Modelin sonda urettigi kaynak bloklarini kaldir, inline [1] atiflari koru."""
+    text = str(answer or "").strip()
+    if not text:
+        return text
+
+    source_heading_re = re.compile(r"(?im)^\s*(?:#+\s*)?Kaynak(?:lar)?\s*:\s*.*$")
+    match = source_heading_re.search(text)
+    if match:
+        text = text[:match.start()].rstrip()
+
+    lines = []
+    skipping_url_block = False
+    for line in text.splitlines():
+        stripped = line.strip()
+        if re.match(r"^(?:[-*]\s*)?https?://\S+", stripped):
+            skipping_url_block = True
+            continue
+        if skipping_url_block and not stripped:
+            skipping_url_block = False
+            continue
+        if skipping_url_block:
+            continue
+        lines.append(line)
+
+    return "\n".join(lines).strip()
 
 
 class KnowledgeBaseUnavailableError(RuntimeError):
@@ -259,7 +291,8 @@ class SelcukRAGEngine:
             "2. Bağlamdaki rakamlara %100 sadık kal.\n"
             "3. Sadece Türkçe konuş.\n"
             "4. Cevabındaki bilgilerin sonuna mutlaka bağlamdaki kaynak numarasını [1], [2] şeklinde ekle (Inline Citation).\n"
-            "5. Cevabının en sonuna ayrıca 'Kaynak:' yazma, sadece metin içinde [1] şeklinde numaraları kullan.\n\n"
+            "5. Cevap içinde sadece [1], [2] inline citation kullan.\n"
+            f"6. {PROMPT_SOURCE_RULE}\n\n"
             "--- BAĞLAM (kaynaklarla birlikte) ---\n{context}\n\n"
             "--- GEÇMİŞ SOHBET ---\n{chat_history}\n\n"
             "--- SORU ---\n{input}\n\n"
@@ -374,6 +407,57 @@ class SelcukRAGEngine:
                 logger.warning(f"Multi-query üretilemedi: {e}")
             return [question]
 
+    def _akts_definition_fallback_docs(self, question, limit=3):
+        """AKTS tanim sorularinda lisansustu Madde 4 adayini hybrid havuzuna ekle."""
+        normalized = self._normalize_question_text(question)
+        if "akts" not in normalized:
+            return []
+
+        source_specific_terms = (
+            "staj",
+            "fen fakultesi",
+            "fen",
+            "cift ana dal",
+            "cift anadal",
+            "cap",
+            "yandal",
+            "diploma",
+            "yaz okulu",
+            "pedagojik formasyon",
+        )
+        if any(term in normalized for term in source_specific_terms):
+            return []
+
+        try:
+            data = self.static_db.get(include=["documents", "metadatas"])
+        except Exception as exc:
+            logger.debug("AKTS fallback adaylari okunamadi: %s", exc)
+            return []
+
+        docs = []
+        for content, metadata in zip(data.get("documents") or [], data.get("metadatas") or []):
+            metadata = dict(metadata or {})
+            content_text = str(content or "")
+            content_norm = self._normalize_question_text(content_text)
+            source_text = self._normalize_question_text(
+                f"{unquote(str(metadata.get('title') or ''))} "
+                f"{unquote(str(metadata.get('source') or ''))}"
+            )
+            article_title = self._normalize_question_text(metadata.get("article_title") or "")
+            if not (
+                "akts" in content_norm
+                and str(metadata.get("article_no") or "") == "4"
+                and "tanimlar" in article_title
+                and "lisansustu" in source_text
+                and "yonetmel" in source_text
+            ):
+                continue
+            metadata["metadata_fallback"] = "akts_lisansustu_article_4"
+            docs.append(Document(page_content=content_text, metadata=metadata))
+            if len(docs) >= limit:
+                break
+        return docs
+
     def retrieve(self, question, dynamic_docs=None, top_k=5):
         """Soruya en uygun doküman parçalarını getir."""
         question = normalize_user_question_for_retrieval(question)
@@ -411,6 +495,7 @@ class SelcukRAGEngine:
             all_docs.extend(active_retriever.invoke(q))
             if dynamic_retriever:
                 all_docs.extend(dynamic_retriever.invoke(q))
+        all_docs.extend(self._akts_definition_fallback_docs(question))
                 
         # 3. Deduplication
         seen = set()

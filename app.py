@@ -12,6 +12,7 @@ from rag_engine import (
     is_chroma_collection_error,
     is_long_inventory_answer,
     sanitize_chat_history,
+    strip_model_generated_sources,
     trim_text_for_prompt,
 )
 from check_chroma_health import check_chroma_health
@@ -954,7 +955,7 @@ else:
                         else:
                             yield str(chunk)
 
-                cevap = st.write_stream(token_generator())
+                cevap = strip_model_generated_sources(st.write_stream(token_generator()))
 
                 st.session_state.mesajlar.append({
                     "rol": "assistant", 

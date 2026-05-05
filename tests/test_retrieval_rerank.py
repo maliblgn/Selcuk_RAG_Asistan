@@ -188,3 +188,63 @@ def test_akts_article_4_tanimlar_scores_first():
     reranked = rerank_results(question, results)
 
     assert reranked[0]["metadata"]["article_no"] == "4"
+
+
+def test_akts_prefers_lisansustu_definition_over_narrow_staj_source():
+    question = "AKTS nedir?"
+    results = [
+        {
+            "content": "AKTS ders yükünü gösterir.",
+            "score": 10.0,
+            "metadata": {
+                "article_no": "4",
+                "article_title": "Tanımlar",
+                "title": "Selcuk_Universitesi_Fen_Fakultesi_Staj_Yonergesi",
+                "source": "Fen_Fakultesi_Staj_Yonergesi.pdf",
+            },
+        },
+        {
+            "content": "AKTS: Avrupa Kredi Transfer Sistemini ifade eder.",
+            "score": 1.0,
+            "metadata": {
+                "article_no": "4",
+                "article_title": "Tanımlar",
+                "title": "Lisansüstü Eğitim ve Öğretim Yönetmeliği",
+                "source": "Lisansustu_Egitim_ve_Ogretim_Yonetmeligi.pdf",
+            },
+        },
+    ]
+
+    reranked = rerank_results(question, results)
+
+    assert "Lisansüstü" in reranked[0]["metadata"]["title"]
+
+
+def test_akts_source_specific_query_can_boost_matching_unit_source():
+    question = "Fen Fakültesi staj yönergesinde AKTS nedir?"
+    results = [
+        {
+            "content": "AKTS ders yükünü gösterir.",
+            "score": 1.0,
+            "metadata": {
+                "article_no": "4",
+                "article_title": "Tanımlar",
+                "title": "Selcuk Universitesi Fen Fakultesi Staj Yonergesi",
+                "source": "Fen_Fakultesi_Staj_Yonergesi.pdf",
+            },
+        },
+        {
+            "content": "AKTS: Avrupa Kredi Transfer Sistemini ifade eder.",
+            "score": 1.0,
+            "metadata": {
+                "article_no": "4",
+                "article_title": "Tanımlar",
+                "title": "Lisansüstü Eğitim ve Öğretim Yönetmeliği",
+                "source": "Lisansustu_Egitim_ve_Ogretim_Yonetmeligi.pdf",
+            },
+        },
+    ]
+
+    reranked = rerank_results(question, results)
+
+    assert "Fen Fakultesi Staj" in reranked[0]["metadata"]["title"]
