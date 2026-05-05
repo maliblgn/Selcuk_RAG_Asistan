@@ -65,7 +65,11 @@ def normalize_text(value):
     replacements = {
         "ı": "i", "İ": "i", "ğ": "g", "Ğ": "g", "ü": "u", "Ü": "u",
         "ş": "s", "Ş": "s", "ö": "o", "Ö": "o", "ç": "c", "Ç": "c",
+        "Ä±": "i", "Ä°": "i", "ÄŸ": "g", "Äž": "g", "Ä": "g",
+        "Ã¼": "u", "Ãœ": "u", "ÅŸ": "s", "Å": "s",
+        "Ã¶": "o", "Ã–": "o", "Ã§": "c", "Ã‡": "c",
         "jürisi": "jurisi", "jüri": "juri",
+        "jÃ¼risi": "jurisi", "jÃ¼ri": "juri",
     }
     for old, new in replacements.items():
         value = value.replace(old, new)
@@ -181,10 +185,33 @@ def score_result_with_metadata(question, result, base_score=None):
     question_norm = normalize_text(question)
     content_norm = normalize_text(content)
     title_norm = normalize_text(article_title)
+    source_text_raw = f"{source_title} {source}".casefold()
     source_text_norm = normalize_text(f"{source_title} {source}")
+    source_is_lisansustu_regulation = (
+        ("lisansustu" in source_text_norm and "yonetmel" in source_text_norm)
+        or ("l%c4%b0sans" in source_text_raw and "yonetmel" in source_text_raw)
+        or ("lisans%c3%bcst" in source_text_raw and "yonetmel" in source_text_raw)
+        or ("c4%b0sans" in source_text_raw and "c3%9cst" in source_text_raw and "yonetmel" in source_text_raw)
+    )
     article_no = str(metadata.get("article_no") or result.get("article_no") or "")
     score = float(base_score if base_score is not None else result.get("score") or 0.0)
     explanation = []
+    akts_query = "akts" in question_norm
+    source_specific_query = any(
+        term in question_norm
+        for term in (
+            "staj",
+            "fen fakultesi",
+            "fen",
+            "cift ana dal",
+            "cift anadal",
+            "cap",
+            "yandal",
+            "diploma",
+            "birim",
+            "fakulte",
+        )
+    )
 
     if intent["intent"] == "definition":
         if "tanimlar" in title_norm:
@@ -211,8 +238,26 @@ def score_result_with_metadata(question, result, base_score=None):
     for amount, reason in _phrase_boosts(question, title_norm, content_norm, intent["intent"]):
         score = _add(score, explanation, amount, reason)
 
-    if "lisansustu" in question_norm and "lisansustu" in source_text_norm and "yonetmelik" in source_text_norm:
+    if "lisansustu" in question_norm and source_is_lisansustu_regulation:
         score = _add(score, explanation, 4.0, "lisansustu_regulation_source_boost")
+
+    if akts_query:
+        if re.search(r"(?i)\bAKTS\b", content) or "akts" in title_norm:
+            score = _add(score, explanation, 8.0, "akts_exact_match_boost")
+        if "avrupa kredi transfer sistemi" in content_norm:
+            score = _add(score, explanation, 20.0, "akts_avrupa_kredi_transfer_sistemi_boost")
+        if article_no == "4":
+            score = _add(score, explanation, 8.0, "akts_article_4_boost")
+        if "tanimlar" in title_norm:
+            score = _add(score, explanation, 8.0, "akts_tanimlar_boost")
+        if source_is_lisansustu_regulation:
+            amount = 25.0 if ("lisansustu" in question_norm or not source_specific_query) else 4.0
+            score = _add(score, explanation, amount, "akts_lisansustu_regulation_boost")
+        narrow_source_terms = ("staj", "fen fakultesi", "cift ana dal", "cift anadal", "cap", "yandal")
+        if not source_specific_query and any(term in source_text_norm for term in narrow_source_terms):
+            score = _add(score, explanation, -12.0, "akts_generic_narrow_source_penalty")
+        if source_specific_query and any(term in source_text_norm for term in narrow_source_terms):
+            score = _add(score, explanation, 45.0, "akts_source_specific_match_boost")
 
     if "tez izleme komitesi" in question_norm and "tez izleme komitesi" in title_norm:
         score = _add(score, explanation, 18.0, "exact_title_tez_izleme_komitesi")
@@ -239,9 +284,9 @@ def score_result_with_metadata(question, result, base_score=None):
         elif acronym_norm in content_norm:
             score = _add(score, explanation, 2.0, f"acronym_present_{acronym}")
         if acronym_norm == "akts" and article_no == "4":
-            score = _add(score, explanation, 5.0, "akts_article_4_boost")
+            score = _add(score, explanation, 5.0, "akts_acronym_article_4_boost")
         if acronym_norm == "akts" and "tanimlar" in title_norm:
-            score = _add(score, explanation, 5.0, "akts_tanimlar_boost")
+            score = _add(score, explanation, 5.0, "akts_acronym_tanimlar_boost")
         if acronym_norm in content_norm and "ifade eder" in content_norm:
             score = _add(score, explanation, 3.0, f"acronym_near_definition_phrase_{acronym}")
 
@@ -251,6 +296,7 @@ def score_result_with_metadata(question, result, base_score=None):
             "answer_sentence_uc_ogretim_uyesi",
             "exact_title_doktora_yeterlik",
             "acronym_colon_AKTS",
+            "akts_avrupa_kredi_transfer_sistemi_boost",
         }
         for item in explanation
     )
@@ -272,7 +318,6 @@ def _result_from_document(doc):
 
 
 def apply_metadata_score_to_document(question, doc, base_score=None):
-    scored = score_result_with_metadata(question, _result_from_document(doc), base_score=base_score)
     doc.metadata = dict(getattr(doc, "metadata", {}) or {})
     content_norm = normalize_text(getattr(doc, "page_content", ""))
     question_norm = normalize_text(question)
@@ -288,6 +333,7 @@ def apply_metadata_score_to_document(question, doc, base_score=None):
         doc.metadata["article_no"] = "4"
         doc.metadata.setdefault("article_title", "Tanımlar")
         doc.metadata["article_inferred"] = True
+    scored = score_result_with_metadata(question, _result_from_document(doc), base_score=base_score)
     doc.metadata["metadata_score"] = scored["metadata_score"]
     doc.metadata["metadata_rerank_score"] = scored["metadata_score"]
     doc.metadata["metadata_rerank_explanation"] = scored["rerank_explanation"]

@@ -1,0 +1,416 @@
+{
+  "question": "Selçuk Üniversitesi lisansüstü eğitiminde AKTS ne anlama gelir?",
+  "normalized_question": "Selçuk Üniversitesi lisansüstü eğitiminde AKTS ne anlama gelir?",
+  "top_k": 10,
+  "results": [
+    {
+      "rank": 1,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "1-2",
+      "flashrank_score": null,
+      "metadata_score": 109.0,
+      "metadata_strong_match": true,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "lisansustu_regulation_source_boost",
+          "boost": 4.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_avrupa_kredi_transfer_sistemi_boost",
+          "boost": 20.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_lisansustu_regulation_boost",
+          "boost": 25.0
+        },
+        {
+          "reason": "acronym_colon_AKTS",
+          "boost": 10.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "acronym_near_definition_phrase_AKTS",
+          "boost": 3.0
+        }
+      ],
+      "content_preview": "[Madde 4 - Tanımlar] MADDE 4 - (1) Bu Yönetmelikte geçen; a) AKTS: Avrupa Kredi Transfer Sistemini, b) ALES: Akademik Personel ve Lisansüstü Eğitimi Giriş Sınavını, c) Bütünleştirilmiş doktora: Doktora programına lisans derecesi ile başvuru imkânı sağlayan üstün başarılı öğrencilere yönelik, yüksek lisans ve doktorayı birleştiren programı, ç) DUS: Diş Hekimliğinde Uzmanlık Sınavını, d) (Değişik ibare:RG-11/1/2024-32426) Enstitü anabilim dalı (EAB) /anasanat dalı: İlgili enstitü anabilim/anasanat..."
+    },
+    {
+      "rank": 2,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//pressFiles/42026/f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "title": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda.pdf",
+      "label": "f0ec2685-f79b-46c2-92c7-be2f1b8b6bda",
+      "article_no": "3",
+      "article_title": "Tanımlar",
+      "page": "1-2",
+      "flashrank_score": null,
+      "metadata_score": 54.0,
+      "metadata_strong_match": true,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_avrupa_kredi_transfer_sistemi_boost",
+          "boost": 20.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "acronym_near_definition_phrase_AKTS",
+          "boost": 3.0
+        }
+      ],
+      "content_preview": "[Madde 3 - Tanımlar] MADDE 3- (1) Bu Yönetmelikte geçen; a) Avrupa Kredi Transfer Sistemi (AKTS) kredisi: Bir dersin başarıyla tamamlanabilmesi için öğrencinin yapması gereken çalışmaların tamamını kapsayan ve öğrencilere kazandırılacak bilgi, beceri ve yetkinlikleri elde etmek için gerekli olan toplam iş yükünü temel alan sayısal değeri, b) Bağıl değerlendirme sistemi: Bir öğrencinin başarısını mutlak standartlara göre değil, öğrencinin ait olduğu grubun genel başarısına göre ölçmeyi hedefleyen..."
+    },
+    {
+      "rank": 3,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf",
+      "title": "Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf",
+      "label": "Yaz Okulu Uygulama Esasları_07.11.2023",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "2",
+      "flashrank_score": null,
+      "metadata_score": 49.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        }
+      ],
+      "content_preview": "[Bağlam: Yaz%20Okulu%20Uygulama%20Esaslar%C4%B1_07.11.2023_638349661886483418.pdf] alınarak başarılı olunan tüm dersler otomasyon sistemine \"Yaz Okulunda Başarılmıştır\" şeklinde işlenir. Bu bilgilerin doğruluğu intibak komisyonları tarafından denetlenir. 13. Öğrencilerin not yükseltmek için yaz okulundan ders almaları durumunda Selçuk Üniversitesi Ön lisans ve Lisans Eğitim-Öğretim ve Sınav Yönetmeliğinin 9/d maddesi hükmü uygulanır. 14. Yaz okulunda bir dersin ders planlarında belirtilen teorik..."
+    },
+    {
+      "rank": 4,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf",
+      "title": "Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf",
+      "label": "Pedagojik Formasyon Uygulama Esasları 09.01.2024",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "1",
+      "flashrank_score": null,
+      "metadata_score": 49.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        }
+      ],
+      "content_preview": "[Bağlam: Pedagojik%20Formasyon%20Uygulama%20Esaslar%C4%B1%2009.01.2024_638421879917944654.pdf] 3) Öğrencinin öğrenim gördüğü bölümün öğretmenlik alanından atamaya esas birden fazla alan bulunuyor ise, hangi alandan formasyon eğitimi alacağına dair öğrenciden yazılı dilekçe alınarak Pedagojik Formasyon Birimine gönderilir. Bu öğrenciler sadece seçmiş olduğu alandan pedagojik formasyon eğitimi almış olacaktır. 4) Pedagojik formasyon eğitimi dersleri Üniversitemiz Ön Lisans ve Lisans Eğitim -Öğreti..."
+    },
+    {
+      "rank": 5,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+      "title": "S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf",
+      "label": "S-U-YAZ-OKULU-UYGULAMA-ESASLARI",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "1",
+      "flashrank_score": null,
+      "metadata_score": 49.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        }
+      ],
+      "content_preview": "[Bağlam: S-U-YAZ-OKULU-UYGULAMA-ESASLARI_638218311059106780.pdf] 3. Selçuk Üniversitesi Fakülte/Yüksekokul/Meslek Yüksekokulu /Enstitü öğrencileri otomasyon sistemi üzerinden en fazla 4 (dört) ders 16 Kredi saat olmak üzere 24 (yirmidört) AKTS kredisi kadar derse ön kayıt yaptırabilir. Yaz okulundan alacağı derslerle mezun olma durumundaki öğrenciler ise en fazla 5 (beş) ders 20 Kredi saat olmak üzere 30 (otuz) AKTS kredisi kadar derse ön kayıt yaptırabilir. Mezun olma durumundaki öğrenci otomas..."
+    },
+    {
+      "rank": 6,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/%C3%96d%C3%BCl%20Y%C3%B6nergesi_638230470360240408.pdf",
+      "title": "%C3%96d%C3%BCl%20Y%C3%B6nergesi_638230470360240408.pdf",
+      "label": "Ödül Yönergesi",
+      "article_no": "4",
+      "article_title": "Tanımlar ve Kısaltmalar",
+      "page": "2",
+      "flashrank_score": null,
+      "metadata_score": 39.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        }
+      ],
+      "content_preview": "[Madde 4 - Tanımlar ve Kısaltmalar] MADDE 4- Bu yönergede geçen; a) AHCI; Sanat ve İnsan Toplum bilimler Atıf Endeksi ( Arts and Humanities Citation Index)’ni b) Enstitü; Selçuk Üniversitesi bünyesinde lisansüstü eğitim veren enstitüleri (Eğitim Bilimleri, Fen Bilimleri, Mevlana Araştırmaları, Sağlık Bilimleri, Selçuklu Araştırmaları, Sosyal Bilimler, Türkiyat Araştırmaları Enstitüleri), c) ESCI: Gelişmekte Olan Kaynaklar Atıf Endeksi (Emerging Sources Citation Index)’ni d) Öğrenci; Selçuk Ünive..."
+    },
+    {
+      "rank": 7,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/Selcuk%20_Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+      "title": "Selcuk%20_Universitesi_Fen_Fakultesi_Staj_Yonergesi_638218312292787751.pdf",
+      "label": "Selcuk _Universitesi_Fen_Fakultesi_Staj_Yonergesi",
+      "article_no": "4",
+      "article_title": "Tanımlar",
+      "page": "1",
+      "flashrank_score": null,
+      "metadata_score": 37.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_title_tanimlar",
+          "boost": 8.0
+        },
+        {
+          "reason": "definition_intent_article_4",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_article_4_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_tanimlar_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_generic_narrow_source_penalty",
+          "boost": -12.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        },
+        {
+          "reason": "akts_acronym_article_4_boost",
+          "boost": 5.0
+        },
+        {
+          "reason": "akts_acronym_tanimlar_boost",
+          "boost": 5.0
+        }
+      ],
+      "content_preview": "[Madde 4 - Tanımlar] MADDE 4- (1) Bu yönergede adı geçen; a) Bölüm: Selçuk Üniversitesi Fen Fakültesi Bölümlerini, b) Bölüm Başkanlığı: Selçuk Üniversitesi Fen Fakültesi İlgili Bölüm Başkanlıklarını, c) Bölüm Staj Komisyonu: Selçuk Üniversitesi Fen Fakültesi Bölümlerindeki Staj Komisyonlarını, d) Dekan: Selçuk Üniversitesi Fen Fakültesi Dekanını e) Fakülte: Selçuk Üniversitesi Fen Fakültesini, f) Fakülte Yönetim Kurulu: Selçuk Üniversitesi Fen Fakültesi Fakülte Yönetim Kurulunu, g) İşyeri Staj S..."
+    },
+    {
+      "rank": 8,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "title": "L%C4%B0SANS%C3%9CST%C3%9C%20E%C4%9E%C4%B0T%C4%B0M%20VE%20%C3%96%C4%9ERET%C4%B0M%20Y%C3%96NETMEL%C4%B0%C4%9E%C4%B0_638959464713301934.pdf",
+      "label": "LİSANSÜSTÜ EĞİTİM VE ÖĞRETİM YÖNETMELİĞİ",
+      "article_no": "21",
+      "article_title": "Not ortalaması",
+      "page": "8",
+      "flashrank_score": null,
+      "metadata_score": 37.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "definition_intent_unrelated_title_penalty",
+          "boost": -2.0
+        },
+        {
+          "reason": "lisansustu_regulation_source_boost",
+          "boost": 4.0
+        },
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "akts_lisansustu_regulation_boost",
+          "boost": 25.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Madde 21 - Not ortalaması] MADDE 21 - (1) Öğrencinin bir dersten aldığı ağırlıklı not, o dersin harf notu katsayısının AKTS kredisi ile çarpılarak bulunur. Herhangi bir yarıyılın ağırlıklı not ortalamasını bulmak için, o yarıyılda öğrencinin kaydolduğu bütün derslerden aldığı ağırlıklı notların toplamı, alın an derslerin AKTS kredileri toplamına bölünerek bulunur. Elde edilen ağırlıklı ortalama, virgülden sonra iki hane olarak gösterilir. (2) Genel ağırlıklı not ortalaması, öğrencinin lisansüst..."
+    },
+    {
+      "rank": 9,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2448/S.%C3%9C._Diploma%2C_Diploma_Eki_ve_Di%C4%9Fer_Belgelerin_D%C3%BCzenlenmesine_%C4%B0li%C5%9Fkin_Y%C3%B6nerge_638227874273054099.pdf",
+      "title": "S.%C3%9C._Diploma%2C_Diploma_Eki_ve_Di%C4%9Fer_Belgelerin_D%C3%BCzenlenmesine_%C4%B0li%C5%9Fkin_Y%C3%B6nerge_638227874273054099.pdf",
+      "label": "S.Ü._Diploma,_Diploma_Eki_ve_Diğer_Belgelerin_Düzenlenmesine_İlişkin_Yönerge",
+      "article_no": "5",
+      "article_title": "i) Üniversite: Selçuk Üniversitesini,",
+      "page": "2",
+      "flashrank_score": 0.9993637800216675,
+      "metadata_score": 10.0,
+      "metadata_strong_match": false,
+      "explanation": [
+        {
+          "reason": "akts_exact_match_boost",
+          "boost": 8.0
+        },
+        {
+          "reason": "acronym_present_AKTS",
+          "boost": 2.0
+        }
+      ],
+      "content_preview": "[Madde 5 - i) Üniversite: Selçuk Üniversitesini,] MADDE 5- (1) Üniversitenin bir biriminin eğitim-öğretim programını, bitirme tezi, stajları vb. başarı ile tamamlayarak mezun olanlara aşağıda tanımlanan diplomalardan uygun olanı düzenlenir. a) Meslek Yüksekokulu mezunlarına “Ön Lisans Diploması”, b) Fakülte/Konservatuvar/Yüksekokul mezunlarına “Lisans Diploması”, c) Enstitülerin ilgili programlarından mezun olanlara “Yüksek Lisans Diploması”, “Sanatta Yeterlik Diploması”, “Doktora Diploması”, ç)..."
+    },
+    {
+      "rank": 10,
+      "source": "https://webadmin.selcuk.edu.tr/uploads//contents/main/icerik/2447/Sel%C3%A7uk%20%C3%9Cniversitesi%20Uzaktan%20E%C4%9Fitim%20Uygulama%20Ve%20Ara%C5%9Ft%C4%B1rma%20Merkezi%20Y%C3%B6netmeli%C4%9Fi_638218311056421195.pdf",
+      "title": "Sel%C3%A7uk%20%C3%9Cniversitesi%20Uzaktan%20E%C4%9Fitim%20Uygulama%20Ve%20Ara%C5%9Ft%C4%B1rma%20Merkezi%20Y%C3%B6netmeli%C4%9Fi_638218311056421195.pdf",
+      "label": "Selçuk Üniversitesi Uzaktan Eğitim Uygulama Ve Araştırma Merkezi Yönetmeliği",
+      "article_no": "5",
+      "article_title": "Merkezin amaçları",
+      "page": "2",
+      "flashrank_score": 0.999251663684845,
+      "metadata_score": 0.0,
+      "metadata_strong_match": false,
+      "explanation": [],
+      "content_preview": "[Madde 5 - Merkezin amaçları] MADDE 5 – (1) Merkezin amaçları şunlardır: a) Selçuk Üniversitesinde yürütülmesi planlanan uzaktan eğitim faaliyetlerinin daha etkin ve verimli yürütülmesini temin etmek, b) Uzaktan eğitim ile ilgili araştırma-geliştirme ve uygulama çalışmaları yapmak, c) Kurum ve kuruluşların uzaktan eğitim ihtiyaç ve isteklerine yardımcı olmak, ç) Ön lisans, lisans, lisansüstü ve yetişkin eğitiminde e-öğrenme temelli ders ve programları geliştirmek, d) Üniversitede verilmekte olan..."
+    }
+  ]
+}

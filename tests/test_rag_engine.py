@@ -40,6 +40,7 @@ from rag_engine import (  # noqa: E402
     INVENTORY_HISTORY_PLACEHOLDER,
     is_long_inventory_answer,
     sanitize_chat_history,
+    strip_model_generated_sources,
     trim_text_for_prompt,
 )
 
@@ -171,6 +172,66 @@ class TestFormatContext:
         assert source_info["article_label"] == "Madde 44 - Tez izleme komitesi"
         assert source_info["page"] == "16"
         assert source_info["url"] == "https://webadmin.selcuk.edu.tr/lisansustu.pdf"
+
+    def test_context_and_source_helper_use_same_doc_order(self):
+        engine = self._get_engine()
+        docs = [
+            FakeDoc("bir", "a.pdf", {"title": "Birinci", "article_no": "4", "article_title": "Tanımlar"}),
+            FakeDoc("iki", "b.pdf", {"title": "İkinci", "article_no": "7", "article_title": "AKTS"}),
+        ]
+
+        ctx = engine.format_context(docs)
+        panel_labels = [rag_engine.SelcukRAGEngine.build_source_metadata(doc)["label"] for doc in docs]
+
+        assert ctx.index("[1] Kaynak: Birinci") < ctx.index("[2] Kaynak: İkinci")
+        assert panel_labels == ["Birinci", "İkinci"]
+
+    def test_prompt_forbids_source_heading(self):
+        assert "Kaynak veya Kaynaklar başlığı açma" in rag_engine.PROMPT_SOURCE_RULE
+
+
+def test_strip_model_generated_sources_removes_source_block_keeps_inline_citation():
+    answer = (
+        "AKTS, Avrupa Kredi Transfer Sistemidir [1].\n\n"
+        "Kaynaklar:\n"
+        "[1] Çift Ana Dal Yönergesi\n"
+        "https://example.com/doc.pdf"
+    )
+
+    cleaned = strip_model_generated_sources(answer)
+
+    assert cleaned == "AKTS, Avrupa Kredi Transfer Sistemidir [1]."
+
+
+def test_akts_definition_fallback_adds_lisansustu_article_4_candidate():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+    engine.static_db = MagicMock()
+    engine.static_db.get.return_value = {
+        "documents": ["[Madde 4 - Tanımlar] AKTS: Avrupa Kredi Transfer Sistemini ifade eder."],
+        "metadatas": [
+            {
+                "article_no": "4",
+                "article_title": "Tanımlar",
+                "title": "Lisansüstü Eğitim ve Öğretim Yönetmeliği",
+                "source": "Lisansustu_Egitim_ve_Ogretim_Yonetmeligi.pdf",
+            }
+        ],
+    }
+
+    docs = engine._akts_definition_fallback_docs("AKTS nedir?")
+
+    assert len(docs) == 1
+    assert docs[0].metadata["metadata_fallback"] == "akts_lisansustu_article_4"
+
+
+def test_akts_definition_fallback_skips_source_specific_queries():
+    engine = rag_engine.SelcukRAGEngine.__new__(rag_engine.SelcukRAGEngine)
+    engine.static_db = MagicMock()
+
+    docs = engine._akts_definition_fallback_docs("Fen Fakültesi staj yönergesinde AKTS nedir?")
+
+    assert docs == []
+    engine.static_db.get.assert_not_called()
 
 
 # ---------------------------------------------------------------------------
