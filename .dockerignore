@@ -1,0 +1,16 @@
+.git
+.github
+__pycache__/
+.pytest_cache/
+venv/
+.venv/
+.env
+*.pyc
+*.pyo
+*.pyd
+data/
+data/manual_pdfs/
+chroma_db_legal_test/
+*.log
+.cache/
+.ipynb_checkpoints/
