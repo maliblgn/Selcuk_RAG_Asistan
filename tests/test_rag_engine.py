@@ -36,6 +36,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import rag_engine  # noqa: E402  (stub'lar hazır olduktan sonra import)
 from rag_engine import (  # noqa: E402
+    FINAL_CONTEXT_DOCS,
     MAX_CONTEXT_CHARS,
     INVENTORY_HISTORY_PLACEHOLDER,
     is_long_inventory_answer,
@@ -232,6 +233,11 @@ def test_akts_definition_fallback_skips_source_specific_queries():
 
     assert docs == []
     engine.static_db.get.assert_not_called()
+
+
+def test_hf_context_defaults_are_resource_friendly():
+    assert FINAL_CONTEXT_DOCS == 4
+    assert MAX_CONTEXT_CHARS == 4000
 
 
 # ---------------------------------------------------------------------------

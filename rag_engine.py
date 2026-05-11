@@ -12,19 +12,27 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.retrievers import BM25Retriever
 from langchain_classic.retrievers import EnsembleRetriever
-from langchain_community.document_compressors.flashrank_rerank import FlashrankRerank
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
 from retrieval_rerank import legal_safe_query_allowed, rerank_documents
 
 logger = logging.getLogger(__name__)
 
+
+def _initial_env_int(name: str, default: int) -> int:
+    try:
+        return int(os.getenv(name, str(default)))
+    except (TypeError, ValueError):
+        return default
+
+
 # Gonderilecek prompt parcasi limitleri (Groq 6000 TPM limitini asmayacak sekilde)
 MAX_CHAT_HISTORY_CHARS = 2_500
 MAX_REWRITE_HISTORY_CHARS = 1_200
-MAX_ANSWER_CONTEXT_CHARS = 5_000
+MAX_ANSWER_CONTEXT_CHARS = _initial_env_int("MAX_CONTEXT_CHARS", 4_000)
 MAX_RETRY_CONTEXT_CHARS = 2_500
 MAX_RETRY_HISTORY_CHARS = 800
+FINAL_CONTEXT_DOCS = _initial_env_int("FINAL_CONTEXT_DOCS", 4)
 
 # Geriye uyumluluk: format_context bu sabiti kullanir.
 MAX_CONTEXT_CHARS = MAX_ANSWER_CONTEXT_CHARS
@@ -346,12 +354,17 @@ class SelcukRAGEngine:
             "Alternatif Sorular:"
         )
         
-        # 8. Reranker (FlashRank)
-        try:
-            self.reranker = FlashrankRerank(top_n=5)
-        except Exception as e:
-            logger.warning("FlashRank yuklenemedi, reranking devre disi: %s", e)
-            self.reranker = None
+        # 8. Reranker (FlashRank) - HF/production icin varsayilan kapali.
+        self.reranker = None
+        if env_bool("FLASHRANK_ENABLED", False):
+            try:
+                from langchain_community.document_compressors.flashrank_rerank import FlashrankRerank
+
+                self.reranker = FlashrankRerank(top_n=env_int("FINAL_CONTEXT_DOCS", FINAL_CONTEXT_DOCS))
+            except Exception as e:
+                logger.warning("FlashRank yuklenemedi, reranking devre disi: %s", e)
+        else:
+            logger.info("FlashRank devre disi; metadata-aware rerank kullaniliyor.")
         
         logger.info("SelcukRAGEngine hazır.")
 
@@ -458,9 +471,10 @@ class SelcukRAGEngine:
                 break
         return docs
 
-    def retrieve(self, question, dynamic_docs=None, top_k=5):
+    def retrieve(self, question, dynamic_docs=None, top_k=None):
         """Soruya en uygun doküman parçalarını getir."""
         question = normalize_user_question_for_retrieval(question)
+        top_k = top_k or env_int("FINAL_CONTEXT_DOCS", FINAL_CONTEXT_DOCS)
         active_retriever = self.static_retriever
         
         dynamic_retriever = None
@@ -513,7 +527,7 @@ class SelcukRAGEngine:
         metadata_ranked_docs = unique_docs
         if env_bool("METADATA_RERANK_ENABLED", True):
             metadata_ranked_docs = rerank_documents(question, unique_docs)
-            candidate_k = max(top_k, env_int("METADATA_RERANK_CANDIDATE_K", 40))
+            candidate_k = max(top_k, env_int("METADATA_RERANK_CANDIDATE_K", 25))
             metadata_ranked_docs = metadata_ranked_docs[:candidate_k]
             logger.info(
                 "Metadata-aware rerank aktif: %d aday siralandi, en iyi skor %.2f",
