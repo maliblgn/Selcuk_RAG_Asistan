@@ -16,8 +16,10 @@ ChromaDB, embedding modeli, BM25/vector hybrid retrieval, metadata-aware rerank 
 - Owner: `maliblgn`
 - Space name: `selcuk-rag-asistan`
 - Beklenen adres: `https://huggingface.co/spaces/maliblgn/selcuk-rag-asistan`
-- SDK: Streamlit
+- SDK: Docker
+- Template: Streamlit
 - App file: `app.py`
+- App port: `7860`
 
 ## 3. Gerekli Secrets
 
@@ -43,8 +45,8 @@ FlashRank canli/HF ortaminda varsayilan olarak kapali onerilir. Metadata-aware r
 1. Hugging Face hesabinda New Space olustur.
 2. Owner olarak `maliblgn` sec.
 3. Space name olarak `selcuk-rag-asistan` gir.
-4. SDK olarak Streamlit sec.
-5. Space repo'suna bu projeyi pushla.
+4. SDK olarak Docker sec. Streamlit template kullanilabilir.
+5. Space repo'suna bu projeyi pushla. Repo kokundeki `Dockerfile`, Streamlit uygulamasini 7860 portundan baslatir.
 6. Secrets ve Variables degerlerini Hugging Face Space ayarlarindan gir.
 7. Build tamamlandiktan sonra test sorularini calistir.
 
@@ -81,6 +83,7 @@ HF token terminalde kullanici tarafindan girilecek; token veya secret dosyaya ya
 ## 8. Notlar
 
 - `chroma_db/` repo snapshot olarak gelir.
+- Docker image icine `chroma_db/` dahil edilmelidir; `.dockerignore` icinde `chroma_db/` bulunmamalidir.
 - `data/*.pdf` repo icine alinmaz.
 - `.env` ve secret/API key commit edilmez.
 - `chroma_db_legal_test/` commit edilmez.
@@ -102,6 +105,35 @@ gatherUsageStats = false
 
 Bu ayar Streamlit'in transformers/torch paketlerini gereksiz taramasini azaltir ve HF/Streamlit ortaminda log ile bellek yukunu dusurur.
 
+## 9.1 Docker Space uyumlulugu
+
+Space Docker SDK + Streamlit template ile olusturuldugu icin repo kokune `Dockerfile` eklendi. Container `python:3.11-slim` tabanlidir, `requirements.txt` yuklenir ve uygulama su komutla baslatilir:
+
+```powershell
+streamlit run app.py --server.port=7860 --server.address=0.0.0.0
+```
+
+Dockerfile icinde HF runtime icin onerilen env varsayilanlari tanimlandi:
+
+- `STREAMLIT_SERVER_PORT=7860`
+- `STREAMLIT_SERVER_ADDRESS=0.0.0.0`
+- `FLASHRANK_ENABLED=false`
+- `METADATA_RERANK_ENABLED=true`
+- `MULTI_QUERY_ENABLED=true`
+- `MULTI_QUERY_LEGAL_SAFE_MODE=true`
+- `METADATA_RERANK_CANDIDATE_K=25`
+- `FINAL_CONTEXT_DOCS=4`
+- `MAX_CONTEXT_CHARS=4000`
+
+HF Space README metadata'si Docker SDK ile uyumludur:
+
+```yaml
+sdk: docker
+app_port: 7860
+```
+
+`.dockerignore` icinde `data/`, `.env`, lokal cache ve test artifaktlari dislanir. `chroma_db/` ozellikle dislanmaz; canli runtime ChromaDB snapshot'ini repo icinden okur.
+
 ## 10. FlashRank default durumu
 
 `FLASHRANK_ENABLED` varsayilan olarak `false` kabul edilir. Bu durumda FlashRank import edilmez ve modeli yuklenmez. `FLASHRANK_ENABLED=true` verilirse eski davranis opsiyonel olarak calisir. Metadata-aware rerank her durumda aktif kalabilir.
@@ -118,6 +150,8 @@ Bu bolum PR hazirligi sirasinda calistirilan test ve preview sonuclariyla guncel
 ## 12. Degisen dosyalar
 
 - `.streamlit/config.toml`
+- `Dockerfile`
+- `.dockerignore`
 - `docs/HF_SPACES_DEPLOY_RAPORU.md`
 - `docs/HF_SPACE_README_TEMPLATE.md`
 - `rag_engine.py`
