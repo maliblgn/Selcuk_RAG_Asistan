@@ -6,6 +6,7 @@ textColor = "#E2E8F0"
 font = "sans serif"
 
 [server]
+fileWatcherType = "none"
 headless = true
 
 [browser]
