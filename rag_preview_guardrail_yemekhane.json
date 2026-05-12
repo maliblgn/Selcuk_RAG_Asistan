@@ -1,0 +1,10 @@
+{
+  "question": "Selçuk Üniversitesi yemekhane hizmetleri hangi saatlerde sunulur?",
+  "normalized_question": "Selçuk Üniversitesi yemekhane hizmetleri hangi saatlerde sunulur?",
+  "top_k": 10,
+  "raw_result_count": 10,
+  "filtered_result_count": 0,
+  "query_type": "operational_current_info",
+  "safe_fallback": "Bu soru güncel operasyonel bilgi gerektiriyor olabilir. Mevcut yönetmelik/yönerge kaynaklarında açık ve güvenilir saat bilgisi bulunamadı.",
+  "results": []
+}

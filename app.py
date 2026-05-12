@@ -3,11 +3,19 @@ import os
 import tempfile
 import logging
 from dotenv import load_dotenv
+
+os.environ.setdefault("USE_TF", "0")
+os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from rag_engine import (
+    build_safe_fallback,
+    ensure_inline_citation,
+    is_low_quality_answer,
     KnowledgeBaseUnavailableError,
     LIVE_INDEX_UNAVAILABLE_MESSAGE,
     MAX_CHAT_HISTORY_CHARS,
+    prepare_context_and_sources,
     SelcukRAGEngine,
     is_chroma_collection_error,
     is_long_inventory_answer,
@@ -554,6 +562,10 @@ div[class*="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
     margin-top: 4px;
 }
 
+.source-note, [data-testid="stExpander"] [data-testid="stCaptionContainer"] {
+    color: #94A3B8 !important;
+}
+
 /* ─── Scrollbar ─── */
 ::-webkit-scrollbar {
     width: 6px;
@@ -870,6 +882,8 @@ else:
                             if source_url:
                                 st.markdown(f"[Kaynağa Git]({source_url})")
                             st.divider()
+                elif m.get("sources_checked"):
+                    st.caption("Bu cevap için güvenilir kaynak eşleşmesi bulunamadı.")
 
                 # Feedback ve İndirme butonları
                 col1, col2, col3, col4 = st.columns([1, 1, 3, 5])
@@ -944,8 +958,24 @@ else:
 
                 # 3. Doküman getirme
                 with st.spinner("Dökümanlar taranıyor..."):
-                    docs = motor.retrieve(yeniden_soru, dynamic_docs=st.session_state.yeni_dokumanlar)
-                    context = motor.format_context(docs)
+                    retrieved_docs = motor.retrieve(yeniden_soru, dynamic_docs=st.session_state.yeni_dokumanlar)
+                    prepared = prepare_context_and_sources(yeniden_soru, retrieved_docs)
+                    docs = prepared["docs"]
+                    context = prepared["context"]
+                    query_type = prepared["query_type"]
+
+                if not docs:
+                    cevap = build_safe_fallback(yeniden_soru, docs, query_type)
+                    st.markdown(cevap)
+                    st.session_state.mesajlar.append({
+                        "rol": "assistant",
+                        "icerik": cevap,
+                        "soru": kullanici_sorusu,
+                        "docs": [],
+                        "sources_checked": True,
+                    })
+                    st.session_state.oneriler = []
+                    st.rerun()
 
                 # 4. Streaming yanıt
                 def token_generator():
@@ -955,13 +985,19 @@ else:
                         else:
                             yield str(chunk)
 
-                cevap = strip_model_generated_sources(st.write_stream(token_generator()))
+                raw_cevap = "".join(token_generator())
+                cevap = strip_model_generated_sources(raw_cevap)
+                cevap = ensure_inline_citation(cevap, docs)
+                if is_low_quality_answer(cevap):
+                    cevap = build_safe_fallback(yeniden_soru, docs, query_type)
+                st.markdown(cevap)
 
                 st.session_state.mesajlar.append({
                     "rol": "assistant", 
                     "icerik": cevap,
                     "soru": kullanici_sorusu,
-                    "docs": docs
+                    "docs": docs,
+                    "sources_checked": True,
                 })
 
                 # 5. Takip sorusu önerileri (arka planda)

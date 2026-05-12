@@ -5,18 +5,39 @@ import unicodedata
 from collections import Counter
 from urllib.parse import unquote
 from urllib.parse import urlparse
+
+os.environ.setdefault("USE_TF", "0")
+os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
+
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_community.retrievers import BM25Retriever
-from langchain_classic.retrievers import EnsembleRetriever
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
 from retrieval_rerank import legal_safe_query_allowed, rerank_documents
 
 logger = logging.getLogger(__name__)
+
+try:
+    from langchain_classic.retrievers import EnsembleRetriever
+except Exception as exc:
+    logger.warning("LangChain EnsembleRetriever yuklenemedi, hafif fallback kullaniliyor: %s", exc)
+
+    class EnsembleRetriever:
+        """LangChain classic importu agir bagimlilikte kirilirsa basit ensemble."""
+
+        def __init__(self, retrievers, weights=None):
+            self.retrievers = retrievers
+            self.weights = weights or [1.0] * len(retrievers)
+
+        def invoke(self, query):
+            docs = []
+            for retriever in self.retrievers:
+                docs.extend(retriever.invoke(query))
+            return docs
 
 
 def _initial_env_int(name: str, default: int) -> int:
@@ -62,7 +83,9 @@ LIVE_INDEX_UNAVAILABLE_MESSAGE = (
 
 PROMPT_SOURCE_RULE = (
     "Cevabın sonunda Kaynak veya Kaynaklar başlığı açma. "
-    "URL yazma. Kaynak listesini uygulama gösterecek."
+    "URL yazma. Kaynak listesini uygulama gösterecek. "
+    "Kaynakta açıkça yer almayan saat, tarih, ücret, hesaplama, sayı listesi "
+    "veya operasyonel bilgileri uydurma. Uzun sayı aralığı veya liste üretme."
 )
 
 INVENTORY_HISTORY_PLACEHOLDER = (
@@ -190,16 +213,31 @@ def strip_model_generated_sources(answer: str) -> str:
     if not text:
         return text
 
-    source_heading_re = re.compile(r"(?im)^\s*(?:#+\s*)?Kaynak(?:lar)?\s*:\s*.*$")
+    source_heading_re = re.compile(
+        r"(?im)^\s*(?:[-*_]{2,}\s*)?(?:#+\s*)?(?:\*\*)?\s*"
+        r"kaynak(?:lar)?\s*(?:\*\*)?\s*:?\s*(?:[-*_]{2,})?.*$"
+    )
     match = source_heading_re.search(text)
     if match:
         text = text[:match.start()].rstrip()
 
-    lines = []
+    lines = text.splitlines()
+    while lines and not lines[-1].strip():
+        lines.pop()
+
+    url_line_re = re.compile(
+        r"^\s*(?:[-*]\s*)?(?:\[\d+\]\s*)?(?:url\s*:\s*)?"
+        r"(?:https?://|www\.)\S+\s*$",
+        re.IGNORECASE,
+    )
+    while lines and (url_line_re.match(lines[-1].strip()) or not lines[-1].strip()):
+        lines.pop()
+
+    cleaned_lines = []
     skipping_url_block = False
-    for line in text.splitlines():
+    for line in lines:
         stripped = line.strip()
-        if re.match(r"^(?:[-*]\s*)?https?://\S+", stripped):
+        if url_line_re.match(stripped):
             skipping_url_block = True
             continue
         if skipping_url_block and not stripped:
@@ -207,9 +245,269 @@ def strip_model_generated_sources(answer: str) -> str:
             continue
         if skipping_url_block:
             continue
-        lines.append(line)
+        cleaned_lines.append(line)
 
-    return "\n".join(lines).strip()
+    return "\n".join(cleaned_lines).strip()
+
+
+def classify_query_type(question: str) -> str:
+    """Soruyu genel cevap guvenligi icin kaba intent sinifina ayir."""
+    normalized = SelcukRAGEngine._normalize_question_text(question)
+    if any(term in normalized for term in (
+        "hangi saat", "saatlerde", "saat kacta", "ne zaman acik",
+        "hizmet sunulur", "hizmet verir", "calisma saat", "yemekhane",
+        "kutuphane", "ucret", "fiyat", "basvuru tarihi", "son tarih",
+    )):
+        return "operational_current_info"
+    if any(term in normalized for term in ("madde", "yonetmelige gore", "yonergeye gore")):
+        return "legal_article"
+    if any(term in normalized for term in (
+        "nedir", "ne demektir", "ne anlama gelir", "tanimi nedir",
+        "nasil tanimlanir", "ifade eder",
+    )):
+        return "legal_definition"
+    if any(term in normalized for term in ("kac", "kimlerden", "olusturulur", "olusur", "sartlari")):
+        return "legal_article"
+    return "general_document_question"
+
+
+_RELEVANCE_STOPWORDS = {
+    "selcuk", "universitesi", "universite", "hangi", "nedir", "nasil",
+    "kac", "ne", "icin", "ile", "gore", "olarak", "hakkinda", "bilgi",
+    "ver", "edilir", "olur", "sunulur", "hizmet", "mevcut", "kaynaklarda",
+}
+
+_IMPORTANT_RELEVANCE_TERMS = {
+    "akts", "avrupa", "kredi", "transfer", "sistemi", "tez", "izleme",
+    "komitesi", "doktora", "yeterlik", "kutuphane", "yemekhane", "ders",
+    "kredisi", "saat", "saatlerde", "calisma", "ucret", "tarih",
+}
+
+
+def _query_terms(question: str) -> list[str]:
+    normalized = SelcukRAGEngine._normalize_question_text(question)
+    terms = re.findall(r"[a-z0-9]{3,}", normalized)
+    result = []
+    seen = set()
+    for term in terms:
+        for suffix in ("lerinde", "larinda", "lerinde", "sinde", "sunda", "inde", "ndan", "den", "dan", "nda", "de", "da"):
+            if len(term) > len(suffix) + 3 and term.endswith(suffix):
+                term = term[: -len(suffix)]
+                break
+        if term in seen:
+            continue
+        if term in _RELEVANCE_STOPWORDS and term not in _IMPORTANT_RELEVANCE_TERMS:
+            continue
+        seen.add(term)
+        result.append(term)
+    return result
+
+
+def _doc_search_text(doc: Document) -> str:
+    metadata = dict(getattr(doc, "metadata", {}) or {})
+    return SelcukRAGEngine._normalize_question_text(
+        " ".join(
+            str(item or "")
+            for item in (
+                metadata.get("title"),
+                metadata.get("source"),
+                metadata.get("article_title"),
+                getattr(doc, "page_content", ""),
+            )
+        )
+    )
+
+
+def _relevance_score(question: str, doc: Document) -> float:
+    query_norm = SelcukRAGEngine._normalize_question_text(question)
+    doc_text = _doc_search_text(doc)
+    terms = _query_terms(question)
+    if not terms:
+        return 0.0
+
+    score = 0.0
+    matched_terms = [term for term in terms if term in doc_text]
+    score += len(matched_terms) * 1.2
+
+    significant_terms = [term for term in terms if term in _IMPORTANT_RELEVANCE_TERMS or len(term) >= 5]
+    missing_significant = [term for term in significant_terms if term not in doc_text]
+    score -= len(missing_significant) * 0.9
+
+    quoted_phrases = (
+        "tez izleme komitesi",
+        "doktora yeterlik",
+        "avrupa kredi transfer sistemi",
+        "ders kredisi",
+        "dersin kredisi",
+        "calisma saat",
+    )
+    for phrase in quoted_phrases:
+        if phrase in query_norm and phrase in doc_text:
+            score += 6.0
+    if "ders" in query_norm and "kredi" in query_norm and (
+        "ders kredisi" in doc_text or "dersin kredisi" in doc_text or "dersin kredi" in doc_text
+    ):
+        score += 6.0
+
+    domain_terms = ("kutuphane", "yemekhane", "akts", "tez", "doktora")
+    for term in domain_terms:
+        if term in query_norm:
+            if term in doc_text:
+                score += 4.0
+            else:
+                score -= 6.0
+
+    asks_time = any(term in query_norm for term in ("saat", "saatlerde", "calisma saat", "ne zaman"))
+    has_time_support = any(term in doc_text for term in ("saat", "saatlerde", "calisma saat", "mesai", "acilis", "kapanis"))
+    if asks_time and not has_time_support:
+        score -= 5.0
+
+    asks_calculation = any(term in query_norm for term in ("hesap", "hesaplanir", "hesaplanır"))
+    has_calculation_support = any(term in doc_text for term in ("hesap", "carpim", "carpimi", "bolun", "elde edilir"))
+    if asks_calculation and not has_calculation_support:
+        score -= 4.0
+    if asks_calculation and "ders" in query_norm and "kredi" in query_norm:
+        has_course_credit_formula = (
+            "bir dersin kredisi ile" in doc_text
+            and ("agirlikli notudur" in doc_text or "carpimi" in doc_text or "carpim" in doc_text)
+        )
+        if has_course_credit_formula:
+            score += 4.0
+        else:
+            score -= 6.0
+
+    if "akts" in query_norm and "avrupa kredi transfer sistemi" in doc_text:
+        score += 8.0
+
+    metadata_score = float(getattr(doc, "metadata", {}).get("metadata_rerank_score") or 0.0)
+    if metadata_score >= 16.0 or getattr(doc, "metadata", {}).get("metadata_strong_match"):
+        score += 2.0
+
+    return score
+
+
+def filter_relevant_docs(question: str, docs: list[Document]) -> list[Document]:
+    """Retrieval sonrasinda alakasiz belgeleri final context ve panelden ele."""
+    query_type = classify_query_type(question)
+    threshold = 4.0 if query_type in {"operational_current_info", "general_document_question"} else 2.5
+    scored = []
+    for doc in docs or []:
+        score = _relevance_score(question, doc)
+        doc.metadata = dict(getattr(doc, "metadata", {}) or {})
+        doc.metadata["general_relevance_score"] = score
+        if score >= threshold:
+            scored.append(doc)
+    scored.sort(
+        key=lambda item: (
+            item.metadata.get("general_relevance_score", 0.0),
+            item.metadata.get("metadata_rerank_score", 0.0),
+        ),
+        reverse=True,
+    )
+    return scored
+
+
+def prepare_context_and_sources(question: str, docs: list[Document], max_chars: int = MAX_CONTEXT_CHARS):
+    """Context ve kaynak panelini ayni filtrelenmis doc sirasindan uret."""
+    filtered_docs = filter_relevant_docs(question, docs)
+    chunks = []
+    sources = []
+    for i, doc in enumerate(filtered_docs, start=1):
+        source_info = SelcukRAGEngine.build_source_metadata(doc)
+        sources.append(source_info)
+        header = [f"[{i}] Kaynak: {source_info['label']}"]
+        if source_info["article_label"]:
+            header.append(f"Madde: {source_info['article_label'].replace('Madde ', '', 1)}")
+        if source_info["page"]:
+            header.append(f"Sayfa: {source_info['page']}")
+        if source_info["url"]:
+            header.append(f"URL: {source_info['url']}")
+        header.append("İçerik:")
+        chunks.append("\n".join(header) + f"\n{doc.page_content}")
+
+    context = "\n\n".join(chunks)
+    if len(context) > max_chars:
+        context = context[:max_chars] + "\n...[bağlam kısaltıldı]"
+    return {
+        "context": context,
+        "docs": filtered_docs,
+        "sources": sources,
+        "query_type": classify_query_type(question),
+    }
+
+
+def _is_no_info_fallback(answer: str) -> bool:
+    normalized = SelcukRAGEngine._normalize_question_text(answer)
+    return any(term in normalized for term in (
+        "guvenilir sekilde bulunamadi",
+        "acik ve guvenilir saat bilgisi bulunamadi",
+        "kaynaklarda acik bir bilgi tespit edemedim",
+        "dokumanlarda yer almiyor",
+        "belgelerde bu konuda kesin bir bilgi bulamadim",
+    ))
+
+
+def ensure_inline_citation(answer: str, used_sources) -> str:
+    """Kullanilan kaynak varsa ve cevapta citation yoksa sona [1] ekle."""
+    text = str(answer or "").strip()
+    if not text or not used_sources or _is_no_info_fallback(text):
+        return text
+    if re.search(r"\[\d+\]", text):
+        return text
+    return f"{text} [1]"
+
+
+def is_low_quality_answer(answer: str) -> bool:
+    """Hallucination/bozuk cevap sinyallerini yakala."""
+    text = str(answer or "").strip()
+    if len(text) < 8:
+        return True
+    normalized = SelcukRAGEngine._normalize_question_text(text)
+
+    if re.search(r"(?:\b\d+\b\s*,\s*){20,}\b\d+\b", text):
+        return True
+    numbers = re.findall(r"\b\d+\b", text)
+    if len(numbers) > 50 and text.count(",") > 50:
+        return True
+    ascending_run = 1
+    previous = None
+    for number in [int(item) for item in numbers if item.isdigit()]:
+        if previous is not None and number == previous + 1:
+            ascending_run += 1
+            if ascending_run > 20:
+                return True
+        else:
+            ascending_run = 1
+        previous = number
+
+    words = normalized.split()
+    if len(words) >= 12:
+        for size in (2, 3, 4):
+            grams = [" ".join(words[i:i + size]) for i in range(len(words) - size + 1)]
+            if grams:
+                most_common = Counter(grams).most_common(1)[0][1]
+                if most_common >= 6:
+                    return True
+
+    sentences = [item.strip() for item in re.split(r"[.!?]\s+", normalized) if item.strip()]
+    if len(sentences) >= 4 and Counter(sentences).most_common(1)[0][1] >= 3:
+        return True
+    if len(text) > 1200 and not re.search(r"\[\d+\]", text):
+        return True
+    return False
+
+
+def build_safe_fallback(question: str, relevant_docs, query_type: str | None = None) -> str:
+    """Guvenli bilgi-yok veya low-quality fallback metni uret."""
+    query_type = query_type or classify_query_type(question)
+    if not relevant_docs:
+        if query_type == "operational_current_info":
+            return (
+                "Bu soru güncel operasyonel bilgi gerektiriyor olabilir. "
+                "Mevcut yönetmelik/yönerge kaynaklarında açık ve güvenilir saat bilgisi bulunamadı."
+            )
+        return "Bu bilgi mevcut indekslenmiş yönetmelik/yönerge kaynaklarında güvenilir şekilde bulunamadı."
+    return "Bu konuda kaynaklarda açık bir bilgi tespit edemedim. Kaynak panelindeki belgeyi kontrol edebilirsin. [1]"
 
 
 class KnowledgeBaseUnavailableError(RuntimeError):
@@ -300,7 +598,9 @@ class SelcukRAGEngine:
             "3. Sadece Türkçe konuş.\n"
             "4. Cevabındaki bilgilerin sonuna mutlaka bağlamdaki kaynak numarasını [1], [2] şeklinde ekle (Inline Citation).\n"
             "5. Cevap içinde sadece [1], [2] inline citation kullan.\n"
-            f"6. {PROMPT_SOURCE_RULE}\n\n"
+            f"6. {PROMPT_SOURCE_RULE}\n"
+            "7. Saat, tarih, ücret, hesaplama veya sayı listesi gibi operasyonel bilgiler bağlamda açıkça yoksa bilmiyorum de.\n"
+            "8. Sadece bağlamdaki kaynaklara dayan; kaynak listesi, URL listesi veya ayrı Kaynaklar bölümü yazma.\n\n"
             "--- BAĞLAM (kaynaklarla birlikte) ---\n{context}\n\n"
             "--- GEÇMİŞ SOHBET ---\n{chat_history}\n\n"
             "--- SORU ---\n{input}\n\n"
@@ -817,8 +1117,11 @@ class SelcukRAGEngine:
 
         return "\n".join(lines)
 
-    def format_context(self, docs):
+    def format_context(self, docs, question=None):
         """Dokümanları kaynak bilgisiyle birlikte bağlam metnine çevir."""
+        if question:
+            return prepare_context_and_sources(question, docs)["context"]
+
         chunks = []
         for i, doc in enumerate(docs):
             source_info = self.build_source_metadata(doc)

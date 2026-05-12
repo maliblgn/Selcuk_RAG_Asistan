@@ -2,7 +2,12 @@ import argparse
 import json
 import os
 
-from rag_engine import SelcukRAGEngine, normalize_user_question_for_retrieval
+from rag_engine import (
+    build_safe_fallback,
+    prepare_context_and_sources,
+    SelcukRAGEngine,
+    normalize_user_question_for_retrieval,
+)
 
 
 def _content_preview(text, limit=500):
@@ -34,6 +39,7 @@ def _doc_to_row(rank, doc):
         "article_title": metadata.get("article_title", ""),
         "page": source_info["page"],
         "flashrank_score": _json_safe(metadata.get("relevance_score")),
+        "general_relevance_score": _json_safe(metadata.get("general_relevance_score")),
         "metadata_score": _json_safe(metadata.get("metadata_rerank_score") or metadata.get("metadata_score")),
         "metadata_strong_match": metadata.get("metadata_strong_match"),
         "explanation": _json_safe(metadata.get("metadata_rerank_explanation", [])),
@@ -48,11 +54,17 @@ def build_preview(question, top_k=10):
 
     normalized_question = normalize_user_question_for_retrieval(question)
     engine = SelcukRAGEngine(enable_llm=False)
-    docs = engine.retrieve(normalized_question, top_k=top_k)
+    retrieved_docs = engine.retrieve(normalized_question, top_k=top_k)
+    prepared = prepare_context_and_sources(normalized_question, retrieved_docs)
+    docs = prepared["docs"]
     return {
         "question": question,
         "normalized_question": normalized_question,
         "top_k": top_k,
+        "raw_result_count": len(retrieved_docs),
+        "filtered_result_count": len(docs),
+        "query_type": prepared["query_type"],
+        "safe_fallback": build_safe_fallback(normalized_question, docs, prepared["query_type"]) if not docs else "",
         "results": [_doc_to_row(index, doc) for index, doc in enumerate(docs, start=1)],
     }
 
