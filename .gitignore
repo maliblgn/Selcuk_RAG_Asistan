@@ -37,14 +37,37 @@ central_batch_*.log
 ingestion_*.log
 source_inventory*.json
 
+# Generated reports / previews
+rag_preview_*.json
+*_preview*.json
+*_report*.json
+retrieval_*_report.json
+baseline_*_report.json
+critical_*_inventory.json
+critical_*_preflight.json
+chroma_*analysis*.json
+legal_chunk_preview*.json
+legal_chunker_demo.json
+full_*authorized*.json
+full_pdf_*authorized*.txt
+manual_download_todo.csv
+chroma_health_report*.json
+chroma_health_cleanup_check*.json
+legal_test_index_report.json
+
 # Safety ignores for local secrets, caches, and vector DB artifacts
 .env.*
 !.env.example
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+data/
+data/manual_pdfs/
 chroma_db/
 chroma_db_legal_test/
+custom_urls.txt
+selcuk_links.txt
 *.sqlite3
 *.sqlite
 *.db
+.cache/

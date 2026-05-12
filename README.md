@@ -1,179 +1,171 @@
-# 🎓 Selçuk Üniversitesi RAG Asistanı
+# Selcuk RAG Asistan
 
-[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://selcuk-rag-asistan.streamlit.app/)
-[![CI](https://github.com/maliblgn/Selcuk_RAG_Asistan/actions/workflows/ci.yml/badge.svg)](https://github.com/maliblgn/Selcuk_RAG_Asistan/actions/workflows/ci.yml)
+Selcuk RAG Asistan, Selcuk Universitesi yonetmelik, yonerge ve resmi dokumanlarini sorgulamak icin gelistirilmis bir RAG uygulamasidir. Sistem Streamlit arayuzu, ChromaDB snapshot'i, metadata-aware rerank katmani, kaynak paneli ve cevap guvenligi guardrail'leri ile calisir.
 
-🔗 **Canlı Demo:** [https://selcuk-rag-asistan.streamlit.app](https://selcuk-rag-asistan.streamlit.app/)
+Ana deploy hedefi Hugging Face Spaces Docker ortamidir. Streamlit Community Cloud artik ana deploy ortami olarak onerilmez; bellek limitleri nedeniyle kalici ve daha rahat calisan hedef HF Spaces olarak belirlenmistir.
 
-Selçuk Üniversitesi yönetmeliklerini sorgulayan, yapay zeka destekli bir chatbot uygulamasıdır. `selcuk.edu.tr` adresini otonom olarak tarayarak (web sayfaları ve PDF'ler) bilgi çıkarır ve soruları yanıtlar.
+## Mevcut Durum
 
-## 🛠️ Teknoloji Yığını
+- 149 kaynak ve 2985 chunk iceren ChromaDB snapshot repoda korunur.
+- ChromaDB runtime icin gereklidir; yeni ingestion calistirmadan uygulama acilabilir.
+- Metadata-aware rerank aktif.
+- Source binding ve inline citation eslesmesi uygulanir.
+- General RAG guardrails aktif:
+  - alakasiz kaynak filtreleme
+  - used-source-only kaynak paneli
+  - model tarafindan uretilen kaynak/URL bloklarini temizleme
+  - dusuk kaliteli cevap tespiti
+  - operasyonel/guncel bilgi sorularinda safe fallback
+- Groq LLM entegrasyonu kullanilir.
+- OpenAI entegrasyonu bu surumde yoktur.
 
-| Bileşen | Teknoloji |
-|---|---|
-| **UI** | Streamlit |
-| **LLM** | Groq API (Llama 3.1 8B Instant) |
-| **Embedding** | HuggingFace `intfloat/multilingual-e5-small` |
-| **Vektör DB** | ChromaDB |
-| **Framework** | LangChain |
+## Mimari
 
-## 📋 Gereksinimler
+| Katman | Dosya / Teknoloji | Gorev |
+| --- | --- | --- |
+| UI | `app.py`, Streamlit | Sohbet arayuzu, kaynak paneli, session state |
+| RAG motoru | `rag_engine.py` | Retrieval, prompt, streaming cevap, guardrails |
+| Rerank | `retrieval_rerank.py` | Metadata-aware legal/source rerank |
+| Vector DB | `chroma_db/`, ChromaDB | Tracked runtime snapshot |
+| Embedding | `intfloat/multilingual-e5-small` | Local sentence-transformers embedding |
+| LLM | Groq API | Cevap uretimi |
+| Kaynak kontrolu | `source_manifest.json`, `source_access_policy.py` | Resmi kaynak ve erisim politikasi |
+| Test | `tests/` | Unit ve regression testleri |
 
-- Python 3.11+
-- Groq API anahtarı ([console.groq.com](https://console.groq.com) üzerinden alınır)
+## Klasor Yapisi
 
-## 🚀 Kurulum
+```text
+.
+|-- app.py
+|-- rag_engine.py
+|-- retrieval_rerank.py
+|-- source_manifest.json
+|-- source_inventory.py
+|-- source_access_policy.py
+|-- chroma_db/
+|-- tests/
+|-- scripts/
+|-- evaluation/
+|-- docs/
+|-- .streamlit/config.toml
+|-- Dockerfile
+|-- requirements.txt
+|-- README.md
+```
+
+Ayrintili aciklama icin bkz. `docs/PROJECT_STRUCTURE.md`.
+
+## Kurulum
+
+Python 3.11+ onerilir.
 
 ```bash
-# 1. Sanal ortam oluştur
-python -m venv venv
-
-# 2. Sanal ortamı aktifleştir
-# Windows:
-venv\Scripts\activate
-# Linux/Mac:
-source venv/bin/activate
-
-# 3. Bağımlılıkları yükle
+python -m venv .venv
+.venv\Scripts\activate
 pip install -r requirements.txt
+```
 
-# 4. API anahtarını ayarla
+Linux/macOS:
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+## Ortam Degiskenleri
+
+`.env.example` dosyasini kopyalayip yerelde `.env` olusturun:
+
+```bash
 cp .env.example .env
-# .env dosyasına GROQ_API_KEY değerini girin
+```
 
-# 5. Veritabanını oluştur (otonom web taraması ile)
-python data_ingestion.py --crawl
+Temel degiskenler:
 
-# 6. Uygulamayı başlat
+```env
+GROQ_API_KEY=...
+GROQ_MODEL=llama-3.1-8b-instant
+ADMIN_PASSWORD=...
+```
+
+`.env` ve secret/API key dosyalari repoya commit edilmez.
+
+## Local Calistirma
+
+Mevcut ChromaDB snapshot ile:
+
+```bash
 streamlit run app.py
 ```
 
-## 🌐 Otonom Web Tarama & Scraping (V2)
-
-Sistem tamamen otonom olarak üniversite web sitesini tarayacak ve içeriği bilgi tabanına ekleyecek şekilde tasarlanmıştır.
-
-- Otonom tarama (`crawl=True`) ile belirtilen derinliğe (depth) kadar alt sayfalar otomatik keşfedilir.
-- Hem HTML içerikleri hem de web sitesine yüklenmiş `.pdf` uzantılı dokümanlar otomatik olarak indirilip okunur.
-- robots.txt: izin yoksa sayfa otomatik atlanir
-- Kullanım: Yalnızca CLI üzerinden veya (eklenirse) Admin paneli üzerinden yönetilir. Streamlit arayüzü son kullanıcı için sadece sohbete odaklanmıştır.
-- Spesifik bolum cekimi: URL satirina `|css=.hedef` ekleyerek sadece ilgili HTML bolumu alinabilir
-- PDF metni 100 karakterin altindaysa OCR fallback otomatik devreye girer (`pdf2image` + `pytesseract`, `lang="tur"`)
-- Hem normal okuma hem OCR basarisiz olursa kayitlar `failed_docs.json` dosyasina yazilir
-
-### Ortam ayarlari (.env)
-
-Web scraping davranisini `.env` ile yonetebilirsiniz:
-
-```env
-WEB_SCRAPER_ENABLE_DOMAIN_WHITELIST=false
-WEB_SCRAPER_ALLOWED_DOMAINS=selcuk.edu.tr,webadmin.selcuk.edu.tr
-WEB_SCRAPER_VERIFY_SSL=true
-WEB_SCRAPER_ALLOW_INSECURE_FALLBACK=true
-WEB_SCRAPER_TIMEOUT_SEC=10
-WEB_SCRAPER_MAX_RETRIES=3
-WEB_SCRAPER_BACKOFF_SEC=1.0
-WEB_SCRAPER_MIN_CONTENT_CHARS=300
-```
-
-Domain kisitlamasi acmak icin `WEB_SCRAPER_ENABLE_DOMAIN_WHITELIST=true` yapin.
-`WEB_SCRAPER_ALLOWED_DOMAINS` yalnizca whitelist aktifken uygulanir.
-
-Kurumsal aglarda SSL sertifika zinciri sorunu varsa once otomatik fallback devreye girer.
-Gerekirse gecici olarak `WEB_SCRAPER_VERIFY_SSL=false` kullanabilirsiniz.
-
-OCR fallback icin sistemde asagidaki araclarin kurulu olmasi gerekir:
-
-- Tesseract OCR (`tesseract`)
-- Poppler (`pdftoppm`)
-
-### CLI ile kullanım
+Index durumunu kontrol etmek icin:
 
 ```bash
-# Otonom web taramasını başlat
-python data_ingestion.py --crawl
-
-# Kontrollü kaynak manifestini işle
-python data_ingestion.py --manifest source_manifest.json --clear
-
-# Manifest seed'lerini crawler ile keşfedip bilgi tabanını yeniden üret
-python data_ingestion.py --manifest source_manifest.json --crawl --crawl-depth 2 --crawl-max-pages 80 --clear
-
-# URL listesini işle
-python data_ingestion.py --urls urls.txt
-
-# Veritabanını sıfırlayıp otonom olarak yeniden oluştur
-python data_ingestion.py --crawl --clear
+python check_chroma_health.py --db-path chroma_db --json
 ```
 
-### Bilgi tabanı kapsam raporu
+Yeni ingestion bu normal calisma akisi icin gerekli degildir.
+
+## Hugging Face Deploy
+
+HF Spaces Docker deploy hedefi:
+
+```text
+https://huggingface.co/spaces/maliblgn/selcuk-rag-asistan
+```
+
+Deploy dosyalari:
+
+- `Dockerfile`
+- `.dockerignore`
+- `.streamlit/config.toml`
+- `requirements.txt`
+- runtime kodu
+- tracked `chroma_db/` snapshot
+
+Detaylar icin bkz. `docs/HF_SPACES_DEPLOY_RAPORU.md`.
+
+## Testler
 
 ```bash
-python index_report.py
-python index_report.py --json --out index_report.json
+python -m pytest tests/ -v
 ```
 
-`source_manifest.json`, yerel PDF listesi değil; resmi web tarama başlangıç noktalarını (`crawl_seeds`), web üzerinden doğrudan bilinen resmi kaynakları (`known_direct_sources`) ve taramada bulunması beklenen doküman başlıklarını (`expected_documents`) izler.
+CI ve lokal testler RAG davranisinin, source binding'in, retrieval rerank'in ve guardrail mantiginin bozulmamasini hedefler.
 
-### Web keşif raporu
+## Bilinen Sinirlamalar
 
-```bash
-python discovery_report.py --max-depth 1 --max-pages 20
-python discovery_report.py --json --out discovery_report.json
-```
+- Saat, ucret, yemekhane, kutuphane calisma saatleri gibi guncel operasyonel bilgiler corpus icinde acikca yoksa cevaplanmaz; safe fallback doner.
+- Sistem resmi kaynak yerine gecmez; onemli kararlar icin ilgili resmi belge kontrol edilmelidir.
+- OCR veya PDF metin kalitesi nedeniyle bazi dokumanlarda eksik chunk olasidir.
+- ChromaDB snapshot sabittir; yeni kaynak eklemek ayrica planlanan ingestion islemi gerektirir.
 
-Bu rapor ChromaDB'yi değiştirmez; sadece resmi web sayfalarından kaç sayfa ve kaç doküman linki keşfedildiğini, beklenen yönerge/yönetmelik başlıklarının taramada yakalanıp yakalanmadığını gösterir.
+## Gelistirme Akisi
 
-## 🧪 Testler
+- `main` kararlı surumdur.
+- `dev` aktif gelistirme dalidir.
+- Yeni isler varsayilan olarak `dev` uzerinde yapilir.
+- Testler gecmeden `main`e alinmaz.
+- Buyuk davranis degisiklikleri icin once kapsam netlestirilir.
 
-```bash
-pytest tests/ -v
-```
+Detaylar icin bkz. `docs/DEVELOPMENT_WORKFLOW.md`.
 
-## 📂 Proje Yapısı
+## Guvenlik
 
-```
-Selcuk_RAG_Asistan/
-├── app.py                # Streamlit arayüzü ve sohbet mantığı
-├── rag_engine.py         # RAG zinciri, retriever ve LLM motoru
-├── data_ingestion.py     # Web Crawler → ChromaDB veri aktarım scripti
-├── web_scraper.py        # URL doğrulama, robots ve HTML metin ayıklama
-├── requirements.txt      # Bağımlılıklar
-├── .env.example          # Ortam değişkenleri şablonu
-├── chroma_db/            # Vektör veritabanı
-├── tests/                # Pytest birim testleri
-│   ├── test_rag_engine.py
-│   └── test_web_scraper.py
-├── .github/
-│   └── workflows/
-│       └── ci.yml        # GitHub Actions CI pipeline
-└── .devcontainer/        # GitHub Codespaces yapılandırması
-```
+Repoya commit edilmemesi gerekenler:
 
-## 💡 Kullanım
+- `.env`
+- API key ve secret degerleri
+- `data/*.pdf`
+- `chroma_db_legal_test/`
+- lokal healthcheck ve preview ciktilari
 
-- **Soru sorun**: Metin kutusuna yönetmeliklerle ilgili sorularınızı yazın.
-- **Kaynak alıntısı**: Her yanıtın sonunda bilgiyi hangi URL'den veya kaynaktan aldığını belirten alıntı (`Kaynak: https://...`) bilgisi görünür.
+`chroma_db/` bu projede istisnadir: runtime snapshot olarak tracked kalir.
 
-## ☁️ Codespaces ile Kullanım
+## Ornek Sorular
 
-Proje, GitHub Codespaces ile tek tıkla çalışmaya hazırdır. `.devcontainer` yapılandırması otomatik olarak tüm bağımlılıkları kurar ve Streamlit'i başlatır.
-
-> **Not**: `GROQ_API_KEY` ortam değişkenini Codespaces Secrets'a eklemeyi unutmayın.
-
-## Crawler Guvenlik Politikasi
-
-Proje web-only veri stratejisi kullanir, ancak otomatik tarama `robots.txt` ve kurumsal erisim politikasina uygun olmak zorundadir. Kimlik dogrulama otomatik crawler izni yerine gecmez; robots tarafindan engellenen veya robots dosyasi okunamayan URL'ler bilgi tabanina alinmaz.
-
-Kontrollu demo bilgi tabani icin:
-
-```bash
-python data_ingestion.py --urls curated_web_sources.txt --clear
-```
-
-Kesif raporu almak icin:
-
-```bash
-python discovery_report.py --max-depth 0 --max-pages 3
-```
-
-Ayrintili kurallar `CRAWLING_POLICY.md` dosyasindadir. `source_manifest.json` icinde `active: false` veya `requires_permission: true` olan kaynaklar belgelenir, fakat otomatik islenmez.
+- `AKTS nedir?`
+- `Tez izleme komitesi kac ogretim uyesinden olusur?`
+- `Doktora yeterlik sinavlari ile ilgili esaslar nelerdir?`
+- `Selcuk Universitesi'nde ders kredisi nasil hesaplanir?`
