@@ -41,9 +41,18 @@ Asagidaki dosyalar commit edilmez:
 
 `chroma_db/` bu projede runtime snapshot olarak tracked kalir. Silinmez, yeniden uretilmez ve bu tip dokumantasyon/temizlik islerinde degistirilmez.
 
-## Deploy kurali
+## Otomatik Hugging Face Deploy
 
-HF Spaces deploy guncellemesi ayrica yapilir. Normal repo hygiene veya dokumantasyon isleri HF orphan branch islemi gerektirmez.
+- Gelistirme `dev` branch uzerinde yapilir.
+- Degisiklikler test edildikten sonra `dev` -> `main` alinir.
+- `main` branch'e push/merge oldugunda `.github/workflows/deploy-hf-space.yml` otomatik calisir.
+- Workflow Hugging Face Space reposuna temiz deploy commit'i gonderir.
+- Buyuk ChromaDB dosyalari workflow icinde Git LFS ile gonderilir.
+- Gerekli GitHub Actions secret:
+  - `HF_TOKEN`
+- `HF_TOKEN` Hugging Face write token olmalidir.
+- Token repoya veya dosyaya yazilmaz.
+- Workflow `workflow_dispatch` ile manuel de calistirilabilir.
 
 ## Ingestion kurali
 

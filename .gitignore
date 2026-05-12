@@ -53,6 +53,7 @@ full_pdf_*authorized*.txt
 manual_download_todo.csv
 chroma_health_report*.json
 chroma_health_cleanup_check*.json
+chroma_health_deploy_workflow_check*.json
 legal_test_index_report.json
 
 # Safety ignores for local secrets, caches, and vector DB artifacts

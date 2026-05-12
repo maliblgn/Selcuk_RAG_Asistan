@@ -124,6 +124,8 @@ Deploy dosyalari:
 - runtime kodu
 - tracked `chroma_db/` snapshot
 
+`main` branch guncellendiginde GitHub Actions otomatik olarak Hugging Face Space deploy'u yapar. Bunun icin GitHub repo ayarlarinda `HF_TOKEN` secret tanimli olmalidir. HF Space Docker SDK ile calisir ve uygulama portu `7860` olarak ayarlanir. Deploy workflow'u README frontmatter'ini otomatik uretir ve ChromaDB snapshot dosyalarini Git LFS ile HF Space reposuna gonderir.
+
 Detaylar icin bkz. `docs/HF_SPACES_DEPLOY_RAPORU.md`.
 
 ## Testler

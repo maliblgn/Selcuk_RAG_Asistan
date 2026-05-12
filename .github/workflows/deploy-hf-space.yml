@@ -1,0 +1,101 @@
+name: Deploy Hugging Face Space
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy-hf-space:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout GitHub repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          lfs: true
+
+      - name: Install Git LFS
+        run: |
+          git lfs install
+
+      - name: Prepare clean Hugging Face deploy directory
+        run: |
+          rm -rf hf-deploy
+          mkdir hf-deploy
+
+          rsync -av ./ hf-deploy/ \
+            --exclude='.git/' \
+            --exclude='.github/' \
+            --exclude='data/' \
+            --exclude='data/manual_pdfs/' \
+            --exclude='.env' \
+            --exclude='venv/' \
+            --exclude='.venv/' \
+            --exclude='__pycache__/' \
+            --exclude='.pytest_cache/' \
+            --exclude='chroma_db_legal_test/' \
+            --exclude='custom_urls.txt' \
+            --exclude='selcuk_links.txt' \
+            --exclude='chroma_health_cleanup_check.local.json' \
+            --exclude='chroma_health_deploy_workflow_check.local.json'
+
+      - name: Generate Hugging Face README metadata
+        working-directory: hf-deploy
+        run: |
+          cat > README.hf.tmp <<'EOF'
+          ---
+          title: Selcuk RAG Asistan
+          emoji: 🎓
+          colorFrom: blue
+          colorTo: indigo
+          sdk: docker
+          app_port: 7860
+          pinned: false
+          ---
+
+          EOF
+
+          cat README.md >> README.hf.tmp
+          mv README.hf.tmp README.md
+
+      - name: Initialize clean HF git repository with LFS
+        working-directory: hf-deploy
+        run: |
+          git init -b main
+          git config user.email "actions@github.com"
+          git config user.name "github-actions"
+
+          git lfs install
+          git lfs track "chroma_db/chroma.sqlite3"
+          git lfs track "chroma_db/**/*.bin"
+          git lfs track "chroma_db/**/*.pickle"
+          git lfs track "chroma_db/**/*.pkl"
+
+          git add .gitattributes
+          git add -A
+
+          echo "Tracked LFS files:"
+          git lfs ls-files || true
+
+          if ! git lfs ls-files | grep -q "chroma_db/chroma.sqlite3"; then
+            echo "ERROR: chroma_db/chroma.sqlite3 is not tracked by LFS."
+            exit 1
+          fi
+
+          git commit -m "Deploy Selcuk RAG Asistan to Hugging Face Space"
+
+      - name: Push to Hugging Face Space
+        working-directory: hf-deploy
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          if [ -z "$HF_TOKEN" ]; then
+            echo "ERROR: HF_TOKEN secret is not set."
+            exit 1
+          fi
+
+          git remote add hf https://maliblgn:${HF_TOKEN}@huggingface.co/spaces/maliblgn/selcuk-rag-asistan
+          git push --force hf main:main
