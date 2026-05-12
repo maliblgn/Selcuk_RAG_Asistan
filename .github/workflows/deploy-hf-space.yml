@@ -29,6 +29,7 @@ jobs:
           rsync -av ./ hf-deploy/ \
             --exclude='.git/' \
             --exclude='.github/' \
+            --exclude='hf-deploy/' \
             --exclude='data/' \
             --exclude='data/manual_pdfs/' \
             --exclude='.env' \
@@ -80,8 +81,8 @@ jobs:
           echo "Tracked LFS files:"
           git lfs ls-files || true
 
-          if ! git lfs ls-files | grep -q "chroma_db/chroma.sqlite3"; then
-            echo "ERROR: chroma_db/chroma.sqlite3 is not tracked by LFS."
+          if ! git check-attr filter -- chroma_db/chroma.sqlite3 | grep -q "filter: lfs"; then
+            echo "ERROR: chroma_db/chroma.sqlite3 is not configured for LFS."
             exit 1
           fi
 
