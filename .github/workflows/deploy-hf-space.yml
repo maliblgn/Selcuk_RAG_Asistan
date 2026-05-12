@@ -77,12 +77,23 @@ jobs:
 
           git add .gitattributes
           git add -A
+          git add -f chroma_db/
 
           echo "Tracked LFS files:"
           git lfs ls-files || true
 
           if ! git check-attr filter -- chroma_db/chroma.sqlite3 | grep -q "filter: lfs"; then
             echo "ERROR: chroma_db/chroma.sqlite3 is not configured for LFS."
+            exit 1
+          fi
+
+          if ! git ls-files --error-unmatch chroma_db/chroma.sqlite3 >/dev/null 2>&1; then
+            echo "ERROR: chroma_db/chroma.sqlite3 was not added to the HF deploy commit."
+            exit 1
+          fi
+
+          if ! git lfs ls-files | grep -q "chroma_db/chroma.sqlite3"; then
+            echo "ERROR: chroma_db/chroma.sqlite3 was not staged as an LFS object."
             exit 1
           fi
 
