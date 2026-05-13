@@ -24,6 +24,18 @@ python -m pytest tests/ -v
 
 Testler gecmeden `main`e alinmaz.
 
+## Dependency degisikligi
+
+`requirements.txt` icindeki kritik runtime paketleri pinlenmistir. Paket surumu degistirilecekse en az su kontroller calistirilir:
+
+```bash
+USE_TF=0 TRANSFORMERS_NO_TF=1 python -c "import streamlit, chromadb, sentence_transformers, groq; print('runtime imports ok')"
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+python -m pytest tests/ -v
+```
+
+Dependency degisikligi `main`e alindiktan sonra HF deploy workflow sonucu da kontrol edilir. Local smoke artifact'leri commit edilmez.
+
 ## General Smoke Evaluation
 
 Genel RAG kapsamini LLM cagrisi yapmadan kontrol etmek icin:

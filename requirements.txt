@@ -1,23 +1,38 @@
-langchain
-langchain-core
-langchain-community
-langchain-text-splitters
-langchain-huggingface
-langchain-chroma
-langchain-groq
-pypdf
-chromadb
-sentence-transformers
-streamlit
-python-dotenv
-pytest
-requests
-beautifulsoup4
-lxml
-pytesseract
-pdf2image
-tqdm
-trafilatura
-langchain-experimental
-rank_bm25
-flashrank
+# Core runtime / UI
+streamlit==1.57.0
+python-dotenv==1.2.1
+requests==2.32.5
+httpx==0.28.1
+
+# LangChain / RAG runtime
+langchain==1.2.18
+langchain-core==1.4.0
+langchain-community==0.4.1
+langchain-text-splitters==1.1.2
+langchain-huggingface==1.2.2
+langchain-chroma==1.1.0
+langchain-groq==1.1.2
+langchain-experimental==0.4.1
+groq==0.37.1
+
+# Vector DB / embeddings
+chromadb==1.5.9
+sentence-transformers==5.4.1
+transformers==4.57.3
+torch==2.9.1
+
+# Retrieval / optional rerank
+rank-bm25==0.2.2
+flashrank==0.2.10
+
+# PDF, crawling, and ingestion helpers
+pypdf==6.7.5
+beautifulsoup4==4.14.2
+lxml==6.0.2
+trafilatura==2.0.0
+pytesseract==0.3.13
+pdf2image==1.17.0
+tqdm==4.67.1
+
+# Test tooling
+pytest==9.0.3
