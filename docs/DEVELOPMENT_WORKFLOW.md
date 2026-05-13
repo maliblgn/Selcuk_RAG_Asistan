@@ -56,6 +56,16 @@ python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.jso
 
 `retrieval_evaluation_report.local.json` ve `retrieval_evaluation_summary.local.md` local artifact'tir; commit edilmez. Runtime davranisi degistiren islerden once general smoke, retrieval evaluation ve pytest birlikte calistirilir.
 
+## Retrieval Triage
+
+Retrieval evaluation raporundan failure analizi cikarmak icin:
+
+```bash
+python evaluation/triage_retrieval_failures.py --report retrieval_evaluation_report.local.json --golden evaluation/golden_questions.json --out retrieval_triage_report.local.json --markdown-out retrieval_triage_summary.local.md
+```
+
+`retrieval_triage_report.local.json` ve `retrieval_triage_summary.local.md` local artifact'tir; commit edilmez. Runtime duzeltmesi yapilmadan once triage raporu incelenir ve hard-coded soru patch'i yerine genel iyilestirme alani belirlenir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
