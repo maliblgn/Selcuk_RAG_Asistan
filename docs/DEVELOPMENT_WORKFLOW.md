@@ -24,6 +24,16 @@ python -m pytest tests/ -v
 
 Testler gecmeden `main`e alinmaz.
 
+## General Smoke Evaluation
+
+Genel RAG kapsamini LLM cagrisi yapmadan kontrol etmek icin:
+
+```bash
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+```
+
+`general_smoke_report.local.json` ve `general_smoke_summary.local.md` local artifact'tir; commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

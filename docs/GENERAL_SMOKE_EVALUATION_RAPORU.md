@@ -57,12 +57,51 @@ Fallback beklenen sorular ozellikle guncel saat, gunluk yemek, servis saatleri, 
 
 Script mevcut `SelcukRAGEngine.retrieve()` ve `prepare_context_and_sources()` helper'larini kullanir. Bu nedenle kaynak paneli adaylari, uygulamanin kullandigi relevance filtering mantigiyla ayni yerden olculur.
 
+## Triage Status Alanlari
+
+Her soru icin `triage_status` uretilir. Bu alan, smoke sonucunu tek bakista okunur hale getirir:
+
+- `ok`: Beklenen davranis ile retrieval/source filtering sonucu uyumludur.
+- `answer_expected_without_source`: Soru cevap beklerken filtrelenmis guvenilir kaynak kalmamistir.
+- `fallback_expected_with_source`: Fallback beklenen soruda filtrelenmis kaynak adayi kalmistir; bu her zaman hata degildir, ancak answer guardrail ile birlikte incelenmelidir.
+- `inspect_top_document`: Kaynak var ama beklenen dokuman veya madde ipucuyla top source uyusmuyor olabilir.
+- `no_retrieval_result`: Retrieval seviyesinde hic aday donmemistir.
+
+Bu durumlarin tamami "hemen kod patch'i yap" anlamina gelmez. Ozellikle `inspect_top_document` ve `fallback_expected_with_source`, once kaynak metni ve soru beklentisiyle birlikte okunmasi gereken inceleme adaylaridir.
+
+## Smoke Raporu Nasil Okunur?
+
+JSON raporunun `summary` bolumu CI ve gelistirme takibi icin tasarlanmistir:
+
+- `total_questions`
+- `category_counts`
+- `expected_behavior_counts`
+- `smoke_fallback_count`
+- `answer_expected_without_source_count`
+- `fallback_expected_with_source_count`
+- `answer_expected_without_source_ids`
+- `fallback_expected_with_source_ids`
+- `top_document_mismatch_ids`
+- `triage_status_counts`
+
+Detayli soru satirlari `results` altindadir. Her satir retrieval sayisini, filtrelenmis kaynak sayisini, top dokumani, top maddeyi ve source panel aday sayisini gosterir.
+
+Markdown ozet local triage icin uretilebilir:
+
+```bash
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+```
+
+`general_smoke_report.local.json` ve `general_smoke_summary.local.md` local artifact'tir; commit edilmez.
+
+`--fail-on-critical` opsiyonu ileride kalite kapisi icin hazirlandi. Bu flag verilirse `answer_expected_without_source_count > 0` durumunda script nonzero exit code dondurur. Su an CI'da zorunlu gate olarak kullanilmaz.
+
 ## Ilk Smoke Sonucu Ozeti
 
 Komut:
 
 ```bash
-python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
 ```
 
 Ozet:
@@ -96,12 +135,15 @@ Ilk smoke calismasi bazi genisleme alanlarini gosterdi:
 - ALES sorusunda ilgili tanim bulunsa da top kaynak lisansustu yonetmeligi yerine butunlesik yuksek lisans yonergesi olabildi. Bu genel tanim retrieval davranisi acisindan izlenmelidir.
 - Tip Fakultesi sinav sorusunda top kaynak genel on lisans/lisans sinav yonetmeligine kaydi. Fakulte-ozel terim agirligi gelecekte ayrica degerlendirilebilir.
 
+Bu bulgular bu asamada hard-coded patch'e donusturulmedi. Amac, AKTS/tez izleme/doktora yeterlik gibi bilinen sorular disinda sistemin nerelerde guclu, nerelerde incelenmeye acik oldugunu gorunur kilmaktir.
+
 ## Sonraki Adim Onerisi
 
 Bu fazda hard-coded patch yapilmadi. Sonraki asamada:
 
 - Smoke raporu CI artifact'i olarak uretilebilir.
 - `answer_expected_without_source` ve `fallback_expected_with_source` listeleri icin esik tabanli uyarilar eklenebilir.
+- Riskli basliklar golden evaluation setine tasinarak zaman icinde regression takibi yapilabilir.
 - LLM'siz smoke sonucuna ek olarak sinirli sayida LLM cevap kalite kontrolu yapilabilir.
 - Kaynak ipucu eslesmesi, URL decode ve Turkce karakter normalizasyonuyla daha ayrintili hale getirilebilir.
 
