@@ -46,6 +46,16 @@ python evaluation/run_general_smoke.py --questions evaluation/general_smoke_ques
 
 `general_smoke_report.local.json` ve `general_smoke_summary.local.md` local artifact'tir; commit edilmez.
 
+## Retrieval Evaluation
+
+Golden question setiyle retrieval, relevance filtering ve source mapping metriklerini LLM cagrisi yapmadan kontrol etmek icin:
+
+```bash
+python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.json --out retrieval_evaluation_report.local.json --markdown-out retrieval_evaluation_summary.local.md
+```
+
+`retrieval_evaluation_report.local.json` ve `retrieval_evaluation_summary.local.md` local artifact'tir; commit edilmez. Runtime davranisi degistiren islerden once general smoke, retrieval evaluation ve pytest birlikte calistirilir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

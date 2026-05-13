@@ -42,6 +42,9 @@ rag_preview_*.json
 *_preview*.json
 *_report*.json
 retrieval_*_report.json
+retrieval_evaluation_report.local.json
+retrieval_evaluation_summary.local.md
+general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json
 critical_*_preflight.json
