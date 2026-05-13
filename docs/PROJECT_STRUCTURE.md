@@ -15,7 +15,7 @@ Bu dosya repodaki ana dosya ve klasorlerin ne icin tutuldugunu ozetler.
 
 ## Veri ve kaynaklar
 
-- `chroma_db/`: Runtime icin gerekli tracked ChromaDB snapshot. Silinmez ve yeniden uretilmez.
+- `chroma_db/`: Runtime icin gerekli tracked ChromaDB snapshot. Silinmez ve yeniden uretilmez. Guncelleme proseduru icin `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` takip edilir.
 - `source_manifest.json`: Resmi kaynak seedleri ve beklenen dokumanlar.
 - `curated_web_sources.txt`: Kontrollu/manual ingestion denemeleri icin kucuk kaynak listesi. Normal runtime icin gerekli degildir, fakat gelistirme yardimcisi olarak tutulur.
 
@@ -37,6 +37,7 @@ Bu dosya repodaki ana dosya ve klasorlerin ne icin tutuldugunu ozetler.
 
 - `README.md`: Guncel proje ozeti, kurulum, deploy ve gelistirme akisi.
 - `docs/HF_SPACES_DEPLOY_RAPORU.md`: HF Spaces Docker deploy notlari.
+- `docs/CHROMADB_SNAPSHOT_PROCEDURE.md`: ChromaDB snapshot uretim, dogrulama, guncelleme ve rollback proseduru.
 - `docs/DEVELOPMENT_WORKFLOW.md`: Branch ve test calisma duzeni.
 - `docs/REPO_HYGIENE_RAPORU.md`: Bu temizlik fazinin raporu.
 

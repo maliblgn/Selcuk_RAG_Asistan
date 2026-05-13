@@ -63,6 +63,8 @@ Asagidaki dosyalar commit edilmez:
 
 `chroma_db/` bu projede runtime snapshot olarak tracked kalir. Silinmez, yeniden uretilmez ve bu tip dokumantasyon/temizlik islerinde degistirilmez.
 
+Snapshot guncelleme ayri bir gorev olarak ele alinir. Guncelleme yapilmadan once `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` dokumani takip edilir.
+
 ## Otomatik Hugging Face Deploy
 
 - Gelistirme `dev` branch uzerinde yapilir.

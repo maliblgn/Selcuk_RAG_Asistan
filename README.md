@@ -19,6 +19,8 @@ Ana deploy hedefi Hugging Face Spaces Docker ortamidir. Streamlit Community Clou
 - Groq LLM entegrasyonu kullanilir.
 - OpenAI entegrasyonu bu surumde yoktur.
 
+ChromaDB snapshot'in uretim, dogrulama ve guncelleme proseduru icin `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` dosyasina bakiniz.
+
 ## Mimari
 
 | Katman | Dosya / Teknoloji | Gorev |
@@ -128,7 +130,7 @@ Deploy dosyalari:
 
 `chroma_db/` lokal gelistirme ve artifact temizligi icin `.gitignore` tarafinda ignore edilebilir. HF deploy workflow'u bu nedenle temiz deploy repo'sunda ChromaDB snapshot'ini bilincli olarak `git add -f chroma_db` ile ekler; `chroma_db/chroma.sqlite3` dosyasinin hem git index'te hem de Git LFS'te oldugunu commit oncesi dogrular.
 
-Detaylar icin bkz. `docs/HF_SPACES_DEPLOY_RAPORU.md`.
+Detaylar icin bkz. `docs/HF_SPACES_DEPLOY_RAPORU.md` ve `docs/CHROMADB_SNAPSHOT_PROCEDURE.md`.
 
 ## Testler
 
