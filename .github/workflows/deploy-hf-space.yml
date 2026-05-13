@@ -70,6 +70,17 @@ jobs:
           git config user.name "github-actions"
 
           git lfs install
+
+          if [ ! -d "chroma_db" ]; then
+            echo "ERROR: chroma_db directory is missing from deploy directory."
+            exit 1
+          fi
+
+          if [ ! -f "chroma_db/chroma.sqlite3" ]; then
+            echo "ERROR: chroma_db/chroma.sqlite3 is missing from deploy directory."
+            exit 1
+          fi
+
           git lfs track "chroma_db/chroma.sqlite3"
           git lfs track "chroma_db/**/*.bin"
           git lfs track "chroma_db/**/*.pickle"
@@ -79,8 +90,17 @@ jobs:
           git add -A
           git add -f chroma_db/
 
+          echo "Deploy chroma_db files:"
+          find chroma_db -maxdepth 2 -type f | sort
+
+          echo "Git tracked chroma_db files:"
+          git ls-files chroma_db
+
+          echo "Git LFS chroma_db files:"
+          git lfs ls-files | grep chroma_db || true
+
           echo "Tracked LFS files:"
-          git lfs ls-files || true
+          git lfs ls-files
 
           if ! git check-attr filter -- chroma_db/chroma.sqlite3 | grep -q "filter: lfs"; then
             echo "ERROR: chroma_db/chroma.sqlite3 is not configured for LFS."
@@ -88,12 +108,18 @@ jobs:
           fi
 
           if ! git ls-files --error-unmatch chroma_db/chroma.sqlite3 >/dev/null 2>&1; then
-            echo "ERROR: chroma_db/chroma.sqlite3 was not added to the HF deploy commit."
+            echo "ERROR: chroma_db/chroma.sqlite3 was not added to git index."
             exit 1
           fi
 
           if ! git lfs ls-files | grep -q "chroma_db/chroma.sqlite3"; then
-            echo "ERROR: chroma_db/chroma.sqlite3 was not staged as an LFS object."
+            echo "ERROR: chroma_db/chroma.sqlite3 is not tracked as an LFS file."
+            exit 1
+          fi
+
+          LFS_COUNT=$(git lfs ls-files | grep -c "chroma_db/")
+          if [ "$LFS_COUNT" -lt 2 ]; then
+            echo "ERROR: Expected multiple chroma_db files tracked by LFS, got $LFS_COUNT."
             exit 1
           fi
 

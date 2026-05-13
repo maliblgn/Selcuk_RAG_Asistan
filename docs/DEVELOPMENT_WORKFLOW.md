@@ -48,6 +48,8 @@ Asagidaki dosyalar commit edilmez:
 - `main` branch'e push/merge oldugunda `.github/workflows/deploy-hf-space.yml` otomatik calisir.
 - Workflow Hugging Face Space reposuna temiz deploy commit'i gonderir.
 - Buyuk ChromaDB dosyalari workflow icinde Git LFS ile gonderilir.
+- `.gitignore` ChromaDB snapshot'ini normal `git add -A` akisinda dislayabildigi icin deploy workflow'u yalniz `chroma_db/` klasorunu bilincli olarak `git add -f chroma_db` ile ekler.
+- Workflow `chroma_db/chroma.sqlite3` dosyasinin deploy klasorunde bulundugunu, git index'e eklendigini ve Git LFS tarafindan izlendigini commit oncesi dogrular.
 - Gerekli GitHub Actions secret:
   - `HF_TOKEN`
 - `HF_TOKEN` Hugging Face write token olmalidir.
