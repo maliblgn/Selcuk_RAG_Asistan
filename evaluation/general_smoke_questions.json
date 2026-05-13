@@ -1,0 +1,342 @@
+[
+  {
+    "id": "academic_akts_definition",
+    "question": "AKTS nedir?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["AKTS", "Avrupa Kredi Transfer Sistemi"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Tanimlar",
+    "notes": "Bilinen tanim sorusu; tek basina yeterli kabul edilmez."
+  },
+  {
+    "id": "academic_tez_izleme_uye_sayisi",
+    "question": "Tez izleme komitesi kac ogretim uyesinden olusur?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["tez izleme komitesi", "uc ogretim uyesi"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Tez izleme komitesi",
+    "notes": "Bilinen madde sorusu; overfit kontrolu icin sette yer alir."
+  },
+  {
+    "id": "academic_doktora_yeterlik_nasil",
+    "question": "Doktora yeterlik sinavi nasil yapilir?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["doktora yeterlik", "yeterlik sinavi"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Doktora yeterlik sinavi",
+    "notes": "Bilinen procedure sorusu; genel davranisla cozulmeli."
+  },
+  {
+    "id": "academic_ales_definition",
+    "question": "ALES nedir?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["ALES", "Akademik Personel ve Lisansustu Egitimi Giris Sinavi"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Tanimlar",
+    "notes": "AKTS disinda kisaltma/tanim genellemesi."
+  },
+  {
+    "id": "academic_seminer_definition",
+    "question": "Seminer nedir?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["seminer"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Tanimlar",
+    "notes": "Genel akademik tanim sorusu."
+  },
+  {
+    "id": "academic_danisman_atama",
+    "question": "Lisansustu ogrencilerde danisman ne zaman atanir?",
+    "category": "academic_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["danisman", "atanir"],
+    "expected_document_hint": "Lisansustu Egitim ve Ogretim Yonetmeligi",
+    "expected_article_hint": "Danisman atanmasi",
+    "notes": "Madde basligi/tam ifade yakalama kontrolu."
+  },
+  {
+    "id": "directive_burs_basvuru",
+    "question": "Ucretsiz yemek bursuna basvuru nasil yapilir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["ucretsiz yemek bursu", "basvuru"],
+    "expected_document_hint": "Ucretsiz Yemek Bursu Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Burs/yemek bursu yonergesi ile lisansustu disi kaynak kontrolu."
+  },
+  {
+    "id": "directive_burs_kimler_yararlanamaz",
+    "question": "Ucretsiz yemek bursundan kimler yararlanamaz?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["ucretsiz yemek bursu", "yararlanamaz"],
+    "expected_document_hint": "Ucretsiz Yemek Bursu Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Burs yonergesinden negatif uygunluk sorusu."
+  },
+  {
+    "id": "directive_turizm_staj_sure",
+    "question": "Turizm Fakultesi staj suresi kac gundur?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["Turizm Fakultesi", "staj", "sure"],
+    "expected_document_hint": "Turizm Fakultesi Staj Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Staj yonergesi ve sayi iceren kaynakli cevap kontrolu."
+  },
+  {
+    "id": "directive_meslek_yuksekokullari_staj",
+    "question": "Meslek yuksekokullarinda staj uygulamasinin amaci nedir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["meslek yuksekokullari", "staj", "amac"],
+    "expected_document_hint": "Meslek Yuksekokullari Staj Yonergesi",
+    "expected_article_hint": "Amac",
+    "notes": "Farkli staj kaynagi ile genel amac sorusu."
+  },
+  {
+    "id": "directive_cift_anadal_basvuru",
+    "question": "Cift ana dal programina basvuru kosullari nelerdir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["cift ana dal", "basvuru"],
+    "expected_document_hint": "Cift Ana Dal Yonergesi",
+    "expected_article_hint": null,
+    "notes": "CAP/cift ana dal kaynak baglama kontrolu."
+  },
+  {
+    "id": "directive_diploma_eki",
+    "question": "Diploma eki hangi durumlarda duzenlenir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["diploma eki", "duzenlenir"],
+    "expected_document_hint": "Diploma, Diploma Eki ve Diger Belgeler",
+    "expected_article_hint": null,
+    "notes": "Belge duzenleme yonergesi kontrolu."
+  },
+  {
+    "id": "directive_mazeret_sinav",
+    "question": "Hakli ve gecerli mazeretlerde mazeret sinavi hakkinda ne duzenlenir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["mazeret", "sinav"],
+    "expected_document_hint": "Hakli ve Gecerli Mazeretler Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Mazeret yonergesi kaynak bulma kontrolu."
+  },
+  {
+    "id": "directive_kutuphane_odunc",
+    "question": "Kutuphane materyalleri odunc verme esaslari nelerdir?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["kutuphane", "odunc"],
+    "expected_document_hint": "Kutuphane Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Saat bilgisi degil, kutuphane yonergesinde acik olmasi beklenen konu."
+  },
+  {
+    "id": "directive_ogrenci_topluluklari",
+    "question": "Ogrenci topluluklari nasil kurulur?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["ogrenci topluluklari", "kurulur"],
+    "expected_document_hint": "Ogrenci Topluluklari Koordinatorlugu Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Kampus/ogrenci topluluklari yonergesi ile cesitlilik."
+  },
+  {
+    "id": "directive_uzaktan_ogretim",
+    "question": "Uzaktan ogretim kapsaminda dersler nasil yurutulur?",
+    "category": "directive_variety",
+    "expected_behavior": "answer",
+    "expected_terms": ["uzaktan ogretim", "ders"],
+    "expected_document_hint": "Uzaktan Ogretim Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Akademik ama farkli yonerge ailesi."
+  },
+  {
+    "id": "operational_kutuphane_saat",
+    "question": "Selcuk Universitesi kutuphanesinde hangi saatlerde hizmet sunulur?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_terms": ["saat", "hizmet"],
+    "expected_document_hint": "Kutuphane Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Guncel/operasyonel saat bilgisi; kaynakta acik degilse fallback beklenir."
+  },
+  {
+    "id": "operational_yemekhane_saat",
+    "question": "Selcuk Universitesi yemekhane hizmetleri hangi saatlerde sunulur?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_terms": ["yemekhane", "saat"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Alakasiz yonergeler kaynak paneline girmemeli."
+  },
+  {
+    "id": "operational_bugun_yemek",
+    "question": "Bugun yemekte ne var?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_terms": ["bugun", "yemek"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Dinamik gunluk menu; statik yonerge korpusundan uydurulmamali."
+  },
+  {
+    "id": "operational_ogrenci_isleri_bugun",
+    "question": "Ogrenci isleri bugun acik mi?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_terms": ["ogrenci isleri", "bugun", "acik"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Gunluk calisma durumu; fallback beklenir."
+  },
+  {
+    "id": "out_of_corpus_laptop",
+    "question": "Selcuk Universitesi ogrencilere ucretsiz laptop veriyor mu?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_terms": ["ucretsiz laptop"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Kaynak disi iddia; uydurma cevap verilmemeli."
+  },
+  {
+    "id": "out_of_corpus_aylik_burs",
+    "question": "Selcuk Universitesi tum ogrencilere aylik burs veriyor mu?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_terms": ["aylik burs", "tum ogrenciler"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Genel mali vaat hallucination kontrolu."
+  },
+  {
+    "id": "out_of_corpus_servis_saatleri",
+    "question": "Universite servis saatleri nelerdir?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_terms": ["servis saatleri"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Operasyonel ve muhtemelen kaynak disi ulasim bilgisi."
+  },
+  {
+    "id": "out_of_corpus_rektor_program",
+    "question": "Rektorun bugunku programi nedir?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_terms": ["rektor", "bugunku program"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Canli/guncel program sorusu; fallback beklenir."
+  },
+  {
+    "id": "out_of_corpus_kayit_ucreti",
+    "question": "Bu yil ogrenci kayit ucreti kac TL?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_terms": ["kayit ucreti", "TL"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Guncel ucret sorusu; kaynakta acik degilse cevaplanmamali."
+  },
+  {
+    "id": "calculation_ders_kredisi",
+    "question": "Selcuk Universitesi'nde ders kredisi nasil hesaplanir?",
+    "category": "calculation_numeric",
+    "expected_behavior": "fallback",
+    "expected_terms": ["ders kredisi", "hesaplanir"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "Uzun sayi dizisi uretilmemeli; acik formul yoksa fallback."
+  },
+  {
+    "id": "calculation_agno",
+    "question": "Agirlikli not ortalamasi nasil hesaplanir?",
+    "category": "calculation_numeric",
+    "expected_behavior": "answer",
+    "expected_terms": ["agirlikli not ortalamasi", "AKTS", "kredi"],
+    "expected_document_hint": "On Lisans ve Lisans Egitim-Ogretim ve Sinav Yonetmeligi",
+    "expected_article_hint": null,
+    "notes": "Formul veya tanim varsa kaynakli cevap; sayi dizisi uretilmemeli."
+  },
+  {
+    "id": "calculation_akts_puani",
+    "question": "AKTS puani nasil hesaplanir?",
+    "category": "calculation_numeric",
+    "expected_behavior": "fallback",
+    "expected_terms": ["AKTS", "hesaplanir"],
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "notes": "AKTS tanimi ile hesaplama birbirine karistirilmamali."
+  },
+  {
+    "id": "calculation_basari_notu",
+    "question": "Basari notu nasil degerlendirilir?",
+    "category": "calculation_numeric",
+    "expected_behavior": "answer",
+    "expected_terms": ["basari notu", "degerlendirme"],
+    "expected_document_hint": "Egitim-Ogretim ve Sinav Yonetmeligi",
+    "expected_article_hint": null,
+    "notes": "Sinav yonetmeligi kaynaklariyla cevaplanabilir genel not sorusu."
+  },
+  {
+    "id": "other_tip_fakultesi_sinav",
+    "question": "Tip Fakultesi egitim-ogretim ve sinav yonetmeliginde sinavlara iliskin genel esaslar nelerdir?",
+    "category": "faculty_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["Tip Fakultesi", "sinav"],
+    "expected_document_hint": "Tip Fakultesi Egitim-Ogretim ve Sinav Yonetmeligi",
+    "expected_article_hint": null,
+    "notes": "Lisansustu disi fakulte yonetmeligi kontrolu."
+  },
+  {
+    "id": "other_veteriner_olcme",
+    "question": "Veteriner Fakultesi olcme ve degerlendirme esaslari nelerdir?",
+    "category": "faculty_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["Veteriner Fakultesi", "olcme", "degerlendirme"],
+    "expected_document_hint": "Veteriner Fakultesi Olcme Ve Degerlendirme Esaslari Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Fakulte ozel yonerge kaynak cesitliligi."
+  },
+  {
+    "id": "other_eczacilik_staj",
+    "question": "Eczacilik Fakultesi staj yonergesinde stajla ilgili temel esaslar nelerdir?",
+    "category": "faculty_regulation",
+    "expected_behavior": "answer",
+    "expected_terms": ["Eczacilik Fakultesi", "staj"],
+    "expected_document_hint": "Eczacilik Fakultesi Staj Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Farkli fakulte staj yonergesi."
+  },
+  {
+    "id": "other_bap_proje",
+    "question": "BAP yonergesinde proje destekleri hakkinda hangi esaslar yer alir?",
+    "category": "research_administration",
+    "expected_behavior": "answer",
+    "expected_terms": ["BAP", "proje"],
+    "expected_document_hint": "BAP Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Arastirma idaresi kaynak ailesi."
+  },
+  {
+    "id": "other_bilimsel_yayin_etigi",
+    "question": "Bilimsel arastirma ve yayin etigi yonergesinde etik ihlaller nasil ele alinir?",
+    "category": "research_administration",
+    "expected_behavior": "answer",
+    "expected_terms": ["bilimsel arastirma", "yayin etigi", "etik ihlal"],
+    "expected_document_hint": "Bilimsel Arastirma ve Yayin Etigi Yonergesi",
+    "expected_article_hint": null,
+    "notes": "Etik/yayin yonergesi ile genel kaynak kapsami."
+  }
+]
