@@ -66,6 +66,19 @@ python evaluation/triage_retrieval_failures.py --report retrieval_evaluation_rep
 
 `retrieval_triage_report.local.json` ve `retrieval_triage_summary.local.md` local artifact'tir; commit edilmez. Runtime duzeltmesi yapilmadan once triage raporu incelenir ve hard-coded soru patch'i yerine genel iyilestirme alani belirlenir.
 
+## Retrieval Normalization / Alias
+
+Query vocabulary veya metadata alias degisikliklerinden sonra su kontroller birlikte calistirilir:
+
+```bash
+python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.json --out retrieval_evaluation_report.local.json --markdown-out retrieval_evaluation_summary.local.md
+python evaluation/triage_retrieval_failures.py --report retrieval_evaluation_report.local.json --golden evaluation/golden_questions.json --out retrieval_triage_report.local.json --markdown-out retrieval_triage_summary.local.md
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+python -m pytest tests/ -v
+```
+
+Aliaslar soru ID'sine gore degil, genel terim ve belge ailesi duzeyinde tutulur. Fallback accuracy dususu gorulurse degisiklik geri alinir veya daha dar ve guvenli hale getirilir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

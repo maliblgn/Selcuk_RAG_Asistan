@@ -1,0 +1,82 @@
+{
+  "term_aliases": {
+    "akts": ["avrupa kredi transfer sistemi", "avrupa kredi transfer", "kredi transfer sistemi"],
+    "ales": ["akademik personel ve lisansustu egitimi giris sinavi"],
+    "tez izleme": ["tez izleme komitesi", "tik"],
+    "doktora yeterlik": ["yeterlik sinavi", "doktora yeterlilik"],
+    "basari notu": ["agirlikli not", "not degerlendirme", "agno"],
+    "ders kredisi": ["kredi", "dersin kredisi", "kredi hesabi"],
+    "staj": ["klinik uygulama", "is yeri egitimi", "uygulama"],
+    "cift ana dal": ["cift anadal", "cap"],
+    "kutuphane": ["odunc", "iade"],
+    "bap": ["bilimsel arastirma projesi", "bilimsel arastirma projeleri"],
+    "etik": ["yayin etigi", "bilimsel arastirma ve yayin etigi"],
+    "mazeret": ["mazeret sinavi", "hakli ve gecerli mazeret"],
+    "diploma eki": ["diploma supplement", "belge duzenleme"],
+    "ogrenci topluluklari": ["ogrenci toplulugu", "kulup"]
+  },
+  "document_aliases": {
+    "lisansustu egitim ve ogretim yonetmeligi": [
+      "lisansustu yonetmeligi",
+      "lisansustu egitim yonetmeligi"
+    ],
+    "on lisans ve lisans egitim ogretim ve sinav yonetmeligi": [
+      "on lisans ve lisans",
+      "lisans sinav yonetmeligi",
+      "agno"
+    ],
+    "kutuphane yonergesi": [
+      "kutuphane",
+      "odunc verme yonergesi"
+    ],
+    "burs yonergesi": [
+      "burs",
+      "burslar"
+    ],
+    "staj yonergesi": [
+      "staj",
+      "klinik uygulama",
+      "is yeri egitimi"
+    ],
+    "cift ana dal yonergesi": [
+      "cift ana dal",
+      "cift anadal",
+      "cap"
+    ],
+    "bilimsel arastirma ve yayin etigi yonergesi": [
+      "etik yonerge",
+      "yayin etigi",
+      "bilimsel yayin etigi"
+    ],
+    "bilimsel arastirma projeleri": [
+      "bap",
+      "bilimsel arastirma projesi"
+    ],
+    "diploma diploma eki ve diger belgeler yonergesi": [
+      "diploma eki",
+      "belge duzenleme",
+      "belgelerin duzenlenmesi"
+    ],
+    "hakli ve gecerli mazeretler yonergesi": [
+      "mazeret",
+      "mazeret sinavi"
+    ],
+    "ogrenci topluluklari koordinatorlugu yonergesi": [
+      "ogrenci topluluklari",
+      "ogrenci toplulugu",
+      "kulup"
+    ],
+    "veteriner fakultesi olcme ve degerlendirme esaslari yonergesi": [
+      "veteriner olcme",
+      "olcme degerlendirme"
+    ],
+    "tip fakultesi egitim ogretim ve sinav yonetmeligi": [
+      "tip fakultesi",
+      "tip sinav yonetmeligi"
+    ],
+    "yurt disindan veya yabanci uyruklu ogrenci kabulu yonergesi": [
+      "yabanci uyruklu",
+      "ogrenci kabul"
+    ]
+  }
+}

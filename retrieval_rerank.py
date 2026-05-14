@@ -2,6 +2,15 @@ import re
 import unicodedata
 from urllib.parse import unquote
 
+from retrieval_normalization import (
+    article_match_score,
+    document_alias_score,
+    expand_query_alias_text,
+    load_retrieval_aliases,
+    normalize_text as shared_normalize_text,
+    title_similarity_score,
+)
+
 
 CRITICAL_LEGAL_TERMS = [
     "tez izleme komitesi",
@@ -57,6 +66,10 @@ PHRASE_PATTERNS = {
 
 
 def normalize_text(value):
+    return shared_normalize_text(value)
+
+
+def _legacy_normalize_text(value):
     value = unquote(str(value or ""))
     value = "".join(
         char for char in unicodedata.normalize("NFKD", value)
@@ -77,7 +90,7 @@ def normalize_text(value):
 
 
 def query_tokens(question):
-    tokens = set(re.findall(r"[a-z0-9]{3,}", normalize_text(question)))
+    tokens = set(re.findall(r"[a-z0-9]{3,}", expand_query_alias_text(question)))
     return {token for token in tokens if token not in STOPWORDS or token in IMPORTANT_TOKENS}
 
 
@@ -151,7 +164,13 @@ def _add(score, explanation, amount, reason):
 def _field_text(result):
     metadata = _metadata(result)
     title = str(metadata.get("article_title") or result.get("article_title") or result.get("title") or "")
-    source_title = str(metadata.get("title") or result.get("title") or "")
+    source_title = str(
+        metadata.get("source_title")
+        or metadata.get("title")
+        or metadata.get("file_name")
+        or result.get("title")
+        or ""
+    )
     source = str(metadata.get("source") or "")
     content = _result_content(result)
     return title, source_title, source, content
@@ -182,7 +201,9 @@ def score_result_with_metadata(question, result, base_score=None):
     intent = detect_query_intent(question)
     metadata = _metadata(result)
     article_title, source_title, source, content = _field_text(result)
+    alias_config = load_retrieval_aliases()
     question_norm = normalize_text(question)
+    expanded_question = expand_query_alias_text(question, alias_config)
     content_norm = normalize_text(content)
     title_norm = normalize_text(article_title)
     source_text_raw = f"{source_title} {source}".casefold()
@@ -234,6 +255,21 @@ def score_result_with_metadata(question, result, base_score=None):
         if intent["intent"] in {"procedure", "deadline", "purpose", "fact"}:
             amount = min(10.0, 2.2 * len(overlap))
         score = _add(score, explanation, amount, "article_title_query_token_overlap")
+
+    article_similarity = title_similarity_score(expanded_question, article_title)
+    if article_similarity >= 2.0:
+        score = _add(score, explanation, min(5.0, article_similarity), "normalized_article_title_similarity")
+
+    source_similarity = title_similarity_score(expanded_question, f"{source_title} {source}")
+    source_alias = document_alias_score(expanded_question, f"{source_title} {source}", alias_config)
+    if source_similarity >= 2.0:
+        score = _add(score, explanation, min(3.0, source_similarity), "normalized_source_title_similarity")
+    if source_alias >= 3.0:
+        score = _add(score, explanation, min(4.0, source_alias), "document_alias_family_match")
+
+    normalized_article_match = article_match_score(question, article_no, article_title, content)
+    if normalized_article_match >= 4.0:
+        score = _add(score, explanation, min(4.0, normalized_article_match / 2), "normalized_article_match")
 
     for amount, reason in _phrase_boosts(question, title_norm, content_norm, intent["intent"]):
         score = _add(score, explanation, amount, reason)

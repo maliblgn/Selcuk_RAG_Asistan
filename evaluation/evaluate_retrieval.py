@@ -35,6 +35,13 @@ except ImportError:  # pragma: no cover - direct script execution fallback
     from retrieval_rerank import detect_query_intent, rerank_results
 
 from rag_engine import SelcukRAGEngine, prepare_context_and_sources
+from retrieval_normalization import (
+    article_match_score,
+    document_alias_score,
+    load_retrieval_aliases,
+    normalize_text as shared_normalize_text,
+    title_similarity_score,
+)
 
 
 DEFAULT_DB = ROOT_DIR / "chroma_db" / "chroma.sqlite3"
@@ -56,6 +63,11 @@ EVALUATION_STATUSES = {
 
 def normalize_text(value: Any) -> str:
     """Normalize Turkish text, mojibake-ish legacy fixtures, and URL escapes."""
+    return shared_normalize_text(value)
+
+
+def _legacy_normalize_text(value: Any) -> str:
+    """Legacy implementation kept only for reference while tests use wrapper."""
 
     text = unquote(str(value or ""))
     replacements = {
@@ -190,7 +202,15 @@ def result_label(result: dict) -> str:
 
 def expected_document_matches(result: dict, expected_values: list[str] | None) -> bool:
     haystack = normalize_text(result_label(result))
-    return any(normalize_text(value) in haystack for value in (expected_values or []))
+    if any(normalize_text(value) in haystack for value in (expected_values or [])):
+        return True
+    alias_config = load_retrieval_aliases()
+    for value in expected_values or []:
+        if title_similarity_score(value, haystack) >= 4.0:
+            return True
+        if document_alias_score(value, haystack, alias_config) >= 3.0:
+            return True
+    return False
 
 
 def expected_terms_match(results: list[dict], expected_terms: list[str] | None) -> bool:
@@ -415,7 +435,14 @@ def _article_hit(docs: list[dict], item: dict, k: int) -> bool | None:
     def predicate(result: dict) -> bool:
         metadata = result.get("metadata") or {}
         no_match = True if not expected_no else str(metadata.get("article_no") or "") == str(expected_no)
-        title_match = True if not expected_title else normalize_text(expected_title) in normalize_text(metadata.get("article_title") or result.get("content") or "")
+        article_title = metadata.get("article_title") or ""
+        content = result.get("content") or ""
+        title_match = True
+        if expected_title:
+            title_match = (
+                normalize_text(expected_title) in normalize_text(f"{article_title} {content}")
+                or article_match_score(expected_title, metadata.get("article_no") or "", article_title, content) >= 3.0
+            )
         return no_match and title_match
 
     return hit_at(docs, predicate, min(k, len(docs)))

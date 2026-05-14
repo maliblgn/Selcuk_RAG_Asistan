@@ -18,6 +18,14 @@ from langchain_community.retrievers import BM25Retriever
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
 from retrieval_rerank import legal_safe_query_allowed, rerank_documents
+from retrieval_normalization import (
+    document_alias_score,
+    expand_query_alias_text,
+    load_retrieval_aliases,
+    normalize_text as retrieval_normalize_text,
+    title_similarity_score,
+    tokenize_for_match,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -285,7 +293,7 @@ _IMPORTANT_RELEVANCE_TERMS = {
 
 
 def _query_terms(question: str) -> list[str]:
-    normalized = SelcukRAGEngine._normalize_question_text(question)
+    normalized = expand_query_alias_text(question)
     terms = re.findall(r"[a-z0-9]{3,}", normalized)
     result = []
     seen = set()
@@ -305,11 +313,13 @@ def _query_terms(question: str) -> list[str]:
 
 def _doc_search_text(doc: Document) -> str:
     metadata = dict(getattr(doc, "metadata", {}) or {})
-    return SelcukRAGEngine._normalize_question_text(
+    return retrieval_normalize_text(
         " ".join(
             str(item or "")
             for item in (
                 metadata.get("title"),
+                metadata.get("source_title"),
+                metadata.get("file_name"),
                 metadata.get("source"),
                 metadata.get("article_title"),
                 getattr(doc, "page_content", ""),
@@ -319,8 +329,21 @@ def _doc_search_text(doc: Document) -> str:
 
 
 def _relevance_score(question: str, doc: Document) -> float:
-    query_norm = SelcukRAGEngine._normalize_question_text(question)
+    alias_config = load_retrieval_aliases()
+    query_norm = retrieval_normalize_text(question)
+    expanded_query = expand_query_alias_text(question, alias_config)
     doc_text = _doc_search_text(doc)
+    metadata = dict(getattr(doc, "metadata", {}) or {})
+    title_text = " ".join(
+        str(item or "")
+        for item in (
+            metadata.get("source_title"),
+            metadata.get("title"),
+            metadata.get("file_name"),
+            metadata.get("source"),
+            metadata.get("article_title"),
+        )
+    )
     terms = _query_terms(question)
     if not terms:
         return 0.0
@@ -342,7 +365,7 @@ def _relevance_score(question: str, doc: Document) -> float:
         "calisma saat",
     )
     for phrase in quoted_phrases:
-        if phrase in query_norm and phrase in doc_text:
+        if phrase in expanded_query and phrase in doc_text:
             score += 6.0
     if "ders" in query_norm and "kredi" in query_norm and (
         "ders kredisi" in doc_text or "dersin kredisi" in doc_text or "dersin kredi" in doc_text
@@ -357,10 +380,23 @@ def _relevance_score(question: str, doc: Document) -> float:
             else:
                 score -= 6.0
 
-    asks_time = any(term in query_norm for term in ("saat", "saatlerde", "calisma saat", "ne zaman"))
+    asks_time = any(term in query_norm for term in ("saat", "saatler", "saatlerde", "calisma saat", "ne zaman"))
     has_time_support = any(term in doc_text for term in ("saat", "saatlerde", "calisma saat", "mesai", "acilis", "kapanis"))
     if asks_time and not has_time_support:
-        score -= 5.0
+        score -= 10.0
+
+    asks_current_info = any(term in query_norm for term in ("bugun", "bu donem", "guncel", "programi", "fiyat", "ucret"))
+    has_current_support = any(term in doc_text for term in ("bugun", "guncel", "tarih", "takvim", "program", "fiyat", "ucret"))
+    if asks_current_info and not has_current_support:
+        score -= 8.0
+
+    universal_claim = any(term in query_norm for term in ("tum ogrenci", "tum ogrencilere", "her ay", "ucretsiz"))
+    has_universal_support = any(term in doc_text for term in ("tum ogrenci", "tum ogrencilere", "her ay", "ucretsiz"))
+    if universal_claim and not has_universal_support:
+        score -= 8.0
+
+    if "servis" in query_norm and "servis" not in doc_text:
+        score -= 8.0
 
     asks_calculation = any(term in query_norm for term in ("hesap", "hesaplanir", "hesaplanır"))
     has_calculation_support = any(term in doc_text for term in ("hesap", "carpim", "carpimi", "bolun", "elde edilir"))
@@ -378,6 +414,18 @@ def _relevance_score(question: str, doc: Document) -> float:
 
     if "akts" in query_norm and "avrupa kredi transfer sistemi" in doc_text:
         score += 8.0
+
+    title_score = title_similarity_score(expanded_query, title_text)
+    if title_score >= 2.0:
+        score += min(4.0, title_score)
+    alias_score = document_alias_score(expanded_query, title_text, alias_config)
+    if alias_score >= 3.0:
+        score += min(4.0, alias_score)
+
+    query_token_set = tokenize_for_match(expanded_query)
+    title_token_set = tokenize_for_match(title_text)
+    if query_token_set and len(query_token_set & title_token_set) >= 2:
+        score += 2.0
 
     metadata_score = float(getattr(doc, "metadata", {}).get("metadata_rerank_score") or 0.0)
     if metadata_score >= 16.0 or getattr(doc, "metadata", {}).get("metadata_strong_match"):
