@@ -79,6 +79,16 @@ python -m pytest tests/ -v
 
 Aliaslar soru ID'sine gore degil, genel terim ve belge ailesi duzeyinde tutulur. Fallback accuracy dususu gorulurse degisiklik geri alinir veya daha dar ve guvenli hale getirilir.
 
+## Article Metadata Evaluation
+
+Madde no/baslik eslesmesi degisikliklerinden sonra article metadata audit de calistirilir:
+
+```bash
+python evaluation/audit_article_metadata.py --golden evaluation/golden_questions.json --out article_metadata_audit.local.json --markdown-out article_metadata_audit.local.md
+```
+
+`article_metadata_audit.local.json` ve `article_metadata_audit.local.md` local artifact'tir; commit edilmez. Article matching degisikliklerinden sonra retrieval evaluation, triage, article audit, general smoke ve pytest birlikte calistirilir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

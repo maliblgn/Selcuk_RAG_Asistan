@@ -54,6 +54,11 @@ _MOJIBAKE_REPLACEMENTS = {
     "Ãƒâ€¡": "c",
     "ÃƒÂ§": "c",
 }
+_ARTICLE_NO_PATTERNS = (
+    re.compile(r"\bmadde\s*(\d{1,3})\b"),
+    re.compile(r"\b(\d{1,3})\s*(?:inci|nci|inci|inci|uncu|ncu|uncu|uncu|inci|nci)?\s*madde\b"),
+    re.compile(r"^\s*(\d{1,3})\s*$"),
+)
 
 
 def normalize_text(text: str) -> str:
@@ -174,13 +179,119 @@ def document_alias_score(query: str, title: str, aliases: dict | None = None) ->
     return best
 
 
+def normalize_article_no(value: str) -> str:
+    """Normalize article number variants such as ``MADDE 43`` to ``43``."""
+
+    text = normalize_ascii_lite(value)
+    if not text:
+        return ""
+    for pattern in _ARTICLE_NO_PATTERNS:
+        match = pattern.search(text)
+        if match:
+            return match.group(1).lstrip("0") or "0"
+    return ""
+
+
+def extract_article_numbers(text: str) -> set[str]:
+    """Extract article numbers from title/content text."""
+
+    normalized = normalize_ascii_lite(text)
+    numbers: set[str] = set()
+    for pattern in _ARTICLE_NO_PATTERNS[:2]:
+        for match in pattern.finditer(normalized):
+            number = match.group(1).lstrip("0") or "0"
+            numbers.add(number)
+    return numbers
+
+
+def normalize_article_title(text: str) -> str:
+    """Normalize article titles by removing common article-number prefixes."""
+
+    normalized = normalize_ascii_lite(text)
+    if not normalized:
+        return ""
+    normalized = re.sub(r"^\s*madde\s*\d{1,3}\s*", " ", normalized)
+    normalized = re.sub(
+        r"^\s*\d{1,3}\s*(?:inci|nci|inci|inci|uncu|ncu|uncu|uncu|inci|nci)?\s*madde\s*",
+        " ",
+        normalized,
+    )
+    return " ".join(normalized.split())
+
+
+def article_title_similarity_score(expected_title: str, actual_title: str, content: str = "") -> float:
+    """Score article title similarity with normalized title and content fallback."""
+
+    expected_norm = normalize_article_title(expected_title)
+    actual_norm = normalize_article_title(actual_title)
+    content_norm = normalize_ascii_lite(content)
+    if not expected_norm:
+        return 0.0
+
+    expected_tokens = tokenize_for_match(expected_norm)
+    actual_tokens = tokenize_for_match(actual_norm)
+    content_tokens = tokenize_for_match(content_norm[:3000])
+    score = 0.0
+
+    if actual_norm:
+        if expected_norm == actual_norm:
+            score += 6.0
+        elif expected_norm in actual_norm or actual_norm in expected_norm:
+            score += 4.5
+        overlap = expected_tokens & actual_tokens
+        if overlap:
+            score += min(3.5, (len(overlap) / max(len(expected_tokens), 1)) * 4.0)
+
+    if expected_norm and expected_norm in content_norm:
+        score += 2.5
+    elif expected_tokens:
+        content_overlap = expected_tokens & content_tokens
+        if len(content_overlap) >= min(2, len(expected_tokens)):
+            score += min(2.0, len(content_overlap) * 0.8)
+
+    return min(score, 10.0)
+
+
+def article_metadata_score(
+    expected_article_no: str | None,
+    expected_article_title: str | None,
+    actual_article_no: str | None,
+    actual_article_title: str | None,
+    content: str = "",
+) -> float:
+    """Score expected article metadata against actual metadata and content."""
+
+    expected_no = normalize_article_no(expected_article_no or "")
+    actual_no = normalize_article_no(actual_article_no or "")
+    content_numbers = extract_article_numbers(f"{actual_article_title or ''} {content[:3000]}")
+    title_score = article_title_similarity_score(expected_article_title or "", actual_article_title or "", content)
+    score = 0.0
+
+    if expected_no:
+        if actual_no == expected_no:
+            score += 5.0
+        elif expected_no in content_numbers:
+            score += 3.5
+        elif actual_no:
+            return min(title_score, 2.0)
+
+    if expected_article_title:
+        score += title_score
+
+    if not expected_no and not expected_article_title:
+        return 0.0
+    if expected_no and not expected_article_title:
+        return min(score, 8.0)
+    return min(score, 10.0)
+
+
 def article_match_score(expected_or_query: str, article_no: str, article_title: str, content: str) -> float:
     """Score article number/title/content match for evaluation and rerank hints."""
 
     expected_norm = normalize_ascii_lite(expected_or_query)
-    title_norm = normalize_ascii_lite(article_title)
+    title_norm = normalize_article_title(article_title)
     content_norm = normalize_ascii_lite(content)
-    article_no_norm = normalize_ascii_lite(article_no)
+    article_no_norm = normalize_article_no(article_no)
     if not expected_norm:
         return 0.0
 

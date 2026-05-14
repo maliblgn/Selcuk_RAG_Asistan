@@ -4,9 +4,12 @@ from urllib.parse import unquote
 
 from retrieval_normalization import (
     article_match_score,
+    article_metadata_score,
     document_alias_score,
     expand_query_alias_text,
+    extract_article_numbers,
     load_retrieval_aliases,
+    normalize_article_no,
     normalize_text as shared_normalize_text,
     title_similarity_score,
 )
@@ -214,7 +217,8 @@ def score_result_with_metadata(question, result, base_score=None):
         or ("lisans%c3%bcst" in source_text_raw and "yonetmel" in source_text_raw)
         or ("c4%b0sans" in source_text_raw and "c3%9cst" in source_text_raw and "yonetmel" in source_text_raw)
     )
-    article_no = str(metadata.get("article_no") or result.get("article_no") or "")
+    raw_article_no = str(metadata.get("article_no") or result.get("article_no") or "")
+    article_no = normalize_article_no(raw_article_no) or raw_article_no
     score = float(base_score if base_score is not None else result.get("score") or 0.0)
     explanation = []
     akts_query = "akts" in question_norm
@@ -270,6 +274,19 @@ def score_result_with_metadata(question, result, base_score=None):
     normalized_article_match = article_match_score(question, article_no, article_title, content)
     if normalized_article_match >= 4.0:
         score = _add(score, explanation, min(4.0, normalized_article_match / 2), "normalized_article_match")
+
+    query_article_numbers = extract_article_numbers(question)
+    if query_article_numbers:
+        actual_article_numbers = {article_no} if article_no else set()
+        actual_article_numbers.update(extract_article_numbers(f"{article_title} {content[:3000]}"))
+        if query_article_numbers & actual_article_numbers:
+            score = _add(score, explanation, 4.0, "query_article_number_match")
+        elif actual_article_numbers:
+            score = _add(score, explanation, -1.5, "query_article_number_mismatch")
+
+    inferred_article_score = article_metadata_score("", question, article_no, article_title, content)
+    if inferred_article_score >= 5.0:
+        score = _add(score, explanation, min(3.0, inferred_article_score / 3), "query_article_title_similarity")
 
     for amount, reason in _phrase_boosts(question, title_norm, content_norm, intent["intent"]):
         score = _add(score, explanation, amount, reason)

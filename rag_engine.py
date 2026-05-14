@@ -21,7 +21,9 @@ from retrieval_rerank import legal_safe_query_allowed, rerank_documents
 from retrieval_normalization import (
     document_alias_score,
     expand_query_alias_text,
+    extract_article_numbers,
     load_retrieval_aliases,
+    normalize_article_no,
     normalize_text as retrieval_normalize_text,
     title_similarity_score,
     tokenize_for_match,
@@ -421,6 +423,26 @@ def _relevance_score(question: str, doc: Document) -> float:
     alias_score = document_alias_score(expanded_query, title_text, alias_config)
     if alias_score >= 3.0:
         score += min(4.0, alias_score)
+
+    query_article_numbers = extract_article_numbers(question)
+    if query_article_numbers:
+        metadata_article_no = normalize_article_no(str(metadata.get("article_no") or ""))
+        doc_article_numbers = {metadata_article_no} if metadata_article_no else set()
+        doc_article_numbers.update(
+            extract_article_numbers(
+                " ".join(
+                    str(item or "")
+                    for item in (
+                        metadata.get("article_title"),
+                        getattr(doc, "page_content", "")[:3000],
+                    )
+                )
+            )
+        )
+        if query_article_numbers & doc_article_numbers:
+            score += 3.0
+        elif doc_article_numbers:
+            score -= 1.5
 
     query_token_set = tokenize_for_match(expanded_query)
     title_token_set = tokenize_for_match(title_text)

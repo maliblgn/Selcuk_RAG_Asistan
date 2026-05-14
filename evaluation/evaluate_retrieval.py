@@ -37,8 +37,12 @@ except ImportError:  # pragma: no cover - direct script execution fallback
 from rag_engine import SelcukRAGEngine, prepare_context_and_sources
 from retrieval_normalization import (
     article_match_score,
+    article_metadata_score,
+    article_title_similarity_score,
     document_alias_score,
+    extract_article_numbers,
     load_retrieval_aliases,
+    normalize_article_no,
     normalize_text as shared_normalize_text,
     title_similarity_score,
 )
@@ -183,8 +187,9 @@ def result_article_numbers(result: dict) -> list[str]:
     metadata = result.get("metadata") or {}
     article_no = metadata.get("article_no")
     if article_no not in (None, ""):
-        return [str(article_no)]
-    return article_numbers_from_content(result.get("content") or "")
+        normalized = normalize_article_no(str(article_no))
+        return [normalized or str(article_no)]
+    return sorted(extract_article_numbers(result.get("content") or "")) or article_numbers_from_content(result.get("content") or "")
 
 
 def result_label(result: dict) -> str:
@@ -221,7 +226,8 @@ def expected_terms_match(results: list[dict], expected_terms: list[str] | None) 
 def article_matches(result: dict, expected_article_no: str | None) -> bool:
     if not expected_article_no:
         return False
-    return str(expected_article_no) in result_article_numbers(result)
+    expected = normalize_article_no(str(expected_article_no)) or str(expected_article_no)
+    return expected in result_article_numbers(result)
 
 
 def build_bm25_index(docs: list[dict]) -> dict:
@@ -402,7 +408,9 @@ def _source_label_from_metadata(metadata: dict | None) -> str | None:
 def _article_no(metadata: dict | None) -> str | None:
     metadata = metadata or {}
     article = metadata.get("article_no")
-    return str(article) if article not in (None, "") else None
+    if article in (None, ""):
+        return None
+    return normalize_article_no(str(article)) or str(article)
 
 
 def _article_title(metadata: dict | None) -> str | None:
@@ -434,16 +442,22 @@ def _article_hit(docs: list[dict], item: dict, k: int) -> bool | None:
 
     def predicate(result: dict) -> bool:
         metadata = result.get("metadata") or {}
-        no_match = True if not expected_no else str(metadata.get("article_no") or "") == str(expected_no)
+        actual_no = metadata.get("article_no") or ""
         article_title = metadata.get("article_title") or ""
         content = result.get("content") or ""
-        title_match = True
-        if expected_title:
-            title_match = (
-                normalize_text(expected_title) in normalize_text(f"{article_title} {content}")
-                or article_match_score(expected_title, metadata.get("article_no") or "", article_title, content) >= 3.0
-            )
-        return no_match and title_match
+        expected_no_norm = normalize_article_no(str(expected_no or ""))
+        actual_numbers = set(result_article_numbers(result))
+        actual_numbers.update(extract_article_numbers(f"{article_title} {content[:3000]}"))
+        no_match = True if not expected_no_norm else expected_no_norm in actual_numbers
+        metadata_score = article_metadata_score(expected_no, expected_title, actual_no, article_title, content)
+        if expected_no_norm and not expected_title:
+            return no_match
+        if expected_no_norm and expected_title:
+            return no_match and metadata_score >= 5.0
+        return (
+            article_title_similarity_score(expected_title or "", article_title, content) >= 4.0
+            or article_match_score(expected_title or "", actual_no, article_title, content) >= 4.0
+        )
 
     return hit_at(docs, predicate, min(k, len(docs)))
 

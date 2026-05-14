@@ -46,6 +46,8 @@ retrieval_evaluation_report.local.json
 retrieval_evaluation_summary.local.md
 retrieval_triage_report.local.json
 retrieval_triage_summary.local.md
+article_metadata_audit.local.json
+article_metadata_audit.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

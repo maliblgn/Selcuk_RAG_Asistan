@@ -4,10 +4,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+
+
+ROOT_DIR = Path(__file__).resolve().parents[1]
+if str(ROOT_DIR) not in sys.path:
+    sys.path.insert(0, str(ROOT_DIR))
+
+from retrieval_normalization import (
+    article_title_similarity_score,
+    normalize_article_no,
+)
 
 
 FAILURE_TYPES = {
@@ -70,6 +81,16 @@ def infer_root_cause(result: dict, golden: dict) -> str:
             return "metadata_title_mismatch"
         return "expected_document_hint_too_strict"
     if failure_type == "article_miss":
+        expected_no = normalize_article_no(str(golden.get("expected_article_no") or ""))
+        top_no = normalize_article_no(str(result.get("top_article_no") or ""))
+        title_score = article_title_similarity_score(
+            golden.get("expected_article_title") or "",
+            result.get("top_article_title") or "",
+        )
+        if expected_no and top_no and expected_no != top_no:
+            return "article_metadata_mismatch"
+        if title_score < 4.0:
+            return "article_metadata_mismatch"
         return "article_metadata_mismatch"
     if failure_type == "expected_terms_miss":
         return "chunking_or_ocr_issue"
