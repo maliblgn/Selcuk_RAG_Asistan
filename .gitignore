@@ -48,6 +48,8 @@ retrieval_triage_report.local.json
 retrieval_triage_summary.local.md
 article_metadata_audit.local.json
 article_metadata_audit.local.md
+source_inventory_alias_audit.local.json
+source_inventory_alias_audit.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

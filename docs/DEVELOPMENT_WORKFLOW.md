@@ -89,6 +89,16 @@ python evaluation/audit_article_metadata.py --golden evaluation/golden_questions
 
 `article_metadata_audit.local.json` ve `article_metadata_audit.local.md` local artifact'tir; commit edilmez. Article matching degisikliklerinden sonra retrieval evaluation, triage, article audit, general smoke ve pytest birlikte calistirilir.
 
+## Source Inventory Alias Audit
+
+Metadata title mismatch veya golden expectation degisikligi yapilmadan once source inventory alias audit calistirilir:
+
+```bash
+python evaluation/audit_source_inventory_aliases.py --golden evaluation/golden_questions.json --out source_inventory_alias_audit.local.json --markdown-out source_inventory_alias_audit.local.md
+```
+
+`source_inventory_alias_audit.local.json` ve `source_inventory_alias_audit.local.md` local artifact'tir; commit edilmez. Alias degisiklikleri soru ID'sine gore degil, belge ve terim ailesi duzeyinde yapilir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
