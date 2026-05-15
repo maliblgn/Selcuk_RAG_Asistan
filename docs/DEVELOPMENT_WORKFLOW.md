@@ -105,6 +105,22 @@ Golden expectation degisikligi yapilmadan once source inventory alias audit ve a
 
 `expected_terms` veya `expected_behavior` keyfi olarak zayiflatilmaz. Belge/madde beklentisi degisecekse audit ciktisi, mevcut source metadata ve not alani birlikte guncellenir.
 
+## Answer Quality Evaluation
+
+Sinirli LLM cevap kalitesi kontrolu icin once CI-safe dry-run calistirilir:
+
+```bash
+python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quality_questions.json --out answer_quality_report.local.json --markdown-out answer_quality_summary.local.md
+```
+
+Yerel ve manuel live LLM denemesi icin:
+
+```bash
+python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quality_questions.json --out answer_quality_report.local.json --markdown-out answer_quality_summary.local.md --live-llm --limit 10
+```
+
+Live LLM icin `GROQ_API_KEY` gerekir. CI'da gercek LLM cagrisi yapilmaz. `answer_quality_report.local.json` ve `answer_quality_summary.local.md` local artifact'tir; commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

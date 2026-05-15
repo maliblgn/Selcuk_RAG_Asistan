@@ -1,0 +1,156 @@
+[
+  {
+    "id": "answer_akts_definition",
+    "question": "AKTS nedir?",
+    "category": "academic_definition",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Lisansustu",
+    "expected_article_hint": "Tanimlar",
+    "expected_terms": ["avrupa kredi transfer sistemi", "akts"],
+    "forbidden_terms": ["yemekhane", "servis"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "forbid_url_dump", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_tez_izleme_komitesi",
+    "question": "Tez izleme komitesi kaç öğretim üyesinden oluşur?",
+    "category": "academic_article",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Lisansustu",
+    "expected_article_hint": "Tez izleme komitesi",
+    "expected_terms": ["uc", "ogretim uyesi", "danisman"],
+    "forbidden_terms": ["yemekhane", "servis"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "forbid_long_number_sequence", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_doktora_yeterlik",
+    "question": "Selçuk Üniversitesi'nde doktora yeterlik sınavları ile ilgili esaslar nelerdir?",
+    "category": "academic_article",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Lisansustu",
+    "expected_article_hint": "Doktora yeterlik",
+    "expected_terms": ["doktora yeterlik", "yazili", "sozlu"],
+    "forbidden_terms": ["laptop", "yemekhane"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_kutuphane_odunc",
+    "question": "Kütüphaneden ödünç alınan yayınların iadesiyle ilgili temel kural nedir?",
+    "category": "directive_specific",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Kutuphane",
+    "expected_article_hint": "Odunc",
+    "expected_terms": ["odunc", "iade"],
+    "forbidden_terms": ["klinik uygulama", "is sagligi"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_staj_yonergesi",
+    "question": "Staj yönergesinde stajın amacı nasıl açıklanır?",
+    "category": "directive_specific",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Staj",
+    "expected_article_hint": "Amac",
+    "expected_terms": ["staj", "amac"],
+    "forbidden_terms": ["akts", "yemekhane"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_yayin_etigi",
+    "question": "Bilimsel araştırma ve yayın etiği yönergesi hangi etik ihlallerini ele alır?",
+    "category": "research_administration",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Etik",
+    "expected_article_hint": "Etik",
+    "expected_terms": ["etik", "yayin"],
+    "forbidden_terms": ["servis", "yemekhane"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "answer_cift_anadal",
+    "question": "Çift ana dal yönergesi hangi öğrenciler için uygulanır?",
+    "category": "directive_specific",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Cift Ana Dal",
+    "expected_article_hint": "Tanim",
+    "expected_terms": ["cift ana dal", "ogrenci"],
+    "forbidden_terms": ["yemekhane", "servis"],
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "fallback_yemekhane_saat",
+    "question": "Selçuk Üniversitesi yemekhane hizmetleri hangi saatlerde sunulur?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["12:00", "13:00", "akşam"],
+    "quality_checks": ["require_safe_fallback", "forbid_model_source_block", "forbid_url_dump"]
+  },
+  {
+    "id": "fallback_bugun_yemek",
+    "question": "Bugün yemekte ne var?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["corba", "pilav", "menü"],
+    "quality_checks": ["require_safe_fallback", "forbid_model_source_block", "forbid_url_dump"]
+  },
+  {
+    "id": "fallback_rektor_programi",
+    "question": "Rektörün bugünkü programı nedir?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["saat", "toplanti", "ziyaret"],
+    "quality_checks": ["require_safe_fallback", "forbid_model_source_block", "forbid_url_dump"]
+  },
+  {
+    "id": "fallback_ucretsiz_laptop",
+    "question": "Selçuk Üniversitesi öğrencilere ücretsiz laptop veriyor mu?",
+    "category": "out_of_corpus_hallucination",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["ucretsiz laptop verilir", "tum ogrencilere"],
+    "quality_checks": ["require_safe_fallback", "forbid_model_source_block", "forbid_url_dump"]
+  },
+  {
+    "id": "fallback_servis_saatleri",
+    "question": "Üniversite servis saatleri nelerdir?",
+    "category": "operational_current_info",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["08:00", "17:00", "guzergah"],
+    "quality_checks": ["require_safe_fallback", "forbid_model_source_block", "forbid_url_dump"]
+  },
+  {
+    "id": "calculation_ders_kredisi",
+    "question": "Selçuk Üniversitesi'nde ders kredisi nasıl hesaplanır?",
+    "category": "calculation_numeric",
+    "expected_behavior": "answer",
+    "expected_document_hint": "Lisansustu",
+    "expected_article_hint": "Degerlendirme",
+    "expected_terms": ["ders", "kredi"],
+    "forbidden_terms": ["1, 2, 3, 4, 5", "100, 101"],
+    "quality_checks": ["require_inline_citation", "forbid_long_number_sequence", "forbid_model_source_block", "require_grounded_answer"]
+  },
+  {
+    "id": "calculation_akts_puani",
+    "question": "AKTS puanı nasıl hesaplanır?",
+    "category": "calculation_numeric",
+    "expected_behavior": "fallback",
+    "expected_document_hint": null,
+    "expected_article_hint": null,
+    "expected_terms": ["mevcut", "guvenilir", "bulunamadi"],
+    "forbidden_terms": ["1, 2, 3, 4, 5", "akts puani su sekilde hesaplanir"],
+    "quality_checks": ["require_safe_fallback", "forbid_long_number_sequence", "forbid_model_source_block"]
+  }
+]
