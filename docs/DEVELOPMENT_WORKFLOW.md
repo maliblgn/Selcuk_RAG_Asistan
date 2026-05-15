@@ -121,6 +121,12 @@ python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quali
 
 Live LLM icin `GROQ_API_KEY` gerekir. CI'da gercek LLM cagrisi yapilmaz. `answer_quality_report.local.json` ve `answer_quality_summary.local.md` local artifact'tir; commit edilmez.
 
+## Answer Quality Leak Triage
+
+Answer quality live run sonucunda raw model cevabi ve production final cevabi ayri degerlendirilir. `source_block_leak_count` ve `url_leak_count` final kullanici cevabini temsil eder.
+
+Raw model ciktisinda kaynak/URL blogu olmasi tek basina production hatasi sayilmaz; post-processing sonrasi final cevapta leak kalirsa guardrail fix gerekir. Inline citation bicimindeki `[1]`, `[2]` atiflari leak sayilmaz.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

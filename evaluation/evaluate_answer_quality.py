@@ -17,13 +17,16 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from dotenv import load_dotenv
+
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
 
-os.environ.setdefault("MULTI_QUERY_ENABLED", "false")
-os.environ.setdefault("FLASHRANK_ENABLED", "false")
+load_dotenv(ROOT_DIR / ".env")
+os.environ["MULTI_QUERY_ENABLED"] = "false"
+os.environ["FLASHRANK_ENABLED"] = "false"
 
 from rag_engine import (  # noqa: E402
     SelcukRAGEngine,
@@ -56,9 +59,9 @@ QUALITY_STATUSES = {
 
 SOURCE_BLOCK_RE = re.compile(
     r"(?im)^\s*(?:[-*_]{2,}\s*)?(?:#+\s*)?(?:\*\*)?\s*"
-    r"kaynak(?:lar)?\s*(?:\*\*)?\s*:?\s*(?:[-*_]{2,})?.*$"
+    r"(?:kaynak(?:lar)?|sources?)\s*(?:\*\*)?\s*:?\s*(?:[-*_]{2,})?.*$"
 )
-URL_RE = re.compile(r"(?i)\b(?:https?://|www\.)\S+")
+URL_RE = re.compile(r"(?i)(?:\burl\s*:\s*)?\b(?:https?://|www\.)\S+")
 INLINE_CITATION_RE = re.compile(r"\[\d+\]")
 
 
@@ -151,9 +154,9 @@ def determine_quality_status(result: dict[str, Any]) -> str:
         return "live_llm_error"
     if not result.get("live_llm_used"):
         return "skipped_live_llm"
-    if result.get("source_block_leak"):
+    if result.get("final_source_block_leak", result.get("source_block_leak")):
         return "source_block_leak"
-    if result.get("url_leak"):
+    if result.get("final_url_leak", result.get("url_leak")):
         return "url_leak"
     if result.get("low_quality_answer") or result.get("long_number_sequence"):
         return "low_quality_answer"
@@ -187,12 +190,17 @@ def evaluate_question(engine: SelcukRAGEngine, item: dict[str, Any], *, live_llm
     else:
         answer = build_safe_fallback(question, docs, prepared["query_type"]) if not docs else ""
 
-    inspection_text = raw_answer or answer
+    raw_inspection_text = raw_answer or answer
+    final_inspection_text = answer
     expected_terms = item.get("expected_terms") or []
     forbidden_terms = item.get("forbidden_terms") or []
     expected_terms_found = [term for term in expected_terms if _contains_term(answer, term)]
     expected_terms_missing = [term for term in expected_terms if term not in expected_terms_found]
     forbidden_terms_found = [term for term in forbidden_terms if _contains_term(answer, term)]
+    raw_source_block_leak = detect_source_block_leak(raw_inspection_text)
+    final_source_block_leak = detect_source_block_leak(final_inspection_text)
+    raw_url_leak = detect_url_leak(raw_inspection_text)
+    final_url_leak = detect_url_leak(final_inspection_text)
 
     result = {
         "id": item["id"],
@@ -201,13 +209,23 @@ def evaluate_question(engine: SelcukRAGEngine, item: dict[str, Any], *, live_llm
         "expected_behavior": item.get("expected_behavior"),
         "live_llm_used": bool(live_llm and not live_error),
         "answer_text_preview": _answer_preview(answer),
+        "raw_answer_text_preview": _answer_preview(raw_answer),
+        "final_answer_text_preview": _answer_preview(answer),
         "retrieved_source_count": len(docs),
         "source_panel_candidate_count": len(sources),
         "citation_present": detect_inline_citation(answer),
-        "source_block_leak": detect_source_block_leak(inspection_text),
-        "url_leak": detect_url_leak(inspection_text),
+        "citation_present_final": detect_inline_citation(answer),
+        "raw_source_block_leak": raw_source_block_leak,
+        "final_source_block_leak": final_source_block_leak,
+        "raw_url_leak": raw_url_leak,
+        "final_url_leak": final_url_leak,
+        "postprocess_removed_source_block": raw_source_block_leak and not final_source_block_leak,
+        "postprocess_removed_url": raw_url_leak and not final_url_leak,
+        # Backward compatible names represent the final user-facing answer.
+        "source_block_leak": final_source_block_leak,
+        "url_leak": final_url_leak,
         "low_quality_answer": bool(answer) and is_low_quality_answer(answer),
-        "long_number_sequence": detect_long_number_sequence(inspection_text),
+        "long_number_sequence": detect_long_number_sequence(final_inspection_text),
         "fallback_expected": item.get("expected_behavior") == "fallback",
         "fallback_detected": detect_fallback_answer(answer),
         "expected_terms_found": expected_terms_found,
@@ -217,6 +235,15 @@ def evaluate_question(engine: SelcukRAGEngine, item: dict[str, Any], *, live_llm
         "live_llm_error": live_error,
     }
     result["quality_status"] = determine_quality_status(result)
+    result["quality_status_final"] = result["quality_status"]
+    raw_status_input = {
+        **result,
+        "source_block_leak": raw_source_block_leak,
+        "url_leak": raw_url_leak,
+        "final_source_block_leak": raw_source_block_leak,
+        "final_url_leak": raw_url_leak,
+    }
+    result["quality_status_raw"] = determine_quality_status(raw_status_input)
     return result
 
 
@@ -236,6 +263,10 @@ def build_summary(questions: list[dict[str, Any]], results: list[dict[str, Any]]
         "expected_terms_miss",
         "live_llm_error",
     }
+    raw_critical_failure_count = sum(1 for item in results if item.get("quality_status_raw") in critical_statuses)
+    final_critical_failure_count = sum(1 for item in results if item["quality_status"] in critical_statuses)
+    final_source_block_leak_count = sum(1 for item in evaluated if item["final_source_block_leak"])
+    final_url_leak_count = sum(1 for item in evaluated if item["final_url_leak"])
     return {
         "total_questions": len(questions),
         "evaluated_questions": len(evaluated),
@@ -243,14 +274,24 @@ def build_summary(questions: list[dict[str, Any]], results: list[dict[str, Any]]
         "answer_expected_count": len(answer_expected),
         "fallback_expected_count": len(fallback_expected),
         "citation_present_rate": (len(citation_present) / len(citation_denominator)) if citation_denominator else 0.0,
-        "source_block_leak_count": sum(1 for item in evaluated if item["source_block_leak"]),
-        "url_leak_count": sum(1 for item in evaluated if item["url_leak"]),
+        "raw_source_block_leak_count": sum(1 for item in evaluated if item["raw_source_block_leak"]),
+        "final_source_block_leak_count": final_source_block_leak_count,
+        "raw_url_leak_count": sum(1 for item in evaluated if item["raw_url_leak"]),
+        "final_url_leak_count": final_url_leak_count,
+        "postprocess_removed_source_block_count": sum(1 for item in evaluated if item["postprocess_removed_source_block"]),
+        "postprocess_removed_url_count": sum(1 for item in evaluated if item["postprocess_removed_url"]),
+        # Backward compatible names represent the final user-facing answer.
+        "source_block_leak_count": final_source_block_leak_count,
+        "url_leak_count": final_url_leak_count,
         "fallback_correct_count": sum(1 for item in fallback_results if item["fallback_detected"]),
         "fallback_mismatch_count": sum(1 for item in fallback_results if not item["fallback_detected"]),
         "low_quality_answer_count": sum(1 for item in evaluated if item["low_quality_answer"]),
         "long_number_sequence_count": sum(1 for item in evaluated if item["long_number_sequence"]),
-        "critical_failure_count": sum(1 for item in results if item["quality_status"] in critical_statuses),
+        "raw_critical_failure_count": raw_critical_failure_count,
+        "final_critical_failure_count": final_critical_failure_count,
+        "critical_failure_count": final_critical_failure_count,
         "quality_status_counts": dict(sorted(Counter(item["quality_status"] for item in results).items())),
+        "quality_status_raw_counts": dict(sorted(Counter(item.get("quality_status_raw", item["quality_status"]) for item in results).items())),
     }
 
 
@@ -284,8 +325,12 @@ def build_markdown_summary(report: dict[str, Any]) -> str:
         f"- Citation present rate: {summary['citation_present_rate']:.3f}",
         f"- Fallback correct: {summary['fallback_correct_count']}",
         f"- Fallback mismatch: {summary['fallback_mismatch_count']}",
-        f"- Source block leaks: {summary['source_block_leak_count']}",
-        f"- URL leaks: {summary['url_leak_count']}",
+        f"- Raw source block leaks: {summary['raw_source_block_leak_count']}",
+        f"- Final source block leaks: {summary['final_source_block_leak_count']}",
+        f"- Raw URL leaks: {summary['raw_url_leak_count']}",
+        f"- Final URL leaks: {summary['final_url_leak_count']}",
+        f"- Source blocks removed by post-processing: {summary['postprocess_removed_source_block_count']}",
+        f"- URLs removed by post-processing: {summary['postprocess_removed_url_count']}",
         f"- Low-quality answers: {summary['low_quality_answer_count']}",
         f"- Critical failures: {summary['critical_failure_count']}",
         "",
@@ -293,6 +338,8 @@ def build_markdown_summary(report: dict[str, Any]) -> str:
         "",
     ]
     lines.extend(f"- `{key}`: {value}" for key, value in summary["quality_status_counts"].items())
+    lines.extend(["", "## Raw Quality Status Counts", ""])
+    lines.extend(f"- `{key}`: {value}" for key, value in summary["quality_status_raw_counts"].items())
     lines.extend(["", "## Critical Items", ""])
     if not risky:
         lines.append("- Yok")

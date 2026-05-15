@@ -63,6 +63,13 @@ def test_summary_fields_and_status_enum_for_skipped_dry_run():
             "retrieved_source_count": 1,
             "source_panel_candidate_count": 1,
             "citation_present": False,
+            "citation_present_final": False,
+            "raw_source_block_leak": False,
+            "final_source_block_leak": False,
+            "raw_url_leak": False,
+            "final_url_leak": False,
+            "postprocess_removed_source_block": False,
+            "postprocess_removed_url": False,
             "source_block_leak": False,
             "url_leak": False,
             "low_quality_answer": False,
@@ -75,6 +82,8 @@ def test_summary_fields_and_status_enum_for_skipped_dry_run():
             "quality_checks": ["require_inline_citation"],
             "live_llm_error": "",
             "quality_status": "skipped_live_llm",
+            "quality_status_raw": "skipped_live_llm",
+            "quality_status_final": "skipped_live_llm",
         }
     ]
     report = aq.build_report(questions, results, live_llm=False)
@@ -83,6 +92,8 @@ def test_summary_fields_and_status_enum_for_skipped_dry_run():
     assert summary["evaluated_questions"] == 0
     assert summary["skipped_questions"] == 1
     assert "citation_present_rate" in summary
+    assert summary["source_block_leak_count"] == summary["final_source_block_leak_count"]
+    assert summary["critical_failure_count"] == summary["final_critical_failure_count"]
     assert set(summary["quality_status_counts"]) <= aq.QUALITY_STATUSES
 
 
@@ -104,6 +115,81 @@ def test_determine_quality_status_prioritizes_live_failures():
     assert aq.determine_quality_status({**base, "citation_present": False}) == "citation_missing"
     assert aq.determine_quality_status({**base, "source_block_leak": True}) == "source_block_leak"
     assert aq.determine_quality_status({**base, "live_llm_error": "boom"}) == "live_llm_error"
+
+
+def test_raw_and_final_leak_fields_distinguish_postprocessed_answer(monkeypatch):
+    class FakeEngine:
+        def retrieve(self, question):
+            return []
+
+    def fake_prepare_context_and_sources(question, docs):
+        return {"docs": ["source"], "sources": [{"label": "Kaynak"}], "query_type": "legal_definition", "context": "ctx"}
+
+    raw_answer = "AKTS Avrupa Kredi Transfer Sistemi anlamina gelir. [1]\n\n--- KAYNAKLAR ---\n[1] https://example.com"
+    final_answer = "AKTS Avrupa Kredi Transfer Sistemi anlamina gelir. [1]"
+
+    monkeypatch.setattr(aq, "prepare_context_and_sources", fake_prepare_context_and_sources)
+    monkeypatch.setattr(aq, "run_live_answer", lambda engine, question, prepared: (raw_answer, final_answer))
+
+    result = aq.evaluate_question(
+        FakeEngine(),
+        {
+            "id": "q1",
+            "question": "AKTS nedir?",
+            "category": "academic_definition",
+            "expected_behavior": "answer",
+            "expected_terms": ["akts"],
+            "forbidden_terms": [],
+            "quality_checks": ["require_inline_citation"],
+        },
+        live_llm=True,
+    )
+
+    assert result["raw_source_block_leak"] is True
+    assert result["final_source_block_leak"] is False
+    assert result["raw_url_leak"] is True
+    assert result["final_url_leak"] is False
+    assert result["postprocess_removed_source_block"] is True
+    assert result["postprocess_removed_url"] is True
+    assert result["citation_present_final"] is True
+    assert result["quality_status_raw"] == "source_block_leak"
+    assert result["quality_status_final"] == "ok"
+    assert result["quality_status"] == "ok"
+
+
+def test_summary_backward_compatible_leak_counts_are_final_counts():
+    questions = [{"id": "q1", "expected_behavior": "answer"}]
+    results = [
+        {
+            "id": "q1",
+            "expected_behavior": "answer",
+            "quality_status": "ok",
+            "quality_status_raw": "source_block_leak",
+            "live_llm_used": True,
+            "fallback_expected": False,
+            "fallback_detected": False,
+            "citation_present": True,
+            "raw_source_block_leak": True,
+            "final_source_block_leak": False,
+            "raw_url_leak": True,
+            "final_url_leak": False,
+            "postprocess_removed_source_block": True,
+            "postprocess_removed_url": True,
+            "source_block_leak": False,
+            "url_leak": False,
+            "low_quality_answer": False,
+            "long_number_sequence": False,
+        }
+    ]
+    summary = aq.build_summary(questions, results)
+    assert summary["raw_source_block_leak_count"] == 1
+    assert summary["final_source_block_leak_count"] == 0
+    assert summary["source_block_leak_count"] == 0
+    assert summary["raw_url_leak_count"] == 1
+    assert summary["final_url_leak_count"] == 0
+    assert summary["url_leak_count"] == 0
+    assert summary["raw_critical_failure_count"] == 1
+    assert summary["critical_failure_count"] == 0
 
 
 def test_main_dry_run_can_write_skipped_report_without_real_llm(monkeypatch, tmp_path):
