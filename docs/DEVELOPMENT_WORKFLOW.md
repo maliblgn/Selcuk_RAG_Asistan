@@ -99,6 +99,12 @@ python evaluation/audit_source_inventory_aliases.py --golden evaluation/golden_q
 
 `source_inventory_alias_audit.local.json` ve `source_inventory_alias_audit.local.md` local artifact'tir; commit edilmez. Alias degisiklikleri soru ID'sine gore degil, belge ve terim ailesi duzeyinde yapilir.
 
+## Golden Expectation Review
+
+Golden expectation degisikligi yapilmadan once source inventory alias audit ve article metadata audit birlikte calistirilir. Golden duzeltmeleri runtime patch yerine yalnizca degerlendirme beklentisini gercek kaynak metadata'siyla hizalamak icin yapilir.
+
+`expected_terms` veya `expected_behavior` keyfi olarak zayiflatilmaz. Belge/madde beklentisi degisecekse audit ciktisi, mevcut source metadata ve not alani birlikte guncellenir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

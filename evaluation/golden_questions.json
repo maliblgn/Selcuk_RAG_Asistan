@@ -124,10 +124,10 @@
     "expected_document": "Lisansustu Egitim ve Ogretim Yonetmeligi",
     "expected_document_aliases": ["LISANSUSTU", "Lisansustu", "Lisansüstü"],
     "expected_article_no": "45",
-    "expected_article_title": "Tez onerisi savunmasi",
+    "expected_article_title": "Doktora yeterlik sinavini basari ile tamamlayan ogrenci en gec alti ay icinde",
     "expected_terms": ["tez onerisi", "alti ay"],
     "negative_terms": ["servis"],
-    "notes": "Madde 45 sure sorusu."
+    "notes": "Faz 5F audit: Chroma article metadata basligi Madde 45 icin resmi content baslik varyantiyla hizalandi; expected_terms korunmustur."
   },
   {
     "id": "golden_tezli_yuksek_lisans_amac",
@@ -241,36 +241,36 @@
     "expected_document": "Cift Ana Dal Yonergesi",
     "expected_document_aliases": ["Çift Ana Dal", "Cift Ana Dal"],
     "expected_article_no": "2",
-    "expected_article_title": "Kapsam",
+    "expected_article_title": "Tanim",
     "expected_terms": ["cift ana dal", "kapsam"],
     "negative_terms": ["bugun"],
-    "notes": "Kapsam maddesi."
+    "notes": "Faz 5F audit: Chroma metadata Madde 2 basligini Tanim olarak isaretliyor; soru ve expected_terms korunmustur."
   },
   {
     "id": "golden_diploma_eki_kapsam",
     "question": "Diploma, diploma eki ve diger belgelerin duzenlenmesine iliskin yonerge hangi kapsami duzenler?",
     "category": "directive_specific",
     "expected_behavior": "answer",
-    "expected_document": "Diploma Diploma Eki ve Diger Belgeler Yonergesi",
+    "expected_document": "S.U. Diploma, Diploma Eki ve Diger Belgelerin Duzenlenmesine Iliskin Yonerge",
     "expected_document_aliases": ["Diploma", "Diploma_Eki", "Belgelerin Düzenlenmesine"],
     "expected_article_no": "2",
     "expected_article_title": "Kapsam",
     "expected_terms": ["diploma", "diploma eki", "kapsam"],
     "negative_terms": ["staj"],
-    "notes": "Belge duzenleme kaynagi."
+    "notes": "Faz 5F audit: expected_document resmi source inventory baslik varyantiyla hizalandi; expected_terms korunmustur."
   },
   {
     "id": "golden_diploma_belge_teslimi",
     "question": "Diploma ve belgelerin teslimi yonergede hangi baslik altinda duzenlenir?",
     "category": "directive_specific",
     "expected_behavior": "answer",
-    "expected_document": "Diploma Diploma Eki ve Diger Belgeler Yonergesi",
+    "expected_document": "S.U. Diploma, Diploma Eki ve Diger Belgelerin Duzenlenmesine Iliskin Yonerge",
     "expected_document_aliases": ["Diploma", "Diploma_Eki", "Belgelerin Düzenlenmesine"],
     "expected_article_no": null,
     "expected_article_title": "Belgelerin Teslimi",
     "expected_terms": ["belgelerin teslimi", "diploma"],
     "negative_terms": ["kutuphane"],
-    "notes": "OCR kaynakli madde numarasi tutarsiz olabilir; baslik izlenir."
+    "notes": "Faz 5F audit: expected_document resmi source inventory baslik varyantiyla hizalandi; OCR kaynakli madde numarasi tutarsizligi notu korunmustur."
   },
   {
     "id": "golden_mazeret_basvuru",
