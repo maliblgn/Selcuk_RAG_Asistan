@@ -1,0 +1,21 @@
+{
+  "default_question_file": "evaluation/answer_quality_questions.json",
+  "providers": [
+    {
+      "id": "groq_llama_3_1_8b_instant",
+      "provider": "groq",
+      "model": "llama-3.1-8b-instant",
+      "api_key_env": "GROQ_API_KEY",
+      "enabled_by_default": true
+    }
+  ],
+  "optional_providers": [
+    {
+      "id": "openai_gpt_4o_mini",
+      "provider": "openai",
+      "model": "gpt-4o-mini",
+      "api_key_env": "OPENAI_API_KEY",
+      "enabled_by_default": false
+    }
+  ]
+}

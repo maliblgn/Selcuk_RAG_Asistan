@@ -127,6 +127,22 @@ Answer quality live run sonucunda raw model cevabi ve production final cevabi ay
 
 Raw model ciktisinda kaynak/URL blogu olmasi tek basina production hatasi sayilmaz; post-processing sonrasi final cevapta leak kalirsa guardrail fix gerekir. Inline citation bicimindeki `[1]`, `[2]` atiflari leak sayilmaz.
 
+## Provider / Model Comparison
+
+Provider/model adaylarini answer quality soru seti uzerinden karsilastirmak icin dry-run:
+
+```bash
+python evaluation/compare_llm_providers.py --config evaluation/provider_models.json --questions evaluation/answer_quality_questions.json --out provider_comparison_report.local.json --markdown-out provider_comparison_summary.local.md
+```
+
+Yerel live Groq karsilastirmasi:
+
+```bash
+python evaluation/compare_llm_providers.py --config evaluation/provider_models.json --questions evaluation/answer_quality_questions.json --out provider_comparison_report.local.json --markdown-out provider_comparison_summary.local.md --live-llm --provider-id groq_llama_3_1_8b_instant --limit 10
+```
+
+CI'da gercek LLM cagrisi yapilmaz. API key/secret rapora veya dosyaya yazilmaz. Bu degerlendirme production provider'i degistirmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

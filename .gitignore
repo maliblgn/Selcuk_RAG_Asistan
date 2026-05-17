@@ -52,6 +52,8 @@ source_inventory_alias_audit.local.json
 source_inventory_alias_audit.local.md
 answer_quality_report.local.json
 answer_quality_summary.local.md
+provider_comparison_report.local.json
+provider_comparison_summary.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json
