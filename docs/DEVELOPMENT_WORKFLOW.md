@@ -143,6 +143,19 @@ python evaluation/compare_llm_providers.py --config evaluation/provider_models.j
 
 CI'da gercek LLM cagrisi yapilmaz. API key/secret rapora veya dosyaya yazilmaz. Bu degerlendirme production provider'i degistirmez.
 
+## Quality Dashboard
+
+Streamlit yonetici alaninda local evaluation artifact ozetleri goruntulenebilir. Panel read-only calisir; shell command calistirmaz.
+
+Komutlar terminalde calistirilir, panel local artifact varsa okur:
+
+- `retrieval_evaluation_report.local.json`
+- `general_smoke_report.local.json`
+- `answer_quality_report.local.json`
+- `provider_comparison_report.local.json`
+
+Local artifact dosyalari commit edilmez. API key/secret UI'da gosterilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

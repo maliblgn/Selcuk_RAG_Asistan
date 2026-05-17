@@ -24,6 +24,7 @@ from rag_engine import (
     trim_text_for_prompt,
 )
 from check_chroma_health import check_chroma_health
+from quality_dashboard import render_quality_dashboard
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 
 # .env dosyasından ortam değişkenlerini yükle
@@ -825,6 +826,9 @@ elif st.session_state.aktif_sayfa == "admin":
         else:
             st.info("Henüz olumsuz geri bildirim yok.")
 
+
+        st.divider()
+        render_quality_dashboard()
 # ─── Sohbet Sayfası (Ana Sayfa) ───
 else:
     # ─── KARŞILAMA EKRANI ───
