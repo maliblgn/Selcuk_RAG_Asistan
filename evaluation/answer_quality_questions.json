@@ -17,9 +17,10 @@
     "expected_behavior": "answer",
     "expected_document_hint": "Lisansustu",
     "expected_article_hint": "Tez izleme komitesi",
-    "expected_terms": ["uc", "ogretim uyesi", "danisman"],
+    "expected_terms": ["uc", "ogretim uyesi"],
     "forbidden_terms": ["yemekhane", "servis"],
-    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "forbid_long_number_sequence", "require_grounded_answer"]
+    "quality_checks": ["require_inline_citation", "forbid_model_source_block", "forbid_long_number_sequence", "require_grounded_answer"],
+    "notes": "Faz 5J review: live final answer correctly states the committee has three faculty members; danisman was removed from expected_terms because the question asks the count, not composition."
   },
   {
     "id": "answer_doktora_yeterlik",
