@@ -156,6 +156,12 @@ Komutlar terminalde calistirilir, panel local artifact varsa okur:
 
 Local artifact dosyalari commit edilmez. API key/secret UI'da gosterilmez.
 
+## Release / Demo Documentation
+
+Release summary, demo script ve architecture overview dokumanlari major fazlardan sonra guncel tutulur.
+
+Demo sorulari kaynakli cevap, guvenli fallback, kaynak paneli ve post-processing guardrail davranisini temsil etmelidir. Release dokumanlarinda yalniz mevcut dogrulanmis durum yazilir; abartili veya kanitsiz iddia eklenmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

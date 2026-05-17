@@ -1,61 +1,38 @@
 # Selcuk RAG Asistan
 
-Selcuk RAG Asistan, Selcuk Universitesi yonetmelik, yonerge ve resmi dokumanlarini sorgulamak icin gelistirilmis bir RAG uygulamasidir. Sistem Streamlit arayuzu, ChromaDB snapshot'i, metadata-aware rerank katmani, kaynak paneli ve cevap guvenligi guardrail'leri ile calisir.
+Selcuk RAG Asistan, Selcuk Universitesi resmi yonetmelik, yonerge ve PDF dokumanlari uzerinde calisan kaynakli bir RAG uygulamasidir. Sistem, uygun kaynak buldugunda cevabi inline citation ile verir; corpus disi veya guncel operasyonel bilgi isteyen sorularda guvenli fallback davranisini hedefler.
 
-Ana deploy hedefi Hugging Face Spaces Docker ortamidir. Streamlit Community Cloud artik ana deploy ortami olarak onerilmez; bellek limitleri nedeniyle kalici ve daha rahat calisan hedef HF Spaces olarak belirlenmistir.
+Ana deploy hedefi Hugging Face Spaces Docker ortamidir. Streamlit arayuzu, ChromaDB runtime snapshot'i, metadata-aware retrieval/rerank, post-processing guardrail'leri ve read-only kalite paneli birlikte calisir.
 
-## Mevcut Durum
+## Canli Durum
 
-- 149 kaynak ve 2985 chunk iceren ChromaDB snapshot repoda korunur.
-- ChromaDB runtime icin gereklidir; yeni ingestion calistirmadan uygulama acilabilir.
-- Metadata-aware rerank aktif.
-- Source binding ve inline citation eslesmesi uygulanir.
-- General RAG guardrails aktif:
-  - alakasiz kaynak filtreleme
-  - used-source-only kaynak paneli
-  - model tarafindan uretilen kaynak/URL bloklarini temizleme
-  - dusuk kaliteli cevap tespiti
-  - operasyonel/guncel bilgi sorularinda safe fallback
-- Groq LLM entegrasyonu kullanilir.
-- OpenAI entegrasyonu bu surumde yoktur.
+- Runtime bilgi tabani: tracked `chroma_db/` snapshot
+- Kaynak sayisi: 149 unique source
+- Chunk/document sayisi: 2985
+- UI: Streamlit
+- Vector DB: ChromaDB
+- LLM provider: Groq
+- Deploy: GitHub Actions ile Hugging Face Space
+- Kalite gorunurlugu: retrieval evaluation, general smoke, answer quality, provider comparison ve read-only quality dashboard
 
-ChromaDB snapshot'in uretim, dogrulama ve guncelleme proseduru icin `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` dosyasina bakiniz.
+Release ozeti icin bkz. [docs/RELEASE_SUMMARY.md](docs/RELEASE_SUMMARY.md).
 
 ## Mimari
 
-| Katman | Dosya / Teknoloji | Gorev |
-| --- | --- | --- |
-| UI | `app.py`, Streamlit | Sohbet arayuzu, kaynak paneli, session state |
-| RAG motoru | `rag_engine.py` | Retrieval, prompt, streaming cevap, guardrails |
-| Rerank | `retrieval_rerank.py` | Metadata-aware legal/source rerank |
-| Vector DB | `chroma_db/`, ChromaDB | Tracked runtime snapshot |
-| Embedding | `intfloat/multilingual-e5-small` | Local sentence-transformers embedding |
-| LLM | Groq API | Cevap uretimi |
-| Kaynak kontrolu | `source_manifest.json`, `source_access_policy.py` | Resmi kaynak ve erisim politikasi |
-| Test | `tests/` | Unit ve regression testleri |
-
-## Klasor Yapisi
+Kisa akis:
 
 ```text
-.
-|-- app.py
-|-- rag_engine.py
-|-- retrieval_rerank.py
-|-- source_manifest.json
-|-- source_inventory.py
-|-- source_access_policy.py
-|-- chroma_db/
-|-- tests/
-|-- scripts/
-|-- evaluation/
-|-- docs/
-|-- .streamlit/config.toml
-|-- Dockerfile
-|-- requirements.txt
-|-- README.md
+Kullanici sorusu
+  -> query normalization / intent guards
+  -> ChromaDB retrieval
+  -> metadata-aware rerank
+  -> relevance filtering
+  -> Groq LLM answer
+  -> post-processing guardrails
+  -> final cevap + kaynak paneli
 ```
 
-Ayrintili aciklama icin bkz. `docs/PROJECT_STRUCTURE.md`.
+Detayli mimari icin bkz. [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md).
 
 ## Kurulum
 
@@ -75,103 +52,127 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Ortam Degiskenleri
-
-`.env.example` dosyasini kopyalayip yerelde `.env` olusturun:
+Yerel ortam degiskenleri icin `.env.example` dosyasini kopyalayin:
 
 ```bash
 cp .env.example .env
 ```
 
-Temel degiskenler:
+Ornek degerler:
 
 ```env
-GROQ_API_KEY=...
+GROQ_API_KEY=your_groq_key_here
 GROQ_MODEL=llama-3.1-8b-instant
-ADMIN_PASSWORD=...
+ADMIN_PASSWORD=change_me_locally
 ```
 
-`.env` ve secret/API key dosyalari repoya commit edilmez.
+`.env`, API key ve secret dosyalari repoya commit edilmez.
 
 ## Local Calistirma
 
-Mevcut ChromaDB snapshot ile:
+Mevcut ChromaDB snapshot ile uygulama acilir; normal calisma icin yeni ingestion gerekmez.
 
 ```bash
 streamlit run app.py
 ```
 
-Index durumunu kontrol etmek icin:
+ChromaDB healthcheck:
 
 ```bash
 python check_chroma_health.py --db-path chroma_db --json
 ```
 
-Yeni ingestion bu normal calisma akisi icin gerekli degildir.
+Beklenen snapshot degerleri:
 
-## Hugging Face Deploy
+- `status: ok`
+- `document_count: 2985`
+- `unique_source_count: 149`
+- `collection_readable: true`
 
-HF Spaces Docker deploy hedefi:
+Snapshot proseduru icin bkz. [docs/CHROMADB_SNAPSHOT_PROCEDURE.md](docs/CHROMADB_SNAPSHOT_PROCEDURE.md).
 
-```text
-https://huggingface.co/spaces/maliblgn/selcuk-rag-asistan
+## Evaluation Komutlari
+
+Retrieval evaluation:
+
+```bash
+python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.json --out retrieval_evaluation_report.local.json --markdown-out retrieval_evaluation_summary.local.md
 ```
 
-Deploy dosyalari:
+General smoke:
 
-- `Dockerfile`
-- `.dockerignore`
-- `.streamlit/config.toml`
-- `requirements.txt`
-- runtime kodu
-- tracked `chroma_db/` snapshot
+```bash
+python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+```
 
-`main` branch guncellendiginde GitHub Actions otomatik olarak Hugging Face Space deploy'u yapar. Bunun icin GitHub repo ayarlarinda `HF_TOKEN` secret tanimli olmalidir. HF Space Docker SDK ile calisir ve uygulama portu `7860` olarak ayarlanir. Deploy workflow'u README frontmatter'ini otomatik uretir ve ChromaDB snapshot dosyalarini Git LFS ile HF Space reposuna gonderir.
+Answer quality dry-run:
 
-`chroma_db/` lokal gelistirme ve artifact temizligi icin `.gitignore` tarafinda ignore edilebilir. HF deploy workflow'u bu nedenle temiz deploy repo'sunda ChromaDB snapshot'ini bilincli olarak `git add -f chroma_db` ile ekler; `chroma_db/chroma.sqlite3` dosyasinin hem git index'te hem de Git LFS'te oldugunu commit oncesi dogrular.
+```bash
+python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quality_questions.json --out answer_quality_report.local.json --markdown-out answer_quality_summary.local.md
+```
 
-Detaylar icin bkz. `docs/HF_SPACES_DEPLOY_RAPORU.md` ve `docs/CHROMADB_SNAPSHOT_PROCEDURE.md`.
+Provider comparison dry-run:
 
-## Testler
+```bash
+python evaluation/compare_llm_providers.py --config evaluation/provider_models.json --questions evaluation/answer_quality_questions.json --out provider_comparison_report.local.json --markdown-out provider_comparison_summary.local.md
+```
+
+Testler:
 
 ```bash
 python -m pytest tests/ -v
 ```
 
-CI ve lokal testler RAG davranisinin, source binding'in, retrieval rerank'in ve guardrail mantiginin bozulmamasini hedefler.
+`*.local.json` ve `*.local.md` evaluation artifact dosyalari commit edilmez.
 
-## Bilinen Sinirlamalar
+## Quality Dashboard
 
-- Saat, ucret, yemekhane, kutuphane calisma saatleri gibi guncel operasyonel bilgiler corpus icinde acikca yoksa cevaplanmaz; safe fallback doner.
-- Sistem resmi kaynak yerine gecmez; onemli kararlar icin ilgili resmi belge kontrol edilmelidir.
-- OCR veya PDF metin kalitesi nedeniyle bazi dokumanlarda eksik chunk olasidir.
-- ChromaDB snapshot sabittir; yeni kaynak eklemek ayrica planlanan ingestion islemi gerektirir.
+Streamlit arayuzunde read-only kalite paneli bulunur. Panel local evaluation artifact ozetlerini okur, shell command calistirmaz, API key/secret gostermez ve raw answer preview yayinlamaz.
 
-## Gelistirme Akisi
+Detay icin bkz. [docs/QUALITY_DASHBOARD_RAPORU.md](docs/QUALITY_DASHBOARD_RAPORU.md).
 
-- `main` kararlı surumdur.
-- `dev` aktif gelistirme dalidir.
-- Yeni isler varsayilan olarak `dev` uzerinde yapilir.
-- Testler gecmeden `main`e alinmaz.
-- Buyuk davranis degisiklikleri icin once kapsam netlestirilir.
+## Hugging Face Deploy
 
-Detaylar icin bkz. `docs/DEVELOPMENT_WORKFLOW.md`.
+`main` branch'e push/merge sonrasi GitHub Actions workflow'u Hugging Face Space deploy'unu tetikler.
 
-## Guvenlik
+Deploy zinciri:
 
-Repoya commit edilmemesi gerekenler:
+- `.github/workflows/deploy-hf-space.yml`
+- `Dockerfile`
+- `requirements.txt`
+- tracked `chroma_db/` snapshot
+- GitHub Actions secret: `HF_TOKEN`
 
-- `.env`
-- API key ve secret degerleri
-- `data/*.pdf`
-- `chroma_db_legal_test/`
-- lokal healthcheck ve preview ciktilari
+Workflow, ChromaDB snapshot dosyalarini Hugging Face tarafina Git LFS ile tasir. `HF_TOKEN` veya baska secret degerleri dosyaya yazilmaz.
 
-`chroma_db/` bu projede istisnadir: runtime snapshot olarak tracked kalir.
+## Demo
 
-## Ornek Sorular
+Demo akisi ve temsilci sorular icin bkz. [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+
+Ornek demo sorulari:
 
 - `AKTS nedir?`
-- `Tez izleme komitesi kac ogretim uyesinden olusur?`
-- `Doktora yeterlik sinavlari ile ilgili esaslar nelerdir?`
+- `Selcuk Universitesi'nde tez izleme komitesi kac ogretim uyesinden olusur?`
+- `Selcuk Universitesi'nde doktora yeterlik sinavlari ile ilgili esaslar nelerdir?`
+- `Selcuk Universitesi kutuphanesinde hangi saatlerde hizmet sunulur?`
+- `Selcuk Universitesi yemekhane hizmetleri hangi saatlerde sunulur?`
 - `Selcuk Universitesi'nde ders kredisi nasil hesaplanir?`
+- `Selcuk Universitesi ogrencilere ucretsiz laptop veriyor mu?`
+
+## Onemli Dokumanlar
+
+- [Release Summary](docs/RELEASE_SUMMARY.md)
+- [Demo Script](docs/DEMO_SCRIPT.md)
+- [Architecture Overview](docs/ARCHITECTURE_OVERVIEW.md)
+- [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md)
+- [ChromaDB Snapshot Procedure](docs/CHROMADB_SNAPSHOT_PROCEDURE.md)
+- [Quality Dashboard Report](docs/QUALITY_DASHBOARD_RAPORU.md)
+- [Project Structure](docs/PROJECT_STRUCTURE.md)
+
+## Gelistirme Kurallari
+
+- Aktif gelistirme `dev` branch uzerinde yapilir.
+- `main` kararli release/deploy branch'idir.
+- Runtime davranisi degisen islerden once retrieval evaluation, general smoke, answer quality ve test zinciri calistirilir.
+- ChromaDB snapshot guncellemesi ayri prosedurle ele alinir.
+- `data/*.pdf`, `.env`, API key/secret ve local evaluation artifact dosyalari commit edilmez.
