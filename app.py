@@ -25,6 +25,12 @@ from rag_engine import (
 )
 from check_chroma_health import check_chroma_health
 from quality_dashboard import render_quality_dashboard
+from source_discovery import (
+    build_source_discovery_answer,
+    discover_sources,
+    is_source_discovery_query,
+    source_discovery_sources_to_documents,
+)
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 
 # .env dosyasından ortam değişkenlerini yükle
@@ -954,6 +960,21 @@ else:
                     st.rerun()
 
                 motor = get_engine()
+                if is_source_discovery_query(kullanici_sorusu):
+                    result = discover_sources(kullanici_sorusu, db=motor.static_db)
+                    docs = source_discovery_sources_to_documents(result.get("sources", []))
+                    cevap = build_source_discovery_answer(result)
+                    st.markdown(cevap)
+                    st.session_state.mesajlar.append({
+                        "rol": "assistant",
+                        "icerik": cevap,
+                        "soru": kullanici_sorusu,
+                        "docs": docs,
+                        "sources_checked": True,
+                    })
+                    st.session_state.oneriler = []
+                    st.rerun()
+
                 history = build_prompt_chat_history(st.session_state.mesajlar[:-1])
 
                 # 2. Soru yeniden yazma (takip soruları için)

@@ -162,6 +162,22 @@ Release summary, demo script ve architecture overview dokumanlari major fazlarda
 
 Demo sorulari kaynakli cevap, guvenli fallback, kaynak paneli ve post-processing guardrail davranisini temsil etmelidir. Release dokumanlarinda yalniz mevcut dogrulanmis durum yazilir; abartili veya kanitsiz iddia eklenmez.
 
+## Source Discovery Mode
+
+`X ile ilgili kaynaklar nelerdir?` gibi kaynak listeleme sorulari normal answer generation'dan ayrilir. Source discovery modu ChromaDB/source inventory uzerinden ilgili kaynaklari listeler ve belirgin kaynak kesfi niyeti yoksa devreye girmez.
+
+Bu mod LLM cevabi uretmek yerine kaynak kesfi yapar; normal tanim, hesaplama veya mevzuat cevabi sorulari mevcut RAG akisinda kalir.
+
+## Web Source Expansion Audit
+
+Yeni web kaynak adaylari ingestion oncesinde manifest olarak denetlenir:
+
+```bash
+python evaluation/audit_web_source_candidates.py --candidates evaluation/web_source_candidates.json --out web_source_candidates_audit.local.json --markdown-out web_source_candidates_audit.local.md
+```
+
+Bu komut yeni kaynak adaylarini dogrular, ingestion yapmaz. Dynamic kaynaklar statik ChromaDB snapshot'tan ayri degerlendirilir. `web_source_candidates_audit.local.json` ve `web_source_candidates_audit.local.md` local artifact'tir; commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

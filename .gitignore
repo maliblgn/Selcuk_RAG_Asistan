@@ -54,6 +54,8 @@ answer_quality_report.local.json
 answer_quality_summary.local.md
 provider_comparison_report.local.json
 provider_comparison_summary.local.md
+web_source_candidates_audit.local.json
+web_source_candidates_audit.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

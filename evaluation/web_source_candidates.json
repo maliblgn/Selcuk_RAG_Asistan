@@ -1,0 +1,52 @@
+[
+  {
+    "id": "yemekhane_menu_endpoint",
+    "title": "Selcuk Universitesi Yemekhane Menusu",
+    "url": "https://yemek.selcuk.edu.tr/",
+    "category": "dynamic_menu",
+    "priority": "high",
+    "freshness": "daily_or_monthly",
+    "ingestion_recommendation": "dynamic_source_not_static_pdf",
+    "notes": "Yemekhane menusu degisken/guncel veri oldugu icin ChromaDB snapshot yerine dinamik kaynak olarak ele alinmali."
+  },
+  {
+    "id": "sks_beslenme_hizmetleri",
+    "title": "Beslenme Hizmetleri Sube Mudurlugu",
+    "url": "https://selcuk.edu.tr/birim/sayfa/5355/beslenme-hizmetleri-sube-mudurlugu-5435",
+    "category": "student_services",
+    "priority": "high",
+    "freshness": "monthly",
+    "ingestion_recommendation": "audit_then_ingest_selected_links",
+    "notes": "Aylik Yemek Listesi ve Yemek Ucreti Listesi baglantilari icerir."
+  },
+  {
+    "id": "teknoloji_fakultesi_yonerge_yonetmelikler",
+    "title": "Teknoloji Fakultesi Yonerge ve Yonetmelikler",
+    "url": "https://www.selcuk.edu.tr/birim/sayfa/5348/yonerge-ve-yonetmelikler-12751",
+    "category": "faculty_regulations",
+    "priority": "high",
+    "freshness": "slow_changing",
+    "ingestion_recommendation": "static_web_or_pdf_ingestion_candidate",
+    "notes": "Staj, isletmede mesleki egitim, yazili sinav, bitirme projesi gibi fakulte kaynaklarini listeler."
+  },
+  {
+    "id": "teknoloji_fakultesi_ime",
+    "title": "Teknoloji Fakultesi Isletmede Mesleki Egitim",
+    "url": "https://www.selcuk.edu.tr/birim/sayfa/5348/isletmede-mesleki-egitim-nedir-5095",
+    "category": "faculty_student_process",
+    "priority": "high",
+    "freshness": "slow_changing",
+    "ingestion_recommendation": "static_web_ingestion_candidate",
+    "notes": "IME tanimi, protokol, takvim ve ogrenci dokumanlari icin kaynak adaylari icerir."
+  },
+  {
+    "id": "ogrenci_duyurulari",
+    "title": "Selcuk Universitesi Ogrenci Duyurulari",
+    "url": "https://selcuk.edu.tr/icerik/ogrenciduyurulari",
+    "category": "announcements",
+    "priority": "medium",
+    "freshness": "high",
+    "ingestion_recommendation": "snapshot_with_timestamp_or_dynamic",
+    "notes": "Guncel duyuru oldugu icin tarih ve gecerlilik kontrolu gerekir."
+  }
+]
