@@ -200,6 +200,10 @@ python evaluation/evaluate_source_discovery.py --questions evaluation/source_dis
 
 Bu islem ChromaDB snapshot degistirir. Local artifactler ve `data/*.pdf` commit edilmez. Snapshot update sonrasi retrieval evaluation, general smoke, answer quality dry-run, provider comparison dry-run ve pytest birlikte calistirilir. HF deploy ayrica dogrulanir.
 
+## Snapshot Update Triage
+
+ChromaDB snapshot update sonrasi article hit veya critical failure degisirse, main'e almadan once retrieval triage, article metadata audit ve source inventory alias audit calistirilir. Bu triage runtime patch yerine once etki alanini ayirir: yeni kaynak gurultusu, mevcut rerank davranisi, metadata sorunu veya golden expectation ihtiyaci.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
