@@ -1,0 +1,23 @@
+[
+  {
+    "id": "source_discovery_technology_faculty_general",
+    "query": "teknoloji fakültesi ile alakalı kaynak var mı",
+    "expected_mode": "source_discovery",
+    "expected_min_matches": 3,
+    "expected_terms": ["teknoloji fakültesi"]
+  },
+  {
+    "id": "source_discovery_technology_faculty_staj",
+    "query": "teknoloji fakültesi staj yönergesi var mı",
+    "expected_mode": "source_discovery",
+    "expected_min_matches": 1,
+    "expected_terms": ["staj"]
+  },
+  {
+    "id": "source_discovery_technology_faculty_ime",
+    "query": "işletmede mesleki eğitim kaynakları nelerdir",
+    "expected_mode": "source_discovery",
+    "expected_min_matches": 1,
+    "expected_terms": ["işletmede mesleki eğitim"]
+  }
+]

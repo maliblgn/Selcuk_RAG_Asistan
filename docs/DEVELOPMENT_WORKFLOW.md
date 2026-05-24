@@ -188,6 +188,18 @@ python evaluation/audit_technology_faculty_sources.py --sources evaluation/techn
 
 Bu faz ingestion yapmaz. Teknoloji Fakultesi kaynaklari once manifest, kapsam ve priority olarak denetlenir. Snapshot update ayri gorevdir ve `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` takip edilir. `technology_faculty_sources_audit.local.json` ve `technology_faculty_sources_audit.local.md` local artifact'tir; commit edilmez.
 
+## Technology Faculty Snapshot Update
+
+Teknoloji Fakultesi kaynaklari snapshot'a alinmadan once preflight, sonra ingestion, sonra source discovery ve tam kalite zinciri calistirilir:
+
+```bash
+python tools/preflight_technology_faculty_sources.py --sources evaluation/technology_faculty_sources.json --out technology_faculty_preflight.local.json --markdown-out technology_faculty_preflight.local.md
+python tools/ingest_technology_faculty_sources.py --sources evaluation/technology_faculty_sources.json --chroma-dir chroma_db --report technology_faculty_ingestion.local.json --markdown-out technology_faculty_ingestion.local.md
+python evaluation/evaluate_source_discovery.py --questions evaluation/source_discovery_smoke_questions.json --out source_discovery_report.local.json --markdown-out source_discovery_summary.local.md
+```
+
+Bu islem ChromaDB snapshot degistirir. Local artifactler ve `data/*.pdf` commit edilmez. Snapshot update sonrasi retrieval evaluation, general smoke, answer quality dry-run, provider comparison dry-run ve pytest birlikte calistirilir. HF deploy ayrica dogrulanir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

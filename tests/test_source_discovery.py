@@ -72,6 +72,28 @@ def test_multi_token_topic_does_not_match_only_one_generic_token():
     assert result["status"] == "no_match"
 
 
+def test_multi_token_topic_prefers_specific_terms_over_generic_faculty_terms():
+    inventory = [
+        {
+            "source": "https://example.edu/other-staj.pdf",
+            "title": "Baska Fakultesi Staj Yonergesi",
+            "source_type": "web_pdf",
+            "content": "Staj yonergesi ve uygulama esaslari.",
+        },
+        {
+            "source": "https://example.edu/technology-staj.pdf",
+            "title": "Teknoloji Fakultesi Staj Uygulama Yonergesi",
+            "source_type": "web_pdf",
+            "content": "Teknoloji Fakultesi ogrencileri icin staj uygulama esaslari.",
+        },
+    ]
+
+    result = discover_sources("teknoloji fakultesi staj yonergesi var mi", inventory_items=inventory)
+
+    assert result["status"] == "ok"
+    assert result["sources"][0]["source"] == "https://example.edu/technology-staj.pdf"
+
+
 def test_source_discovery_uses_general_patterns_not_single_question_patch():
     query = "yeni bir konu hakkinda hangi dokumanlar var"
     assert is_source_discovery_query(query)

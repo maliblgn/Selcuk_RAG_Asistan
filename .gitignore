@@ -58,6 +58,12 @@ web_source_candidates_audit.local.json
 web_source_candidates_audit.local.md
 technology_faculty_sources_audit.local.json
 technology_faculty_sources_audit.local.md
+technology_faculty_preflight.local.json
+technology_faculty_preflight.local.md
+technology_faculty_ingestion.local.json
+technology_faculty_ingestion.local.md
+source_discovery_report.local.json
+source_discovery_summary.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

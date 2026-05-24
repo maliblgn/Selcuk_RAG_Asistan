@@ -89,6 +89,21 @@ _TOPIC_STOPWORDS = {
     "bu",
     "bununla",
 }
+_GENERIC_DISCOVERY_TOKENS = {
+    "belge",
+    "belgeler",
+    "dokuman",
+    "dokumanlar",
+    "fakulte",
+    "fakultesi",
+    "kaynak",
+    "kaynaklar",
+    "kaynaklari",
+    "pdf",
+    "yonerge",
+    "yonergeler",
+    "yonergesi",
+}
 
 
 def is_source_discovery_query(query: str) -> bool:
@@ -186,7 +201,9 @@ def _iter_inventory_items(db=None, inventory_items: list[dict] | None = None) ->
 
 
 def _score_inventory_item(topic: str, query: str, item: dict, aliases: dict) -> tuple[float, list[str], str]:
-    topic_text = expand_query_alias_text(topic or query, aliases)
+    raw_topic_text = topic or query
+    raw_topic_tokens = tokenize_for_match(raw_topic_text)
+    topic_text = expand_query_alias_text(raw_topic_text, aliases)
     topic_tokens = tokenize_for_match(topic_text)
     if not topic_tokens:
         return 0.0, [], ""
@@ -207,9 +224,14 @@ def _score_inventory_item(topic: str, query: str, item: dict, aliases: dict) -> 
     title_norm = normalize_ascii_lite(title_text)
     content_norm = normalize_ascii_lite(content_text)
 
-    if len(topic_tokens) >= 2 and len(matched_all) < 2:
+    min_required_matches = 3 if len(raw_topic_tokens) >= 4 else 2
+    if len(topic_tokens) >= 2 and len(matched_all) < min_required_matches:
         if topic_phrase not in title_norm and topic_phrase not in content_norm:
             return 0.0, sorted(matched_all), ""
+
+    critical_tokens = raw_topic_tokens - _GENERIC_DISCOVERY_TOKENS
+    if len(critical_tokens) >= 2 and not critical_tokens.issubset(matched_all):
+        return 0.0, sorted(matched_all), ""
 
     score = 0.0
     if matched_title:
@@ -226,7 +248,7 @@ def _score_inventory_item(topic: str, query: str, item: dict, aliases: dict) -> 
         reason = "icerik parcasi icinde eslesen terimler var"
     else:
         reason = ""
-    if len(topic_tokens) >= 2 and len(matched_all) < 2 and score < 5.0:
+    if len(topic_tokens) >= 2 and len(matched_all) < min_required_matches and score < 5.0:
         score = min(score, min(SOURCE_DISCOVERY_MIN_SCORE - 0.1, 2.0))
     return min(score, 10.0), matched, reason
 
@@ -266,7 +288,10 @@ def discover_sources(
             "snippet": str(item.get("content") or "")[:240].replace("\n", " ").strip(),
         }
 
-    sources = sorted(best_by_source.values(), key=lambda item: (-item["score"], item["title"].casefold()))
+    sources = sorted(
+        best_by_source.values(),
+        key=lambda item: (-item["score"], -len(item.get("matched_terms") or []), item["title"].casefold()),
+    )
     visible = sources[:max_sources]
     for rank, item in enumerate(visible, start=1):
         item["rank"] = rank
