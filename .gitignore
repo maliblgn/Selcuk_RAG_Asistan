@@ -56,6 +56,8 @@ provider_comparison_report.local.json
 provider_comparison_summary.local.md
 web_source_candidates_audit.local.json
 web_source_candidates_audit.local.md
+technology_faculty_sources_audit.local.json
+technology_faculty_sources_audit.local.md
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

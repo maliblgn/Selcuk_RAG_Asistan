@@ -178,6 +178,16 @@ python evaluation/audit_web_source_candidates.py --candidates evaluation/web_sou
 
 Bu komut yeni kaynak adaylarini dogrular, ingestion yapmaz. Dynamic kaynaklar statik ChromaDB snapshot'tan ayri degerlendirilir. `web_source_candidates_audit.local.json` ve `web_source_candidates_audit.local.md` local artifact'tir; commit edilmez.
 
+## Technology Faculty Source Plan
+
+Teknoloji Fakultesi kaynaklari snapshot update oncesinde ayrik manifest olarak dogrulanir:
+
+```bash
+python evaluation/audit_technology_faculty_sources.py --sources evaluation/technology_faculty_sources.json --out technology_faculty_sources_audit.local.json --markdown-out technology_faculty_sources_audit.local.md
+```
+
+Bu faz ingestion yapmaz. Teknoloji Fakultesi kaynaklari once manifest, kapsam ve priority olarak denetlenir. Snapshot update ayri gorevdir ve `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` takip edilir. `technology_faculty_sources_audit.local.json` ve `technology_faculty_sources_audit.local.md` local artifact'tir; commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
