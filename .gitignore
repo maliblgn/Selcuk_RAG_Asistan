@@ -64,6 +64,10 @@ technology_faculty_ingestion.local.json
 technology_faculty_ingestion.local.md
 source_discovery_report.local.json
 source_discovery_summary.local.md
+dynamic_menu_report.local.json
+dynamic_menu_summary.local.md
+dining_menu_cache.local.json
+menu_cache.local.json
 general_smoke_summary.local.md
 baseline_*_report.json
 critical_*_inventory.json

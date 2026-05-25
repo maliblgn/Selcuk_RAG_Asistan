@@ -204,6 +204,14 @@ Bu islem ChromaDB snapshot degistirir. Local artifactler ve `data/*.pdf` commit 
 
 ChromaDB snapshot update sonrasi article hit veya critical failure degisirse, main'e almadan once retrieval triage, article metadata audit ve source inventory alias audit calistirilir. Bu triage runtime patch yerine once etki alanini ayirir: yeni kaynak gurultusu, mevcut rerank davranisi, metadata sorunu veya golden expectation ihtiyaci.
 
+## Dynamic Dining Menu Reader
+
+Yemekhane menusu statik ChromaDB snapshot'a eklenmez. Menu guncel/dinamik kaynak olarak okunur; endpoint erisilemezse menu uydurulmaz. Dynamic reader testleri ve smoke evaluation calistirilir. ChromaDB snapshot bu fazda degistirilmez.
+
+```bash
+python evaluation/evaluate_dynamic_menu.py --questions evaluation/dynamic_menu_smoke_questions.json --out dynamic_menu_report.local.json --markdown-out dynamic_menu_summary.local.md
+```
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

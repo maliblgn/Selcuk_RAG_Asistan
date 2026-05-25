@@ -24,6 +24,12 @@ from rag_engine import (
     trim_text_for_prompt,
 )
 from check_chroma_health import check_chroma_health
+from dynamic_menu_reader import (
+    dining_menu_to_documents,
+    fetch_dining_menu,
+    format_dining_menu_response,
+    is_dining_menu_query,
+)
 from quality_dashboard import render_quality_dashboard
 from source_discovery import (
     build_source_discovery_answer,
@@ -959,8 +965,8 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
-                motor = get_engine()
                 if is_source_discovery_query(kullanici_sorusu):
+                    motor = get_engine()
                     result = discover_sources(kullanici_sorusu, db=motor.static_db)
                     docs = source_discovery_sources_to_documents(result.get("sources", []))
                     cevap = build_source_discovery_answer(result)
@@ -975,6 +981,22 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
+                if is_dining_menu_query(kullanici_sorusu):
+                    menu_data = fetch_dining_menu()
+                    docs = dining_menu_to_documents(menu_data)
+                    cevap = format_dining_menu_response(menu_data, kullanici_sorusu)
+                    st.markdown(cevap)
+                    st.session_state.mesajlar.append({
+                        "rol": "assistant",
+                        "icerik": cevap,
+                        "soru": kullanici_sorusu,
+                        "docs": docs,
+                        "sources_checked": True,
+                    })
+                    st.session_state.oneriler = []
+                    st.rerun()
+
+                motor = get_engine()
                 history = build_prompt_chat_history(st.session_state.mesajlar[:-1])
 
                 # 2. Soru yeniden yazma (takip soruları için)

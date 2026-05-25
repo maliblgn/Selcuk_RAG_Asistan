@@ -1,0 +1,22 @@
+[
+  {
+    "id": "dynamic_menu_today",
+    "query": "bugün yemekte ne var",
+    "expected_mode": "dynamic_dining_menu"
+  },
+  {
+    "id": "dynamic_menu_monthly",
+    "query": "bu ayın yemekhane menüsü nedir",
+    "expected_mode": "dynamic_dining_menu"
+  },
+  {
+    "id": "not_dynamic_source_discovery",
+    "query": "yemekhane ile ilgili kaynaklar nelerdir",
+    "expected_not_mode": "dynamic_dining_menu"
+  },
+  {
+    "id": "not_dynamic_rag",
+    "query": "AKTS nedir",
+    "expected_not_mode": "dynamic_dining_menu"
+  }
+]
