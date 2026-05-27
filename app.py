@@ -28,13 +28,12 @@ from dynamic_menu_reader import (
     dining_menu_to_documents,
     fetch_dining_menu,
     format_dining_menu_response,
-    is_dining_menu_query,
 )
 from quality_dashboard import render_quality_dashboard
+from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SOURCE_DISCOVERY, route_query
 from source_discovery import (
     build_source_discovery_answer,
     discover_sources,
-    is_source_discovery_query,
     source_discovery_sources_to_documents,
 )
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
@@ -965,7 +964,9 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
-                if is_source_discovery_query(kullanici_sorusu):
+                route = route_query(kullanici_sorusu)
+
+                if route.mode == MODE_SOURCE_DISCOVERY:
                     motor = get_engine()
                     result = discover_sources(kullanici_sorusu, db=motor.static_db)
                     docs = source_discovery_sources_to_documents(result.get("sources", []))
@@ -981,7 +982,7 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
-                if is_dining_menu_query(kullanici_sorusu):
+                if route.mode == MODE_DYNAMIC_DINING_MENU:
                     menu_data = fetch_dining_menu()
                     docs = dining_menu_to_documents(menu_data)
                     cevap = format_dining_menu_response(menu_data, kullanici_sorusu)

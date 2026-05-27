@@ -268,3 +268,22 @@ Bu Faz 9A calismasinda:
 - Yeni ingestion calistirilmadi.
 - `data/*.pdf`, `.env`, API key/secret ve local artifact dosyalari commit kapsamina alinmadi.
 - Rapor ve workflow notu disinda degisiklik yapilmadi.
+
+## Faz 9B Query Router Extraction
+
+Faz 9B kapsaminda `query_router.py` eklendi ve cevap modu secimi tek noktaya alindi. Router mevcut intent fonksiyonlarini yeniden yazmaz; `source_discovery.py` icindeki source discovery intent kontrolunu ve `dynamic_menu_reader.py` icindeki dining menu intent kontrolunu kullanir.
+
+Korunan routing sirasi:
+
+1. Source discovery
+2. Dynamic dining menu
+3. Normal RAG
+
+Bu ayrim app.py'yi tamamen refactor etmez; yalnizca routing kararini `route_query()` uzerinden alir. Cevap uretimi, Streamlit session state akisi, source panel davranisi ve normal RAG pipeline korunur.
+
+Basari kriterleri:
+
+- `yemekhane ile ilgili kaynaklar nelerdir` source discovery modunda kalir.
+- `teknoloji fakultesi ile alakali kaynak var mi` source discovery modunda kalir.
+- `bugun yemekte ne var` dynamic dining menu modunda kalir.
+- `AKTS nedir` normal RAG modunda kalir.

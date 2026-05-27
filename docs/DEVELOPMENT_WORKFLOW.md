@@ -226,6 +226,12 @@ Buyuk refactor oncesi architecture audit raporu cikarilir. Bu rapor runtime davr
 
 Refactor kucuk fazlara bolunur. Calisan RAG, source discovery, dynamic source ve deploy akislari tek seferde yeniden yazilmaz.
 
+## Query Router
+
+Yeni cevap modu eklenecekse once `query_router.py` routing sirasi kontrol edilir. Source discovery, dynamic source ve RAG modlari route descriptor ile ayrilir.
+
+Routing degisikliklerinden sonra query router testleri, source discovery evaluation, dynamic menu evaluation ve retrieval evaluation calistirilir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
