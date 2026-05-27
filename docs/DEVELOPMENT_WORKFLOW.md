@@ -232,6 +232,12 @@ Yeni cevap modu eklenecekse once `query_router.py` routing sirasi kontrol edilir
 
 Routing degisikliklerinden sonra query router testleri, source discovery evaluation, dynamic menu evaluation ve retrieval evaluation calistirilir.
 
+## One-shot Development and Deploy Flow
+
+Dusuk/orta riskli gelistirmelerde tek prompt icinde su akis uygulanabilir: dev'de gelistirme, test/evaluation, `origin/dev` push, main merge, `origin/main` push, CI ve HF deploy dogrulama.
+
+Bu akis testleri atlamaz. ChromaDB snapshot update, yeni ingestion, dependency/provider degisikligi gibi yuksek riskli islerde ek guvenlik kontrolleri uygulanir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
