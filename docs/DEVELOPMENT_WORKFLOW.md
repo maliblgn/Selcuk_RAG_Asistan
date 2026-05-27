@@ -212,6 +212,14 @@ Yemekhane menusu statik ChromaDB snapshot'a eklenmez. Menu guncel/dinamik kaynak
 python evaluation/evaluate_dynamic_menu.py --questions evaluation/dynamic_menu_smoke_questions.json --out dynamic_menu_report.local.json --markdown-out dynamic_menu_summary.local.md
 ```
 
+## Dynamic Menu Parser Debug
+
+```bash
+python tools/debug_dynamic_menu_source.py --out dynamic_menu_debug.local.json --markdown-out dynamic_menu_debug.local.md
+```
+
+Bu komut endpoint health ve parser ipuclarini local artifact olarak uretir. Ham HTML, cache ve local debug ciktilari commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

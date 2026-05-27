@@ -15,6 +15,7 @@ if str(ROOT_DIR) not in sys.path:
 from dynamic_menu_reader import (  # noqa: E402
     fetch_dining_menu,
     format_dining_menu_response,
+    get_dynamic_menu_health,
     is_dining_menu_query,
 )
 
@@ -41,6 +42,10 @@ def _mock_unavailable_menu() -> dict:
         "menu_period": "",
         "items": [],
         "message": "CI-safe dry-run: live fetch yapilmadi.",
+        "diagnostics": {
+            "parsed_item_count": 0,
+            "parse_strategy": "none",
+        },
     }
 
 
@@ -57,12 +62,17 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
 
     unexpected_exception = False
     menu_status = "not_evaluated"
+    parsed_item_count = 0
+    parse_strategy = "none"
     fallback_safe = False
     response_preview = ""
     if mode_detected == "dynamic_dining_menu":
         try:
             menu_data = fetch_dining_menu(use_cache=False) if live_fetch else _mock_unavailable_menu()
             menu_status = menu_data.get("status") or "unknown"
+            diagnostics = menu_data.get("diagnostics") or {}
+            parsed_item_count = int(diagnostics.get("parsed_item_count") or len(menu_data.get("items") or []))
+            parse_strategy = diagnostics.get("parse_strategy") or menu_data.get("parser") or "none"
             response = format_dining_menu_response(menu_data, query)
             response_preview = response[:240]
             fallback_safe = "uydurulmadi" in response.lower() if menu_status != "ok" else True
@@ -83,6 +93,8 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
         "mode_ok": mode_ok,
         "live_fetch": live_fetch,
         "menu_status": menu_status,
+        "parsed_item_count": parsed_item_count,
+        "parse_strategy": parse_strategy,
         "fallback_safe": fallback_safe,
         "unexpected_exception": unexpected_exception,
         "response_preview": response_preview,
@@ -98,8 +110,20 @@ def build_report(questions: list[dict], live_fetch: bool = False) -> dict:
     mode_checks = [item["mode_ok"] for item in results]
     fallback_safe_count = sum(1 for item in results if item["fallback_safe"])
     unexpected_exception_count = sum(1 for item in results if item["unexpected_exception"])
+    dynamic_results = [item for item in results if item["mode_detected"] == "dynamic_dining_menu"]
+    live_statuses = [item["menu_status"] for item in dynamic_results]
+    parsed_item_count = sum(item.get("parsed_item_count", 0) for item in dynamic_results)
+    parse_status = "not_live"
+    if live_fetch:
+        if unexpected_exception_count:
+            parse_status = "exception"
+        elif any(status == "ok" for status in live_statuses):
+            parse_status = "ok"
+        elif live_statuses:
+            parse_status = live_statuses[0]
     return {
         "generated_at": _now(),
+        "dynamic_menu_health": get_dynamic_menu_health(),
         "total_questions": total,
         "passed": passed,
         "failed": failed,
@@ -107,6 +131,9 @@ def build_report(questions: list[dict], live_fetch: bool = False) -> dict:
         "fallback_safe_count": fallback_safe_count,
         "unexpected_exception_count": unexpected_exception_count,
         "live_fetch": live_fetch,
+        "live_fetch_status": live_statuses[0] if live_fetch and live_statuses else "not_run",
+        "parsed_item_count": parsed_item_count,
+        "parse_status": parse_status,
         "results": results,
     }
 
@@ -122,6 +149,9 @@ def write_markdown(report: dict, path: str | Path) -> None:
         f"- fallback_safe_count: {report['fallback_safe_count']}",
         f"- unexpected_exception_count: {report['unexpected_exception_count']}",
         f"- live_fetch: {report['live_fetch']}",
+        f"- live_fetch_status: {report['live_fetch_status']}",
+        f"- parsed_item_count: {report['parsed_item_count']}",
+        f"- parse_status: {report['parse_status']}",
         "",
         "## Results",
     ]
@@ -155,6 +185,9 @@ def main() -> int:
         "fallback_safe_count",
         "unexpected_exception_count",
         "live_fetch",
+        "live_fetch_status",
+        "parsed_item_count",
+        "parse_status",
     )}, ensure_ascii=False, indent=2))
     return 0 if report["failed"] == 0 else 1
 
