@@ -15,7 +15,7 @@ from langchain_core.documents import Document
 from retrieval_normalization import normalize_ascii_lite
 
 
-DINING_MENU_SOURCE_URL = "https://yemek.selcuk.edu.tr/"
+DINING_MENU_SOURCE_URL = "https://yemek.selcuk.edu.tr/Menu/MenuGetir"
 DINING_MENU_SOURCE_TITLE = "Selcuk Universitesi Yemekhane Menusu"
 DINING_MENU_CACHE_TTL_SECONDS = 60 * 60
 BROWSER_USER_AGENT = (
