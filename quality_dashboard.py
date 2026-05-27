@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from check_chroma_health import check_chroma_health
+from dynamic_menu_reader import get_dynamic_menu_health
 
 
 ROOT_DIR = Path(__file__).resolve().parent
@@ -138,6 +139,18 @@ def summarize_provider_comparison_report(path: str | Path = ARTIFACT_PATHS["prov
     }
 
 
+def summarize_dynamic_menu_health() -> dict[str, Any]:
+    return _safe_pick(get_dynamic_menu_health(), [
+        "mode",
+        "source_url",
+        "source_title",
+        "cache_ttl_seconds",
+        "supported_parse_strategies",
+        "live_fetch_required",
+        "secret_required",
+    ]) or {}
+
+
 def get_system_health(db_path: str | Path = ROOT_DIR / "chroma_db") -> dict[str, Any]:
     report = check_chroma_health(str(db_path))
     return _safe_pick(report, [
@@ -233,6 +246,8 @@ def render_quality_dashboard() -> None:
         summarize_provider_comparison_report(),
         commands["Provider comparison dry-run"],
     )
+    st.markdown("### Dynamic Menu Health")
+    st.json(summarize_dynamic_menu_health(), expanded=False)
 
     st.markdown("### Komut Kilavuzu")
     for label, command in commands.items():
