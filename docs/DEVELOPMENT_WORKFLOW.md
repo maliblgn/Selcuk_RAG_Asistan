@@ -238,6 +238,12 @@ Dusuk/orta riskli gelistirmelerde tek prompt icinde su akis uygulanabilir: dev'd
 
 Bu akis testleri atlamaz. ChromaDB snapshot update, yeni ingestion, dependency/provider degisikligi gibi yuksek riskli islerde ek guvenlik kontrolleri uygulanir.
 
+## App Orchestration Cleanup
+
+`app.py` UI dosyasi olarak kalir. Chat cevap uretim bloklari kucuk helperlara ayrilabilir; helperlar Streamlit layout cizmemeli ve cevap/source/session mesaji hazirlama gibi dar sorumluluklar tasimalidir.
+
+Bu tur refactorlarda query router testleri, source discovery evaluation, dynamic menu evaluation, retrieval evaluation ve full pytest calistirilir. UI davranisi ve runtime cevap modlari korunmadan main'e alinmaz.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

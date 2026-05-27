@@ -12,30 +12,24 @@ from rag_engine import (
     build_safe_fallback,
     ensure_inline_citation,
     is_low_quality_answer,
-    KnowledgeBaseUnavailableError,
-    LIVE_INDEX_UNAVAILABLE_MESSAGE,
     MAX_CHAT_HISTORY_CHARS,
     prepare_context_and_sources,
     SelcukRAGEngine,
-    is_chroma_collection_error,
     is_long_inventory_answer,
     sanitize_chat_history,
     strip_model_generated_sources,
     trim_text_for_prompt,
 )
-from check_chroma_health import check_chroma_health
-from dynamic_menu_reader import (
-    dining_menu_to_documents,
-    fetch_dining_menu,
-    format_dining_menu_response,
+from app_chat_handlers import (
+    append_assistant_message,
+    build_safe_error_message,
+    classify_error,
+    handle_dynamic_menu_chat,
+    handle_source_discovery_chat,
 )
+from check_chroma_health import check_chroma_health
 from quality_dashboard import render_quality_dashboard
 from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SOURCE_DISCOVERY, route_query
-from source_discovery import (
-    build_source_discovery_answer,
-    discover_sources,
-    source_discovery_sources_to_documents,
-)
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 
 # .env dosyasından ortam değişkenlerini yükle
@@ -955,12 +949,7 @@ else:
                 if SelcukRAGEngine.is_source_inventory_question(kullanici_sorusu):
                     cevap = SelcukRAGEngine.build_source_inventory_answer_from_db()
                     st.markdown(cevap)
-                    st.session_state.mesajlar.append({
-                        "rol": "assistant",
-                        "icerik": cevap,
-                        "soru": kullanici_sorusu,
-                        "docs": []
-                    })
+                    append_assistant_message(st.session_state.mesajlar, cevap, kullanici_sorusu, [])
                     st.session_state.oneriler = []
                     st.rerun()
 
@@ -968,32 +957,28 @@ else:
 
                 if route.mode == MODE_SOURCE_DISCOVERY:
                     motor = get_engine()
-                    result = discover_sources(kullanici_sorusu, db=motor.static_db)
-                    docs = source_discovery_sources_to_documents(result.get("sources", []))
-                    cevap = build_source_discovery_answer(result)
-                    st.markdown(cevap)
-                    st.session_state.mesajlar.append({
-                        "rol": "assistant",
-                        "icerik": cevap,
-                        "soru": kullanici_sorusu,
-                        "docs": docs,
-                        "sources_checked": True,
-                    })
+                    result = handle_source_discovery_chat(kullanici_sorusu, db=motor.static_db)
+                    st.markdown(result.answer)
+                    append_assistant_message(
+                        st.session_state.mesajlar,
+                        result.answer,
+                        kullanici_sorusu,
+                        result.docs,
+                        result.sources_checked,
+                    )
                     st.session_state.oneriler = []
                     st.rerun()
 
                 if route.mode == MODE_DYNAMIC_DINING_MENU:
-                    menu_data = fetch_dining_menu()
-                    docs = dining_menu_to_documents(menu_data)
-                    cevap = format_dining_menu_response(menu_data, kullanici_sorusu)
-                    st.markdown(cevap)
-                    st.session_state.mesajlar.append({
-                        "rol": "assistant",
-                        "icerik": cevap,
-                        "soru": kullanici_sorusu,
-                        "docs": docs,
-                        "sources_checked": True,
-                    })
+                    result = handle_dynamic_menu_chat(kullanici_sorusu)
+                    st.markdown(result.answer)
+                    append_assistant_message(
+                        st.session_state.mesajlar,
+                        result.answer,
+                        kullanici_sorusu,
+                        result.docs,
+                        result.sources_checked,
+                    )
                     st.session_state.oneriler = []
                     st.rerun()
 
@@ -1015,13 +1000,13 @@ else:
                 if not docs:
                     cevap = build_safe_fallback(yeniden_soru, docs, query_type)
                     st.markdown(cevap)
-                    st.session_state.mesajlar.append({
-                        "rol": "assistant",
-                        "icerik": cevap,
-                        "soru": kullanici_sorusu,
-                        "docs": [],
-                        "sources_checked": True,
-                    })
+                    append_assistant_message(
+                        st.session_state.mesajlar,
+                        cevap,
+                        kullanici_sorusu,
+                        [],
+                        True,
+                    )
                     st.session_state.oneriler = []
                     st.rerun()
 
@@ -1040,13 +1025,13 @@ else:
                     cevap = build_safe_fallback(yeniden_soru, docs, query_type)
                 st.markdown(cevap)
 
-                st.session_state.mesajlar.append({
-                    "rol": "assistant", 
-                    "icerik": cevap,
-                    "soru": kullanici_sorusu,
-                    "docs": docs,
-                    "sources_checked": True,
-                })
+                append_assistant_message(
+                    st.session_state.mesajlar,
+                    cevap,
+                    kullanici_sorusu,
+                    docs,
+                    True,
+                )
 
                 # 5. Takip sorusu önerileri (arka planda)
                 oneriler = motor.suggest_followups(kullanici_sorusu, cevap)
@@ -1055,35 +1040,29 @@ else:
                 st.rerun()
 
             except Exception as e:
-                error_msg = str(e).lower()
-                safe_detail = str(e)
-                groq_key = os.environ.get("GROQ_API_KEY", "")
-                if groq_key:
-                    safe_detail = safe_detail.replace(groq_key, "[GROQ_API_KEY]")
+                error_category = classify_error(e)
+                hata_mesaji, safe_detail = build_safe_error_message(
+                    e,
+                    os.environ.get("GROQ_API_KEY", ""),
+                )
 
-                if isinstance(e, KnowledgeBaseUnavailableError) or is_chroma_collection_error(e):
+                if error_category == "knowledge_base":
                     logger.error("ChromaDB/index hatasi: %s", e)
-                    hata_mesaji = LIVE_INDEX_UNAVAILABLE_MESSAGE
-                elif "rate_limit" in error_msg or "429" in error_msg or "rate limit" in error_msg:
+                elif error_category == "rate_limit":
                     logger.warning(f"Groq rate limit aşıldı: {e}")
-                    hata_mesaji = "⏳ API istek limiti aşıldı. Lütfen **30 saniye** bekleyip tekrar deneyin."
-                elif "authentication" in error_msg or "invalid_api_key" in error_msg or "unauthorized" in error_msg or "api_key" in error_msg or "401" in error_msg:
+                elif error_category == "authentication":
                     logger.error(f"API key hatası: {e}")
-                    hata_mesaji = "🔑 API anahtarı geçersiz veya eksik. Lütfen `.env` dosyasındaki **GROQ_API_KEY** değerini kontrol edin."
-                elif "connection" in error_msg or "timeout" in error_msg or "unreachable" in error_msg:
+                elif error_category == "connection":
                     logger.error(f"Bağlantı hatası: {e}")
-                    hata_mesaji = "🌐 Sunucuya bağlanılamadı. İnternet bağlantınızı kontrol edip tekrar deneyin."
-                elif "groq" in error_msg or "chatgroq" in error_msg or "model" in error_msg:
+                elif error_category == "model":
                     logger.error(f"Groq/model hatasÄ±: {e}")
-                    hata_mesaji = "⚠️ Yapay zeka modeli çağrılırken hata oluştu. Streamlit Secrets içindeki **GROQ_API_KEY** değerini ve Groq hesabı erişimini kontrol edin."
                 else:
                     logger.error(f"RAG zinciri hatası: {e}")
-                    hata_mesaji = "⚠️ Bir hata oluştu. Lütfen tekrar deneyin."
 
                 st.error(hata_mesaji)
                 with st.expander("Teknik hata ayrıntısı", expanded=False):
                     st.code(safe_detail[:2000])
-                st.session_state.mesajlar.append({"rol": "assistant", "icerik": hata_mesaji})
+                append_assistant_message(st.session_state.mesajlar, hata_mesaji)
 
 # ─────────────────── FOOTER ───────────────────
 st.markdown(

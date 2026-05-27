@@ -287,3 +287,16 @@ Basari kriterleri:
 - `teknoloji fakultesi ile alakali kaynak var mi` source discovery modunda kalir.
 - `bugun yemekte ne var` dynamic dining menu modunda kalir.
 - `AKTS nedir` normal RAG modunda kalir.
+
+## Faz 9C App Orchestration Cleanup
+
+Faz 9C kapsaminda app.py icindeki chat orchestration bloklari kucuk helper fonksiyonlara ayrildi. `app_chat_handlers.py` source discovery cevabi, dynamic dining menu cevabi, assistant mesaj ekleme ve guvenli hata mesaji hazirlama sorumluluklarini toplar.
+
+Bu degisiklik UI rendering'i bastan yazmaz; Streamlit layout, session state akisi, kaynak paneli ve RAG pipeline app.py tarafinda korunur. `query_router.py` routing davranisi degistirilmedi.
+
+Korunan davranislar:
+
+- Source discovery sorulari kaynak listeleme modunda kalir.
+- Dynamic dining menu sorulari ChromaDB snapshot'a dokunmadan dinamik reader'a gider.
+- Normal RAG sorulari mevcut retrieval/rerank/LLM zincirini kullanmaya devam eder.
+- Hata durumunda Streamlit exception yerine mevcut guvenli hata/fallback mesajlari korunur.
