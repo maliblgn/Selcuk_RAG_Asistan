@@ -220,6 +220,12 @@ python tools/debug_dynamic_menu_source.py --out dynamic_menu_debug.local.json --
 
 Bu komut endpoint health ve parser ipuclarini local artifact olarak uretir. Ham HTML, cache ve local debug ciktilari commit edilmez.
 
+## Architecture Audit / Refactor Planning
+
+Buyuk refactor oncesi architecture audit raporu cikarilir. Bu rapor runtime davranisi degistirmez; once sorumluluklar, routing, ChromaDB local dev akisi ve evaluation komutlari analiz edilir.
+
+Refactor kucuk fazlara bolunur. Calisan RAG, source discovery, dynamic source ve deploy akislari tek seferde yeniden yazilmaz.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
