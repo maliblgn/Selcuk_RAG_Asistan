@@ -327,3 +327,11 @@ Faz 9F kapsaminda `dynamic_sources/` altyapisi eklendi. Ortak result/health data
 Dining menu reader mevcut davranis korunarak registry altina baglandi. `dynamic_menu_reader.py` geriye uyumluluk icin korunur; mevcut intent, fetch, parse, format ve health fonksiyonlari calismaya devam eder.
 
 Bu fazda yeni dynamic source eklenmedi. Query routing onceligi korunur: source discovery once, dynamic source sonra, RAG en son calisir. Runtime/HF davranisi, ChromaDB snapshot ve ingestion akislari degistirilmedi.
+
+## Faz 9G Article-level Retrieval Stabilization
+
+Faz 9G kapsaminda article-level retrieval borcu analiz edildi. `golden_ales_definition` ve `golden_onlisans_lisans_agno` critical failure sorulari triage edildi; iki soruda da dogru kaynak/chunk snapshot icinde bulunmasina ragmen ilk retrieval havuzuna yeterince guclu girmedigi goruldu.
+
+Hard-coded soru ID patch'i yapilmadi. Bunun yerine genel mekanizma olarak akademik akronim tanim sorulari ve on lisans/lisans not ortalamasi sorulari icin snapshot icinden guvenli fallback adaylari eklendi. Rerank tarafinda genis lisansustu yonetmelik ve on lisans/lisans not ortalamasi kaynak sinyalleri dengeli sekilde guclendirildi.
+
+Golden expectation zayiflatilmadi ve ChromaDB snapshot degistirilmedi. Sonraki kalite borcu olarak article title/metadata kismi uyumsuzluklari ve AGNO/GANO terminoloji farki ayri audit konusu olarak izlenebilir.

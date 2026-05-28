@@ -18,7 +18,7 @@ from langchain_community.retrievers import BM25Retriever
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
 from chroma_runtime import get_chroma_runtime_dir
-from retrieval_rerank import legal_safe_query_allowed, rerank_documents
+from retrieval_rerank import detect_query_intent, legal_safe_query_allowed, rerank_documents
 from retrieval_normalization import (
     document_alias_score,
     expand_query_alias_text,
@@ -791,10 +791,19 @@ class SelcukRAGEngine:
                 logger.warning(f"Multi-query üretilemedi: {e}")
             return [question]
 
-    def _akts_definition_fallback_docs(self, question, limit=3):
-        """AKTS tanim sorularinda lisansustu Madde 4 adayini hybrid havuzuna ekle."""
+    def _definition_candidate_fallback_docs(self, question, limit=6):
+        """Akronim ve akademik not tanimi sorularinda genel aday chunklari havuza ekle."""
         normalized = self._normalize_question_text(question)
-        if "akts" not in normalized:
+        intent = detect_query_intent(question)
+        acronym_terms = [self._normalize_question_text(item) for item in intent.get("acronym_terms") or []]
+        is_definition_query = intent.get("intent") == "definition"
+        is_grade_average_query = (
+            "on lisans" in normalized
+            and "lisans" in normalized
+            and any(term in normalized for term in ("agirlikli genel not", "genel not ortalamasi", "not ortalamasi", "agno", "gano"))
+        )
+
+        if not (is_definition_query and acronym_terms) and not is_grade_average_query:
             return []
 
         source_specific_terms = (
@@ -809,13 +818,13 @@ class SelcukRAGEngine:
             "yaz okulu",
             "pedagojik formasyon",
         )
-        if any(term in normalized for term in source_specific_terms):
+        if acronym_terms and any(term in normalized for term in source_specific_terms):
             return []
 
         try:
             data = self.static_db.get(include=["documents", "metadatas"])
         except Exception as exc:
-            logger.debug("AKTS fallback adaylari okunamadi: %s", exc)
+            logger.debug("Tanim fallback adaylari okunamadi: %s", exc)
             return []
 
         docs = []
@@ -828,18 +837,46 @@ class SelcukRAGEngine:
                 f"{unquote(str(metadata.get('source') or ''))}"
             )
             article_title = self._normalize_question_text(metadata.get("article_title") or "")
-            if not (
-                "akts" in content_norm
-                and str(metadata.get("article_no") or "") == "4"
+            is_definition_candidate = (
+                is_definition_query
+                and str(metadata.get("article_no") or "") in {"3", "4"}
                 and "tanimlar" in article_title
-                and "lisansustu" in source_text
+                and any(re.search(rf"\b{re.escape(acronym)}\s*:", content_norm) for acronym in acronym_terms)
+            )
+            if is_definition_candidate and "lisansustu" in normalized:
+                is_definition_candidate = "lisansustu" in source_text and "yonetmel" in source_text
+
+            is_grade_average_candidate = (
+                is_grade_average_query
+                and "on lisans" in source_text
+                and "lisans" in source_text
+                and "sinav" in source_text
                 and "yonetmel" in source_text
-            ):
+                and any(term in content_norm for term in ("gano", "agirlikli notu", "agirlikli puan"))
+            )
+
+            if not (is_definition_candidate or is_grade_average_candidate):
                 continue
-            metadata["metadata_fallback"] = "akts_lisansustu_article_4"
+            metadata["metadata_fallback"] = (
+                "academic_acronym_definition"
+                if is_definition_candidate
+                else "onlisans_lisans_grade_average"
+            )
             docs.append(Document(page_content=content_text, metadata=metadata))
             if len(docs) >= limit:
                 break
+        return docs
+
+    def _akts_definition_fallback_docs(self, question, limit=3):
+        """Backward-compatible AKTS fallback helper kept for focused tests."""
+
+        docs = [
+            doc for doc in self._definition_candidate_fallback_docs(question, limit=limit)
+            if "akts" in self._normalize_question_text(doc.page_content)
+        ][:limit]
+        for doc in docs:
+            doc.metadata = dict(getattr(doc, "metadata", {}) or {})
+            doc.metadata["metadata_fallback"] = "akts_lisansustu_article_4"
         return docs
 
     def retrieve(self, question, dynamic_docs=None, top_k=None):
@@ -880,7 +917,7 @@ class SelcukRAGEngine:
             all_docs.extend(active_retriever.invoke(q))
             if dynamic_retriever:
                 all_docs.extend(dynamic_retriever.invoke(q))
-        all_docs.extend(self._akts_definition_fallback_docs(question))
+        all_docs.extend(self._definition_candidate_fallback_docs(question))
                 
         # 3. Deduplication
         seen = set()

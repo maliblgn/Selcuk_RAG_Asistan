@@ -179,6 +179,25 @@ def _field_text(result):
     return title, source_title, source, content
 
 
+def _is_broad_lisansustu_regulation(source_text_norm: str) -> bool:
+    """Detect the general graduate education regulation, not narrow directives."""
+
+    if not ("lisansustu" in source_text_norm and "yonetmel" in source_text_norm):
+        return False
+    narrow_terms = ("butunlesik", "uygulama esas", "ogretim uyesi", "kadrolarina")
+    return not any(term in source_text_norm for term in narrow_terms)
+
+
+def _is_onlisans_lisans_regulation(source_text_norm: str) -> bool:
+    return (
+        "on lisans" in source_text_norm
+        and "lisans" in source_text_norm
+        and "egitim" in source_text_norm
+        and "sinav" in source_text_norm
+        and "yonetmel" in source_text_norm
+    )
+
+
 def _contains_all_tokens(text_norm, tokens):
     return all(token in text_norm for token in tokens)
 
@@ -217,6 +236,8 @@ def score_result_with_metadata(question, result, base_score=None):
         or ("lisans%c3%bcst" in source_text_raw and "yonetmel" in source_text_raw)
         or ("c4%b0sans" in source_text_raw and "c3%9cst" in source_text_raw and "yonetmel" in source_text_raw)
     )
+    source_is_broad_lisansustu_regulation = _is_broad_lisansustu_regulation(source_text_norm)
+    source_is_onlisans_lisans_regulation = _is_onlisans_lisans_regulation(source_text_norm)
     raw_article_no = str(metadata.get("article_no") or result.get("article_no") or "")
     article_no = normalize_article_no(raw_article_no) or raw_article_no
     score = float(base_score if base_score is not None else result.get("score") or 0.0)
@@ -293,6 +314,19 @@ def score_result_with_metadata(question, result, base_score=None):
 
     if "lisansustu" in question_norm and source_is_lisansustu_regulation:
         score = _add(score, explanation, 4.0, "lisansustu_regulation_source_boost")
+    if (
+        "lisansustu" in question_norm
+        and source_is_broad_lisansustu_regulation
+        and intent["intent"] == "definition"
+        and intent["acronym_terms"]
+    ):
+        score = _add(score, explanation, 9.0, "broad_lisansustu_acronym_definition_source_boost")
+    if source_is_onlisans_lisans_regulation and any(
+        term in question_norm for term in ("agirlikli genel not", "genel not ortalamasi", "not ortalamasi", "agno", "gano")
+    ):
+        score = _add(score, explanation, 14.0, "onlisans_lisans_grade_average_source_boost")
+        if any(term in content_norm for term in ("gano", "agirlikli notu", "agirlikli puan")):
+            score = _add(score, explanation, 8.0, "onlisans_lisans_grade_average_content_boost")
 
     if akts_query:
         if re.search(r"(?i)\bAKTS\b", content) or "akts" in title_norm:

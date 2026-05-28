@@ -277,6 +277,19 @@ python evaluation/run_regression_suite.py --profile dynamic-source --use-local-c
 python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
 ```
 
+## Article-level Retrieval Stabilization
+
+Article matching ve rerank degisikliklerinde once production retrieval metrikleri ve triage zinciri calistirilir:
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+python evaluation/triage_retrieval_failures.py --report retrieval_evaluation_report.local.json --golden evaluation/golden_questions.json --out retrieval_triage_report.local.json --markdown-out retrieval_triage_summary.local.md
+python evaluation/audit_article_metadata.py --golden evaluation/golden_questions.json --out article_metadata_audit.local.json --markdown-out article_metadata_audit.local.md
+python evaluation/audit_source_inventory_aliases.py --golden evaluation/golden_questions.json --out source_inventory_alias_audit.local.json --markdown-out source_inventory_alias_audit.local.md
+```
+
+Hard-coded question ID patch yapilmaz. `expected_terms` veya `expected_behavior` keyfi olarak zayiflatilmaz; golden expectation degisikligi yalniz audit sonucu mevcut source/metadata ile uyumsuzluk acikca gosterirse ayri gerekceyle yapilir.
+
 ## ChromaDB Local Runtime Copy
 
 Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:
