@@ -264,6 +264,19 @@ Profil ozeti:
 
 Local runner raporlari (`regression_suite_*.local.json`, `regression_suite_*.local.md`) commit edilmez.
 
+## Dynamic Source Interface
+
+Dynamic kaynaklar `dynamic_sources/` altindaki ortak interface ve registry ile yonetilir. Ilk kayitli kaynak dining menu reader'dir; mevcut `dynamic_menu_reader.py` fonksiyonlari geriye uyumlu olarak calismaya devam eder.
+
+Yeni dynamic source eklenmeden once `query_router.py` oncelik sirasi kontrol edilir. Source discovery, dynamic source'lardan once calismaya devam etmelidir.
+
+Dynamic source degisikliklerinde su komutlar calistirilir:
+
+```bash
+python evaluation/run_regression_suite.py --profile dynamic-source --use-local-chroma-copy
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
 ## ChromaDB Local Runtime Copy
 
 Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:

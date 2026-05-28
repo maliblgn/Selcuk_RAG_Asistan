@@ -5,7 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from dynamic_menu_reader import is_dining_menu_query
+from dynamic_sources.registry import route_dynamic_source
 from source_discovery import is_source_discovery_query
 
 
@@ -41,11 +41,12 @@ def route_query(query: str) -> QueryRoute:
             metadata={"priority": 1},
         )
 
-    if is_dining_menu_query(text):
+    dynamic_route = route_dynamic_source(text)
+    if dynamic_route:
         return QueryRoute(
-            mode=MODE_DYNAMIC_DINING_MENU,
-            reason="dynamic_dining_menu_intent",
-            metadata={"priority": 2},
+            mode=dynamic_route.mode,
+            reason=dynamic_route.reason,
+            metadata={"priority": 2, "reader_id": dynamic_route.reader_id},
         )
 
     return QueryRoute(

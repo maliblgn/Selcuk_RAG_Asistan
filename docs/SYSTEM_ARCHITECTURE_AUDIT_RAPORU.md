@@ -319,3 +319,11 @@ Faz 9E kapsaminda local evaluation sirasinda tracked ChromaDB snapshot'in kirlen
 Bu strateji varsayilan runtime/HF davranisini degistirmez; flag set edilmediginde uygulama mevcut `chroma_db/` snapshot ile calisir. Snapshot update ve ingestion akislari degistirilmedi ve bu mod tarafindan otomatik olarak calistirilmaz.
 
 Regression runner `--use-local-chroma-copy` flag'i ile child evaluation komutlarina bu modu aktarabilir. `.local_chroma_runtime/`, `chroma_runtime_*.local.*` ve regression local raporlari commit kapsamina alinmaz.
+
+## Faz 9F Dynamic Source Interface / Registry
+
+Faz 9F kapsaminda `dynamic_sources/` altyapisi eklendi. Ortak result/health dataclass'lari, reader protocol'u ve registry katmani dynamic kaynaklari tek yerden yonetmek icin hazirlandi.
+
+Dining menu reader mevcut davranis korunarak registry altina baglandi. `dynamic_menu_reader.py` geriye uyumluluk icin korunur; mevcut intent, fetch, parse, format ve health fonksiyonlari calismaya devam eder.
+
+Bu fazda yeni dynamic source eklenmedi. Query routing onceligi korunur: source discovery once, dynamic source sonra, RAG en son calisir. Runtime/HF davranisi, ChromaDB snapshot ve ingestion akislari degistirilmedi.
