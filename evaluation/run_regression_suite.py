@@ -50,6 +50,7 @@ STEP_REGISTRY: dict[str, SuiteStep] = {
             "-m",
             "py_compile",
             "evaluation/run_regression_suite.py",
+            "chroma_runtime.py",
             "app.py",
             "app_chat_handlers.py",
             "query_router.py",
@@ -300,8 +301,9 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
-def run_step(step: SuiteStep, dry_run: bool = False) -> dict:
+def run_step(step: SuiteStep, dry_run: bool = False, env_overrides: dict[str, str] | None = None) -> dict:
     started = time.monotonic()
+    env_overrides = env_overrides or {}
     if dry_run:
         return {
             "name": step.name,
@@ -312,14 +314,17 @@ def run_step(step: SuiteStep, dry_run: bool = False) -> dict:
             "stdout_tail": "",
             "stderr_tail": "",
             "description": step.description,
+            "env_overrides": sorted(env_overrides),
         }
 
+    env = os.environ.copy()
+    env.update(env_overrides)
     completed = subprocess.run(
         step.command,
         cwd=ROOT_DIR,
         text=True,
         capture_output=True,
-        env=os.environ.copy(),
+        env=env,
     )
     duration = time.monotonic() - started
     return {
@@ -331,10 +336,17 @@ def run_step(step: SuiteStep, dry_run: bool = False) -> dict:
         "stdout_tail": sanitize_output(completed.stdout),
         "stderr_tail": sanitize_output(completed.stderr),
         "description": step.description,
+        "env_overrides": sorted(env_overrides),
     }
 
 
-def build_report(profile: str, steps: list[dict], dry_run: bool, continue_on_failure: bool) -> dict:
+def build_report(
+    profile: str,
+    steps: list[dict],
+    dry_run: bool,
+    continue_on_failure: bool,
+    use_local_chroma_copy: bool = False,
+) -> dict:
     passed = sum(1 for item in steps if item["status"] == "passed")
     failed = sum(1 for item in steps if item["status"] == "failed")
     skipped = sum(1 for item in steps if item["status"] == "skipped")
@@ -345,6 +357,7 @@ def build_report(profile: str, steps: list[dict], dry_run: bool, continue_on_fai
         "continue_on_failure": continue_on_failure,
         "live_llm": False,
         "dynamic_live_fetch": False,
+        "use_local_chroma_copy": use_local_chroma_copy,
         "total_steps": len(steps),
         "passed": passed,
         "failed": failed,
@@ -365,6 +378,7 @@ def write_markdown(report: dict, path: str | Path) -> None:
         f"- Profile: {report['profile']}",
         f"- Status: {report['status']}",
         f"- Dry run: {report['dry_run']}",
+        f"- Use local Chroma copy: {report['use_local_chroma_copy']}",
         f"- Total steps: {report['total_steps']}",
         f"- Passed: {report['passed']}",
         f"- Failed: {report['failed']}",
@@ -379,14 +393,20 @@ def write_markdown(report: dict, path: str | Path) -> None:
     Path(path).write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def run_profile(profile: str, dry_run: bool = False, continue_on_failure: bool = False) -> dict:
+def run_profile(
+    profile: str,
+    dry_run: bool = False,
+    continue_on_failure: bool = False,
+    use_local_chroma_copy: bool = False,
+) -> dict:
     step_results: list[dict] = []
+    env_overrides = {"CHROMA_USE_LOCAL_COPY": "1"} if use_local_chroma_copy else {}
     for step in get_profile_steps(profile):
-        result = run_step(step, dry_run=dry_run)
+        result = run_step(step, dry_run=dry_run, env_overrides=env_overrides)
         step_results.append(result)
         if result["status"] == "failed" and not continue_on_failure:
             break
-    return build_report(profile, step_results, dry_run, continue_on_failure)
+    return build_report(profile, step_results, dry_run, continue_on_failure, use_local_chroma_copy)
 
 
 def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
@@ -395,6 +415,7 @@ def parse_args(argv: Sequence[str] | None = None) -> argparse.Namespace:
     parser.add_argument("--list-profiles", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--continue-on-failure", action="store_true")
+    parser.add_argument("--use-local-chroma-copy", action="store_true", help="Run child commands with CHROMA_USE_LOCAL_COPY=1")
     parser.add_argument("--out", default=str(DEFAULT_JSON_OUT))
     parser.add_argument("--markdown-out", default=str(DEFAULT_MARKDOWN_OUT))
     return parser.parse_args(argv)
@@ -410,6 +431,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         args.profile,
         dry_run=args.dry_run,
         continue_on_failure=args.continue_on_failure,
+        use_local_chroma_copy=args.use_local_chroma_copy,
     )
     write_json(report, args.out)
     write_markdown(report, args.markdown_out)
@@ -420,6 +442,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "passed": report["passed"],
         "failed": report["failed"],
         "skipped": report["skipped"],
+        "use_local_chroma_copy": report["use_local_chroma_copy"],
     }, ensure_ascii=False, indent=2))
     return 0 if report["status"] == "passed" else 1
 

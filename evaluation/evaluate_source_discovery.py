@@ -14,6 +14,7 @@ if str(ROOT_DIR) not in sys.path:
 
 from langchain_chroma import Chroma
 
+from chroma_runtime import get_chroma_runtime_dir
 from retrieval_normalization import normalize_text
 from source_discovery import discover_sources, is_source_discovery_query
 
@@ -87,7 +88,7 @@ def evaluate_question(item: dict, db: Chroma, max_sources: int = 8) -> dict:
 
 
 def build_report(questions: list[dict], db_path: str = "chroma_db") -> dict:
-    db = Chroma(persist_directory=db_path)
+    db = Chroma(persist_directory=get_chroma_runtime_dir(db_path))
     results = [evaluate_question(item, db) for item in questions]
     total = len(results)
     passed = sum(1 for item in results if item["status"] == "ok")

@@ -6,6 +6,8 @@ from datetime import datetime, timezone
 
 from langchain_chroma import Chroma
 
+from chroma_runtime import get_chroma_runtime_dir
+
 
 def _now():
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
@@ -32,6 +34,8 @@ def _empty_report(db_path, status, reason):
 
 def check_chroma_health(db_path="chroma_db"):
     """Return a lightweight read-only health report for a Chroma persist directory."""
+    if db_path == "chroma_db":
+        db_path = get_chroma_runtime_dir(db_path)
     db_path = os.path.abspath(db_path)
     sqlite_path = os.path.join(db_path, "chroma.sqlite3")
 

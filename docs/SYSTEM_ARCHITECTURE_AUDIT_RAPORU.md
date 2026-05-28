@@ -311,3 +311,11 @@ Faz 9D kapsaminda `evaluation/run_regression_suite.py` eklendi. Tekrarlanan test
 - `snapshot-update`
 
 Runner runtime davranisini degistirmez; mevcut evaluation scriptlerini sirayla cagirir. Varsayilan profiller live LLM cagrisi, dynamic live fetch, ingestion veya ChromaDB mutasyonu yapmaz. Local `regression_suite_*.local.*` raporlari commit kapsamina alinmaz.
+
+## Faz 9E ChromaDB Read-only Local Dev Strategy
+
+Faz 9E kapsaminda local evaluation sirasinda tracked ChromaDB snapshot'in kirlenmesini azaltmak icin `chroma_runtime.py` eklendi. `CHROMA_USE_LOCAL_COPY=1` verildiginde runtime path `.local_chroma_runtime/chroma_db` altindaki ignored kopyaya yonlendirilir.
+
+Bu strateji varsayilan runtime/HF davranisini degistirmez; flag set edilmediginde uygulama mevcut `chroma_db/` snapshot ile calisir. Snapshot update ve ingestion akislari degistirilmedi ve bu mod tarafindan otomatik olarak calistirilmaz.
+
+Regression runner `--use-local-chroma-copy` flag'i ile child evaluation komutlarina bu modu aktarabilir. `.local_chroma_runtime/`, `chroma_runtime_*.local.*` ve regression local raporlari commit kapsamina alinmaz.

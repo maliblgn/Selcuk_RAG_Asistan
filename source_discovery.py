@@ -10,6 +10,7 @@ from urllib.parse import unquote
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
+from chroma_runtime import get_chroma_runtime_dir
 from retrieval_normalization import (
     document_alias_score,
     expand_query_alias_text,
@@ -177,7 +178,7 @@ def _iter_inventory_items(db=None, inventory_items: list[dict] | None = None) ->
         return inventory_items
 
     if db is None:
-        db = Chroma(persist_directory=str(DEFAULT_DB_PATH))
+        db = Chroma(persist_directory=get_chroma_runtime_dir(DEFAULT_DB_PATH))
 
     try:
         data = db.get(include=["documents", "metadatas"])

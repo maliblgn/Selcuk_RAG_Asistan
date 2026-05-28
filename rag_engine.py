@@ -17,6 +17,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_community.retrievers import BM25Retriever
 from langchain_core.documents import Document
 from check_chroma_health import check_chroma_health
+from chroma_runtime import get_chroma_runtime_dir
 from retrieval_rerank import legal_safe_query_allowed, rerank_documents
 from retrieval_normalization import (
     document_alias_score,
@@ -605,7 +606,7 @@ class SelcukRAGEngine:
     def __init__(self, enable_llm=True):
         logger.info("SelcukRAGEngine başlatılıyor...")
         # 1. Embedding Modelini Yükle
-        self.db_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        self.db_dir = get_chroma_runtime_dir()
         self.db_health = check_chroma_health(self.db_dir)
         if not self.db_health.get("ok"):
             logger.error("ChromaDB hazir degil: %s", self.db_health)
@@ -1119,7 +1120,7 @@ class SelcukRAGEngine:
     @classmethod
     def build_source_inventory_answer_from_db(cls, db_dir=None, max_sources=30):
         """RAG motorunu baslatmadan ChromaDB kaynak envanteri cevabi uret."""
-        db_dir = db_dir or os.path.join(os.path.dirname(os.path.abspath(__file__)), "chroma_db")
+        db_dir = db_dir or get_chroma_runtime_dir()
         health = check_chroma_health(db_dir)
         if not health.get("ok"):
             logger.warning("Kaynak envanteri icin ChromaDB hazir degil: %s", health)

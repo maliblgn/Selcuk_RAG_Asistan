@@ -97,6 +97,10 @@ legal_test_index_report.json
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.local_chroma_runtime/
+.local_chroma_runtime/**
+chroma_runtime_report.local.json
+chroma_runtime_summary.local.md
 data/
 data/manual_pdfs/
 chroma_db/

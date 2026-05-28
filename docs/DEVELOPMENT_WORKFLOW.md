@@ -264,6 +264,18 @@ Profil ozeti:
 
 Local runner raporlari (`regression_suite_*.local.json`, `regression_suite_*.local.md`) commit edilmez.
 
+## ChromaDB Local Runtime Copy
+
+Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
+Bu mod child process'lere `CHROMA_USE_LOCAL_COPY=1` verir ve Chroma runtime path'ini `.local_chroma_runtime/chroma_db` altindaki gecici kopyaya yonlendirir. `.local_chroma_runtime/` commit edilmez.
+
+Snapshot update ve ingestion isleri bu modu kullanmaz; bu isler icin ChromaDB snapshot procedure takip edilir. `chroma_db/chroma.sqlite3` local modified gorunurse stage edilmez; branch gecisini engellerse sadece o dosya guvenli stash'e alinir.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:

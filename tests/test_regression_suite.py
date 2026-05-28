@@ -20,6 +20,13 @@ def test_default_profiles_do_not_enable_live_calls():
     assert all("--live-fetch" not in step["command"] for step in report["steps"])
 
 
+def test_local_chroma_copy_flag_is_reported_in_dry_run():
+    report = run_profile("fast", dry_run=True, use_local_chroma_copy=True)
+
+    assert report["use_local_chroma_copy"] is True
+    assert all("CHROMA_USE_LOCAL_COPY" in step["env_overrides"] for step in report["steps"])
+
+
 def test_dry_run_builds_report_without_running_commands():
     report = run_profile("full", dry_run=True)
 
