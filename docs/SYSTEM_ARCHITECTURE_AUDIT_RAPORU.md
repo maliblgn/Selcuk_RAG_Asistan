@@ -300,3 +300,14 @@ Korunan davranislar:
 - Dynamic dining menu sorulari ChromaDB snapshot'a dokunmadan dinamik reader'a gider.
 - Normal RAG sorulari mevcut retrieval/rerank/LLM zincirini kullanmaya devam eder.
 - Hata durumunda Streamlit exception yerine mevcut guvenli hata/fallback mesajlari korunur.
+
+## Faz 9D Evaluation Runner Profiles
+
+Faz 9D kapsaminda `evaluation/run_regression_suite.py` eklendi. Tekrarlanan test/evaluation komutlari profile-based runner altinda toplandi:
+
+- `fast`
+- `full`
+- `dynamic-source`
+- `snapshot-update`
+
+Runner runtime davranisini degistirmez; mevcut evaluation scriptlerini sirayla cagirir. Varsayilan profiller live LLM cagrisi, dynamic live fetch, ingestion veya ChromaDB mutasyonu yapmaz. Local `regression_suite_*.local.*` raporlari commit kapsamina alinmaz.

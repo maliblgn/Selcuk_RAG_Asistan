@@ -244,6 +244,26 @@ Bu akis testleri atlamaz. ChromaDB snapshot update, yeni ingestion, dependency/p
 
 Bu tur refactorlarda query router testleri, source discovery evaluation, dynamic menu evaluation, retrieval evaluation ve full pytest calistirilir. UI davranisi ve runtime cevap modlari korunmadan main'e alinmaz.
 
+## Regression Suite Runner
+
+Sik kullanilan test/evaluation zinciri tek komutla calistirilabilir:
+
+```bash
+python evaluation/run_regression_suite.py --profile fast
+python evaluation/run_regression_suite.py --profile full
+python evaluation/run_regression_suite.py --profile dynamic-source
+python evaluation/run_regression_suite.py --profile snapshot-update
+```
+
+Profil ozeti:
+
+- `fast`: syntax, query router/dynamic menu/app chat handler testleri, dynamic menu dry-run, source discovery evaluation ve full pytest.
+- `full`: `fast` kapsamindaki kritik kontroller ile retrieval evaluation, general smoke, answer quality dry-run ve provider comparison dry-run.
+- `dynamic-source`: dynamic dining menu ve source discovery odakli smoke kontrolleri; live fetch varsayilan olarak kapali kalir.
+- `snapshot-update`: snapshot update sonrasi kalite zinciri; ingestion calistirmaz ve ChromaDB snapshot'i degistirmez.
+
+Local runner raporlari (`regression_suite_*.local.json`, `regression_suite_*.local.md`) commit edilmez.
+
 ## Yasakli dosyalar
 
 Asagidaki dosyalar commit edilmez:
