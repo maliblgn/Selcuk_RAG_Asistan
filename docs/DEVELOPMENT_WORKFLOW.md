@@ -290,6 +290,26 @@ python evaluation/audit_source_inventory_aliases.py --golden evaluation/golden_q
 
 Hard-coded question ID patch yapilmaz. `expected_terms` veya `expected_behavior` keyfi olarak zayiflatilmaz; golden expectation degisikligi yalniz audit sonucu mevcut source/metadata ile uyumsuzluk acikca gosterirse ayri gerekceyle yapilir.
 
+## Answer Grounding Evaluation
+
+Final cevabin dogru evidence'a dayanip dayanmadigini olcmek icin answer grounding evaluator kullanilir:
+
+```bash
+python evaluation/evaluate_answer_grounding.py --questions evaluation/answer_grounding_questions.json --out answer_grounding_report.local.json --markdown-out answer_grounding_summary.local.md
+```
+
+Manuel live QA denemesi gerekiyorsa sinirli calistirilir:
+
+```bash
+python evaluation/evaluate_answer_grounding.py --questions evaluation/answer_grounding_questions.json --out answer_grounding_report.local.json --markdown-out answer_grounding_summary.local.md --live-llm --limit 10
+```
+
+- Varsayilan mod CI-safe evidence-only calisir ve live LLM cagirmaz.
+- Live LLM varsayilan kapali kalir; `GROQ_API_KEY` yoksa live kontrol guvenli sekilde skipped olur.
+- `answer_grounding_*.local.*` ciktilari commit edilmez.
+- Bu evaluation dogru route, dogru kaynak, dogru belge/madde, expected term, forbidden term ve fallback davranisini olcer.
+- Yeni runtime patch yapmadan once grounding failure'lari incelenir.
+
 ## ChromaDB Local Runtime Copy
 
 Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:

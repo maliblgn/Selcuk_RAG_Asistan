@@ -52,6 +52,10 @@ source_inventory_alias_audit.local.json
 source_inventory_alias_audit.local.md
 answer_quality_report.local.json
 answer_quality_summary.local.md
+answer_grounding_report.local.json
+answer_grounding_summary.local.md
+answer_grounding_*.local.json
+answer_grounding_*.local.md
 provider_comparison_report.local.json
 provider_comparison_summary.local.md
 regression_suite_report.local.json

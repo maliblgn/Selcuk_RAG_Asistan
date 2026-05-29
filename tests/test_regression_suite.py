@@ -6,7 +6,7 @@ from evaluation.run_regression_suite import PROFILE_STEPS, get_profile_steps, ru
 
 
 def test_required_profiles_are_defined():
-    for profile in ("fast", "full", "dynamic-source", "snapshot-update"):
+    for profile in ("fast", "full", "dynamic-source", "snapshot-update", "grounding"):
         assert profile in PROFILE_STEPS
         assert get_profile_steps(profile)
 
@@ -18,6 +18,14 @@ def test_default_profiles_do_not_enable_live_calls():
     assert report["dynamic_live_fetch"] is False
     assert all("--live-llm" not in step["command"] for step in report["steps"])
     assert all("--live-fetch" not in step["command"] for step in report["steps"])
+
+
+def test_full_profile_includes_answer_grounding_without_live_llm():
+    report = run_profile("full", dry_run=True)
+
+    commands = [step["command"] for step in report["steps"]]
+    assert any("evaluate_answer_grounding.py" in command for command in commands)
+    assert all("--live-llm" not in command for command in commands)
 
 
 def test_local_chroma_copy_flag_is_reported_in_dry_run():

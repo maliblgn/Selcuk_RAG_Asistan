@@ -335,3 +335,11 @@ Faz 9G kapsaminda article-level retrieval borcu analiz edildi. `golden_ales_defi
 Hard-coded soru ID patch'i yapilmadi. Bunun yerine genel mekanizma olarak akademik akronim tanim sorulari ve on lisans/lisans not ortalamasi sorulari icin snapshot icinden guvenli fallback adaylari eklendi. Rerank tarafinda genis lisansustu yonetmelik ve on lisans/lisans not ortalamasi kaynak sinyalleri dengeli sekilde guclendirildi.
 
 Golden expectation zayiflatilmadi ve ChromaDB snapshot degistirilmedi. Sonraki kalite borcu olarak article title/metadata kismi uyumsuzluklari ve AGNO/GANO terminoloji farki ayri audit konusu olarak izlenebilir.
+
+## Faz 9H Answer Grounding & Live QA Verification
+
+Faz 9H kapsaminda `evaluation/answer_grounding_questions.json` ve `evaluation/evaluate_answer_grounding.py` eklendi. Bu katman, final cevabin dogru evidence'a dayanip dayanmadigini olcmek icin route, kaynak, belge, madde, expected term, forbidden term ve fallback sinyallerini kontrol eder.
+
+Varsayilan evaluation CI-safe evidence-only calisir ve live LLM cagirmaz. Live QA yalniz `--live-llm` flag'i ile, manuel ve sinirli calistirilir; provider key yoksa guvenli sekilde skipped olur. `evaluation/run_regression_suite.py` full profiline grounding evidence step'i eklendi.
+
+Bu fazda runtime cevap davranisi, ChromaDB snapshot, ingestion akisi, query router onceligi, dynamic source registry ve provider/model ayarlari degistirilmedi.

@@ -50,6 +50,7 @@ STEP_REGISTRY: dict[str, SuiteStep] = {
             "-m",
             "py_compile",
             "evaluation/run_regression_suite.py",
+            "evaluation/evaluate_answer_grounding.py",
             "chroma_runtime.py",
             "app.py",
             "app_chat_handlers.py",
@@ -152,6 +153,19 @@ STEP_REGISTRY: dict[str, SuiteStep] = {
         ),
         "Answer quality dry-run without live LLM calls.",
     ),
+    "answer_grounding_evidence": SuiteStep(
+        "answer_grounding_evidence",
+        _python(
+            "evaluation/evaluate_answer_grounding.py",
+            "--questions",
+            "evaluation/answer_grounding_questions.json",
+            "--out",
+            _artifact("answer_grounding_report"),
+            "--markdown-out",
+            _markdown("answer_grounding_summary"),
+        ),
+        "Answer grounding evidence-only evaluation; no live LLM calls.",
+    ),
     "provider_comparison_dry_run": SuiteStep(
         "provider_comparison_dry_run",
         _python(
@@ -220,6 +234,7 @@ PROFILE_STEPS: dict[str, list[str]] = {
         "source_discovery_evaluation",
         "retrieval_evaluation",
         "general_smoke",
+        "answer_grounding_evidence",
         "answer_quality_dry_run",
         "provider_comparison_dry_run",
         "full_pytest",
@@ -240,11 +255,19 @@ PROFILE_STEPS: dict[str, list[str]] = {
         "source_discovery_evaluation",
         "retrieval_evaluation",
         "general_smoke",
+        "answer_grounding_evidence",
         "answer_quality_dry_run",
         "provider_comparison_dry_run",
         "article_metadata_audit",
         "source_inventory_alias_audit",
         "full_pytest",
+    ],
+    "grounding": [
+        "syntax",
+        "query_router_tests",
+        "source_discovery_evaluation",
+        "retrieval_evaluation",
+        "answer_grounding_evidence",
     ],
 }
 
@@ -254,6 +277,7 @@ PROFILE_DESCRIPTIONS = {
     "full": "Fast profile plus retrieval, general smoke, answer quality, provider comparison.",
     "dynamic-source": "Dynamic menu and source discovery focused checks; no live fetch by default.",
     "snapshot-update": "Post-snapshot quality chain; does not run ingestion or mutate ChromaDB.",
+    "grounding": "Answer grounding evidence checks plus route/source/retrieval prerequisites.",
 }
 
 
