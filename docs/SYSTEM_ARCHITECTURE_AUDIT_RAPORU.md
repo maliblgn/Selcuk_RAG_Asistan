@@ -343,3 +343,11 @@ Faz 9H kapsaminda `evaluation/answer_grounding_questions.json` ve `evaluation/ev
 Varsayilan evaluation CI-safe evidence-only calisir ve live LLM cagirmaz. Live QA yalniz `--live-llm` flag'i ile, manuel ve sinirli calistirilir; provider key yoksa guvenli sekilde skipped olur. `evaluation/run_regression_suite.py` full profiline grounding evidence step'i eklendi.
 
 Bu fazda runtime cevap davranisi, ChromaDB snapshot, ingestion akisi, query router onceligi, dynamic source registry ve provider/model ayarlari degistirilmedi.
+
+## Faz 9I Manual Live QA Findings Cleanup
+
+Faz 9I kapsaminda canli manuel QA bulgulari incelendi. Source discovery cevaplari teknik/debug gorunumunden uzaklastirilip Turkce karakterli ve kullanici dostu sunuma cekildi.
+
+`Cift anadal sartlari nelerdir?` sorusu triage edildi; indeksli snapshot icinde Cift Ana Dal Yonergesi ve basvuru/kabul/kayit kosullari maddesi bulundu. `GANO ile AGNO ayni sey mi?` sorusunda indeksli kaynaklarda GANO sinyali bulunurken AGNO teriminin dogrudan gecmedigi goruldu; bu nedenle terminoloji belirsizliginde temkinli cevap ilkesi guclendirildi.
+
+Lisansustu basvuru gibi cevaplarda ayni cumlenin tekrar etmesi riskini azaltmak icin dar kapsamli cumle tekillestirme uygulanir. Query routing, ChromaDB snapshot, ingestion, dynamic source registry ve provider/model ayarlari degistirilmedi.

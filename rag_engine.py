@@ -96,7 +96,10 @@ PROMPT_SOURCE_RULE = (
     "Cevabın sonunda Kaynak veya Kaynaklar başlığı açma. "
     "URL yazma. Kaynak listesini uygulama gösterecek. "
     "Kaynakta açıkça yer almayan saat, tarih, ücret, hesaplama, sayı listesi "
-    "veya operasyonel bilgileri uydurma. Uzun sayı aralığı veya liste üretme."
+    "veya operasyonel bilgileri uydurma. Uzun sayı aralığı veya liste üretme. "
+    "Kaynakta açıkça eşdeğerliği belirtilmeyen kısaltmaları aynı kabul etme; "
+    "terminoloji belirsizse bunu temkinli belirt. Aynı bilgiyi tekrar eden "
+    "cümlelerle yineleme."
 )
 
 INVENTORY_HISTORY_PLACEHOLDER = (
@@ -528,6 +531,58 @@ def ensure_inline_citation(answer: str, used_sources) -> str:
     return f"{text} [1]"
 
 
+def _sentence_dedupe_key(sentence: str) -> str:
+    text = str(sentence or "")
+    text = re.sub(r"\[\d+\]", " ", text)
+    text = unicodedata.normalize("NFKD", text)
+    text = "".join(ch for ch in text if not unicodedata.combining(ch))
+    text = text.casefold()
+    text = re.sub(r"[^a-z0-9çğıöşü\s]", " ", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def deduplicate_repeated_sentences(answer: str) -> str:
+    """Ayni veya cok yakin tekrar eden cumleleri, atiflari bozmadan azalt."""
+    text = str(answer or "").strip()
+    if not text:
+        return text
+
+    cleaned_lines: list[str] = []
+    seen_sentence_keys: set[str] = set()
+    previous_key = ""
+
+    for line in text.splitlines():
+        stripped = line.strip()
+        if not stripped:
+            cleaned_lines.append(line)
+            previous_key = ""
+            continue
+        if re.match(r"^\s*(?:[-*]|\d+[\.)]|\[\d+\])\s+", line):
+            cleaned_lines.append(line)
+            previous_key = ""
+            continue
+
+        sentences = re.split(r"(?<=[.!?])\s+", stripped)
+        kept_sentences: list[str] = []
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+            key = _sentence_dedupe_key(sentence)
+            should_dedupe = len(key) >= 35 and (key == previous_key or key in seen_sentence_keys)
+            if should_dedupe:
+                continue
+            kept_sentences.append(sentence)
+            if len(key) >= 35:
+                seen_sentence_keys.add(key)
+                previous_key = key
+
+        if kept_sentences:
+            cleaned_lines.append(" ".join(kept_sentences))
+
+    return "\n".join(cleaned_lines).strip()
+
+
 def is_low_quality_answer(answer: str) -> bool:
     """Hallucination/bozuk cevap sinyallerini yakala."""
     text = str(answer or "").strip()
@@ -577,8 +632,14 @@ def build_safe_fallback(question: str, relevant_docs, query_type: str | None = N
                 "Bu soru güncel operasyonel bilgi gerektiriyor olabilir. "
                 "Mevcut yönetmelik/yönerge kaynaklarında açık ve güvenilir saat bilgisi bulunamadı."
             )
-        return "Bu bilgi mevcut indekslenmiş yönetmelik/yönerge kaynaklarında güvenilir şekilde bulunamadı."
-    return "Bu konuda kaynaklarda açık bir bilgi tespit edemedim. Kaynak panelindeki belgeyi kontrol edebilirsin. [1]"
+        return (
+            "Bu konuda indekslenmiş kaynaklar içinde yeterli ve açık bir bilgi bulamadım. "
+            "Bu nedenle bilgi uydurmuyorum."
+        )
+    return (
+        "Bu konuda kaynaklarda yeterli ve açık bir bilgi tespit edemedim. "
+        "Bu nedenle bilgiyi genişletip uydurmuyorum; kaynak panelindeki belgeyi kontrol edebilirsin. [1]"
+    )
 
 
 class KnowledgeBaseUnavailableError(RuntimeError):

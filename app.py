@@ -10,6 +10,7 @@ os.environ.setdefault("TRANSFORMERS_NO_TF", "1")
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from rag_engine import (
     build_safe_fallback,
+    deduplicate_repeated_sentences,
     ensure_inline_citation,
     is_low_quality_answer,
     MAX_CHAT_HISTORY_CHARS,
@@ -1020,6 +1021,7 @@ else:
 
                 raw_cevap = "".join(token_generator())
                 cevap = strip_model_generated_sources(raw_cevap)
+                cevap = deduplicate_repeated_sentences(cevap)
                 cevap = ensure_inline_citation(cevap, docs)
                 if is_low_quality_answer(cevap):
                     cevap = build_safe_fallback(yeniden_soru, docs, query_type)

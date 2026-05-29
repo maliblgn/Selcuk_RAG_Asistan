@@ -479,5 +479,70 @@
     "forbidden_terms": ["1, 2, 3, 4, 5"],
     "requires_fallback": false,
     "notes": "Faz 9G sonrasi lisansustu not ortalamasi maddesi AKTS kredisi ile agirlikli not evidence'i dondurur."
+  },
+  {
+    "id": "grounding_staj_source_discovery",
+    "query": "Staj yönergesi var mı?",
+    "expected_mode": "source_discovery",
+    "expected_answer_type": "source_lookup",
+    "expected_source_keywords": ["staj", "yonerge"],
+    "expected_document_keywords": [],
+    "expected_article_numbers": [],
+    "expected_terms": ["staj"],
+    "forbidden_terms": ["yemekhane"],
+    "requires_fallback": false,
+    "notes": "Manual live QA bulgusu: staj kaynak kesfi teknik/debug gibi gorunmeden kaynak listesi dondurmelidir."
+  },
+  {
+    "id": "grounding_teknoloji_staj_source_discovery",
+    "query": "Teknoloji Fakültesi staj kaynakları nelerdir?",
+    "expected_mode": "source_discovery",
+    "expected_answer_type": "source_lookup",
+    "expected_source_keywords": ["Teknoloji", "Staj"],
+    "expected_document_keywords": [],
+    "expected_article_numbers": [],
+    "expected_terms": ["staj", "Teknoloji"],
+    "forbidden_terms": ["yemekhane"],
+    "requires_fallback": false,
+    "notes": "Teknoloji Fakultesi snapshot kaynaklari source discovery ile gorunur kalmalidir."
+  },
+  {
+    "id": "grounding_cift_anadal_requirement",
+    "query": "Çift anadal şartları nelerdir?",
+    "expected_mode": "rag",
+    "expected_answer_type": "requirement",
+    "expected_source_keywords": ["Cift Ana Dal"],
+    "expected_document_keywords": ["Cift Ana Dal"],
+    "expected_article_numbers": ["5"],
+    "expected_terms": ["cift ana dal", "basvuru"],
+    "forbidden_terms": ["yemekhane"],
+    "requires_fallback": false,
+    "notes": "Manual triage: indeks icinde Cift Ana Dal Yonergesi ve basvuru/kabul/kayit kosullari maddesi mevcut."
+  },
+  {
+    "id": "grounding_gano_agno_equivalence",
+    "query": "GANO ile AGNO aynı şey mi?",
+    "expected_mode": "rag",
+    "expected_answer_type": "definition",
+    "expected_source_keywords": ["On Lisans", "Lisans"],
+    "expected_document_keywords": ["On Lisans", "Lisans"],
+    "expected_article_numbers": [],
+    "expected_terms": ["GANO", "agirlikli not"],
+    "forbidden_terms": ["kesinlikle aynidir"],
+    "requires_fallback": false,
+    "notes": "Terminoloji audit: indeksli kaynaklarda GANO geciyor, AGNO dogrudan bulunmuyor; live cevap temkinli olmalidir."
+  },
+  {
+    "id": "grounding_lisansustu_basvuru_no_duplicate",
+    "query": "Lisansüstü başvuru şartları nelerdir?",
+    "expected_mode": "rag",
+    "expected_answer_type": "procedure",
+    "expected_source_keywords": [],
+    "expected_document_keywords": [],
+    "expected_article_numbers": [],
+    "expected_terms": ["basvuru"],
+    "forbidden_terms": ["yemekhane", "servis"],
+    "requires_fallback": false,
+    "notes": "Manual live QA bulgusu: cevap kaynakli kalmali ve gereksiz tekrarlar post-processing ile azaltilmalidir."
   }
 ]

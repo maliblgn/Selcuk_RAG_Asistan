@@ -244,9 +244,9 @@ def _score_inventory_item(topic: str, query: str, item: dict, aliases: dict) -> 
 
     matched = sorted((matched_title | matched_content))
     if matched_title:
-        reason = "baslik/metadata alaninda eslesen terimler var"
+        reason = "Başlık/metadata alanında ilgili terimler bulundu"
     elif matched_content:
-        reason = "icerik parcasi icinde eslesen terimler var"
+        reason = "İçerik parçası içinde ilgili terimler bulundu"
     else:
         reason = ""
     if len(topic_tokens) >= 2 and len(matched_all) < min_required_matches and score < 5.0:
@@ -284,7 +284,7 @@ def discover_sources(
             "url": source if str(source).startswith(("http://", "https://")) else "",
             "source": source,
             "matched_terms": matched_terms[:8],
-            "reason": reason or "kaynak metadata/icerik eslesmesi",
+            "reason": reason or "Kaynak metadata/içerik eşleşmesi",
             "score": round(score, 3),
             "snippet": str(item.get("content") or "")[:240].replace("\n", " ").strip(),
         }
@@ -313,7 +313,7 @@ def source_discovery_sources_to_documents(sources: list[dict]) -> list[Document]
     docs: list[Document] = []
     for item in sources:
         docs.append(Document(
-            page_content=item.get("snippet") or item.get("reason") or "Kaynak eslesmesi",
+            page_content=item.get("snippet") or item.get("reason") or "Kaynak eşleşmesi",
             metadata={
                 "source": item.get("source") or item.get("url") or "",
                 "title": item.get("title") or "",
@@ -329,12 +329,12 @@ def build_source_discovery_answer(result: dict) -> str:
     topic = result.get("topic") or result.get("query") or "bu konu"
     if result.get("status") != "ok" or not result.get("sources"):
         return (
-            f"Indekslenmis kaynaklar icinde '{topic}' konusuyla iliskili guvenilir bir kaynak eslesmesi bulamadim. "
-            "Bu sonuc mevcut ChromaDB snapshot uzerinden uretilmistir."
+            f"İndekslenmiş kaynaklar içinde '{topic}' konusuyla ilişkili güvenilir bir kaynak eşleşmesi bulamadım. "
+            "Bu nedenle kaynak uydurmadım; sonuç mevcut ChromaDB snapshot üzerinden üretilmiştir."
         )
 
     lines = [
-        f"Indekslenmis kaynaklar icinde '{topic}' konusuyla iliskili kaynaklar sunlar:",
+        f"İndekslenmiş kaynaklar içinde '{topic}' konusuyla ilişkili şu kaynakları buldum:",
         "",
     ]
     for item in result.get("sources", []):
@@ -342,14 +342,14 @@ def build_source_discovery_answer(result: dict) -> str:
         title = item.get("title") or "Bilinmeyen Belge"
         lines.append(f"[{rank}] {title}")
         if item.get("reason"):
-            lines.append(f"- Eslesme nedeni: {item['reason']}.")
+            lines.append(f"- Eşleşme nedeni: {item['reason']}.")
         if item.get("matched_terms"):
-            lines.append(f"- Eslesen terimler: {', '.join(item['matched_terms'][:6])}.")
+            lines.append(f"- Eşleşen terimler: {', '.join(item['matched_terms'][:6])}.")
         lines.append("")
 
     total = result.get("total_matches", len(result.get("sources", [])))
     if total > len(result.get("sources", [])):
-        lines.append(f"Ilk {len(result.get('sources', []))} kaynak gosterildi; toplam {total} eslesme var.")
+        lines.append(f"İlk {len(result.get('sources', []))} kaynak gösterildi; toplam {total} eşleşme var.")
         lines.append("")
-    lines.append("Bu liste, mevcut indekslenmis kaynaklar uzerinden olusturulmustur.")
+    lines.append("Bu liste mevcut indekslenmiş kaynaklar üzerinden oluşturulmuştur.")
     return "\n".join(lines).strip()

@@ -79,7 +79,8 @@ def test_source_discovery_handler_no_match_is_safe():
 
     assert result.sources_checked is True
     assert result.docs == []
-    assert "guvenilir bir kaynak eslesmesi bulamadim" in result.answer
+    assert "güvenilir bir kaynak eşleşmesi bulamadım" in result.answer
+    assert "kaynak uydurmadım" in result.answer
 
 
 def test_helpers_tolerate_empty_values():
