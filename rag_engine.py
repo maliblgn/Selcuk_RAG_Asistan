@@ -583,6 +583,73 @@ def deduplicate_repeated_sentences(answer: str) -> str:
     return "\n".join(cleaned_lines).strip()
 
 
+def _document_evidence_text(docs) -> str:
+    parts: list[str] = []
+    for doc in docs or []:
+        metadata = getattr(doc, "metadata", {}) or {}
+        parts.extend(str(metadata.get(key) or "") for key in ("title", "source", "article_title", "article_no"))
+        parts.append(str(getattr(doc, "page_content", "") or ""))
+    return "\n".join(parts)
+
+
+def _extract_equivalence_terms(question: str) -> list[str]:
+    normalized = retrieval_normalize_text(question)
+    equivalence_markers = (
+        "ayni sey",
+        "ayni mi",
+        "esdeger",
+        "es anlamli",
+        "farki ne",
+        "fark nedir",
+        "difference",
+        "same thing",
+    )
+    if not any(marker in normalized for marker in equivalence_markers):
+        return []
+
+    stopwords = {
+        "ile", "ve", "veya", "mi", "mu", "midir", "nedir", "ne", "sey",
+        "ayni", "fark", "farki", "es", "acaba", "bu", "su", "o",
+    }
+    raw_terms = re.findall(r"\b[A-Za-zÇĞİÖŞÜçğıöşü]{2,10}\b", str(question or ""))
+    terms: list[str] = []
+    for term in raw_terms:
+        norm = retrieval_normalize_text(term)
+        if norm in stopwords or len(norm) < 3:
+            continue
+        display = term.upper()
+        if display not in terms:
+            terms.append(display)
+    return terms[:4]
+
+
+def guard_unsupported_term_equivalence(answer: str, question: str, docs) -> str:
+    """Terim esdegerligi kaynakta yoksa iddiali cevabi temkinli hale getir."""
+    terms = _extract_equivalence_terms(question)
+    if len(terms) < 2 or not docs:
+        return answer
+
+    evidence_norm = retrieval_normalize_text(_document_evidence_text(docs))
+    missing = [term for term in terms if retrieval_normalize_text(term) not in evidence_norm]
+    present = [term for term in terms if term not in missing]
+    if not missing:
+        return answer
+
+    if present:
+        present_text = ", ".join(present)
+        missing_text = ", ".join(missing)
+        return (
+            f"Kaynaklarda {present_text} terimi için dayanak buldum; ancak {missing_text} terimi "
+            "ve bu terimlerin birbirine eşdeğer olduğuna dair açık bir ifade bulamadım. "
+            "Bu nedenle bu terimleri aynı kabul ederek kesin bir cevap vermiyorum. [1]"
+        )
+
+    return (
+        "Kaynaklarda bu terimlerin birbirine eşdeğer olduğuna dair açık bir ifade bulamadım. "
+        "Bu nedenle kesin bir eşdeğerlik cevabı uydurmuyorum. [1]"
+    )
+
+
 def is_low_quality_answer(answer: str) -> bool:
     """Hallucination/bozuk cevap sinyallerini yakala."""
     text = str(answer or "").strip()

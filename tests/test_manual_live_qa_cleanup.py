@@ -1,5 +1,11 @@
 from query_router import route_query
-from rag_engine import build_safe_fallback, deduplicate_repeated_sentences
+from langchain_core.documents import Document
+
+from rag_engine import (
+    build_safe_fallback,
+    deduplicate_repeated_sentences,
+    guard_unsupported_term_equivalence,
+)
 from source_discovery import build_source_discovery_answer
 
 
@@ -66,3 +72,23 @@ def test_safe_fallback_is_explicit_about_not_inventing_information():
 
     assert "indekslenmiş kaynaklar" in answer
     assert "bilgi uydurmuyorum" in answer
+
+
+def test_unsupported_term_equivalence_guard_is_cautious_when_one_term_missing():
+    docs = [
+        Document(
+            page_content="GANO, öğrencinin aldığı derslerin ağırlıklı puanları üzerinden hesaplanır.",
+            metadata={"title": "Ön Lisans ve Lisans Eğitim Öğretim Yönetmeliği"},
+        )
+    ]
+
+    answer = guard_unsupported_term_equivalence(
+        "GANO ile AGNO aynı şeydir.",
+        "GANO ile AGNO aynı şey mi?",
+        docs,
+    )
+
+    assert "GANO" in answer
+    assert "AGNO" in answer
+    assert "eşdeğer olduğuna dair açık bir ifade bulamadım" in answer
+    assert "aynı şeydir" not in answer

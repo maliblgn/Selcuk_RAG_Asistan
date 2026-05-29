@@ -12,6 +12,7 @@ from rag_engine import (
     build_safe_fallback,
     deduplicate_repeated_sentences,
     ensure_inline_citation,
+    guard_unsupported_term_equivalence,
     is_low_quality_answer,
     MAX_CHAT_HISTORY_CHARS,
     prepare_context_and_sources,
@@ -1022,6 +1023,7 @@ else:
                 raw_cevap = "".join(token_generator())
                 cevap = strip_model_generated_sources(raw_cevap)
                 cevap = deduplicate_repeated_sentences(cevap)
+                cevap = guard_unsupported_term_equivalence(cevap, yeniden_soru, docs)
                 cevap = ensure_inline_citation(cevap, docs)
                 if is_low_quality_answer(cevap):
                     cevap = build_safe_fallback(yeniden_soru, docs, query_type)
