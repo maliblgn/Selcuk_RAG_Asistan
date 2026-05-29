@@ -1,42 +1,58 @@
-# Selcuk RAG Asistan
+# Selçuk RAG Asistan
 
-Selcuk RAG Asistan, Selcuk Universitesi resmi yonetmelik, yonerge ve PDF dokumanlari uzerinde calisan kaynakli bir RAG uygulamasidir. Sistem, uygun kaynak buldugunda cevabi inline citation ile verir; corpus disi veya guncel operasyonel bilgi isteyen sorularda guvenli fallback davranisini hedefler.
+Selçuk RAG Asistan, Selçuk Üniversitesi kaynakları, yönetmelikler, yönergeler, web kaynakları ve dinamik kaynaklar üzerinden güvenilir cevap ve kaynak keşfi sağlamayı hedefleyen RAG tabanlı bir asistandır.
 
-Ana deploy hedefi Hugging Face Spaces Docker ortamidir. Streamlit arayuzu, ChromaDB runtime snapshot'i, metadata-aware retrieval/rerank, post-processing guardrail'leri ve read-only kalite paneli birlikte calisir.
+Sistem uygun kaynak bulduğunda cevabı inline citation ve kaynak paneliyle sunar. Kaynakta açık bilgi yoksa, güncel operasyonel bilgi gerekiyorsa veya terim eşdeğerliği kaynakta kanıtlanmıyorsa bilgi uydurmamak için güvenli fallback davranışı uygular.
 
-## Canli Durum
+Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 
-- Runtime bilgi tabani: tracked `chroma_db/` snapshot
-- Kaynak sayisi: 149 unique source
-- Chunk/document sayisi: 2985
+## Ana Özellikler
+
+- Static ChromaDB RAG snapshot
+- Source Discovery Mode
+- Dynamic Dining Menu Reader
+- Query Router
+- Dynamic Source Registry
+- Metadata-aware retrieval/rerank
+- Answer grounding evaluation
+- Regression suite runner
+- ChromaDB local runtime copy
+- Safe fallback / no hallucination yaklaşımı
+- Hugging Face Spaces deploy workflow
+
+## Canlı Durum
+
+- Runtime bilgi tabanı: tracked `chroma_db/` snapshot
+- Kaynak sayısı: 157 unique source
+- Chunk/document sayısı: 3092
 - UI: Streamlit
 - Vector DB: ChromaDB
 - LLM provider: Groq
 - Deploy: GitHub Actions ile Hugging Face Space
-- Kalite gorunurlugu: retrieval evaluation, general smoke, answer quality, provider comparison ve read-only quality dashboard
+- Son doğrulama: answer grounding 42/42, full regression 12/12, tests 342 passed / 2 skipped
 
-Release ozeti icin bkz. [docs/RELEASE_SUMMARY.md](docs/RELEASE_SUMMARY.md).
+Release readiness özeti için bkz. [docs/RELEASE_SUMMARY.md](docs/RELEASE_SUMMARY.md).
 
 ## Mimari
 
-Kisa akis:
+Kısa akış:
 
 ```text
-Kullanici sorusu
-  -> query normalization / intent guards
-  -> ChromaDB retrieval
-  -> metadata-aware rerank
-  -> relevance filtering
-  -> Groq LLM answer
+Kullanıcı sorusu
+  -> query_router.py
+  -> source_discovery / dynamic_sources registry / RAG
+  -> ChromaDB retrieval + metadata-aware rerank
+  -> answer generation
   -> post-processing guardrails
   -> final cevap + kaynak paneli
+  -> evaluation / regression suite
 ```
 
-Detayli mimari icin bkz. [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md).
+Detaylı mimari için bkz. [docs/ARCHITECTURE_OVERVIEW.md](docs/ARCHITECTURE_OVERVIEW.md).
 
 ## Kurulum
 
-Python 3.11+ onerilir.
+Python 3.11+ önerilir.
 
 ```bash
 python -m venv .venv
@@ -52,25 +68,25 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Yerel ortam degiskenleri icin `.env.example` dosyasini kopyalayin:
+Yerel ortam değişkenleri için `.env.example` dosyasını kopyalayın:
 
 ```bash
 cp .env.example .env
 ```
 
-Ornek degerler:
+Örnek değerler:
 
 ```env
-GROQ_API_KEY=your_groq_key_here
+GROQ_API_KEY=
 GROQ_MODEL=llama-3.1-8b-instant
 ADMIN_PASSWORD=change_me_locally
 ```
 
-`.env`, API key ve secret dosyalari repoya commit edilmez.
+`.env`, API key ve secret dosyaları repoya commit edilmez.
 
-## Local Calistirma
+## Local Çalıştırma
 
-Mevcut ChromaDB snapshot ile uygulama acilir; normal calisma icin yeni ingestion gerekmez.
+Mevcut ChromaDB snapshot ile uygulama açılır; normal çalışma için yeni ingestion gerekmez.
 
 ```bash
 streamlit run app.py
@@ -82,58 +98,52 @@ ChromaDB healthcheck:
 python check_chroma_health.py --db-path chroma_db --json
 ```
 
-Beklenen snapshot degerleri:
+Beklenen snapshot değerleri:
 
 - `status: ok`
-- `document_count: 2985`
-- `unique_source_count: 149`
+- `document_count: 3092`
+- `unique_source_count: 157`
 - `collection_readable: true`
 
-Snapshot proseduru icin bkz. [docs/CHROMADB_SNAPSHOT_PROCEDURE.md](docs/CHROMADB_SNAPSHOT_PROCEDURE.md).
+Snapshot prosedürü için bkz. [docs/CHROMADB_SNAPSHOT_PROCEDURE.md](docs/CHROMADB_SNAPSHOT_PROCEDURE.md).
 
-## Evaluation Komutlari
+## Test ve Evaluation
 
-Retrieval evaluation:
-
-```bash
-python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.json --out retrieval_evaluation_report.local.json --markdown-out retrieval_evaluation_summary.local.md
-```
-
-General smoke:
-
-```bash
-python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
-```
-
-Answer quality dry-run:
-
-```bash
-python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quality_questions.json --out answer_quality_report.local.json --markdown-out answer_quality_summary.local.md
-```
-
-Provider comparison dry-run:
-
-```bash
-python evaluation/compare_llm_providers.py --config evaluation/provider_models.json --questions evaluation/answer_quality_questions.json --out provider_comparison_report.local.json --markdown-out provider_comparison_summary.local.md
-```
-
-Testler:
+Tüm testler:
 
 ```bash
 python -m pytest tests/ -v
 ```
 
-`*.local.json` ve `*.local.md` evaluation artifact dosyalari commit edilmez.
+Tek komutlu full regression:
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
+Answer grounding evidence-only:
+
+```bash
+python evaluation/evaluate_answer_grounding.py --questions evaluation/answer_grounding_questions.json --out answer_grounding_report.local.json --markdown-out answer_grounding_summary.local.md
+```
+
+Local report dosyaları (`*.local.json`, `*.local.md`) commit edilmez.
+
+## Dynamic Sources
+
+Yemekhane menüsü gibi güncel/dinamik bilgiler statik ChromaDB snapshot içine gömülmez. Dining menu reader dar kapsamlı dinamik kaynak olarak çalışır. Endpoint erişilemezse veya bugüne ait güvenilir satır bulunamazsa menü uydurulmaz.
+
+Dynamic source altyapısı `dynamic_sources/` registry altında yönetilir. Şu an kayıtlı reader: `dining_menu`.
 
 ## Quality Dashboard
 
-Streamlit arayuzunde read-only kalite paneli bulunur. Panel local evaluation artifact ozetlerini okur, shell command calistirmaz, API key/secret gostermez ve raw answer preview yayinlamaz.
+Streamlit arayüzünde read-only kalite paneli bulunur. Panel local evaluation artifact özetlerini okur, shell command çalıştırmaz, API key/secret göstermez ve raw answer preview yayınlamaz.
 
-Detay icin bkz. [docs/QUALITY_DASHBOARD_RAPORU.md](docs/QUALITY_DASHBOARD_RAPORU.md).
+Detay için bkz. [docs/QUALITY_DASHBOARD_RAPORU.md](docs/QUALITY_DASHBOARD_RAPORU.md).
 
 ## Hugging Face Deploy
 
-`main` branch'e push/merge sonrasi GitHub Actions workflow'u Hugging Face Space deploy'unu tetikler.
+`main` branch'e push/merge sonrası GitHub Actions workflow'u Hugging Face Space deploy'unu tetikler.
 
 Deploy zinciri:
 
@@ -143,36 +153,46 @@ Deploy zinciri:
 - tracked `chroma_db/` snapshot
 - GitHub Actions secret: `HF_TOKEN`
 
-Workflow, ChromaDB snapshot dosyalarini Hugging Face tarafina Git LFS ile tasir. `HF_TOKEN` veya baska secret degerleri dosyaya yazilmaz.
+Workflow, ChromaDB snapshot dosyalarını Hugging Face tarafına Git LFS ile taşır. `HF_TOKEN` veya başka secret değerleri dosyaya yazılmaz.
 
 ## Demo
 
-Demo akisi ve temsilci sorular icin bkz. [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
+Demo akışı ve temsilci sorular için bkz. [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md).
 
-Ornek demo sorulari:
+Örnek demo soruları:
 
 - `AKTS nedir?`
-- `Selcuk Universitesi'nde tez izleme komitesi kac ogretim uyesinden olusur?`
-- `Selcuk Universitesi'nde doktora yeterlik sinavlari ile ilgili esaslar nelerdir?`
-- `Selcuk Universitesi kutuphanesinde hangi saatlerde hizmet sunulur?`
-- `Selcuk Universitesi yemekhane hizmetleri hangi saatlerde sunulur?`
-- `Selcuk Universitesi'nde ders kredisi nasil hesaplanir?`
-- `Selcuk Universitesi ogrencilere ucretsiz laptop veriyor mu?`
+- `ALES nedir?`
+- `Ön lisans ve lisans AGNO şartı nedir?`
+- `GANO ile AGNO aynı şey mi?`
+- `Staj yönergesi var mı?`
+- `Teknoloji Fakültesi staj kaynakları nelerdir?`
+- `Bugün yemekte ne var?`
+- `Galatasaray maçı ne zaman?`
 
-## Onemli Dokumanlar
+## Bilinen Sınırlılıklar
+
+- ChromaDB snapshot mevcut indekslenmiş kaynaklarla sınırlıdır.
+- Yeni kaynaklar ingestion yapılmadan cevap kapsamına girmez.
+- Dinamik yemekhane menüsü endpoint yapısına ve erişilebilirliğine bağlıdır.
+- Live LLM QA varsayılan kapalıdır ve provider API key gerektirir.
+- Tam on-prem/local LLM mimarisi bu demo kapsamında değildir.
+- Sistem resmi belge yerine geçmez; kritik kararlar için resmi kaynak kontrol edilmelidir.
+
+## Önemli Dokümanlar
 
 - [Release Summary](docs/RELEASE_SUMMARY.md)
 - [Demo Script](docs/DEMO_SCRIPT.md)
 - [Architecture Overview](docs/ARCHITECTURE_OVERVIEW.md)
 - [Development Workflow](docs/DEVELOPMENT_WORKFLOW.md)
 - [ChromaDB Snapshot Procedure](docs/CHROMADB_SNAPSHOT_PROCEDURE.md)
-- [Quality Dashboard Report](docs/QUALITY_DASHBOARD_RAPORU.md)
+- [System Architecture Audit](docs/SYSTEM_ARCHITECTURE_AUDIT_RAPORU.md)
 - [Project Structure](docs/PROJECT_STRUCTURE.md)
 
-## Gelistirme Kurallari
+## Geliştirme Kuralları
 
-- Aktif gelistirme `dev` branch uzerinde yapilir.
-- `main` kararli release/deploy branch'idir.
-- Runtime davranisi degisen islerden once retrieval evaluation, general smoke, answer quality ve test zinciri calistirilir.
-- ChromaDB snapshot guncellemesi ayri prosedurle ele alinir.
-- `data/*.pdf`, `.env`, API key/secret ve local evaluation artifact dosyalari commit edilmez.
+- Aktif geliştirme `dev` branch üzerinde yapılır.
+- `main` kararlı deploy branch'idir.
+- Runtime davranışı değişen işlerden önce regression suite, answer grounding ve full tests çalıştırılır.
+- ChromaDB snapshot güncellemesi ayrı prosedürle ele alınır.
+- `data/*.pdf`, `.env`, API key/secret ve local evaluation artifact dosyaları commit edilmez.

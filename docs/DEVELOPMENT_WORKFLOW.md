@@ -330,6 +330,20 @@ python -m pytest tests/ -v
 
 Kaynak yoksa cevap uydurulmaz. Terminoloji belirsizse cevap temkinli verilir. Source discovery ciktilari kullanici dostu ve Turkce karakterli olmalidir.
 
+## Final Demo / Release Readiness Audit
+
+Bu fazda runtime davranisi degistirilmeden dokumantasyon, demo script, release summary ve repository guvenligi kontrol edilir.
+
+Calistirilacak komutlar:
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+python evaluation/evaluate_answer_grounding.py --questions evaluation/answer_grounding_questions.json --out answer_grounding_report.local.json --markdown-out answer_grounding_summary.local.md
+python -m pytest tests/ -v
+```
+
+Release veya tag olusturulmaz. Local artifactler commit edilmez. Son dogrulanmis metrikler dokumanlara gercek komut ciktisi uzerinden yazilir.
+
 ## ChromaDB Local Runtime Copy
 
 Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:

@@ -1,102 +1,188 @@
 # Architecture Overview
 
-## Genel Bakis
+## Genel Bakış
 
-Selcuk RAG Asistan, Streamlit arayuzu uzerinden gelen sorulari ChromaDB snapshot icindeki resmi kaynaklarla eslestirir. Retrieval ve rerank sonrasinda LLM cevap uretir; cevap final kullaniciya gosterilmeden once post-processing ve guardrail katmanindan gecer.
+Selçuk RAG Asistan, Streamlit arayüzünden gelen kullanıcı sorularını önce routing katmanında sınıflandırır, ardından kaynak keşfi, dinamik kaynak veya static ChromaDB RAG akışlarından birine yönlendirir. Sistem final cevabı kullanıcıya göstermeden önce post-processing ve guardrail katmanlarından geçirir.
 
-## Akis Diyagrami
+## Query Flow
 
 ```mermaid
 flowchart TD
-    A["Kullanici sorusu"] --> B["Query processing"]
-    B --> C["ChromaDB retrieval"]
-    C --> D["Metadata-aware rerank"]
-    D --> E["Relevance filtering"]
-    E --> F["Context + source mapping"]
-    F --> G["Groq LLM answer"]
-    G --> H["Post-processing / guardrails"]
-    H --> I["Final cevap"]
-    F --> J["Kaynak paneli"]
-    I --> K["Streamlit UI"]
-    J --> K
+    A["User Query"] --> B["query_router.py"]
+    B -->|source_discovery| C["source_discovery.py"]
+    B -->|dynamic_dining_menu| D["dynamic_sources registry"]
+    B -->|rag| E["Static ChromaDB RAG"]
+    D --> F["Dining Menu Reader"]
+    E --> G["retrieval + rerank"]
+    G --> H["answer generation"]
+    H --> I["post-processing guardrails"]
+    C --> J["source panel / final answer"]
+    F --> J
+    I --> J
+    J --> K["Streamlit UI"]
+    L["evaluation + regression suite"] --> B
+    L --> G
+    L --> I
 ```
 
-## Runtime Katmani
+Routing sırası korunur:
 
-| Katman | Dosya / Teknoloji | Gorev |
-| --- | --- | --- |
-| UI | `app.py`, Streamlit | Chat arayuzu, kaynak paneli, admin alani |
-| RAG engine | `rag_engine.py` | Retrieval, prompt, streaming cevap, fallback |
-| Rerank | `retrieval_rerank.py` | Metadata-aware rerank ve legal/source sinyalleri |
-| Normalization | `retrieval_normalization.py` | Turkce/ASCII-lite matching, alias ve madde eslesmesi |
-| Vector DB | `chroma_db/`, ChromaDB | Runtime snapshot |
-| LLM | Groq | Cevap uretimi |
+1. Source Discovery Mode
+2. Dynamic Dining Menu Reader
+3. Normal RAG
 
-## ChromaDB Snapshot
+## Query Router
 
-`chroma_db/` klasoru runtime bilgi tabanidir. Mevcut snapshot:
+`query_router.py`, cevap modunu tek noktadan seçer. Intent fonksiyonlarını yeniden yazmaz; `source_discovery.py` ve `dynamic_menu_reader.py` içindeki mevcut intent yardımcılarını kullanır.
 
-- 149 unique source
-- 2985 chunk/document
+Desteklenen mode değerleri:
 
-Canli ortamda ingestion calistirilmez. Snapshot HF deploy sirasinda Git LFS ile tasinir. Guncelleme proseduru icin `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` takip edilir.
+- `source_discovery`
+- `dynamic_dining_menu`
+- `rag`
 
-## Source Binding ve Guardrails
+## Static ChromaDB RAG
 
-`prepare_context_and_sources` ayni sirayla hem LLM context icindeki `[1]`, `[2]` kaynak numaralarini hem de UI kaynak panelini hazirlar.
+Static RAG akışı mevcut `chroma_db/` snapshot üzerinde çalışır.
 
-Final cevap katmaninda:
+Son doğrulanmış snapshot:
 
-- model-generated source block temizlenir,
-- URL listesi sizintisi engellenir,
-- inline citation korunur,
-- citation yoksa uygun durumda `[1]` eklenir,
-- dusuk kaliteli cevaplar fallback'e cekilir,
-- operasyonel/guncel bilgi sorularinda kaynak yoksa uydurma cevap verilmez.
+- 157 unique source
+- 3092 document/chunk
+- `source_type_counts`: web PDF ve web page kaynakları
 
-## Evaluation Katmani
+Canlı ortamda ingestion çalıştırılmaz. Snapshot güncellemesi ayrı prosedürle yapılır ve `docs/CHROMADB_SNAPSHOT_PROCEDURE.md` takip edilir.
 
-Evaluation dosyalari runtime davranisini degistirmez; kaliteyi olcmek icin kullanilir.
+## Source Discovery Mode
 
-| Dosya | Amac |
-| --- | --- |
-| `evaluation/run_general_smoke.py` | Genel retrieval/source filtering smoke |
-| `evaluation/evaluate_retrieval.py` | Golden retrieval metrikleri |
-| `evaluation/triage_retrieval_failures.py` | Retrieval failure triage |
-| `evaluation/audit_article_metadata.py` | Madde metadata audit |
-| `evaluation/audit_source_inventory_aliases.py` | Source inventory alias audit |
-| `evaluation/evaluate_answer_quality.py` | Sinirli answer quality evaluation |
-| `evaluation/compare_llm_providers.py` | Provider/model comparison |
+Source discovery, kullanıcı bilgi cevabı değil kaynak listesi istediğinde devreye girer.
 
-Local artifact dosyalari `.gitignore` kapsamindadir ve commit edilmez.
+Örnekler:
 
-## Deploy Katmani
+- `Staj yönergesi var mı?`
+- `Teknoloji Fakültesi staj kaynakları nelerdir?`
+- `Kütüphane hakkında hangi belgeler var?`
+
+Bu mod normal LLM cevap zincirine girmeden mevcut indekslenmiş kaynakları listeler. Kaynak yoksa kaynak uydurmaz.
+
+## Dynamic Sources Registry
+
+`dynamic_sources/` klasörü dinamik kaynak reader'ları için ortak interface ve registry sağlar.
+
+Şu an kayıtlı reader:
+
+- `dining_menu`
+
+Yeni dynamic source eklenecekse query router önceliği ve source discovery çakışmaları ayrıca test edilir.
+
+## Dining Menu Reader
+
+Yemekhane menüsü günlük/aylık değişen dinamik veri olduğu için ChromaDB snapshot içine gömülmez. `dynamic_menu_reader.py` ve `dynamic_sources/dining_menu.py` endpoint'i dar kapsamda okur.
+
+Davranış:
+
+- Menü güvenilir parse edilirse kullanıcıya gösterilir.
+- Bugüne uygun satır yoksa veya parse güvenilir değilse fallback verilir.
+- Menü içeriği uydurulmaz.
+
+## Retrieval / Rerank
+
+`rag_engine.py`, `retrieval_rerank.py` ve `retrieval_normalization.py` şu sinyalleri birlikte kullanır:
+
+- query normalization
+- Turkish/ASCII-lite matching
+- document aliases
+- article number/title metadata
+- expected term support
+- legal/source-specific relevance filtering
+
+Son doğrulanmış retrieval metrikleri:
+
+- `document_hit_at_1`: 0.967741935483871
+- `document_hit_at_3`: 1.0
+- `article_hit_at_1`: 0.6451612903225806
+- `article_hit_at_3`: 0.7419354838709677
+- `fallback_accuracy`: 1.0
+- `critical_failure_count`: 0
+
+## Answer Generation ve Guardrails
+
+Final cevap katmanı:
+
+- model-generated source block temizler,
+- URL sızıntılarını temizler,
+- inline citation ekler veya korur,
+- düşük kaliteli cevapları fallback'e çeker,
+- birebir tekrar eden cümleleri dar kapsamda azaltır,
+- kaynakta açık olmayan operasyonel bilgi ve terim eşdeğerliklerini uydurmaz.
+
+AGNO/GANO gibi terimlerde evidence içinde açık eşdeğerlik yoksa sistem temkinli cevap verir.
+
+## Answer Grounding Evaluation
+
+`evaluation/evaluate_answer_grounding.py`, final cevapların doğru evidence'a dayanıp dayanmadığını CI-safe evidence-only modda ölçer.
+
+Kontrol edilen sinyaller:
+
+- route/mode doğruluğu
+- kaynak keyword eşleşmesi
+- belge keyword eşleşmesi
+- madde/article sinyali
+- expected terms
+- forbidden terms
+- fallback davranışı
+
+Son doğrulama:
+
+- 42 question
+- 42 passed
+- 0 failed
+- critical_failure_count: 0
+
+## Regression Suite
+
+`evaluation/run_regression_suite.py` sık kullanılan evaluation ve test komutlarını profile-based runner altında toplar.
+
+Profiller:
+
+- `fast`
+- `full`
+- `dynamic-source`
+- `snapshot-update`
+
+Normal local doğrulama:
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
+## ChromaDB Local Runtime Copy
+
+Local evaluation sırasında tracked `chroma_db/chroma.sqlite3` dosyasının kirlenmesini azaltmak için `chroma_runtime.py` local copy stratejisi sağlar.
+
+```bash
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
+Bu mod `.local_chroma_runtime/` altında geçici kopya kullanır. Snapshot update ve ingestion işleri bu modu kullanmaz.
+
+## HF Deploy Workflow
 
 GitHub Actions workflow:
 
-- `main` push/merge ile calisir.
-- Temiz HF deploy klasoru olusturur.
-- HF README frontmatter uretir.
-- ChromaDB snapshot dosyalarini Git LFS ile ekler.
-- HF Space main branch'ine force push yapar.
+- `main` push/merge ile çalışır.
+- HF deploy klasörünü temiz hazırlar.
+- ChromaDB snapshot dosyalarını Git LFS ile Hugging Face Space'e taşır.
+- `HF_TOKEN` secret olarak kullanılır.
+- Token veya API key dosyaya yazılmaz.
 
-Workflow dosyasi: `.github/workflows/deploy-hf-space.yml`
+Workflow dosyası: `.github/workflows/deploy-hf-space.yml`
 
-## Quality Dashboard Katmani
+## Güvenlik / Kapsam Kuralları
 
-`quality_dashboard.py` Streamlit admin alaninda read-only kalite paneli sunar.
-
-Panel:
-
-- ChromaDB health bilgisini gosterir.
-- Local evaluation artifact ozetlerini okur.
-- Shell command calistirmaz.
-- API key/secret gostermez.
-- Raw answer preview gostermez.
-
-## Guvenlik Sinirlari
-
-- `.env`, API key, token ve secret dosyalari commit edilmez.
-- `data/*.pdf` commit edilmez.
-- Local evaluation artifact dosyalari commit edilmez.
-- Provider comparison production provider'i degistirmez.
+- `.env`, API key, token ve secret dosyaları commit edilmez.
+- `data/*.pdf` ve `data/manual_pdfs/` commit edilmez.
+- Local artifact dosyaları (`*.local.json`, `*.local.md`) commit edilmez.
+- ChromaDB snapshot yalnız açık snapshot update görevlerinde değiştirilir.
+- Provider/model/dependency değişiklikleri ayrı riskli faz olarak ele alınır.
+- Sistem resmi belge yerine geçmez; kritik kararlar resmi kaynakla doğrulanmalıdır.

@@ -1,113 +1,70 @@
-# Selcuk RAG Asistan Release Summary
+# Selçuk RAG Asistan Demo Release Readiness Summary
 
-## 1. Proje Ozeti
+Bu doküman GitHub release veya tag oluşturmaz. Faz 9J kapsamında demo/release öncesi mevcut doğrulanmış durumu özetler.
 
-Selcuk RAG Asistan, Selcuk Universitesi resmi yonetmelik, yonerge ve PDF dokumanlari uzerinden calisan RAG tabanli bir asistandir. Kullanici sorulari ChromaDB snapshot uzerinden ilgili kaynaklarla eslestirilir, cevaplar inline citation ve kaynak paneliyle sunulur.
+## Son Doğrulanmış Durum
 
-Sistem kaynakta acik bilgi bulamazsa guvenli fallback vermeyi hedefler. Ozellikle saat, ucret, gunluk yemek listesi veya bugunku program gibi guncel operasyonel bilgiler corpus icinde yoksa cevap uydurmamasi beklenir.
+- Son doğrulanmış commit: Faz 9J sonrası dokümantasyon commit'i
+- Önceki runtime doğrulama commit'i: `1e5274d8850ca827e6e880d8bb4e5b86962f4ef1`
+- ChromaDB snapshot: 157 source / 3092 document/chunk
+- HF runtime: RUNNING
+- HTTP status: 200
+- Traceback/Streamlit exception: yok
 
-## 2. Mevcut Canli Mimari
+## Sistem Özeti
 
-- Streamlit UI
-- ChromaDB runtime snapshot
-- Local sentence-transformers embedding
-- Groq LLM provider
-- Metadata-aware retrieval/rerank
-- Answer post-processing ve guardrail katmani
-- Hugging Face Spaces Docker deploy
-- GitHub Actions otomatik HF deploy
+Selçuk RAG Asistan, Selçuk Üniversitesi resmi yönetmelik, yönerge, PDF ve seçili web kaynakları üzerinde çalışan RAG tabanlı demo asistandır. Sistem:
 
-## 3. Veri / Bilgi Tabani Durumu
+- normal bilgi sorularında static ChromaDB RAG kullanır,
+- kaynak listeleme sorularında Source Discovery Mode'a geçer,
+- yemekhane menüsü gibi dinamik bilgilerde Dynamic Dining Menu Reader kullanır,
+- kaynakta açık bilgi yoksa veya evidence yetersizse cevap uydurmaz.
 
-- Unique source: 149
-- Chunk/document count: 2985
-- ChromaDB snapshot runtime icin repoda korunur.
-- `data/*.pdf` repoda tutulmaz.
-- Snapshot uretim ve guncelleme proseduru: `docs/CHROMADB_SNAPSHOT_PROCEDURE.md`
+## Son Doğrulanmış Metrikler
 
-ChromaDB snapshot canli ortamda yeni ingestion yapmadan okunur. Snapshot guncellemesi ayri gorev olarak, test ve evaluation kontrolleriyle ele alinmalidir.
-
-## 4. Kalite Durumu
-
-Son bilinen retrieval metrikleri:
-
-- `document_hit_at_1`: 0.903
-- `document_hit_at_3`: 0.935
-- `article_hit_at_1`: 0.677
-- `article_hit_at_3`: 0.774
-- `fallback_accuracy`: 1.000
-
-Son bilinen answer quality live sonucu:
-
-- `source_block_leak_count`: 0
-- `url_leak_count`: 0
+- Answer grounding: 42 passed / 0 failed
+- Full regression runner: 12/12 passed
+- Tests: 342 passed / 2 skipped
+- `document_hit_at_1`: 0.967741935483871
+- `document_hit_at_3`: 1.0
+- `article_hit_at_1`: 0.6451612903225806
+- `article_hit_at_3`: 0.7419354838709677
+- `fallback_accuracy`: 1.0
 - `critical_failure_count`: 0
 
-Son bilinen provider comparison Groq live sonucu:
+## Canlı Smoke Soruları
 
-- provider: `groq_llama_3_1_8b_instant`
-- `critical_failure_count`: 0
-- `source_block_leak_count`: 0
-- `url_leak_count`: 0
-- `fallback_mismatch_count`: 0
+| Soru | Beklenen davranış |
+| --- | --- |
+| `AKTS nedir?` | Normal RAG, kaynaklı kısa tanım |
+| `ALES nedir?` | Normal RAG, lisansüstü tanımlar evidence'ı |
+| `Ön lisans ve lisans AGNO şartı nedir?` | Normal RAG, not ortalaması/evidence sinyali |
+| `GANO ile AGNO aynı şey mi?` | Evidence yoksa eşdeğerlik uydurmaz, temkinli cevap |
+| `Staj yönergesi var mı?` | Source discovery, Türkçe karakterli kaynak listesi |
+| `Çift anadal şartları nelerdir?` | Normal RAG, Çift Ana Dal Yönergesi evidence'ı |
+| `Lisansüstü başvuru şartları nelerdir?` | Normal RAG, kaynaklı ve tekrar azaltılmış cevap |
+| `Teknoloji Fakültesi staj kaynakları nelerdir?` | Source discovery, Teknoloji Fakültesi kaynakları |
+| `Bugün yemekte ne var?` | Dynamic dining menu; güvenilir veri yoksa fallback |
+| `Galatasaray maçı ne zaman?` | Kapsam dışı fallback |
 
-## 5. Guardrail / Guvenlik
+## Bilinen Sınırlılıklar
 
-Uygulanan temel guardrail katmanlari:
+- Cevap kapsamı mevcut ChromaDB snapshot ile sınırlıdır.
+- Yeni kaynaklar ingestion yapılmadan cevap kapsamına girmez.
+- Yemekhane menüsü endpoint'e ve parse edilebilir güncel veriye bağlıdır.
+- Live LLM QA varsayılan kapalıdır ve provider API key gerektirir.
+- Article-level metriklerde geliştirme alanı sürmektedir.
+- Sistem resmi belge yerine geçmez; kritik kararlar resmi kaynakla doğrulanmalıdır.
 
-- Alakasiz kaynak filtreleme
-- Used-source-only kaynak paneli
-- Inline citation ve kaynak paneli sira eslestirmesi
-- Model-generated `Kaynaklar` / URL bloklarini temizleme
-- Dusuk kaliteli cevap ve uzun sayi dizisi tespiti
-- Operasyonel/guncel bilgi sorularinda guvenli fallback
+## Güvenlik Durumu
 
-Repo guvenligi:
-
-- `.env`, API key ve secret degerleri commit edilmez.
+- `.env` commit edilmez.
+- API key/secret commit edilmez.
 - `data/*.pdf` commit edilmez.
-- Local evaluation artifact dosyalari commit edilmez.
-- `chroma_db/` runtime snapshot olarak korunur; guncellemesi prosedurludur.
+- Local evaluation artifact dosyaları commit edilmez.
+- `release_notes_v0.1.0-demo.local.md` local dosyadır ve stage edilmez.
+- ChromaDB snapshot bu Faz 9J kapsamında değiştirilmez.
 
-## 6. Admin / Quality Dashboard
+## Release / Tag Durumu
 
-Streamlit admin alaninda read-only kalite paneli bulunur.
-
-Panel:
-
-- ChromaDB health bilgisini gosterir.
-- Local evaluation artifact ozetlerini okur.
-- UI'dan shell command calistirmaz.
-- API key/secret gostermez.
-- Raw answer preview gostermez.
-
-Detay: `docs/QUALITY_DASHBOARD_RAPORU.md`
-
-## 7. Deploy Durumu
-
-`main` branch'e push/merge oldugunda GitHub Actions otomatik Hugging Face Space deploy workflow'unu calistirir.
-
-Deploy notlari:
-
-- HF Space Docker SDK kullanir.
-- App port: 7860
-- `HF_TOKEN` GitHub Actions secret olarak tanimli olmalidir.
-- ChromaDB snapshot HF deploy commit'ine Git LFS ile tasinir.
-- Workflow `chroma_db/chroma.sqlite3` dosyasinin deploy klasorunde, git index'te ve LFS listesinde oldugunu dogrular.
-
-## 8. Bilinen Sinirlamalar
-
-- ChromaDB snapshot guncellemesi manuel/prosedurlu yapilir.
-- Live LLM evaluation API key gerektirir.
-- Provider comparison production provider degistirmez.
-- Article hit metrigi gelistirmeye aciktir.
-- Quality dashboard ilk surumde read-only tasarlanmistir.
-- Sistem resmi kaynak yerine gecmez; kritik kararlar icin resmi belge kontrol edilmelidir.
-
-## 9. Sonraki Faz Onerileri
-
-- Admin protected evaluation runner
-- Scheduled evaluation
-- Provider abstraction / runtime model switch
-- RAGAS benzeri sinirli degerlendirme
-- Demo/pitch sunumu
+Bu fazda release, tag veya version bump oluşturulmamıştır. Bu doküman yalnız demo/release readiness özetidir.

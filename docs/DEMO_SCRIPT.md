@@ -1,51 +1,80 @@
 # Demo Script
 
-## Demo Oncesi Kontrol
+## Demo Öncesi Kontrol
 
-- HF Space aciliyor mu?
-- Uygulamada ChromaDB hazir degil hatasi var mi?
-- Admin kalite paneli acilabiliyor mu?
-- Test edilecek demo sorulari hazir mi?
-- Kaynak paneli ve inline citation davranisi gozlenecek mi?
+- HF Space runtime `RUNNING` mi?
+- HTTP status `200` mü?
+- Uygulamada ChromaDB/traceback/Streamlit exception var mı?
+- ChromaDB health `157 source / 3092 document` ile uyumlu mu?
+- Demo soruları sırayla hazır mı?
+- Kaynak paneli ve inline citation davranışı gözlenecek mi?
+- Dynamic menu endpoint parse edilemezse menü uydurmadığı gösterilecek mi?
 
-## Demo Akisi
+## Demo Akışı
 
-1. Ana sayfa acilir.
-2. Sistem durumu / kalite paneli gosterilir.
-3. AKTS gibi tanim sorusu sorulur.
-4. Tez izleme komitesi gibi madde/sayi sorusu sorulur.
-5. Doktora yeterlik gibi daha uzun kaynakli cevap sorusu sorulur.
-6. Kutuphane/yemekhane saatleri gibi guncel bilgi sorusu sorulur ve fallback davranisi gosterilir.
-7. Ders kredisi gibi sayi/hallucination riski olan soru test edilir.
-8. Kaynak paneli ve inline citation eslesmesi gosterilir.
+1. Ana sayfa açılır.
+2. ChromaDB snapshot ve kalite paneli durumu kısaca anlatılır.
+3. Tanım/RAG soruları ile kaynaklı cevap gösterilir.
+4. Mevzuat/şart soruları ile madde ve belge dayanağı gösterilir.
+5. Source Discovery Mode ile kaynak listeleme davranışı gösterilir.
+6. Dynamic Dining Menu Reader ile güncel/dinamik kaynak fallback davranışı gösterilir.
+7. Kapsam dışı soru ile no-hallucination fallback gösterilir.
+8. AGNO/GANO gibi terminoloji belirsizliği örneğinde temkinli cevap gösterilir.
 
-## Demo Sorulari
+## Demo Soruları
 
-- AKTS nedir?
-- Selcuk Universitesi'nde tez izleme komitesi kac ogretim uyesinden olusur?
-- Selcuk Universitesi'nde doktora yeterlik sinavlari ile ilgili esaslar nelerdir?
-- Selcuk Universitesi kutuphanesinde hangi saatlerde hizmet sunulur?
-- Selcuk Universitesi yemekhane hizmetleri hangi saatlerde sunulur?
-- Selcuk Universitesi'nde ders kredisi nasil hesaplanir?
-- Selcuk Universitesi ogrencilere ucretsiz laptop veriyor mu?
+### A) Tanım / RAG
 
-## Beklenen Davranislar
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `AKTS nedir?` | `rag` | AKTS tanımını kaynaklı ve kısa verir. | Inline citation ve kaynak paneli görünmeli. |
+| `ALES nedir?` | `rag` | ALES tanımını lisansüstü tanımlar evidence'ına dayandırır. | Kaynakta olmayan ek bilgi üretmemeli. |
 
-- Kaynakli cevaplarda inline citation gorunur.
-- Kaynak panelindeki `[1]`, cevap icindeki `[1]` ile ayni belgeye baglanir.
-- Kaynak yoksa veya soru guncel operasyonel bilgi gerektiriyorsa guvenli fallback verilir.
-- Cevap icinde ayri `Kaynaklar` veya URL listesi gorunmez.
-- Uzun sayi dizisi uretilmez.
-- Alakasiz kaynaklar kaynak panelini doldurmaz.
+### B) Mevzuat / Şart
 
-## Demo Sirasinda Soylenecek Kisa Aciklama
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `Ön lisans ve lisans AGNO şartı nedir?` | `rag` | İlgili not ortalaması/evidence sinyaline dayanarak cevap verir. | Kaynak paneli açık kalmalı. |
+| `Çift anadal şartları nelerdir?` | `rag` | Çift Ana Dal Yönergesi ve başvuru/kabul/kayıt koşulları evidence'ını kullanır. | Kaynakta açık olmayan şart genişletilmemeli. |
+| `Lisansüstü başvuru şartları nelerdir?` | `rag` | Başvuru/ilan/belge teslimi gibi kaynaklı bilgileri tekrar etmeden sunar. | Gereksiz cümle tekrarları olmamalı. |
 
-Bu uygulama Selcuk Universitesi'nin indekslenmis resmi yonetmelik ve yonerge kaynaklari uzerinde calisan bir RAG asistanidir. Soru geldiginde once ilgili kaynak parcalari bulunur, metadata-aware rerank ile siralanir, sonra model sadece bu baglama dayanarak cevap uretir. Cevap sonrasinda kaynak bloklari, URL sizintilari ve dusuk kaliteli ciktilar guardrail katmanindan gecer. Kaynakta acik bilgi yoksa sistem cevap uydurmak yerine guvenli fallback verir.
+### C) Source Discovery
 
-Kalite paneli canli cevap sistemini degistirmez; sadece yerelde uretilen evaluation raporlarini ve ChromaDB saglik durumunu okunabilir hale getirir.
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `Staj yönergesi var mı?` | `source_discovery` | İndekslenmiş staj/yönerge kaynaklarını listeler. | Türkçe karakterli, sade sunum olmalı. |
+| `Teknoloji Fakültesi staj kaynakları nelerdir?` | `source_discovery` | Teknoloji Fakültesi staj/İME kaynaklarını listeler. | Kaynak uydurmamalı; mevcut snapshot ile sınırlı kalmalı. |
 
-## Demo Notlari
+### D) Dynamic Source
 
-- Bu sistem resmi belge yerine gecmez.
-- Gunluk yemek listesi, bugunku program veya anlik calisma saatleri gibi bilgiler corpus icinde yoksa cevaplanmayabilir.
-- Admin kalite paneli read-only calisir ve shell command calistirmaz.
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `Bugün yemekte ne var?` | `dynamic_dining_menu` | Güvenilir menü satırı bulunursa menüyü verir; bulunamazsa fallback verir. | Menü uydurulmamalı. |
+
+### E) Güvenli Fallback
+
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `Galatasaray maçı ne zaman?` | `fallback` | İndekslenmiş kaynaklarda bilgi olmadığını söyler. | Spor fikstürü uydurulmamalı. |
+
+### F) Terminoloji Belirsizliği
+
+| Soru | Beklenen mode | Beklenen davranış | Dikkat |
+| --- | --- | --- | --- |
+| `GANO ile AGNO aynı şey mi?` | `rag` | Kaynaklarda GANO evidence'ı varsa bunu belirtir; AGNO/eşdeğerlik açık değilse kesin cevap vermez. | Eşdeğerlik kaynakta yoksa uydurulmamalı. |
+
+## Demo Sırasında Söylenecek Kısa Açıklama
+
+Bu uygulama Selçuk Üniversitesi'nin indekslenmiş resmi yönetmelik, yönerge, PDF ve seçili web kaynakları üzerinde çalışan bir RAG asistanıdır. Soru geldiğinde önce `query_router.py` hangi cevap modunun çalışacağını belirler: kaynak keşfi, dinamik kaynak veya normal RAG.
+
+Normal RAG sorularında ilgili kaynak parçaları ChromaDB snapshot içinden alınır, metadata-aware rerank ile sıralanır, ardından model yalnız bu bağlama dayanarak cevap üretir. Son cevap kaynak bloğu temizleme, URL sızıntısı önleme, tekrar azaltma, citation ve güvenli fallback guardrail'lerinden geçer.
+
+Kaynak keşfi sorularında LLM cevabı üretilmez; mevcut indekslenmiş kaynaklar listelenir. Yemekhane menüsü gibi güncel bilgiler statik snapshot'a gömülmez, dinamik reader üzerinden okunur; güvenilir parse yapılamazsa menü uydurulmaz.
+
+## Demo Notları
+
+- Bu sistem resmi belge yerine geçmez.
+- Cevaplar mevcut indekslenmiş kaynaklarla sınırlıdır.
+- Yeni kaynaklar ingestion yapılmadan cevap kapsamına girmez.
+- Dynamic menu endpoint değişirse fallback davranışı korunur.
+- Admin kalite paneli read-only çalışır ve shell command çalıştırmaz.

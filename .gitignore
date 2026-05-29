@@ -41,6 +41,8 @@ source_inventory*.json
 rag_preview_*.json
 *_preview*.json
 *_report*.json
+*.local.json
+*.local.md
 retrieval_*_report.json
 retrieval_evaluation_report.local.json
 retrieval_evaluation_summary.local.md

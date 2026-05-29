@@ -1,65 +1,72 @@
 # Final Release Checklist
 
-Bu checklist, Selcuk RAG Asistan release veya demo oncesinde repository, test, deploy ve guvenlik durumunu hizlica dogrulamak icin kullanilir.
+Bu checklist, Selçuk RAG Asistan demo/release öncesinde repository, test, deploy ve güvenlik durumunu hızlıca doğrulamak için kullanılır.
 
 ## Repository Status
 
-- `dev` ve `main` branch sync durumu kontrol edilir.
-- `git status` ile working tree incelenir.
-- `chroma_db/chroma.sqlite3` yerelde modified gorunurse stage edilmez; once sebebi ayrica incelenir.
-- Forbidden files kontrol edilir:
-  - `.env`
-  - API key, token veya secret iceren dosyalar
-  - `data/*.pdf`
-  - `data/manual_pdfs/`
-  - `chroma_db_legal_test/`
-  - local evaluation artifact dosyalari
+- [ ] `dev` ve `main` branch sync durumu kontrol edildi.
+- [ ] `git status --short` incelendi.
+- [ ] `chroma_db/chroma.sqlite3` yerelde modified görünse bile stage edilmedi.
+- [ ] `release_notes_v0.1.0-demo.local.md` stage edilmedi.
+- [ ] Local artifact dosyaları stage edilmedi.
+- [ ] Runtime davranışı değiştiren beklenmeyen dosya yok.
 
-## Tests
+## Test / Evaluation
 
-Release oncesi asagidaki komutlar calistirilir:
+- [ ] Syntax check passed.
+- [ ] Full tests passed.
+- [ ] Full regression runner passed.
+- [ ] Answer grounding passed.
+- [ ] Retrieval metrikleri önceki seviyeyi koruyor.
+- [ ] `fallback_accuracy` 1.0.
+- [ ] `critical_failure_count` 0.
+
+Önerilen komutlar:
 
 ```bash
-python -m py_compile app.py quality_dashboard.py evaluation/compare_llm_providers.py
-python evaluation/compare_llm_providers.py --config evaluation/provider_models.json --questions evaluation/answer_quality_questions.json --out provider_comparison_report.local.json --markdown-out provider_comparison_summary.local.md
-python evaluation/evaluate_answer_quality.py --questions evaluation/answer_quality_questions.json --out answer_quality_report.local.json --markdown-out answer_quality_summary.local.md
-python evaluation/evaluate_retrieval.py --golden evaluation/golden_questions.json --out retrieval_evaluation_report.local.json --markdown-out retrieval_evaluation_summary.local.md
-python evaluation/run_general_smoke.py --questions evaluation/general_smoke_questions.json --out general_smoke_report.local.json --markdown-out general_smoke_summary.local.md
+python -m py_compile app.py query_router.py app_chat_handlers.py source_discovery.py rag_engine.py retrieval_rerank.py retrieval_normalization.py evaluation/run_regression_suite.py evaluation/evaluate_answer_grounding.py
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+python evaluation/evaluate_answer_grounding.py --questions evaluation/answer_grounding_questions.json --out answer_grounding_report.local.json --markdown-out answer_grounding_summary.local.md
 python -m pytest tests/ -v
 ```
 
-Local report dosyalari commit edilmez.
-
 ## Deployment
 
-- GitHub Actions CI sonucu kontrol edilir.
-- Hugging Face deploy workflow sonucu kontrol edilir.
-- HF Space runtime durumu `RUNNING` olmalidir.
-- HTTP status `200` olmalidir.
-- ChromaDB health kontrolu `status: ok`, `document_count: 2985`, `unique_source_count: 149` degerleriyle uyumlu olmalidir.
-- Canli UI acilir ve ChromaDB/traceback hatasi olmadigi dogrulanir.
+- [ ] GitHub Actions CI success.
+- [ ] Deploy Hugging Face Space success.
+- [ ] HF runtime `RUNNING`.
+- [ ] HTTP status `200`.
+- [ ] Traceback/Streamlit exception yok.
+- [ ] ChromaDB health verified.
+- [ ] Canlı snapshot 157 source / 3092 document/chunk.
 
-## Security
+## Manual Demo Smoke
 
-- `.env` tracked olmamalidir.
-- API key veya secret degeri repoda bulunmamalidir.
-- `.env.example` gercek anahtar formatina benzeyen deger icermemelidir.
-- Local artifact dosyalari ignore edilmelidir.
-- `data/*.pdf` ve `data/manual_pdfs/` commit edilmemelidir.
-- `chroma_db_legal_test/` commit edilmemelidir.
-- ChromaDB snapshot deploy workflow tarafinda Git LFS ile HF Space reposuna gonderilir ve workflow bunu kontrol eder.
+- [ ] RAG smoke passed: `AKTS nedir?`, `ALES nedir?`
+- [ ] Mevzuat smoke passed: `Çift anadal şartları nelerdir?`
+- [ ] Source discovery smoke passed: `Staj yönergesi var mı?`
+- [ ] Teknoloji Fakültesi source discovery smoke passed.
+- [ ] Dynamic menu safe fallback passed.
+- [ ] Out-of-scope fallback passed: `Galatasaray maçı ne zaman?`
+- [ ] AGNO/GANO terminoloji belirsizliği temkinli cevaplandı.
 
-## Demo
+## Security / Commit Scope
 
-- `docs/DEMO_SCRIPT.md` hazir ve guncel olmalidir.
-- `docs/RELEASE_SUMMARY.md` mevcut dogrulanmis durumu yansitmalidir.
-- `docs/ARCHITECTURE_OVERVIEW.md` runtime, evaluation ve deploy katmanlarini aciklamalidir.
-- Demo sorulari hem kaynakli cevap hem safe fallback davranisini temsil etmelidir.
+- [ ] No secrets committed.
+- [ ] `.env` commit edilmedi.
+- [ ] API key/token/secret içeren dosya commit edilmedi.
+- [ ] `data/*.pdf` commit edilmedi.
+- [ ] `data/manual_pdfs/` commit edilmedi.
+- [ ] Local artifacts (`*.local.json`, `*.local.md`) commit edilmedi.
+- [ ] ChromaDB snapshot accidental stage edilmedi.
+- [ ] Dependency/provider/model unchanged.
+- [ ] Yeni ingestion çalıştırılmadı.
+- [ ] Release/tag/version bump oluşturulmadı.
 
 ## Known Limitations
 
-- Quality dashboard ilk surumde read-only calisir.
-- Snapshot guncellemesi manuel ve prosedurlu yapilir.
-- Live LLM evaluation API key gerektirir.
-- Provider comparison production provider degistirmez.
-- Article hit metrigi halen gelistirmeye aciktir.
+- ChromaDB snapshot mevcut kaynaklarla sınırlıdır.
+- Snapshot update manuel/prosedürlü yapılır.
+- Dynamic dining menu endpoint'e bağlıdır.
+- Live LLM QA API key gerektirir.
+- Sistem resmi belge yerine geçmez.
