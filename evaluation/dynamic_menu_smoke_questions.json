@@ -2,17 +2,56 @@
   {
     "id": "dynamic_menu_today",
     "query": "bugün yemekte ne var",
-    "expected_mode": "dynamic_dining_menu"
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "safe_fallback"
+  },
+  {
+    "id": "dynamic_menu_tomorrow",
+    "query": "yarın yemekte ne var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "safe_fallback"
+  },
+  {
+    "id": "dynamic_menu_may_4",
+    "query": "4 Mayıs yemekte ne var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_may_5",
+    "query": "5 Mayıs menüsü ne",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_may_19",
+    "query": "19 Mayıs yemekte ne var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "no_meal"
+  },
+  {
+    "id": "dynamic_menu_may_20",
+    "query": "20 Mayıs yemekte ne var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_week",
+    "query": "bu hafta yemekhane menüsü ne",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "range_menu"
   },
   {
     "id": "dynamic_menu_monthly",
     "query": "bu ayın yemekhane menüsü nedir",
-    "expected_mode": "dynamic_dining_menu"
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "range_menu"
   },
   {
     "id": "not_dynamic_source_discovery",
     "query": "yemekhane ile ilgili kaynaklar nelerdir",
-    "expected_not_mode": "dynamic_dining_menu"
+    "expected_not_mode": "dynamic_dining_menu",
+    "expected_behavior": "source_discovery_not_dynamic"
   },
   {
     "id": "not_dynamic_rag",

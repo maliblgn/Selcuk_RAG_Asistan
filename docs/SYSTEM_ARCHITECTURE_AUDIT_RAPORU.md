@@ -359,3 +359,11 @@ Faz 9J kapsaminda runtime davranisi degistirilmeden final demo ve release-readin
 Canli demo soru seti RAG, source discovery, dynamic dining menu, fallback ve terminoloji belirsizligi davranislarini kapsayacak sekilde netlestirildi. Son metrikler ve bilinen sinirliliklar dokumanlara eklendi.
 
 ChromaDB snapshot, ingestion akisi, provider/model, dependency, query routing, dynamic source registry ve RAG scoring/rerank davranisi degistirilmedi. Release, tag veya version bump olusturulmadi.
+
+## Faz 10A Dynamic Dining Menu Date Query Support
+
+Faz 10A kapsaminda Yemekhane dynamic reader, endpoint icindeki menu verisini gun bazli parse edecek sekilde guclendirildi. Tarihli sorgular yalnizca ilgili gunu secer; hafta sorgulari sinirli, gun gun liste verir.
+
+Belirsiz gun adi sorgularinda birden fazla eslesme varsa tum liste dokulmez ve tarih istenir. `Ogun Yok` gunleri acikca belirtilir. Tarih menü araligi disindaysa mevcut tarih araligi soylenir ve menu icerigi uydurulmaz.
+
+ChromaDB snapshot, ingestion akisi, provider/model, dependency, source discovery, query router onceligi ve static RAG scoring/rerank davranisi degistirilmedi.

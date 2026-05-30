@@ -60,7 +60,7 @@ def test_dynamic_menu_handler_keeps_safe_parse_error_fallback():
 
     assert result.sources_checked is True
     assert result.docs
-    assert "uydurulmadi" in result.answer
+    assert "uydurulmadi" in result.answer or "uydurulmadı" in result.answer
     assert "Mercimek" not in result.answer
 
 

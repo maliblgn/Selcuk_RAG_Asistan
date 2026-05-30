@@ -85,6 +85,16 @@ Davranış:
 - Bugüne uygun satır yoksa veya parse güvenilir değilse fallback verilir.
 - Menü içeriği uydurulmaz.
 
+Faz 10A ile reader tarihli ve haftalık sorguları gün bazlı ele alır:
+
+- `4 Mayıs yemekte ne var?` gibi sorgularda yalnızca ilgili gün seçilir.
+- `Bu hafta yemekhane menüsü ne?` sorgusunda en fazla ilgili haftanın günleri listelenir.
+- Belirsiz `Pazartesi menüsü ne?` gibi sorgularda birden fazla eşleşme varsa tarih istenir.
+- `Öğün Yok` günleri yemek uydurmadan açıkça belirtilir.
+- Tarih menü aralığı dışındaysa mevcut tarih aralığı söylenir.
+
+Bu tarih seçimi ChromaDB'ye yazmaz; menü verisi dynamic source olarak okunmaya devam eder.
+
 ## Retrieval / Rerank
 
 `rag_engine.py`, `retrieval_rerank.py` ve `retrieval_normalization.py` şu sinyalleri birlikte kullanır:

@@ -17,6 +17,7 @@ from dynamic_menu_reader import (  # noqa: E402
     format_dining_menu_response,
     get_dynamic_menu_health,
     is_dining_menu_query,
+    select_menu_for_query_details,
 )
 
 
@@ -54,6 +55,7 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
     mode_detected = "dynamic_dining_menu" if is_dining_menu_query(query) else "other"
     expected_mode = item.get("expected_mode")
     expected_not_mode = item.get("expected_not_mode")
+    expected_behavior = item.get("expected_behavior")
     mode_ok = True
     if expected_mode:
         mode_ok = mode_detected == expected_mode
@@ -65,6 +67,8 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
     parsed_item_count = 0
     parse_strategy = "none"
     fallback_safe = False
+    actual_behavior = "not_evaluated"
+    behavior_ok = True
     response_preview = ""
     if mode_detected == "dynamic_dining_menu":
         try:
@@ -75,12 +79,37 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
             parse_strategy = diagnostics.get("parse_strategy") or menu_data.get("parser") or "none"
             response = format_dining_menu_response(menu_data, query)
             response_preview = response[:240]
-            fallback_safe = "uydurulmadi" in response.lower() if menu_status != "ok" else True
+            lowered_response = response.lower()
+            fallback_safe = (
+                "uydurulmadi" in lowered_response or "uydurulmadı" in lowered_response
+            ) if menu_status != "ok" else True
+            if menu_status != "ok":
+                actual_behavior = "safe_fallback"
+            elif live_fetch:
+                selection = select_menu_for_query_details(menu_data, query)
+                if selection.get("status") == "no_menu_for_date":
+                    actual_behavior = "safe_fallback"
+                elif selection.get("selection") == "week":
+                    actual_behavior = "range_menu"
+                elif selection.get("selection") in {"single_day", "single_weekday"}:
+                    selected = selection.get("items") or []
+                    actual_behavior = "no_meal" if selected and selected[0].get("has_meal") is False else "single_day_menu"
+                elif selection.get("selection") == "month_limited":
+                    actual_behavior = "range_menu"
+                else:
+                    actual_behavior = selection.get("status") or "unknown"
         except Exception as exc:  # pragma: no cover - defensive safety net
             unexpected_exception = True
             response_preview = str(exc)[:240]
+    elif expected_behavior == "source_discovery_not_dynamic":
+        actual_behavior = "source_discovery_not_dynamic"
 
-    passed = mode_ok and not unexpected_exception
+    if expected_behavior and live_fetch:
+        behavior_ok = actual_behavior == expected_behavior
+    elif expected_behavior == "source_discovery_not_dynamic":
+        behavior_ok = mode_detected != "dynamic_dining_menu"
+
+    passed = mode_ok and behavior_ok and not unexpected_exception
     if mode_detected == "dynamic_dining_menu" and menu_status != "ok":
         passed = passed and fallback_safe
 
@@ -89,8 +118,11 @@ def evaluate_question(item: dict, live_fetch: bool = False) -> dict:
         "query": query,
         "expected_mode": expected_mode,
         "expected_not_mode": expected_not_mode,
+        "expected_behavior": expected_behavior,
         "mode_detected": mode_detected,
         "mode_ok": mode_ok,
+        "actual_behavior": actual_behavior,
+        "behavior_ok": behavior_ok,
         "live_fetch": live_fetch,
         "menu_status": menu_status,
         "parsed_item_count": parsed_item_count,

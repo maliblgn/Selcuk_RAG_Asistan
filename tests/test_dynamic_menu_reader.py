@@ -47,7 +47,7 @@ def test_parse_error_response_does_not_invent_menu():
         "fetched_at": "2026-01-01T00:00:00+00:00",
     })
 
-    assert "uydurulmadi" in response.lower()
+    assert "uydurulmadi" in response.lower() or "uydurulmadı" in response.lower()
     assert "Mercimek" not in response
 
 
@@ -120,7 +120,7 @@ def test_today_query_without_today_menu_has_safe_fallback():
     assert select_menu_for_query(menu_data, "bugun yemekte ne var") == []
     response = format_dining_menu_response(menu_data, "bugun yemekte ne var")
 
-    assert "uydurulmadi" in response.lower()
+    assert "uydurulmadi" in response.lower() or "uydurulmadı" in response.lower()
 
 
 def test_diagnostics_are_produced_for_parser_results():

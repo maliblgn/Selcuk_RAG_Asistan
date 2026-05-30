@@ -50,6 +50,9 @@
 | Soru | Beklenen mode | Beklenen davranış | Dikkat |
 | --- | --- | --- | --- |
 | `Bugün yemekte ne var?` | `dynamic_dining_menu` | Güvenilir menü satırı bulunursa menüyü verir; bulunamazsa fallback verir. | Menü uydurulmamalı. |
+| `4 Mayıs yemekte ne var?` | `dynamic_dining_menu` | Yalnızca 4 Mayıs menüsünü gösterir. | Tüm ay listesi dökülmemeli. |
+| `19 Mayıs yemekte ne var?` | `dynamic_dining_menu` | Kaynakta `Öğün Yok` varsa bunu açıkça söyler. | Yemek uydurulmamalı. |
+| `Bu hafta yemekhane menüsü ne?` | `dynamic_dining_menu` | İlgili haftanın günlerini sınırlı ve gün gün listeler. | Ayın tamamı gösterilmemeli. |
 
 ### E) Güvenli Fallback
 

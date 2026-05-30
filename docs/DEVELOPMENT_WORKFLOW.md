@@ -344,6 +344,21 @@ python -m pytest tests/ -v
 
 Release veya tag olusturulmaz. Local artifactler commit edilmez. Son dogrulanmis metrikler dokumanlara gercek komut ciktisi uzerinden yazilir.
 
+## Dynamic Dining Menu Date Queries
+
+Yemekhane reader, endpoint icindeki menu verisini gun bazli parse eder. Tarihli sorgularda yalnizca ilgili gunun menusu dondurulur; hafta sorgularinda gun gun sinirli liste verilir.
+
+Tarih bulunamazsa mevcut tarih araligi belirtilir ve menu uydurulmaz. `Ogun Yok` olan gunlerde bu durum acikca soylenir. Yemekhane verisi ChromaDB snapshot'a gomulmez; dynamic source olarak okunur.
+
+Test komutlari:
+
+```bash
+python evaluation/evaluate_dynamic_menu.py --questions evaluation/dynamic_menu_smoke_questions.json --out dynamic_menu_report.local.json --markdown-out dynamic_menu_summary.local.md
+python evaluation/run_regression_suite.py --profile dynamic-source --use-local-chroma-copy
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+python -m pytest tests/ -v
+```
+
 ## ChromaDB Local Runtime Copy
 
 Normal local evaluation sirasinda tracked `chroma_db/` snapshot dosyalarinin kirlenmesini azaltmak icin local runtime copy modu kullanilabilir:

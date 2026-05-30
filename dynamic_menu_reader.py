@@ -5,7 +5,9 @@ from __future__ import annotations
 import json
 import re
 import time
+from dataclasses import asdict, dataclass
 from datetime import date, datetime, timezone
+from datetime import timedelta
 from typing import Any
 
 import requests
@@ -44,6 +46,80 @@ _DYNAMIC_MENU_PATTERNS = (
 )
 
 _MENU_WORDS = {"menu", "menusu", "yemekte", "yemek", "listesi", "ogle", "aksam", "bugun", "aylik"}
+_DATE_QUERY_WORDS = {
+    "bugun",
+    "bugunku",
+    "yarin",
+    "yarinki",
+    "dun",
+    "hafta",
+    "haftanin",
+    "pazartesi",
+    "sali",
+    "carsamba",
+    "persembe",
+    "cuma",
+    "cumartesi",
+    "pazar",
+    "ocak",
+    "subat",
+    "mart",
+    "nisan",
+    "mayis",
+    "haziran",
+    "temmuz",
+    "agustos",
+    "eylul",
+    "ekim",
+    "kasim",
+    "aralik",
+}
+_TURKISH_MONTHS = {
+    "ocak": 1,
+    "subat": 2,
+    "mart": 3,
+    "nisan": 4,
+    "mayis": 5,
+    "haziran": 6,
+    "temmuz": 7,
+    "agustos": 8,
+    "eylul": 9,
+    "ekim": 10,
+    "kasim": 11,
+    "aralik": 12,
+}
+_TURKISH_WEEKDAYS = {
+    "pazartesi": 0,
+    "sali": 1,
+    "carsamba": 2,
+    "persembe": 3,
+    "cuma": 4,
+    "cumartesi": 5,
+    "pazar": 6,
+}
+_WEEKDAY_DISPLAY = {
+    0: "Pazartesi",
+    1: "Salı",
+    2: "Çarşamba",
+    3: "Perşembe",
+    4: "Cuma",
+    5: "Cumartesi",
+    6: "Pazar",
+}
+_MONTH_DISPLAY = {
+    1: "Ocak",
+    2: "Şubat",
+    3: "Mart",
+    4: "Nisan",
+    5: "Mayıs",
+    6: "Haziran",
+    7: "Temmuz",
+    8: "Ağustos",
+    9: "Eylül",
+    10: "Ekim",
+    11: "Kasım",
+    12: "Aralık",
+}
 _FOOD_HINT_WORDS = {
     "ayran",
     "balik",
@@ -53,6 +129,7 @@ _FOOD_HINT_WORDS = {
     "dolma",
     "fasulye",
     "helva",
+    "ispanak",
     "kebap",
     "komposto",
     "kofte",
@@ -63,6 +140,7 @@ _FOOD_HINT_WORDS = {
     "patates",
     "pilav",
     "pirinc",
+    "puding",
     "salata",
     "sebze",
     "sote",
@@ -101,6 +179,36 @@ _NON_MENU_CONTEXT_WORDS = {
 }
 
 
+@dataclass(frozen=True)
+class DiningMenuEntry:
+    """One date-based dining menu entry parsed from the dynamic source."""
+
+    date: str
+    day_name: str
+    display_date: str
+    items: list[str]
+    calories: str | None = None
+    has_meal: bool = True
+    source_url: str = DINING_MENU_SOURCE_URL
+    parse_confidence: str = "medium"
+
+    def to_legacy_item(self) -> dict[str, Any]:
+        """Return the item shape used by the existing app and source panel."""
+
+        return {
+            "date": self.date,
+            "raw_date": self.display_date,
+            "day_name": self.day_name,
+            "display_date": self.display_date,
+            "meal_type": "öğle",
+            "menu": list(self.items),
+            "calories": self.calories,
+            "has_meal": self.has_meal,
+            "source_url": self.source_url,
+            "parse_confidence": self.parse_confidence,
+        }
+
+
 def is_dining_menu_query(query: str) -> bool:
     """Return True when the user is asking for current dining menu content."""
 
@@ -114,6 +222,15 @@ def is_dining_menu_query(query: str) -> bool:
 
     if any(pattern in normalized for pattern in _DYNAMIC_MENU_PATTERNS):
         return True
+
+    if tokens & _DATE_QUERY_WORDS and ({"yemekhane", "yemek", "yemekte", "menu", "menusu", "listesi"} & tokens):
+        return True
+
+    if re.search(r"\b\d{1,2}\s+(?:ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik)\b", normalized):
+        return bool({"yemek", "yemekte", "menu", "menusu", "listesi"} & tokens)
+
+    if re.search(r"\b\d{1,2}[./-]\d{1,2}(?:[./-]\d{2,4})?\b", normalized):
+        return bool({"yemek", "yemekte", "menu", "menusu", "listesi"} & tokens)
 
     has_dining_context = "yemekhane" in tokens or "yemek" in tokens
     has_menu_context = bool(tokens & _MENU_WORDS)
@@ -183,6 +300,61 @@ def _looks_like_food_item(text: str) -> bool:
     return _contains_food_hint(cleaned)
 
 
+def _parse_iso_date(value: str) -> date | None:
+    try:
+        return date.fromisoformat(value)
+    except Exception:
+        return None
+
+
+def _format_display_date(value: date, day_name: str | None = None) -> str:
+    day_label = day_name or _WEEKDAY_DISPLAY.get(value.weekday(), "")
+    month_label = _MONTH_DISPLAY.get(value.month, str(value.month))
+    if day_label:
+        return f"{value.day} {month_label} {value.year} {day_label}"
+    return f"{value.day} {month_label} {value.year}"
+
+
+def _infer_menu_year(today: date | None = None, entries: list[dict] | None = None) -> int:
+    if entries:
+        for item in entries:
+            parsed = _parse_iso_date(str(item.get("date") or ""))
+            if parsed:
+                return parsed.year
+    return (today or date.today()).year
+
+
+def _extract_named_month_date(text: str, year: int) -> date | None:
+    normalized = normalize_ascii_lite(text)
+    match = re.search(
+        r"\b(\d{1,2})\s+("
+        r"ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik"
+        r")(?:\s+(\d{4}))?\b",
+        normalized,
+    )
+    if not match:
+        return None
+    day = int(match.group(1))
+    month = _TURKISH_MONTHS[match.group(2)]
+    parsed_year = int(match.group(3)) if match.group(3) else year
+    try:
+        return date(parsed_year, month, day)
+    except ValueError:
+        return None
+
+
+def _is_weekday_line(value: str) -> bool:
+    return normalize_ascii_lite(value) in _TURKISH_WEEKDAYS
+
+
+def _is_no_meal_line(value: str) -> bool:
+    return "ogun yok" in normalize_ascii_lite(value)
+
+
+def _is_calorie_line(value: str) -> bool:
+    return "toplam kalori" in normalize_ascii_lite(value)
+
+
 def normalize_menu_date(value: str, today: date | None = None) -> str:
     """Normalize common Turkish menu dates into YYYY-MM-DD when possible."""
 
@@ -193,21 +365,26 @@ def normalize_menu_date(value: str, today: date | None = None) -> str:
     lowered = normalize_ascii_lite(text)
     if "bugun" in lowered:
         return today.isoformat()
+    if "yarin" in lowered:
+        return (today + timedelta(days=1)).isoformat()
+    if "dun" in lowered:
+        return (today - timedelta(days=1)).isoformat()
 
     match = re.search(r"\b(\d{1,2})[./-](\d{1,2})(?:[./-](\d{2,4}))?\b", text)
-    if not match:
-        return ""
+    if match:
+        day = int(match.group(1))
+        month = int(match.group(2))
+        year_text = match.group(3)
+        year = today.year if not year_text else int(year_text)
+        if year < 100:
+            year += 2000
+        try:
+            return date(year, month, day).isoformat()
+        except ValueError:
+            return ""
 
-    day = int(match.group(1))
-    month = int(match.group(2))
-    year_text = match.group(3)
-    year = today.year if not year_text else int(year_text)
-    if year < 100:
-        year += 2000
-    try:
-        return date(year, month, day).isoformat()
-    except ValueError:
-        return ""
+    named = _extract_named_month_date(text, today.year)
+    return named.isoformat() if named else ""
 
 
 def _build_menu_item(date_text: str, meal_type: str, menu_text: str, today: date | None = None) -> dict | None:
@@ -226,7 +403,7 @@ def _deduplicate_items(items: list[dict]) -> list[dict]:
     seen = set()
     deduped = []
     for item in items:
-        key = (item.get("date") or item.get("raw_date") or "", tuple(item.get("menu") or []))
+        key = (item.get("date") or item.get("raw_date") or "", tuple(item.get("menu") or []), item.get("has_meal", True))
         if key in seen:
             continue
         seen.add(key)
@@ -234,8 +411,142 @@ def _deduplicate_items(items: list[dict]) -> list[dict]:
     return deduped
 
 
+def _deduplicate_entries(entries: list[DiningMenuEntry]) -> list[DiningMenuEntry]:
+    seen_dates: set[str] = set()
+    deduped: list[DiningMenuEntry] = []
+    for entry in entries:
+        key = entry.date or entry.display_date
+        if key in seen_dates:
+            continue
+        seen_dates.add(key)
+        deduped.append(entry)
+    return sorted(deduped, key=lambda item: item.date or item.display_date)
+
+
+def _finish_entry(
+    entries: list[DiningMenuEntry],
+    current_date: date | None,
+    day_name: str,
+    menu_items: list[str],
+    calories: str | None,
+    has_meal: bool,
+    source_url: str = DINING_MENU_SOURCE_URL,
+) -> None:
+    if not current_date:
+        return
+    cleaned_items = [_clean_text(item) for item in menu_items if _clean_text(item)]
+    if not cleaned_items and has_meal:
+        return
+    display_day = day_name or _WEEKDAY_DISPLAY.get(current_date.weekday(), "")
+    display_date = _format_display_date(current_date, display_day)
+    entries.append(
+        DiningMenuEntry(
+            date=current_date.isoformat(),
+            day_name=display_day,
+            display_date=display_date,
+            items=cleaned_items[:12],
+            calories=calories,
+            has_meal=has_meal,
+            source_url=source_url,
+            parse_confidence="high" if cleaned_items or not has_meal else "medium",
+        )
+    )
+
+
+def parse_dining_menu_entries_from_text(
+    text: str,
+    today: date | None = None,
+    source_url: str = DINING_MENU_SOURCE_URL,
+) -> list[DiningMenuEntry]:
+    """Parse the Selcuk dining page into one entry per date."""
+
+    today = today or date.today()
+    lines = [_clean_text(line) for line in (text or "").splitlines()]
+    lines = [line for line in lines if line]
+    entries: list[DiningMenuEntry] = []
+    current_date: date | None = None
+    current_day = ""
+    current_items: list[str] = []
+    current_calories: str | None = None
+    current_has_meal = True
+    pending_day = ""
+    expect_calorie_value = False
+
+    def finish_current() -> None:
+        _finish_entry(
+            entries,
+            current_date,
+            current_day,
+            current_items,
+            current_calories,
+            current_has_meal,
+            source_url=source_url,
+        )
+
+    for line in lines:
+        normalized = normalize_ascii_lite(line)
+
+        if expect_calorie_value:
+            if re.fullmatch(r"\d+(?:[.,]\d+)?", normalized):
+                current_calories = line
+                expect_calorie_value = False
+                continue
+            expect_calorie_value = False
+
+        if _is_weekday_line(line):
+            pending_day = _WEEKDAY_DISPLAY[_TURKISH_WEEKDAYS[normalized]]
+            continue
+
+        parsed_date_text = normalize_menu_date(line, today=today)
+        parsed_date = _parse_iso_date(parsed_date_text)
+        if parsed_date and re.fullmatch(
+            r"\d{1,2}\s+(?:ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik)(?:\s+\d{4})?",
+            normalized,
+        ):
+            finish_current()
+            current_date = parsed_date
+            current_day = pending_day or _WEEKDAY_DISPLAY.get(parsed_date.weekday(), "")
+            current_items = []
+            current_calories = None
+            current_has_meal = True
+            pending_day = ""
+            continue
+
+        if parsed_date and re.fullmatch(r"\d{1,2}[./-]\d{1,2}(?:[./-]\d{2,4})?", normalized):
+            finish_current()
+            current_date = parsed_date
+            current_day = pending_day or _WEEKDAY_DISPLAY.get(parsed_date.weekday(), "")
+            current_items = []
+            current_calories = None
+            current_has_meal = True
+            pending_day = ""
+            continue
+
+        if not current_date:
+            continue
+
+        if _is_no_meal_line(line):
+            current_has_meal = False
+            current_items = []
+            continue
+
+        if _is_calorie_line(line):
+            expect_calorie_value = True
+            continue
+
+        if _looks_like_food_item(line):
+            current_items.append(line)
+
+    finish_current()
+    return _deduplicate_entries(entries)
+
+
 def parse_dining_menu_text(text: str, today: date | None = None) -> list[dict]:
     """Parse line-oriented menu text without treating arbitrary page text as food."""
+
+    entries = parse_dining_menu_entries_from_text(text, today=today)
+    if entries:
+        return [entry.to_legacy_item() for entry in entries]
 
     rows: list[dict] = []
     lines = [_clean_text(line) for line in (text or "").splitlines()]
@@ -324,6 +635,8 @@ def parse_dining_menu_html(html: str, final_url: str = DINING_MENU_SOURCE_URL, d
     diagnostics = diagnostics or {}
     soup = BeautifulSoup(html or "", "html.parser")
     title = _clean_text(soup.title.get_text(" ")) if soup.title else DINING_MENU_SOURCE_TITLE
+    if normalize_ascii_lite(title) in {"menu", "menus"}:
+        title = DINING_MENU_SOURCE_TITLE
     diagnostics.update({
         "raw_length": len(html or ""),
         "table_count": len(soup.find_all("table")),
@@ -341,10 +654,17 @@ def parse_dining_menu_html(html: str, final_url: str = DINING_MENU_SOURCE_URL, d
     diagnostics["candidate_line_count"] = len(candidate_lines)
     text_rows = parse_dining_menu_text(visible_text)
 
-    strategies = (
+    strategies = [
         ("json", json_rows),
         ("table", table_rows),
         ("text", text_rows),
+    ]
+    strategies.sort(
+        key=lambda item: (
+            len({row.get("date") for row in item[1] if row.get("date")}),
+            len(item[1]),
+        ),
+        reverse=True,
     )
     for strategy, rows in strategies:
         rows = _deduplicate_items(rows)
@@ -354,8 +674,13 @@ def parse_dining_menu_html(html: str, final_url: str = DINING_MENU_SOURCE_URL, d
             result = _base_result("ok", "Yemekhane menusu dinamik kaynaktan okundu.", final_url, diagnostics)
             result["source_title"] = title or DINING_MENU_SOURCE_TITLE
             result["parser"] = strategy
-            result["items"] = rows[:14]
+            result["items"] = rows
             result["menu_period"] = rows[0].get("date") or rows[0].get("raw_date") or "guncel"
+            dates = sorted(item.get("date") for item in rows if item.get("date"))
+            if dates:
+                result["available_start_date"] = dates[0]
+                result["available_end_date"] = dates[-1]
+                result["menu_period"] = f"{dates[0]} - {dates[-1]}"
             return result
 
     diagnostics["parse_strategy"] = "none"
@@ -368,18 +693,135 @@ def parse_dining_menu_html(html: str, final_url: str = DINING_MENU_SOURCE_URL, d
     )
 
 
-def select_menu_for_query(menu_data: dict, query: str, today: date | None = None) -> list[dict]:
-    """Select the most relevant menu rows for the query."""
+def _query_target_date(query: str, today: date, entries: list[dict]) -> date | None:
+    normalized_query = normalize_ascii_lite(query)
+    inferred_year = _infer_menu_year(today=today, entries=entries)
+
+    if "bugun" in normalized_query or "bugunku" in normalized_query or "bu gun" in normalized_query:
+        return today
+    if "yarin" in normalized_query or "yarinki" in normalized_query:
+        return today + timedelta(days=1)
+    if "dun" in normalized_query:
+        return today - timedelta(days=1)
+
+    numeric = re.search(r"\b(\d{1,2})[./-](\d{1,2})(?:[./-](\d{2,4}))?\b", normalized_query)
+    if numeric:
+        day = int(numeric.group(1))
+        month = int(numeric.group(2))
+        year_text = numeric.group(3)
+        year = inferred_year if not year_text else int(year_text)
+        if year < 100:
+            year += 2000
+        try:
+            return date(year, month, day)
+        except ValueError:
+            return None
+
+    return _extract_named_month_date(query, inferred_year)
+
+
+def _query_weekday(query: str) -> int | None:
+    normalized_query = normalize_ascii_lite(query)
+    for name, weekday in _TURKISH_WEEKDAYS.items():
+        if re.search(rf"\b{name}\b", normalized_query):
+            return weekday
+    return None
+
+
+def _is_week_query(query: str) -> bool:
+    normalized_query = normalize_ascii_lite(query)
+    return "bu hafta" in normalized_query or "haftanin" in normalized_query or "haftalik" in normalized_query
+
+
+def _is_month_query(query: str) -> bool:
+    normalized_query = normalize_ascii_lite(query)
+    return "bu ay" in normalized_query or "aylik" in normalized_query or bool(
+        re.search(r"\b(?:ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik)\s+ayi\b", normalized_query)
+    )
+
+
+def _available_range_message(items: list[dict]) -> str:
+    dates = sorted(item.get("date") for item in items if item.get("date"))
+    if not dates:
+        return "Mevcut menü listesinde tarih aralığı okunamadı."
+    return f"Mevcut listede {dates[0]} - {dates[-1]} arasındaki tarihler var."
+
+
+def select_menu_for_query_details(menu_data: dict, query: str, today: date | None = None) -> dict[str, Any]:
+    """Select date-aware menu rows and explain non-match cases."""
 
     today = today or date.today()
     items = list(menu_data.get("items") or [])
     normalized_query = normalize_ascii_lite(query)
+
+    if not items:
+        return {"status": "no_data", "items": [], "message": "Menü kaydını güvenilir şekilde okuyamadım."}
+
+    if _is_week_query(query):
+        week_start = today - timedelta(days=today.weekday())
+        week_end = week_start + timedelta(days=6)
+        selected = []
+        for item in items:
+            parsed = _parse_iso_date(str(item.get("date") or ""))
+            if parsed and week_start <= parsed <= week_end:
+                selected.append(item)
+        if not selected:
+            return {
+                "status": "no_menu_for_date",
+                "items": [],
+                "message": f"Bu hafta için menü kaydı bulamadım. {_available_range_message(items)}",
+            }
+        return {"status": "ok", "items": selected[:5], "selection": "week"}
+
+    target_date = _query_target_date(query, today, items)
+    if target_date:
+        selected = [item for item in items if item.get("date") == target_date.isoformat()]
+        if selected:
+            return {"status": "ok", "items": selected[:1], "selection": "single_day"}
+        return {
+            "status": "no_menu_for_date",
+            "items": [],
+            "message": f"{target_date.isoformat()} için menü kaydı bulamadım. {_available_range_message(items)}",
+        }
+
+    weekday = _query_weekday(query)
+    if weekday is not None:
+        selected = []
+        for item in items:
+            parsed = _parse_iso_date(str(item.get("date") or ""))
+            if parsed and parsed.weekday() == weekday:
+                selected.append(item)
+        if len(selected) == 1:
+            return {"status": "ok", "items": selected, "selection": "single_weekday"}
+        if len(selected) > 1:
+            return {
+                "status": "ambiguous_date",
+                "items": [],
+                "message": f"Bu menü listesinde birden fazla {_WEEKDAY_DISPLAY[weekday]} var; tarih de belirtir misin?",
+            }
+        return {
+            "status": "no_menu_for_date",
+            "items": [],
+            "message": f"{_WEEKDAY_DISPLAY[weekday]} için menü kaydı bulamadım. {_available_range_message(items)}",
+        }
+
+    if _is_month_query(query):
+        return {"status": "ok", "items": items[:22], "selection": "month_limited"}
+
     if "bugun" in normalized_query:
-        today_items = [item for item in items if item.get("date") == today.isoformat()]
-        if today_items:
-            return today_items[:2]
-        return []
-    return items[:5]
+        return {
+            "status": "no_menu_for_date",
+            "items": [],
+            "message": f"Bugün için güvenilir menü satırı bulamadım. {_available_range_message(items)}",
+        }
+
+    return {"status": "ok", "items": items[:5], "selection": "limited"}
+
+
+def select_menu_for_query(menu_data: dict, query: str, today: date | None = None) -> list[dict]:
+    """Select the most relevant menu rows for the query."""
+
+    return list(select_menu_for_query_details(menu_data, query, today=today).get("items") or [])
 
 
 def fetch_dining_menu(
@@ -444,28 +886,32 @@ def format_dining_menu_response(menu_data: dict, query: str = "") -> str:
 
     if status != "ok" or not menu_data.get("items"):
         return (
-            "Yemekhane menusu kaynagina su anda erisemedim veya menu icerigini guvenilir sekilde okuyamadim. "
-            "Bu nedenle menu icerigi uydurulmadi."
+            "Yemekhane menüsü kaynağına şu anda erişemedim veya menü içeriğini güvenilir şekilde okuyamadım. "
+            "Bu nedenle menü içeriği uydurulmadı."
         )
 
-    selected_items = select_menu_for_query(menu_data, query)
+    selection = select_menu_for_query_details(menu_data, query)
+    selected_items = list(selection.get("items") or [])
     if not selected_items:
+        message = selection.get("message")
+        if message:
+            return f"{message} Menü içeriği uydurulmadı."
         return (
-            "Yemekhane menusu kaynaginda bu sorguya uygun guncel menu satirini guvenilir sekilde bulamadim. "
-            "Bu nedenle menu icerigi uydurulmadi."
+            "Yemekhane menüsü kaynağında bu sorguya uygun güncel menü satırını güvenilir şekilde bulamadım. "
+            "Bu nedenle menü içeriği uydurulmadı."
         )
 
-    lines = ["Guncel yemekhane menusu kaynagindan okunan bilgi:"]
+    lines = ["Güncel yemekhane menüsü kaynağından okunan bilgi:"]
     for item in selected_items:
-        label_parts = []
-        if item.get("date") or item.get("raw_date"):
-            label_parts.append(str(item.get("date") or item.get("raw_date")))
-        if item.get("meal_type"):
-            label_parts.append(str(item["meal_type"]))
-        label = " - ".join(label_parts) or "Menu"
+        label = str(item.get("display_date") or item.get("raw_date") or item.get("date") or "Menü")
         lines.extend(["", f"**{label}**"])
-        for menu_item in item.get("menu", [])[:10]:
-            lines.append(f"- {menu_item}")
+        if item.get("has_meal") is False:
+            lines.append("- Öğün Yok")
+        else:
+            for menu_item in item.get("menu", [])[:10]:
+                lines.append(f"- {menu_item}")
+        if item.get("calories"):
+            lines.append(f"Toplam kalori: {item['calories']}")
 
     lines.extend([
         "",
