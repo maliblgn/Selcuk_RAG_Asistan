@@ -401,3 +401,12 @@ ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, quer
 - Session kaynaklarında ana ChromaDB'ye fallback yapılmadı; kaynakta olmayan bilgi güvenli fallback ile karşılanır.
 - Prompt injection cümleleri belge verisi kabul edilir, sistem talimatı olarak uygulanmaz.
 - ChromaDB snapshot, ingestion, dependency/provider/model, query routing sırası, dynamic menu ve static RAG davranışı değiştirilmedi.
+
+## Faz 11A-1B HF Upload 403 Diagnostics and Fallback Paths
+
+- Hugging Face Space yapılandırması Docker SDK, `app_port: 7860`, Dockerfile CMD/env port `7860` ve `.streamlit/config.toml` üzerinden incelendi; port 8501'e çevrilmedi.
+- `.streamlit/config.toml` upload için `address = "0.0.0.0"`, `enableCORS = false`, `enableXsrfProtection = false`, `maxUploadSize = 25` ve `maxMessageSize = 25` ayarlarıyla netleştirildi.
+- Session source UI'a PDF URL ve metin yapıştırma fallback yolları eklendi; bu kaynaklar yalnız session belleğinde tutulur ve ana ChromaDB snapshot'a yazılmaz.
+- PDF URL'leri `pdf_url`, yapıştırılan metinler `pasted_text` session source olarak işlenir; cevap citation ve source noun üretimi bu source type'ları destekler.
+- Secret-safe upload diagnostics eklendi; token/API key/env secret değerleri UI veya local report içinde gösterilmez.
+- ChromaDB snapshot, ingestion, dependency/provider/model, query routing sırası, dynamic menu ve static RAG davranışı değiştirilmedi.

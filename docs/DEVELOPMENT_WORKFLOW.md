@@ -427,7 +427,7 @@ python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
 Rewrite veya multi-query çıktısı, kullanıcı sorusunu "bilgi yok" fallback cevabına dönüştürürse reddedilir. Çift anadal, AGNO/GANO, lisansüstü başvuru ve yemekhane menüsü gibi manuel canlı QA riskleri için hard-coded soru ID patch'i yapılmaz; genel rewrite, routing, rerank ve coverage kuralları kullanılır.
 ## Session Source RAG
 
-Session-only PDF/link kaynakları ana ChromaDB snapshot'ına yazılmaz. Normal doğrulama komutları:
+Session-only PDF/link/metin kaynakları ana ChromaDB snapshot'ına yazılmaz. Normal doğrulama komutları:
 
 ```bash
 python evaluation/evaluate_session_source.py --questions evaluation/session_source_smoke_questions.json --out session_source_report.local.json --markdown-out session_source_summary.local.md
@@ -439,9 +439,30 @@ Kurallar:
 
 - Geçici kaynaklar commit edilmez ve ana `chroma_db/` ile karışmaz.
 - URL yüklemede sadece `http/https` kabul edilir; private/internal adresler ve unsupported scheme'ler engellenir.
+- PDF URL'leri mevcut PDF extraction hattıyla işlenir ve `pdf_url` session source olarak kalır.
+- HF/Streamlit file uploader 403 verirse PDF URL veya metin yapıştırma fallback yolu kullanılır.
 - robots.txt veya 401/403/429 erişim engelinde içerik uydurulmaz.
 - OCR yoktur; metin çıkarılamayan PDF için güvenli hata mesajı verilir.
-- Yeni PDF/link tek aktif kaynak olarak önceki geçici kaynağın yerini alır.
+- Yeni PDF/link/metin tek aktif kaynak olarak önceki geçici kaynağın yerini alır.
 - Session answer quality testleri fixture tabanlıdır; gerçek kullanıcı PDF/CV dosyası commit edilmez.
 - Session cevapları ham chunk olarak basılmamalı; hedef bilgi ayıklanmalı veya madde madde sentezlenmelidir.
 - Kaynakta olmayan bilgi için ana RAG'e otomatik fallback yapılmaz.
+
+## HF File Upload Diagnostics
+
+HF Space deploy bu projede Docker SDK ile çalışır:
+
+- README metadata: `sdk: docker`
+- app port: `7860`
+- Dockerfile CMD: `streamlit run app.py --server.port=7860 --server.address=0.0.0.0`
+- `.streamlit/config.toml` deploy klasörüne workflow ile kopyalanır.
+
+Upload 403/debug gerektiren durumlarda:
+
+```bash
+python -m py_compile session_sources/upload_diagnostics.py session_sources/text_loader.py session_sources/url_loader.py
+python -m pytest tests/test_upload_diagnostics.py tests/test_session_url_loader.py tests/test_session_rag.py -v
+python evaluation/evaluate_session_source.py --questions evaluation/session_source_smoke_questions.json --out session_source_report.local.json --markdown-out session_source_summary.local.md
+```
+
+Tanılama çıktıları secret-safe olmalı; `HF_TOKEN`, `GROQ_API_KEY`, `.env`, local reports ve kullanıcı PDF/metinleri commit edilmez.

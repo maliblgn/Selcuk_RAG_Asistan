@@ -1,6 +1,7 @@
 from session_sources.chunker import chunk_text
 from session_sources.models import SessionSource, utc_now
 from session_sources.session_rag import answer_from_session_source
+from session_sources.text_loader import build_text_session_source
 from session_sources.vector_store import build_session_vector_store
 
 
@@ -85,3 +86,27 @@ def test_session_meta_query_does_not_search_uploaded_source():
 
     assert result.status == "meta_answer"
     assert "geçici kaynak" in result.answer
+
+
+def test_session_rag_answers_from_pasted_text_with_citation():
+    source, chunks = build_text_session_source(
+        """
+        Geçici metin içeriği
+        Bu metin kullanıcı tarafından PDF upload çalışmadığında yapıştırılır.
+
+        Projeler
+        - Kaynak Analiz Sistemi
+        - Oturum Kaynak Cevaplama Denemesi
+
+        Not
+        Bu içerik ana ChromaDB veritabanına eklenmez.
+        """,
+        "Deneme metni",
+    )
+    store = build_session_vector_store(source, chunks)
+
+    result = answer_from_session_source("projeler nelerdir?", store)
+
+    assert result.status == "answered"
+    assert "Kaynak Analiz Sistemi" in result.answer
+    assert any("Geçici metin" in citation for citation in result.citations)

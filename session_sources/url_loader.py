@@ -92,14 +92,20 @@ def load_url_source(url: str, timeout_sec: int = 12) -> URLLoadResult:
         return _error_source(url, "Sayfa boyutu güvenli sınırı aştığı için işlenmedi.", response.status_code)
 
     content_type = response.headers.get("content-type", "").lower()
-    if "pdf" in content_type or response.url.lower().split("?", 1)[0].endswith(".pdf"):
+    is_pdf = "pdf" in content_type or response.url.lower().split("?", 1)[0].endswith(".pdf") or content.startswith(b"%PDF")
+    if is_pdf:
         filename = Path(urlparse(response.url).path).name or "linked.pdf"
         source, chunks = build_pdf_session_source(content, filename=filename)
         source = replace(
             source,
+            source_type="pdf_url",
             original_name_or_url=response.url,
             source_label=f"URL PDF: {source.title}",
         )
+        chunks = [
+            replace(chunk, metadata={**chunk.metadata, "source_type": "pdf_url", "url": response.url, "source_label": source.source_label})
+            for chunk in chunks
+        ]
         return URLLoadResult(source=source, chunks=chunks, final_url=response.url, status_code=response.status_code)
 
     text = content.decode(response.encoding or "utf-8", errors="ignore")

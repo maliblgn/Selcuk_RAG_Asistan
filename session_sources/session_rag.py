@@ -46,8 +46,13 @@ def _citation_for_doc(doc) -> str:
     if metadata.get("source_type") == "pdf":
         page = metadata.get("page_number")
         base = f"PDF, sayfa {page}" if page else "PDF"
+    elif metadata.get("source_type") == "pdf_url":
+        page = metadata.get("page_number")
+        base = f"PDF URL, sayfa {page}" if page else "PDF URL"
+    elif metadata.get("source_type") == "pasted_text":
+        base = "Geçici metin"
     elif metadata.get("source_type") == "url":
-        base = "Web kaynak"
+        base = "Web"
     else:
         base = "Geçici kaynak"
     if section:
@@ -65,7 +70,13 @@ def _docs_for_section(docs, section_types: set[str]):
 
 
 def _source_noun(store: InMemorySessionVectorStore) -> str:
-    return "PDF" if store.source.source_type == "pdf" else "kaynak"
+    if store.source.source_type == "pdf":
+        return "PDF"
+    if store.source.source_type == "pdf_url":
+        return "PDF linki"
+    if store.source.source_type == "pasted_text":
+        return "geçici metin"
+    return "kaynak"
 
 
 def _fallback(store: InMemorySessionVectorStore | None = None) -> SessionRAGResult:

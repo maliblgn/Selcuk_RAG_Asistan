@@ -100,10 +100,12 @@ class InMemorySessionVectorStore:
             metadata.setdefault("title", self.source.title)
             metadata.setdefault("source_type", self.source.source_type)
             metadata.setdefault("source_label", self.source.source_label)
-            if self.source.source_type == "pdf":
+            if self.source.source_type in {"pdf", "pdf_url"}:
                 metadata["source"] = self.source.original_name_or_url
             elif self.source.source_type == "url":
                 metadata["source"] = metadata.get("url") or self.source.original_name_or_url
+            elif self.source.source_type == "pasted_text":
+                metadata["source"] = self.source.original_name_or_url
             docs.append(Document(page_content=chunk.text, metadata=metadata))
         return docs
 

@@ -34,6 +34,8 @@ from check_chroma_health import check_chroma_health
 from quality_dashboard import render_quality_dashboard
 from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SESSION_UPLOAD_RAG, MODE_SOURCE_DISCOVERY, route_query
 from session_sources.pdf_loader import build_pdf_session_source
+from session_sources.text_loader import build_text_session_source
+from session_sources.upload_diagnostics import collect_upload_diagnostics
 from session_sources.url_loader import load_url_source
 from session_sources.vector_store import build_session_vector_store
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
@@ -705,6 +707,7 @@ with st.sidebar:
 
     st.markdown('<p class="nav-label">GEÇİCİ KAYNAK ALANI</p>', unsafe_allow_html=True)
     st.caption("PDF/link içerikleri ana Selçuk veritabanına eklenmez; yalnızca bu oturumda kullanılır.")
+    st.caption("HF ortamında dosya yükleme engellenirse PDF linki veya metin yapıştırma yöntemini kullanabilirsin.")
     uploaded_pdf = st.file_uploader("PDF yükle", type=["pdf"], key="session_pdf_upload")
     if uploaded_pdf is not None:
         current_key = f"{uploaded_pdf.name}:{uploaded_pdf.size}"
@@ -721,18 +724,41 @@ with st.sidebar:
             )
             st.rerun()
 
-    manual_url = st.text_input("Link ekle", key="session_url_input", placeholder="https://...")
+    manual_url = st.text_input("Link ekle / PDF URL işle", key="session_url_input", placeholder="https://...")
     if st.button("Linki işle", use_container_width=True, key="process_session_url"):
         result = load_url_source(manual_url)
         st.session_state.session_source = result.source
         st.session_state.session_source_store = build_session_vector_store(result.source, result.chunks) if result.chunks else None
         st.session_state.session_source_enabled = bool(result.chunks)
         st.session_state.session_source_status = (
-            f"Link işlendi: {result.source.chunk_count} chunk"
+            f"{'PDF linki' if result.source.source_type == 'pdf_url' else 'Link'} başarıyla işlendi: {result.source.chunk_count} chunk. Bu kaynak ana ChromaDB'ye eklenmedi."
             if result.source.status == "ready"
             else result.source.error_message
         )
         st.rerun()
+
+    with st.expander("PDF yükleme alternatifi: Metin olarak ekle", expanded=False):
+        pasted_title = st.text_input("Metin başlığı", value="Yapıştırılan metin", key="session_pasted_title")
+        pasted_text = st.text_area(
+            "PDF veya sayfa içeriğini buraya yapıştır",
+            key="session_pasted_text",
+            height=140,
+            placeholder="PDF upload çalışmazsa PDF içeriğini metin olarak yapıştırabilirsin.",
+        )
+        if st.button("Metni geçici kaynak yap", use_container_width=True, key="process_session_text"):
+            source, chunks = build_text_session_source(pasted_text, pasted_title or "Yapıştırılan metin")
+            st.session_state.session_source = source
+            st.session_state.session_source_store = build_session_vector_store(source, chunks) if chunks else None
+            st.session_state.session_source_enabled = bool(chunks)
+            st.session_state.session_source_status = (
+                "Metin geçici kaynak olarak işlendi. Bu kaynak yalnızca oturumda tutulur."
+                if source.status == "ready"
+                else source.error_message
+            )
+            st.rerun()
+
+    with st.expander("Geliştirici / Upload Tanılama", expanded=False):
+        st.json(collect_upload_diagnostics(st))
 
     active_source = st.session_state.session_source
     if active_source:

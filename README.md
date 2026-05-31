@@ -11,7 +11,7 @@ Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 - Static ChromaDB RAG snapshot
 - Source Discovery Mode
 - Dynamic Dining Menu Reader
-- Session-only PDF & URL RAG
+- Session-only PDF, PDF URL, manual URL & pasted text RAG
 - Query Router
 - Dynamic Source Registry
 - Metadata-aware retrieval/rerank
@@ -20,7 +20,7 @@ Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 - ChromaDB local runtime copy
 - Safe fallback / no hallucination yaklaşımı
 
-Session-only PDF & URL RAG, yüklenen PDF veya manuel link sorularında ham metin/chunk dökmek yerine soru odaklı cevap üretir. E-posta, telefon, dil seviyesi, proje listesi ve başvuru şartları gibi hedef bilgiler kaynak içinden ayıklanır; kaynakta yoksa bilgi uydurulmaz.
+Session-only PDF, PDF URL, manual URL & pasted text RAG, yüklenen PDF, PDF linki, manuel link veya yapıştırılan metin sorularında ham metin/chunk dökmek yerine soru odaklı cevap üretir. E-posta, telefon, dil seviyesi, proje listesi ve başvuru şartları gibi hedef bilgiler kaynak içinden ayıklanır; kaynakta yoksa bilgi uydurulmaz. Hugging Face ortamında dosya yükleme engellenirse PDF URL veya metin yapıştırma fallback yolu kullanılabilir.
 - Hugging Face Spaces deploy workflow
 
 ## Canlı Durum

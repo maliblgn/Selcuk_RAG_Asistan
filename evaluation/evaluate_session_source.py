@@ -14,6 +14,7 @@ if str(ROOT_DIR) not in sys.path:
 from session_sources.chunker import chunk_text
 from session_sources.models import SessionSource, utc_now
 from session_sources.session_rag import answer_from_session_source
+from session_sources.text_loader import build_text_session_source
 from session_sources.vector_store import build_session_vector_store
 
 
@@ -54,10 +55,52 @@ FIXTURES = {
     - Başvuru belgeleri
     - İletişim
     """,
+    "pasted_text": """
+    Geçici Metin Notları
+    Bu metin PDF yükleme çalışmadığında kullanıcı tarafından yapıştırılan içerik gibi değerlendirilir.
+
+    Projeler
+    - Kaynak Analiz Sistemi
+    - Oturum Kaynak Cevaplama Denemesi
+
+    Not
+    Bu kaynak ana ChromaDB veritabanına eklenmez; yalnızca geçici oturum kapsamında kullanılır.
+    """,
+    "pdf_url": """
+    PDF Link İçeriği
+    Bu bağlantı üzerinden okunan PDF aday başvuru sürecini açıklar.
+
+    Başvuru Şartları
+    a) Transkript teslim edilir.
+    b) Başvuru formu doldurulur.
+    c) Belgeler ilgili birime iletilir.
+    """,
+}
+
+SOURCE_TYPE_ALIASES = {
+    "pdf_upload_fixture": "pdf",
+    "pdf": "pdf",
+    "url_fixture": "url",
+    "url": "url",
+    "pasted_text_fixture": "pasted_text",
+    "pasted_text": "pasted_text",
+    "pdf_url_fixture": "pdf_url",
+    "pdf_url": "pdf_url",
 }
 
 
+def _canonical_source_type(source_type: str) -> str:
+    try:
+        return SOURCE_TYPE_ALIASES[source_type]
+    except KeyError as exc:
+        raise ValueError(f"Unsupported session source fixture type: {source_type}") from exc
+
+
 def _source(source_type: str) -> tuple[SessionSource, list]:
+    source_type = _canonical_source_type(source_type)
+    if source_type == "pasted_text":
+        return build_text_session_source(FIXTURES[source_type], "Fixture Pasted Text")
+
     source = SessionSource(
         id=f"fixture_{source_type}",
         source_type=source_type,
@@ -82,13 +125,14 @@ def load_questions(path: str | Path) -> list[dict]:
 
 def build_report(questions: list[dict]) -> dict:
     stores = {}
-    for source_type in {"pdf", "url"}:
+    for source_type in sorted({_canonical_source_type(item["source_type"]) for item in questions}):
         source, chunks = _source(source_type)
         stores[source_type] = build_session_vector_store(source, chunks)
 
     failures = []
     for item in questions:
-        result = answer_from_session_source(item["query"], stores[item["source_type"]])
+        source_type = _canonical_source_type(item["source_type"])
+        result = answer_from_session_source(item["query"], stores[source_type])
         reasons = []
         if result.status != item["expected_status"]:
             reasons.append(f"expected_status={item['expected_status']}, actual_status={result.status}")

@@ -112,5 +112,30 @@
     "query": "Bu sayfada futbol maçı sonucu var mı?",
     "expected_status": "no_relevant_context",
     "requires_citation": false
+  },
+  {
+    "id": "session_pdf_url_requirements",
+    "source_type": "pdf_url_fixture",
+    "query": "PDF linkindeki başvuru şartları nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Transkript", "Başvuru formu"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pasted_text_projects",
+    "source_type": "pasted_text_fixture",
+    "query": "metindeki projeler nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Kaynak Analiz Sistemi", "Oturum Kaynak Cevaplama Denemesi"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pasted_text_missing",
+    "source_type": "pasted_text_fixture",
+    "query": "Bu metinde futbol maçı sonucu var mı?",
+    "expected_status": "no_relevant_context",
+    "requires_citation": false
   }
 ]
