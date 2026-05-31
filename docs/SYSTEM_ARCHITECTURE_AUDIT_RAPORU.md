@@ -367,3 +367,11 @@ Faz 10A kapsaminda Yemekhane dynamic reader, endpoint icindeki menu verisini gun
 Belirsiz gun adi sorgularinda birden fazla eslesme varsa tum liste dokulmez ve tarih istenir. `Ogun Yok` gunleri acikca belirtilir. Tarih menü araligi disindaysa mevcut tarih araligi soylenir ve menu icerigi uydurulmaz.
 
 ChromaDB snapshot, ingestion akisi, provider/model, dependency, source discovery, query router onceligi ve static RAG scoring/rerank davranisi degistirilmedi.
+
+## Faz 10A-1 Dining Menu Turkish Date Suffix Hotfix
+
+Faz 10A-1 kapsaminda `mayista`, `Mayis'ta`, `mayisda` gibi Turkce ekli tarih ifadeleri exact date olarak normalize edildi. Gun + ay iceren sorgularin hafta/ay liste davranisina dusmesi engellendi.
+
+`5 mayista yemekhane menusu ne` gibi sorgular yalnizca 5 Mayis entry'sini secer. `21 mayista ne yemek var` sorgusunda 21 Mayis varsa yalnizca o gun dondurulur; yoksa mevcut tarih araligi belirtilerek menu uydurulmaz. Ay geneli belirsiz sorgularda tum ay dokulmez.
+
+ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, query router onceligi ve static RAG degistirilmedi.

@@ -350,6 +350,8 @@ Yemekhane reader, endpoint icindeki menu verisini gun bazli parse eder. Tarihli 
 
 Tarih bulunamazsa mevcut tarih araligi belirtilir ve menu uydurulmaz. `Ogun Yok` olan gunlerde bu durum acikca soylenir. Yemekhane verisi ChromaDB snapshot'a gomulmez; dynamic source olarak okunur.
 
+Turkce ekli ay ifadeleri desteklenir: `5 mayista`, `5 Mayis'ta`, `5 mayisda`, `21 mayista`. Gun + ay yakalanirsa single-day intent, hafta/ay liste davranisindan once gelir. Ay geneli belirsiz sorgularda tum ay dokulmez; kullanicidan belirli gun veya tarih istenir.
+
 Test komutlari:
 
 ```bash

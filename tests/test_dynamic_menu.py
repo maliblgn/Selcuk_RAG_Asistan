@@ -106,6 +106,55 @@ def test_named_dates_select_only_requested_day():
     assert "ISPANAK GRATEN" in may_20[0]["menu"]
 
 
+def test_turkish_month_suffix_dates_select_exact_day_without_dumping_other_days():
+    data = _menu_data()
+    queries = [
+        "5 may\u0131sta yemekhane men\u00fcs\u00fc ne",
+        "5 May\u0131s'ta yemekhane men\u00fcs\u00fc ne",
+        "5 may\u0131sda yemekte ne var",
+        "5 may\u0131s ay\u0131nda ne vard\u0131",
+    ]
+
+    for query in queries:
+        selected = select_menu_for_query(data, query, today=date(2026, 5, 4))
+        response = format_dining_menu_response(data, query)
+
+        assert [item["date"] for item in selected] == ["2026-05-05"]
+        assert "EZOGEL\u0130N" in response
+        assert "1 May\u0131s" not in response
+        assert "4 May\u0131s" not in response
+        assert "6 May\u0131s" not in response
+        assert "7 May\u0131s" not in response
+
+
+def test_turkish_month_suffix_dates_find_or_fallback_for_requested_day_only():
+    data = _menu_data()
+
+    selected = select_menu_for_query(data, "21 may\u0131sta ne yemek var", today=date(2026, 5, 4))
+    detail = select_menu_for_query_details(data, "21 May\u0131s'ta ne yemek var", today=date(2026, 5, 4))
+    response = format_dining_menu_response(data, "21 may\u0131sta ne yemek var")
+
+    assert selected == []
+    assert detail["status"] == "no_menu_for_date"
+    assert "2026-05-21" in detail["message"]
+    assert "2026-05-01 - 2026-05-20" in detail["message"]
+    assert "1 May\u0131s" not in response
+    assert "4 May\u0131s" not in response
+    assert "5 May\u0131s" not in response
+
+
+def test_month_only_query_asks_for_date_instead_of_dumping_whole_month():
+    data = _menu_data()
+
+    detail = select_menu_for_query_details(data, "may\u0131s ay\u0131nda yemekhane men\u00fcs\u00fc ne", today=date(2026, 5, 4))
+    response = format_dining_menu_response(data, "may\u0131s ay\u0131nda yemekhane men\u00fcs\u00fc ne")
+
+    assert detail["status"] == "ambiguous_date"
+    assert detail["items"] == []
+    assert "belirli bir g\u00fcn veya tarih" in response
+    assert "ETL\u0130 NOHUT" not in response
+
+
 def test_no_meal_day_is_reported_without_inventing_food():
     data = _menu_data()
     selected = select_menu_for_query(data, "19 Mayıs yemekte ne var?", today=date(2026, 5, 4))

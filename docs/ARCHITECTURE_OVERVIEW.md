@@ -92,6 +92,8 @@ Faz 10A ile reader tarihli ve haftalık sorguları gün bazlı ele alır:
 - Belirsiz `Pazartesi menüsü ne?` gibi sorgularda birden fazla eşleşme varsa tarih istenir.
 - `Öğün Yok` günleri yemek uydurmadan açıkça belirtilir.
 - Tarih menü aralığı dışındaysa mevcut tarih aralığı söylenir.
+- `5 mayısta`, `5 Mayıs'ta`, `21 mayısda` gibi Türkçe ekli tarih ifadeleri exact date olarak normalize edilir.
+- Exact date query, liste veya ay cevabına düşmemelidir.
 
 Bu tarih seçimi ChromaDB'ye yazmaz; menü verisi dynamic source olarak okunmaya devam eder.
 

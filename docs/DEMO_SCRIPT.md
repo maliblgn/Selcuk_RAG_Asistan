@@ -51,7 +51,9 @@
 | --- | --- | --- | --- |
 | `Bugün yemekte ne var?` | `dynamic_dining_menu` | Güvenilir menü satırı bulunursa menüyü verir; bulunamazsa fallback verir. | Menü uydurulmamalı. |
 | `4 Mayıs yemekte ne var?` | `dynamic_dining_menu` | Yalnızca 4 Mayıs menüsünü gösterir. | Tüm ay listesi dökülmemeli. |
+| `5 mayısta yemekhane menüsü ne?` | `dynamic_dining_menu` | Türkçe ekli tarih ifadesini 5 Mayıs olarak yorumlar ve tek günü gösterir. | 1/4/6/7 Mayıs gibi günler karışmamalı. |
 | `19 Mayıs yemekte ne var?` | `dynamic_dining_menu` | Kaynakta `Öğün Yok` varsa bunu açıkça söyler. | Yemek uydurulmamalı. |
+| `21 mayısta ne yemek var?` | `dynamic_dining_menu` | 21 Mayıs varsa yalnızca o günü gösterir; yoksa tarih bulunamadı fallback'i verir. | Liste cevabına düşmemeli. |
 | `Bu hafta yemekhane menüsü ne?` | `dynamic_dining_menu` | İlgili haftanın günlerini sınırlı ve gün gün listeler. | Ayın tamamı gösterilmemeli. |
 
 ### E) Güvenli Fallback

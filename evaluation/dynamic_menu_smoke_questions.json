@@ -24,6 +24,18 @@
     "expected_behavior": "single_day_menu"
   },
   {
+    "id": "dynamic_menu_may_5_suffix",
+    "query": "5 mayısta yemekhane menüsü ne",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_may_5_apostrophe_suffix",
+    "query": "5 Mayıs'ta yemekte ne var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
     "id": "dynamic_menu_may_19",
     "query": "19 Mayıs yemekte ne var",
     "expected_mode": "dynamic_dining_menu",
@@ -34,6 +46,18 @@
     "query": "20 Mayıs yemekte ne var",
     "expected_mode": "dynamic_dining_menu",
     "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_may_21_suffix",
+    "query": "21 mayısta ne yemek var",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "single_day_menu"
+  },
+  {
+    "id": "dynamic_menu_month_only_unclear",
+    "query": "mayıs ayında yemekhane menüsü ne",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_behavior": "safe_fallback"
   },
   {
     "id": "dynamic_menu_week",

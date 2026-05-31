@@ -88,6 +88,8 @@ _TURKISH_MONTHS = {
     "kasim": 11,
     "aralik": 12,
 }
+_MONTH_NAME_PATTERN = r"ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik"
+_MONTH_CASE_SUFFIX_PATTERN = r"(?:(?:\s*)(?:ta|te|da|de)|\s+ayinda|\s+ayi(?:nda)?)?"
 _TURKISH_WEEKDAYS = {
     "pazartesi": 0,
     "sali": 1,
@@ -226,7 +228,7 @@ def is_dining_menu_query(query: str) -> bool:
     if tokens & _DATE_QUERY_WORDS and ({"yemekhane", "yemek", "yemekte", "menu", "menusu", "listesi"} & tokens):
         return True
 
-    if re.search(r"\b\d{1,2}\s+(?:ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik)\b", normalized):
+    if re.search(rf"\b\d{{1,2}}\s+(?:{_MONTH_NAME_PATTERN})(?:\s+\d{{4}})?{_MONTH_CASE_SUFFIX_PATTERN}\b", normalized):
         return bool({"yemek", "yemekte", "menu", "menusu", "listesi"} & tokens)
 
     if re.search(r"\b\d{1,2}[./-]\d{1,2}(?:[./-]\d{2,4})?\b", normalized):
@@ -327,9 +329,7 @@ def _infer_menu_year(today: date | None = None, entries: list[dict] | None = Non
 def _extract_named_month_date(text: str, year: int) -> date | None:
     normalized = normalize_ascii_lite(text)
     match = re.search(
-        r"\b(\d{1,2})\s+("
-        r"ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik"
-        r")(?:\s+(\d{4}))?\b",
+        rf"\b(\d{{1,2}})\s+({_MONTH_NAME_PATTERN})(?:\s+(\d{{4}}))?{_MONTH_CASE_SUFFIX_PATTERN}\b",
         normalized,
     )
     if not match:
@@ -736,7 +736,7 @@ def _is_week_query(query: str) -> bool:
 def _is_month_query(query: str) -> bool:
     normalized_query = normalize_ascii_lite(query)
     return "bu ay" in normalized_query or "aylik" in normalized_query or bool(
-        re.search(r"\b(?:ocak|subat|mart|nisan|mayis|haziran|temmuz|agustos|eylul|ekim|kasim|aralik)\s+ayi\b", normalized_query)
+        re.search(rf"\b(?:{_MONTH_NAME_PATTERN})(?:\s+ayi|\s+ayinda)\b", normalized_query)
     )
 
 
@@ -757,6 +757,17 @@ def select_menu_for_query_details(menu_data: dict, query: str, today: date | Non
     if not items:
         return {"status": "no_data", "items": [], "message": "Menü kaydını güvenilir şekilde okuyamadım."}
 
+    target_date = _query_target_date(query, today, items)
+    if target_date:
+        selected = [item for item in items if item.get("date") == target_date.isoformat()]
+        if selected:
+            return {"status": "ok", "items": selected[:1], "selection": "single_day"}
+        return {
+            "status": "no_menu_for_date",
+            "items": [],
+            "message": f"{target_date.isoformat()} için menü kaydı bulamadım. {_available_range_message(items)}",
+        }
+
     if _is_week_query(query):
         week_start = today - timedelta(days=today.weekday())
         week_end = week_start + timedelta(days=6)
@@ -772,17 +783,6 @@ def select_menu_for_query_details(menu_data: dict, query: str, today: date | Non
                 "message": f"Bu hafta için menü kaydı bulamadım. {_available_range_message(items)}",
             }
         return {"status": "ok", "items": selected[:5], "selection": "week"}
-
-    target_date = _query_target_date(query, today, items)
-    if target_date:
-        selected = [item for item in items if item.get("date") == target_date.isoformat()]
-        if selected:
-            return {"status": "ok", "items": selected[:1], "selection": "single_day"}
-        return {
-            "status": "no_menu_for_date",
-            "items": [],
-            "message": f"{target_date.isoformat()} için menü kaydı bulamadım. {_available_range_message(items)}",
-        }
 
     weekday = _query_weekday(query)
     if weekday is not None:
@@ -806,7 +806,11 @@ def select_menu_for_query_details(menu_data: dict, query: str, today: date | Non
         }
 
     if _is_month_query(query):
-        return {"status": "ok", "items": items[:22], "selection": "month_limited"}
+        return {
+            "status": "ambiguous_date",
+            "items": [],
+            "message": "Ay genelindeki menüyü tamamen dökmüyorum; belirli bir gün veya tarih belirtir misin?",
+        }
 
     if "bugun" in normalized_query:
         return {
