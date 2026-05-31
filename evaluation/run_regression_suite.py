@@ -52,6 +52,7 @@ STEP_REGISTRY: dict[str, SuiteStep] = {
             "evaluation/run_regression_suite.py",
             "evaluation/evaluate_answer_grounding.py",
             "evaluation/evaluate_manual_acceptance.py",
+            "evaluation/evaluate_session_source.py",
             "evaluation/evaluate_vector_coverage.py",
             "tools/audit_chroma_coverage.py",
             "tools/generate_chroma_coverage_questions.py",
@@ -183,6 +184,19 @@ STEP_REGISTRY: dict[str, SuiteStep] = {
         ),
         "CI-safe manual live QA acceptance checks.",
     ),
+    "session_source_smoke": SuiteStep(
+        "session_source_smoke",
+        _python(
+            "evaluation/evaluate_session_source.py",
+            "--questions",
+            "evaluation/session_source_smoke_questions.json",
+            "--out",
+            _artifact("session_source_report"),
+            "--markdown-out",
+            _markdown("session_source_summary"),
+        ),
+        "CI-safe session-only PDF/URL RAG smoke evaluation.",
+    ),
     "provider_comparison_dry_run": SuiteStep(
         "provider_comparison_dry_run",
         _python(
@@ -253,6 +267,7 @@ PROFILE_STEPS: dict[str, list[str]] = {
         "general_smoke",
         "answer_grounding_evidence",
         "manual_acceptance",
+        "session_source_smoke",
         "answer_quality_dry_run",
         "provider_comparison_dry_run",
         "full_pytest",
@@ -275,6 +290,7 @@ PROFILE_STEPS: dict[str, list[str]] = {
         "general_smoke",
         "answer_grounding_evidence",
         "manual_acceptance",
+        "session_source_smoke",
         "answer_quality_dry_run",
         "provider_comparison_dry_run",
         "article_metadata_audit",

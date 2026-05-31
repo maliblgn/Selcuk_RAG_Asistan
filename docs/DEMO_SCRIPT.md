@@ -94,3 +94,13 @@ Demo öncesinde aşağıdaki riskli sorular ayrıca `evaluation/manual_acceptanc
 - `21 mayısta yemekhanede ne var?` → Dynamic dining menu, tarihli sorgu yakalanmalı.
 
 Bu kontroller demo akışını değiştirmez; release öncesi güvenlik ağı olarak çalışır.
+## Session-only PDF & URL RAG Demo
+
+1. Sidebar'da "Geçici Kaynak Alanı" bölümünden küçük bir PDF yükle.
+2. `Bu PDF ne hakkında?` veya `Bu PDF'de başvuru şartı var mı?` diye sor.
+3. Beklenen davranış: cevap yalnızca PDF içeriğinden gelir ve kaynak etiketi `[PDF, sayfa X]` biçiminde görünür.
+4. PDF'de olmayan bir bilgi sor.
+5. Beklenen davranış: sistem bilgiyi uydurmaz ve genel Selçuk kaynaklarına otomatik düşmez.
+6. Geçici kaynağı temizle, ardından erişilebilir bir link ekle.
+7. `Bu sayfada ne anlatılıyor?` diye sor.
+8. Site robots/erişim nedeniyle engelliyorsa sistem bunu açıkça söyler; JavaScript ile içerik üretiliyorsa metin çıkaramadığını belirtir.

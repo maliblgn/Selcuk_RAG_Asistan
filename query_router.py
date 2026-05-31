@@ -11,6 +11,7 @@ from source_discovery import is_source_discovery_query
 
 MODE_SOURCE_DISCOVERY = "source_discovery"
 MODE_DYNAMIC_DINING_MENU = "dynamic_dining_menu"
+MODE_SESSION_UPLOAD_RAG = "session_upload_rag"
 MODE_RAG = "rag"
 
 
@@ -23,7 +24,26 @@ class QueryRoute:
     metadata: dict[str, Any] = field(default_factory=dict)
 
 
-def route_query(query: str) -> QueryRoute:
+def _explicit_general_rag_request(query: str) -> bool:
+    normalized = str(query or "").casefold()
+    return any(
+        term in normalized
+        for term in (
+            "genel selçuk kaynak",
+            "genel selcuk kaynak",
+            "selçuk kaynaklarında ara",
+            "selcuk kaynaklarinda ara",
+            "ana kaynaklarda ara",
+            "normal rag",
+        )
+    )
+
+
+def route_query(
+    query: str,
+    has_active_session_source: bool = False,
+    session_source_enabled: bool = True,
+) -> QueryRoute:
     """Route a query using the existing intent detectors and current priority order."""
 
     text = str(query or "").strip()
@@ -49,8 +69,15 @@ def route_query(query: str) -> QueryRoute:
             metadata={"priority": 2, "reader_id": dynamic_route.reader_id},
         )
 
+    if has_active_session_source and session_source_enabled and not _explicit_general_rag_request(text):
+        return QueryRoute(
+            mode=MODE_SESSION_UPLOAD_RAG,
+            reason="active_session_source",
+            metadata={"priority": 3},
+        )
+
     return QueryRoute(
         mode=MODE_RAG,
         reason="default_rag",
-        metadata={"priority": 3},
+        metadata={"priority": 4 if has_active_session_source else 3},
     )

@@ -1,0 +1,32 @@
+[
+  {
+    "id": "session_pdf_topic",
+    "source_type": "pdf",
+    "query": "Bu belgede başvuru nereye yapılır?",
+    "expected_status": "answered",
+    "expected_terms": ["enstitü", "başvuru"],
+    "requires_citation": true
+  },
+  {
+    "id": "session_pdf_missing",
+    "source_type": "pdf",
+    "query": "Bu belgede yemekhane menüsü var mı?",
+    "expected_status": "no_relevant_context",
+    "requires_citation": false
+  },
+  {
+    "id": "session_url_topic",
+    "source_type": "url",
+    "query": "Bu sayfanın ana konusu nedir?",
+    "expected_status": "answered",
+    "expected_terms": ["duyuru", "başlık"],
+    "requires_citation": true
+  },
+  {
+    "id": "session_url_missing",
+    "source_type": "url",
+    "query": "Bu sayfada futbol maçı sonucu var mı?",
+    "expected_status": "no_relevant_context",
+    "requires_citation": false
+  }
+]

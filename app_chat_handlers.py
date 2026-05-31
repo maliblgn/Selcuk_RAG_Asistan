@@ -20,6 +20,7 @@ from rag_engine import (
     LIVE_INDEX_UNAVAILABLE_MESSAGE,
     is_chroma_collection_error,
 )
+from session_sources.session_rag import answer_from_session_source
 from source_discovery import (
     build_source_discovery_answer,
     discover_sources,
@@ -82,6 +83,17 @@ def handle_dynamic_menu_chat(
     docs = dining_menu_to_documents(menu_data)
     answer = format_dining_menu_response(menu_data, query)
     return ChatHandlerResult(answer=answer, docs=docs, sources_checked=True)
+
+
+def handle_session_upload_chat(query: str, store: Any) -> ChatHandlerResult:
+    """Answer using only the active session source."""
+
+    result = answer_from_session_source(query, store)
+    return ChatHandlerResult(
+        answer=result.answer,
+        docs=list(result.docs or []),
+        sources_checked=True,
+    )
 
 
 def build_safe_error_message(error: Exception, groq_key: str = "") -> tuple[str, str]:

@@ -11,6 +11,7 @@ Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 - Static ChromaDB RAG snapshot
 - Source Discovery Mode
 - Dynamic Dining Menu Reader
+- Session-only PDF & URL RAG
 - Query Router
 - Dynamic Source Registry
 - Metadata-aware retrieval/rerank

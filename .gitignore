@@ -115,6 +115,12 @@ legal_test_index_report.json
 .ruff_cache/
 .local_chroma_runtime/
 .local_chroma_runtime/**
+.session_runtime/
+.local_session_sources/
+session_source_report.local.json
+session_source_summary.local.md
+session_upload_*.local.json
+session_upload_*.local.md
 chroma_runtime_report.local.json
 chroma_runtime_summary.local.md
 data/

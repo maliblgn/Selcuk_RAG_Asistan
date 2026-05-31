@@ -425,3 +425,20 @@ python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
 ```
 
 Rewrite veya multi-query çıktısı, kullanıcı sorusunu "bilgi yok" fallback cevabına dönüştürürse reddedilir. Çift anadal, AGNO/GANO, lisansüstü başvuru ve yemekhane menüsü gibi manuel canlı QA riskleri için hard-coded soru ID patch'i yapılmaz; genel rewrite, routing, rerank ve coverage kuralları kullanılır.
+## Session Source RAG
+
+Session-only PDF/link kaynakları ana ChromaDB snapshot'ına yazılmaz. Normal doğrulama komutları:
+
+```bash
+python evaluation/evaluate_session_source.py --questions evaluation/session_source_smoke_questions.json --out session_source_report.local.json --markdown-out session_source_summary.local.md
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+python -m pytest tests/ -v
+```
+
+Kurallar:
+
+- Geçici kaynaklar commit edilmez ve ana `chroma_db/` ile karışmaz.
+- URL yüklemede sadece `http/https` kabul edilir; private/internal adresler ve unsupported scheme'ler engellenir.
+- robots.txt veya 401/403/429 erişim engelinde içerik uydurulmaz.
+- OCR yoktur; metin çıkarılamayan PDF için güvenli hata mesajı verilir.
+- Yeni PDF/link tek aktif kaynak olarak önceki geçici kaynağın yerini alır.

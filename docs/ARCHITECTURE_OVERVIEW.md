@@ -210,3 +210,12 @@ Coverage QA katmanı ChromaDB snapshot'ını değiştirmeden çalışır:
 - `evaluation/evaluate_manual_acceptance.py`: canlı demoda riskli görülen manuel kabul sorularını kontrol eder.
 
 Bu katman ingestion yapmaz, ChromaDB snapshot'ını değiştirmez ve live LLM çağrısını varsayılan olarak çalıştırmaz.
+## Session-only PDF & URL RAG
+
+Kullanıcı arayüzünden yüklenen PDF veya manuel eklenen URL, ana `chroma_db/` snapshot'ına yazılmaz. İçerik yalnızca Streamlit session state içinde oluşturulan geçici `InMemorySessionVectorStore` üzerinde tutulur. Yeni PDF/link işlendiğinde önceki geçici kaynak tek aktif kaynak mantığıyla yer değiştirir; session reset/restart sonrası kaynak kaybolur.
+
+Query flow:
+
+`User Query -> query_router.py -> source_discovery -> dynamic_dining_menu -> session_upload_rag -> normal RAG`
+
+Geçici kaynak modu aktifken cevap yalnızca yüklenen PDF/link chunk'larından üretilir. Bağlam yetersizse ana Selçuk RAG'e otomatik düşülmez; kullanıcıya geçici kaynakta bilgi bulunamadığı ve genel kaynaklarda ayrıca sorabileceği söylenir. URL yükleme katmanı sadece `http/https` kabul eder, localhost/private/internal IP adreslerini ve unsupported scheme'leri engeller, redirect sonrası final URL'yi yeniden kontrol eder ve robots.txt engelini kullanıcıya açıkça bildirir.

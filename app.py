@@ -27,11 +27,15 @@ from app_chat_handlers import (
     build_safe_error_message,
     classify_error,
     handle_dynamic_menu_chat,
+    handle_session_upload_chat,
     handle_source_discovery_chat,
 )
 from check_chroma_health import check_chroma_health
 from quality_dashboard import render_quality_dashboard
-from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SOURCE_DISCOVERY, route_query
+from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SESSION_UPLOAD_RAG, MODE_SOURCE_DISCOVERY, route_query
+from session_sources.pdf_loader import build_pdf_session_source
+from session_sources.url_loader import load_url_source
+from session_sources.vector_store import build_session_vector_store
 from web_scraper import WebScraper, ScraperConfig, parse_urls_from_text
 
 # .env dosyasından ortam değişkenlerini yükle
@@ -649,6 +653,14 @@ if "asistan_modu" not in st.session_state:
     st.session_state.asistan_modu = "Akademik Rehber"
 if "admin_loggedin" not in st.session_state:
     st.session_state.admin_loggedin = False
+if "session_source" not in st.session_state:
+    st.session_state.session_source = None
+if "session_source_store" not in st.session_state:
+    st.session_state.session_source_store = None
+if "session_source_enabled" not in st.session_state:
+    st.session_state.session_source_enabled = False
+if "session_source_status" not in st.session_state:
+    st.session_state.session_source_status = ""
 
 # ─────────────────── MOTOR ───────────────────
 @st.cache_resource
@@ -690,6 +702,56 @@ with st.sidebar:
         index=["Akademik Rehber", "Kampüs Yaşamı", "Hızlı Arama"].index(st.session_state.asistan_modu),
         label_visibility="collapsed"
     )
+
+    st.markdown('<p class="nav-label">GEÇİCİ KAYNAK ALANI</p>', unsafe_allow_html=True)
+    st.caption("PDF/link içerikleri ana Selçuk veritabanına eklenmez; yalnızca bu oturumda kullanılır.")
+    uploaded_pdf = st.file_uploader("PDF yükle", type=["pdf"], key="session_pdf_upload")
+    if uploaded_pdf is not None:
+        current_key = f"{uploaded_pdf.name}:{uploaded_pdf.size}"
+        if st.session_state.get("session_pdf_key") != current_key:
+            source, chunks = build_pdf_session_source(uploaded_pdf.getvalue(), uploaded_pdf.name)
+            st.session_state.session_pdf_key = current_key
+            st.session_state.session_source = source
+            st.session_state.session_source_store = build_session_vector_store(source, chunks) if chunks else None
+            st.session_state.session_source_enabled = bool(chunks)
+            st.session_state.session_source_status = (
+                f"PDF işlendi: {source.document_count} sayfa, {source.chunk_count} chunk"
+                if source.status == "ready"
+                else source.error_message
+            )
+            st.rerun()
+
+    manual_url = st.text_input("Link ekle", key="session_url_input", placeholder="https://...")
+    if st.button("Linki işle", use_container_width=True, key="process_session_url"):
+        result = load_url_source(manual_url)
+        st.session_state.session_source = result.source
+        st.session_state.session_source_store = build_session_vector_store(result.source, result.chunks) if result.chunks else None
+        st.session_state.session_source_enabled = bool(result.chunks)
+        st.session_state.session_source_status = (
+            f"Link işlendi: {result.source.chunk_count} chunk"
+            if result.source.status == "ready"
+            else result.source.error_message
+        )
+        st.rerun()
+
+    active_source = st.session_state.session_source
+    if active_source:
+        if active_source.status == "ready":
+            st.success(st.session_state.session_source_status or f"Aktif kaynak: {active_source.source_label}")
+            st.session_state.session_source_enabled = st.toggle(
+                "Soruları geçici kaynak üzerinden cevapla",
+                value=st.session_state.session_source_enabled,
+                key="session_source_toggle",
+            )
+        else:
+            st.warning(active_source.error_message)
+        if st.button("Geçici kaynağı temizle", use_container_width=True, key="clear_session_source"):
+            st.session_state.session_source = None
+            st.session_state.session_source_store = None
+            st.session_state.session_source_enabled = False
+            st.session_state.session_source_status = "Geçici kaynak temizlendi."
+            st.session_state.session_pdf_key = ""
+            st.rerun()
 
     # ─── Navigation ───
     st.markdown('<p class="nav-label">NAVİGASYON</p>', unsafe_allow_html=True)
@@ -955,7 +1017,11 @@ else:
                     st.session_state.oneriler = []
                     st.rerun()
 
-                route = route_query(kullanici_sorusu)
+                route = route_query(
+                    kullanici_sorusu,
+                    has_active_session_source=bool(st.session_state.session_source_store),
+                    session_source_enabled=bool(st.session_state.session_source_enabled),
+                )
 
                 if route.mode == MODE_SOURCE_DISCOVERY:
                     motor = get_engine()
@@ -973,6 +1039,19 @@ else:
 
                 if route.mode == MODE_DYNAMIC_DINING_MENU:
                     result = handle_dynamic_menu_chat(kullanici_sorusu)
+                    st.markdown(result.answer)
+                    append_assistant_message(
+                        st.session_state.mesajlar,
+                        result.answer,
+                        kullanici_sorusu,
+                        result.docs,
+                        result.sources_checked,
+                    )
+                    st.session_state.oneriler = []
+                    st.rerun()
+
+                if route.mode == MODE_SESSION_UPLOAD_RAG:
+                    result = handle_session_upload_chat(kullanici_sorusu, st.session_state.session_source_store)
                     st.markdown(result.answer)
                     append_assistant_message(
                         st.session_state.mesajlar,

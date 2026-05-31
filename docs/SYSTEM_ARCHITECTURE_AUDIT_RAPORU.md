@@ -383,3 +383,12 @@ ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, quer
 - Çift anadal ve lisansüstü başvuru sorguları için genel metadata/rerank sinyalleri güçlendirildi; hard-coded question ID patch yapılmadı.
 - Chroma coverage audit, generated vector coverage questions, vector coverage evaluator ve manual acceptance evaluator eklendi.
 - ChromaDB snapshot, ingestion, routing sırası, provider/model ve dependency ayarları değiştirilmedi.
+
+## Faz 11A Session-Only PDF & Manual URL RAG
+
+- Kullanıcının oturum içinde PDF yükleyip manuel URL ekleyebileceği, ana ChromaDB snapshot'a yazmayan geçici kaynak katmanı eklendi.
+- Geçici kaynaklar yalnızca bellekte chunklanır ve lexical in-memory store üzerinden cevaplanır; dosya, PDF veya URL içeriği repoya ya da `chroma_db/` snapshot'a eklenmez.
+- Query routing sırası korunarak `source_discovery -> dynamic_dining_menu -> session_upload_rag -> rag` akışı belgelendi. Source discovery ve yemekhane niyetleri geçici kaynak tarafından gölgelenmez.
+- URL loader SSRF/private-host koruması, robots.txt kontrolü, boyut sınırı, HTML/text/PDF ayrımı ve güvenli hata mesajları içerir.
+- Geçici kaynakta kanıt yoksa sistem ana RAG'e otomatik düşmez; bilgi uydurmadan güvenli fallback verir ve kullanıcı isterse normal Selçuk kaynaklarında yeniden sorabilir.
+- ChromaDB snapshot, ingestion, provider/model, dependency, dynamic source endpoint ve static RAG scoring/rerank davranışı değiştirilmedi.
