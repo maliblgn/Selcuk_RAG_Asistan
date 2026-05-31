@@ -1,0 +1,22 @@
+[
+  {"id": "accept_akts", "query": "AKTS nedir?", "expected_mode": "rag", "notes": "Static RAG tanım sorusu."},
+  {"id": "accept_ales", "query": "ALES nedir?", "expected_mode": "rag", "notes": "Lisansüstü tanımlar evidence."},
+  {"id": "accept_agno", "query": "Ön lisans ve lisans AGNO şartı nedir?", "expected_mode": "rag", "notes": "Kaynak GANO terimini kullanabilir; iddialı eşdeğerlik beklenmez."},
+  {"id": "accept_gano_agno", "query": "GANO ile AGNO aynı şey mi?", "expected_mode": "rag", "notes": "Terminoloji belirsizliğinde temkinli cevap."},
+  {"id": "accept_cift_anadal_requirement", "query": "Çift anadal şartları nelerdir?", "expected_mode": "rag", "notes": "Çift Ana Dal Yönergesi evidence."},
+  {"id": "accept_lisansustu_basvuru", "query": "Lisansüstü başvuru şartları nelerdir?", "expected_mode": "rag", "notes": "Lisansüstü/enstitü kaynakları baskın olmalı."},
+  {"id": "accept_staj_yonergesi", "query": "Staj yönergesi var mı?", "expected_mode": "source_discovery", "notes": "Kaynak keşfi sunumu."},
+  {"id": "accept_teknoloji_staj", "query": "Teknoloji Fakültesi staj kaynakları nelerdir?", "expected_mode": "source_discovery", "notes": "Teknoloji Fakültesi kaynak keşfi."},
+  {"id": "accept_teknoloji_general", "query": "teknoloji fakültesi ile alakalı kaynak var mı", "expected_mode": "source_discovery", "notes": "8 kaynak davranışı korunmalı."},
+  {"id": "accept_yemekhane_today", "query": "Bugün yemekte ne var?", "expected_mode": "dynamic_dining_menu", "notes": "Dynamic dining reader."},
+  {"id": "accept_yemekhane_date", "query": "21 mayısta yemekhanede ne var", "expected_mode": "dynamic_dining_menu", "notes": "Date-aware dynamic dining reader."},
+  {"id": "accept_yemekhane_broad", "query": "Yemekhane menüsü ne?", "expected_mode": "dynamic_dining_menu", "expects_clarification": true, "notes": "Geniş menü sorusu tarih istemeli."},
+  {"id": "accept_yemekhane_sources", "query": "yemekhane ile ilgili kaynaklar nelerdir", "expected_mode": "source_discovery", "notes": "Source discovery önceliği korunmalı."},
+  {"id": "accept_out_of_scope", "query": "Galatasaray maçı ne zaman?", "expected_mode": "rag", "notes": "RAG fallback güvenli olmalı."},
+  {"id": "accept_weather", "query": "Kampüste bugün hava nasıl?", "expected_mode": "rag", "notes": "Kapsam dışı canlı bilgi fallback."},
+  {"id": "accept_kutuphane_sources", "query": "Kütüphane hakkında hangi belgeler var?", "expected_mode": "source_discovery", "notes": "Kaynak keşfi."},
+  {"id": "accept_yatay_gecis_sources", "query": "Yatay geçiş kaynakları nelerdir?", "expected_mode": "source_discovery", "notes": "Kaynak keşfi."},
+  {"id": "accept_doktora_yeterlik_sources", "query": "Doktora yeterlik hakkında hangi kaynaklar var?", "expected_mode": "source_discovery", "notes": "Kaynak keşfi."},
+  {"id": "accept_burs", "query": "Burs başvurusu nasıl yapılır?", "expected_mode": "rag", "notes": "Statik RAG."},
+  {"id": "accept_lisansustu_tez", "query": "Tez izleme komitesi kaç öğretim üyesinden oluşur?", "expected_mode": "rag", "notes": "Article-level retrieval."}
+]

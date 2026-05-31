@@ -375,3 +375,11 @@ Faz 10A-1 kapsaminda `mayista`, `Mayis'ta`, `mayisda` gibi Turkce ekli tarih ifa
 `5 mayista yemekhane menusu ne` gibi sorgular yalnizca 5 Mayis entry'sini secer. `21 mayista ne yemek var` sorgusunda 21 Mayis varsa yalnizca o gun dondurulur; yoksa mevcut tarih araligi belirtilerek menu uydurulmaz. Ay geneli belirsiz sorgularda tum ay dokulmez.
 
 ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, query router onceligi ve static RAG degistirilmedi.
+## Faz 10B Chroma Coverage QA & Rewrite Safety Hardening
+
+- Rewrite guardrail eklendi: LLM rewrite sonucu fallback/cevap cümlesine dönüşürse veya kritik terim ailesini kaybederse orijinal soru korunur.
+- Multi-query varyasyonları için alakasız alan drift'i filtrelenir; özellikle AGNO/GANO gibi akademik terimler kimya/biyoloji benzeri ilgisiz sorgulara taşınmaz.
+- Yemekhane dynamic reader geniş "menü ne" sorularında ilk günleri dökmek yerine tarih/gün netleştirmesi ister.
+- Çift anadal ve lisansüstü başvuru sorguları için genel metadata/rerank sinyalleri güçlendirildi; hard-coded question ID patch yapılmadı.
+- Chroma coverage audit, generated vector coverage questions, vector coverage evaluator ve manual acceptance evaluator eklendi.
+- ChromaDB snapshot, ingestion, routing sırası, provider/model ve dependency ayarları değiştirilmedi.

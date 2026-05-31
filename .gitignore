@@ -64,6 +64,16 @@ regression_suite_report.local.json
 regression_suite_summary.local.md
 regression_suite_*.local.json
 regression_suite_*.local.md
+manual_acceptance_report.local.json
+manual_acceptance_summary.local.md
+manual_acceptance_*.local.json
+manual_acceptance_*.local.md
+chroma_coverage_inventory.local.json
+chroma_coverage_inventory.local.md
+vector_coverage_report.local.json
+vector_coverage_summary.local.md
+vector_coverage_questions.generated.local.json
+vector_coverage_questions.generated.local.md
 web_source_candidates_audit.local.json
 web_source_candidates_audit.local.md
 technology_faculty_sources_audit.local.json

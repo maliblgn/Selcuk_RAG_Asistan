@@ -198,6 +198,20 @@ def _is_onlisans_lisans_regulation(source_text_norm: str) -> bool:
     )
 
 
+def _is_double_major_query(question_norm: str) -> bool:
+    return any(term in question_norm for term in ("cift anadal", "cift ana dal", "cap", "yandal", "yan dal"))
+
+
+def _is_condition_or_application_query(question_norm: str) -> bool:
+    return any(term in question_norm for term in ("sart", "kosul", "basvuru", "kabul", "kayit", "nasil"))
+
+
+def _is_lisansustu_application_query(question_norm: str) -> bool:
+    has_lisansustu = any(term in question_norm for term in ("lisansustu", "yuksek lisans", "doktora"))
+    has_application = any(term in question_norm for term in ("basvuru", "sart", "kosul", "kabul", "belge", "ilan"))
+    return has_lisansustu and has_application
+
+
 def _contains_all_tokens(text_norm, tokens):
     return all(token in text_norm for token in tokens)
 
@@ -314,6 +328,13 @@ def score_result_with_metadata(question, result, base_score=None):
 
     if "lisansustu" in question_norm and source_is_lisansustu_regulation:
         score = _add(score, explanation, 4.0, "lisansustu_regulation_source_boost")
+    if _is_lisansustu_application_query(question_norm):
+        if source_is_broad_lisansustu_regulation:
+            score = _add(score, explanation, 10.0, "lisansustu_application_broad_regulation_boost")
+        if any(term in content_norm for term in ("enstitu", "basvuru", "ilan", "belge", "ales", "yabanci dil")):
+            score = _add(score, explanation, 5.0, "lisansustu_application_content_boost")
+        if source_is_onlisans_lisans_regulation or any(term in source_text_norm for term in ("cift ana dal", "cift anadal", "staj")):
+            score = _add(score, explanation, -8.0, "lisansustu_application_unrelated_source_penalty")
     if (
         "lisansustu" in question_norm
         and source_is_broad_lisansustu_regulation
@@ -327,6 +348,19 @@ def score_result_with_metadata(question, result, base_score=None):
         score = _add(score, explanation, 14.0, "onlisans_lisans_grade_average_source_boost")
         if any(term in content_norm for term in ("gano", "agirlikli notu", "agirlikli puan")):
             score = _add(score, explanation, 8.0, "onlisans_lisans_grade_average_content_boost")
+
+    if _is_double_major_query(question_norm):
+        double_major_source = any(term in source_text_norm for term in ("cift ana dal", "cift anadal", "cap", "yandal", "yan dal"))
+        double_major_content = any(term in content_norm for term in ("cift ana dal", "cift anadal", "cap", "yandal", "yan dal"))
+        if double_major_source:
+            score = _add(score, explanation, 18.0, "double_major_source_family_boost")
+            if "yonerge" in source_text_norm or "yonetmel" in source_text_norm:
+                score = _add(score, explanation, 10.0, "double_major_regulation_source_boost")
+        if double_major_content:
+            amount = 8.0 if _is_condition_or_application_query(question_norm) else 4.0
+            score = _add(score, explanation, amount, "double_major_content_boost")
+        if not double_major_source and source_is_lisansustu_regulation:
+            score = _add(score, explanation, -6.0, "double_major_unrelated_lisansustu_penalty")
 
     if akts_query:
         if re.search(r"(?i)\bAKTS\b", content) or "akts" in title_norm:

@@ -33,7 +33,12 @@ _CACHE: dict[str, Any] = {
 _DYNAMIC_MENU_PATTERNS = (
     "bugun yemekte ne var",
     "bugun yemek ne",
+    "bugun yemekhanede ne var",
     "yemekte ne var",
+    "yemekhanede ne var",
+    "ne yemek var",
+    "menu ne",
+    "menu nedir",
     "yemekhane menusu",
     "yemek menusu",
     "aylik yemek listesi",
@@ -225,16 +230,16 @@ def is_dining_menu_query(query: str) -> bool:
     if any(pattern in normalized for pattern in _DYNAMIC_MENU_PATTERNS):
         return True
 
-    if tokens & _DATE_QUERY_WORDS and ({"yemekhane", "yemek", "yemekte", "menu", "menusu", "listesi"} & tokens):
+    if tokens & _DATE_QUERY_WORDS and ({"yemekhane", "yemekhanede", "yemek", "yemekte", "menu", "menusu", "listesi"} & tokens):
         return True
 
     if re.search(rf"\b\d{{1,2}}\s+(?:{_MONTH_NAME_PATTERN})(?:\s+\d{{4}})?{_MONTH_CASE_SUFFIX_PATTERN}\b", normalized):
-        return bool({"yemek", "yemekte", "menu", "menusu", "listesi"} & tokens)
+        return bool({"yemek", "yemekhanede", "yemekte", "menu", "menusu", "listesi"} & tokens)
 
     if re.search(r"\b\d{1,2}[./-]\d{1,2}(?:[./-]\d{2,4})?\b", normalized):
-        return bool({"yemek", "yemekte", "menu", "menusu", "listesi"} & tokens)
+        return bool({"yemek", "yemekhanede", "yemekte", "menu", "menusu", "listesi"} & tokens)
 
-    has_dining_context = "yemekhane" in tokens or "yemek" in tokens
+    has_dining_context = "yemekhane" in tokens or "yemekhanede" in tokens or "yemek" in tokens
     has_menu_context = bool(tokens & _MENU_WORDS)
     return has_dining_context and has_menu_context and not (tokens & _NON_MENU_CONTEXT_WORDS - {"yemek"})
 
@@ -819,7 +824,11 @@ def select_menu_for_query_details(menu_data: dict, query: str, today: date | Non
             "message": f"Bugün için güvenilir menü satırı bulamadım. {_available_range_message(items)}",
         }
 
-    return {"status": "ok", "items": items[:5], "selection": "limited"}
+    return {
+        "status": "ambiguous_date",
+        "items": [],
+        "message": "Yemekhane menusu icin belirli bir tarih, gun veya hafta belirtir misin?",
+    }
 
 
 def select_menu_for_query(menu_data: dict, query: str, today: date | None = None) -> list[dict]:

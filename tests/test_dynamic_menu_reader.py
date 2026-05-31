@@ -7,12 +7,16 @@ from dynamic_menu_reader import (
     parse_dining_menu_html,
     parse_dining_menu_text,
     select_menu_for_query,
+    select_menu_for_query_details,
 )
 from evaluation.evaluate_dynamic_menu import build_report, load_questions
 
 
 def test_dining_menu_intent_positive_examples():
     assert is_dining_menu_query("bugun yemekte ne var")
+    assert is_dining_menu_query("21 mayista yemekhanede ne var")
+    assert is_dining_menu_query("5 Mayıs'ta yemekhanede ne var")
+    assert is_dining_menu_query("ne yemek var")
     assert is_dining_menu_query("yemekhane menusu nedir")
     assert is_dining_menu_query("aylik yemek listesi")
 
@@ -60,10 +64,30 @@ def test_success_response_formats_menu_items():
         "items": [
             {"date": "2026-01-01", "meal_type": "ogle", "menu": ["Corba", "Pilav", "Ayran"]}
         ],
-    }, "yemekhane menusu")
+    }, "1 ocak 2026 yemekhane menusu")
 
     assert "Corba" in response
     assert "Kaynak: Test Menu" in response
+
+
+def test_broad_menu_query_asks_for_date_instead_of_dumping_list():
+    menu_data = {
+        "mode": "dynamic_dining_menu",
+        "status": "ok",
+        "source_title": "Test Menu",
+        "fetched_at": "2026-05-01T00:00:00+00:00",
+        "items": [
+            {"date": "2026-05-01", "display_date": "1 Mayis 2026", "meal_type": "ogle", "menu": ["Corba"]},
+            {"date": "2026-05-02", "display_date": "2 Mayis 2026", "meal_type": "ogle", "menu": ["Pilav"]},
+        ],
+    }
+
+    selection = select_menu_for_query_details(menu_data, "Yemekhane menusu ne?")
+    response = format_dining_menu_response(menu_data, "Yemekhane menusu ne?")
+
+    assert selection["status"] == "ambiguous_date"
+    assert selection["items"] == []
+    assert "tarih" in response.lower() or "gun" in response.lower()
 
 
 def test_html_table_menu_is_parsed():

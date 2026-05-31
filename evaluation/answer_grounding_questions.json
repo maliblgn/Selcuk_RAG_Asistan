@@ -544,5 +544,44 @@
     "forbidden_terms": ["yemekhane", "servis"],
     "requires_fallback": false,
     "notes": "Manual live QA bulgusu: cevap kaynakli kalmali ve gereksiz tekrarlar post-processing ile azaltilmalidir."
+  },
+  {
+    "id": "grounding_rewrite_guard_cift_anadal",
+    "query": "Çift anadal şartları nelerdir?",
+    "expected_mode": "rag",
+    "expected_answer_type": "requirement",
+    "expected_source_keywords": ["Cift Ana Dal"],
+    "expected_document_keywords": ["Cift Ana Dal"],
+    "expected_article_numbers": ["5"],
+    "expected_terms": ["cift ana dal", "basvuru"],
+    "forbidden_terms": ["dokumanlarda yer almiyor", "bilgi bulunamadi"],
+    "requires_fallback": false,
+    "notes": "Faz 10B rewrite guardrail: rewrite fallback cumlesine donusmemeli."
+  },
+  {
+    "id": "grounding_gano_agno_onlisans_context",
+    "query": "Ön lisans ve lisans AGNO şartı nedir?",
+    "expected_mode": "rag",
+    "expected_answer_type": "requirement",
+    "expected_source_keywords": ["On Lisans", "Lisans"],
+    "expected_document_keywords": ["On Lisans", "Lisans"],
+    "expected_article_numbers": [],
+    "expected_terms": ["GANO", "agirlikli not"],
+    "forbidden_terms": ["kesinlikle aynidir"],
+    "requires_fallback": false,
+    "notes": "Kaynak GANO terimini kullaniyorsa cevap temkinli bicimde kaynak terminolojisini belirtmelidir."
+  },
+  {
+    "id": "grounding_dynamic_menu_broad_clarification",
+    "query": "Yemekhane menüsü ne?",
+    "expected_mode": "dynamic_dining_menu",
+    "expected_answer_type": "dynamic",
+    "expected_source_keywords": ["Yemekhane", "Menu"],
+    "expected_document_keywords": [],
+    "expected_article_numbers": [],
+    "expected_terms": [],
+    "forbidden_terms": [],
+    "requires_fallback": false,
+    "notes": "Broad menu sorusu ilk bes gunu dokmek yerine tarih/gun istemelidir."
   }
 ]

@@ -248,3 +248,43 @@ def test_akts_source_specific_query_can_boost_matching_unit_source():
     reranked = rerank_results(question, results)
 
     assert "Fen Fakultesi Staj" in reranked[0]["metadata"]["title"]
+
+
+def test_double_major_requirement_prefers_double_major_regulation():
+    question = "Çift anadal şartları nelerdir?"
+    results = [
+        {
+            "content": "Başvuru ve kabul koşulları başka bir program için düzenlenir.",
+            "score": 8.0,
+            "metadata": {"title": "Lisansustu Egitim ve Ogretim Yonetmeligi"},
+        },
+        {
+            "content": "Çift ana dal programına başvuru, kabul ve kayıt koşulları yönergede belirtilir.",
+            "score": 1.0,
+            "metadata": {"title": "Selcuk Universitesi Cift Ana Dal Yonergesi"},
+        },
+    ]
+
+    reranked = rerank_results(question, results)
+
+    assert "Cift Ana Dal" in reranked[0]["metadata"]["title"]
+
+
+def test_lisansustu_application_prefers_broad_lisansustu_regulation():
+    question = "Lisansüstü başvuru şartları nelerdir?"
+    results = [
+        {
+            "content": "Ön lisans ve lisans eğitiminde başarı notu düzenlenir.",
+            "score": 8.0,
+            "metadata": {"title": "On Lisans ve Lisans Egitim Ogretim ve Sinav Yonetmeligi"},
+        },
+        {
+            "content": "Lisansüstü programlara başvuru, enstitü ilanı, ALES ve yabancı dil şartları kapsamında değerlendirilir.",
+            "score": 1.0,
+            "metadata": {"title": "Lisansustu Egitim ve Ogretim Yonetmeligi"},
+        },
+    ]
+
+    reranked = rerank_results(question, results)
+
+    assert "Lisansustu" in reranked[0]["metadata"]["title"]

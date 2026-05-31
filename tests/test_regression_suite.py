@@ -25,6 +25,7 @@ def test_full_profile_includes_answer_grounding_without_live_llm():
 
     commands = [step["command"] for step in report["steps"]]
     assert any("evaluate_answer_grounding.py" in command for command in commands)
+    assert any("evaluate_manual_acceptance.py" in command for command in commands)
     assert all("--live-llm" not in command for command in commands)
 
 

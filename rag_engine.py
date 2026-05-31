@@ -185,6 +185,83 @@ def is_question_independent(question: str) -> bool:
     return True
 
 
+_UNSAFE_REWRITE_PHRASES = (
+    "bilgi yok",
+    "bilgi bulunamadi",
+    "bilgi bulamadim",
+    "dokumanlarda yer almiyor",
+    "dokumanlarda bulunmuyor",
+    "kaynaklarda yer almiyor",
+    "kaynaklarda bulunmuyor",
+    "kaynaklarda acik bir bilgi",
+    "tespit edemedim",
+    "guvenilir kaynak bulunamadi",
+    "bu konuda bilgi",
+    "bu konuda kaynak",
+    "uydurmuyorum",
+    "uydurulmadi",
+    "cevap veremem",
+    "bilmiyorum",
+)
+
+_REWRITE_TERM_FAMILIES = (
+    ("cift_anadal", ("cift anadal", "cift ana dal", "cap")),
+    ("yandal", ("yandal", "yan dal")),
+    ("grade_average", ("agno", "gano", "not ortalamasi", "agirlikli genel not", "genel not ortalamasi")),
+    ("lisansustu", ("lisansustu", "yuksek lisans", "doktora")),
+    ("basvuru_condition", ("sart", "sartlari", "kosul", "kosullari", "basvuru", "kabul", "kayit")),
+)
+
+_UNRELATED_MULTI_QUERY_TERMS = (
+    "molekul",
+    "kimyasal",
+    "element",
+    "reaksiyon",
+    "biyoloji",
+    "fizik",
+)
+
+
+def _contains_family(text: str, terms: tuple[str, ...]) -> bool:
+    return any(term in text for term in terms)
+
+
+def is_unsafe_rewrite(original_question: str, rewritten_question: str) -> bool:
+    """Reject rewrite outputs that turned a query into an answer/fallback or lost core terms."""
+
+    original = SelcukRAGEngine._normalize_question_text(original_question)
+    rewritten = SelcukRAGEngine._normalize_question_text(rewritten_question)
+    if not rewritten:
+        return True
+    if rewritten == original:
+        return False
+    if any(phrase in rewritten for phrase in _UNSAFE_REWRITE_PHRASES):
+        return True
+    if rewritten.startswith("bu konuda"):
+        return True
+    if len(rewritten) > max(160, len(original) * 3):
+        return True
+
+    for _, family_terms in _REWRITE_TERM_FAMILIES:
+        if _contains_family(original, family_terms) and not _contains_family(rewritten, family_terms):
+            return True
+    return False
+
+
+def multi_query_variation_allowed(original_question: str, candidate_query: str) -> bool:
+    """Filter LLM-generated query variants that drift into unrelated domains."""
+
+    original = SelcukRAGEngine._normalize_question_text(original_question)
+    candidate = SelcukRAGEngine._normalize_question_text(candidate_query)
+    if not candidate:
+        return False
+    if is_unsafe_rewrite(original, candidate):
+        return False
+    if any(term in candidate and term not in original for term in _UNRELATED_MULTI_QUERY_TERMS):
+        return False
+    return legal_safe_query_allowed(original, candidate)
+
+
 def is_prompt_size_error(error) -> bool:
     text = str(error or "").lower()
     return (
@@ -886,8 +963,12 @@ class SelcukRAGEngine:
         try:
             chain = self.rewrite_prompt | self.llm | StrOutputParser()
             rewritten = chain.invoke({"question": question, "chat_history": safe_history})
-            logger.info(f"Soru yeniden yazıldı: '{question}' → '{rewritten.strip()}'")
-            return normalize_user_question_for_retrieval(rewritten)
+            normalized_rewrite = normalize_user_question_for_retrieval(rewritten)
+            if is_unsafe_rewrite(question, normalized_rewrite):
+                logger.info("Guvenli olmayan rewrite elendi: '%s' -> '%s'", question, normalized_rewrite)
+                return question
+            logger.info(f"Soru yeniden yazıldı: '{question}' → '{normalized_rewrite}'")
+            return normalized_rewrite
         except Exception as e:
             logger.warning(f"Soru yeniden yazılamadı, orijinal kullanılıyor: {e}")
             return question
@@ -907,7 +988,7 @@ class SelcukRAGEngine:
                 clean_query = normalize_user_question_for_retrieval(query)
                 if not clean_query or clean_query == question:
                     continue
-                if env_bool("MULTI_QUERY_LEGAL_SAFE_MODE", True) and not legal_safe_query_allowed(question, clean_query):
+                if env_bool("MULTI_QUERY_LEGAL_SAFE_MODE", True) and not multi_query_variation_allowed(question, clean_query):
                     logger.info("Legal safe mode multi-query varyasyonunu eledi: %s", clean_query)
                     continue
                 clean_queries.append(clean_query)

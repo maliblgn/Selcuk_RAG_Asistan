@@ -83,3 +83,14 @@ Kaynak keşfi sorularında LLM cevabı üretilmez; mevcut indekslenmiş kaynakla
 - Yeni kaynaklar ingestion yapılmadan cevap kapsamına girmez.
 - Dynamic menu endpoint değişirse fallback davranışı korunur.
 - Admin kalite paneli read-only çalışır ve shell command çalıştırmaz.
+## Faz 10B Manuel Kabul Notları
+
+Demo öncesinde aşağıdaki riskli sorular ayrıca `evaluation/manual_acceptance_questions.json` içinde izlenir:
+
+- `Çift anadal şartları nelerdir?` → RAG, Çift Ana Dal Yönergesi evidence'ı.
+- `Ön lisans ve lisans AGNO şartı nedir?` → RAG, kaynak GANO terminolojisini kullanıyorsa temkinli açıklama.
+- `Lisansüstü başvuru şartları nelerdir?` → RAG, lisansüstü/enstitü kaynakları baskın olmalı.
+- `Yemekhane menüsü ne?` → Dynamic dining menu, tarih/gün istemeli; ilk günleri otomatik dökmemeli.
+- `21 mayısta yemekhanede ne var?` → Dynamic dining menu, tarihli sorgu yakalanmalı.
+
+Bu kontroller demo akışını değiştirmez; release öncesi güvenlik ağı olarak çalışır.

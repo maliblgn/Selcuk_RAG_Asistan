@@ -410,3 +410,18 @@ Snapshot guncelleme ayri bir gorev olarak ele alinir. Guncelleme yapilmadan once
 ## Ingestion kurali
 
 Yeni ingestion sadece acik gorev olarak istenirse calistirilir. Normal uygulama mevcut ChromaDB snapshot ile calisir.
+## Chroma Coverage QA and Rewrite Safety
+
+Faz 10B kapsamındaki güvenlik kontrolleri, mevcut Chroma snapshot'ını değiştirmeden coverage ve manuel kabul risklerini ölçer.
+
+Komutlar:
+
+```bash
+python tools/audit_chroma_coverage.py --chroma-dir chroma_db --out chroma_coverage_inventory.local.json --markdown-out chroma_coverage_inventory.local.md
+python tools/generate_chroma_coverage_questions.py --chroma-dir chroma_db --out vector_coverage_questions.generated.local.json --markdown-out vector_coverage_questions.generated.local.md
+python evaluation/evaluate_vector_coverage.py --questions vector_coverage_questions.generated.local.json --out vector_coverage_report.local.json --markdown-out vector_coverage_summary.local.md
+python evaluation/evaluate_manual_acceptance.py --questions evaluation/manual_acceptance_questions.json --out manual_acceptance_report.local.json --markdown-out manual_acceptance_summary.local.md
+python evaluation/run_regression_suite.py --profile full --use-local-chroma-copy
+```
+
+Rewrite veya multi-query çıktısı, kullanıcı sorusunu "bilgi yok" fallback cevabına dönüştürürse reddedilir. Çift anadal, AGNO/GANO, lisansüstü başvuru ve yemekhane menüsü gibi manuel canlı QA riskleri için hard-coded soru ID patch'i yapılmaz; genel rewrite, routing, rerank ve coverage kuralları kullanılır.

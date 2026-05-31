@@ -198,3 +198,15 @@ Workflow dosyası: `.github/workflows/deploy-hf-space.yml`
 - ChromaDB snapshot yalnız açık snapshot update görevlerinde değiştirilir.
 - Provider/model/dependency değişiklikleri ayrı riskli faz olarak ele alınır.
 - Sistem resmi belge yerine geçmez; kritik kararlar resmi kaynakla doğrulanmalıdır.
+## Rewrite Safety and Coverage QA
+
+Query rewrite sadece takip sorularını bağımsızlaştırmak için kullanılır. Rewrite çıktısı kaynak yok/fallback cevabına dönüşürse, kritik terim ailesini kaybederse veya alakasız alanlara drift ederse reddedilir ve orijinal kullanıcı sorusu korunur.
+
+Coverage QA katmanı ChromaDB snapshot'ını değiştirmeden çalışır:
+
+- `tools/audit_chroma_coverage.py`: indeksli kaynak/topic kapsamını raporlar.
+- `tools/generate_chroma_coverage_questions.py`: coverage odaklı lokal soru seti üretir.
+- `evaluation/evaluate_vector_coverage.py`: CI-safe routing/coverage kontrolü yapar.
+- `evaluation/evaluate_manual_acceptance.py`: canlı demoda riskli görülen manuel kabul sorularını kontrol eder.
+
+Bu katman ingestion yapmaz, ChromaDB snapshot'ını değiştirmez ve live LLM çağrısını varsayılan olarak çalıştırmaz.
