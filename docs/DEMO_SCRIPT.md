@@ -12,14 +12,17 @@
 
 ## Demo Akışı
 
-1. Ana sayfa açılır.
-2. ChromaDB snapshot ve kalite paneli durumu kısaca anlatılır.
-3. Tanım/RAG soruları ile kaynaklı cevap gösterilir.
-4. Mevzuat/şart soruları ile madde ve belge dayanağı gösterilir.
-5. Source Discovery Mode ile kaynak listeleme davranışı gösterilir.
-6. Dynamic Dining Menu Reader ile güncel/dinamik kaynak fallback davranışı gösterilir.
-7. Kapsam dışı soru ile no-hallucination fallback gösterilir.
-8. AGNO/GANO gibi terminoloji belirsizliği örneğinde temkinli cevap gösterilir.
+1. Ana sayfa açılır ve `Selçuk-AI` markası, sol sidebar, yeni araştırma oturumu ve sohbet arama alanı gösterilir.
+2. Sohbet ekranındaki ChatGPT benzeri composer alanı, `+ Kaynak` kısayolu ve pasif sesli komut butonu açıklanır.
+3. Veri Kaynakları ekranında ana indeks, geçici session kaynakları ve dinamik kaynak ayrımı gösterilir.
+4. Kontrol Paneli ekranında ChromaDB snapshot ve kalite paneli durumunun read-only olduğu anlatılır.
+5. YZ Araçları ekranında routing sırası gösterilir: `source_discovery -> dynamic_dining_menu -> session_upload_rag -> rag`.
+6. Tanım/RAG soruları ile kaynaklı cevap gösterilir.
+7. Mevzuat/şart soruları ile madde ve belge dayanağı gösterilir.
+8. Source Discovery Mode ile kaynak listeleme davranışı gösterilir.
+9. Dynamic Dining Menu Reader ile güncel/dinamik kaynak fallback davranışı gösterilir.
+10. Kapsam dışı soru ile no-hallucination fallback gösterilir.
+11. AGNO/GANO gibi terminoloji belirsizliği örneğinde temkinli cevap gösterilir.
 
 ## Demo Soruları
 

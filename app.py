@@ -30,6 +30,18 @@ from app_chat_handlers import (
     handle_session_upload_chat,
     handle_source_discovery_chat,
 )
+from app_ui import (
+    APP_NAME,
+    NAV_ITEMS,
+    inject_selcuk_ai_theme,
+    recent_user_questions,
+    render_brand,
+    render_page_title,
+    render_status_badges,
+    render_topbar,
+    route_badge_for_message,
+    session_source_label,
+)
 from check_chroma_health import check_chroma_health
 from quality_dashboard import render_quality_dashboard
 from query_router import MODE_DYNAMIC_DINING_MENU, MODE_SESSION_UPLOAD_RAG, MODE_SOURCE_DISCOVERY, route_query
@@ -85,7 +97,7 @@ def build_prompt_chat_history(messages, max_pairs=3, per_message_chars=800):
     )
 
 # ─────────────────── SAYFA AYARLARI ───────────────────
-st.set_page_config(page_title="Selçuk RAG Asistanı", page_icon="🎓", layout="centered")
+st.set_page_config(page_title=APP_NAME, page_icon="◈", layout="wide")
 
 # ══════════════════════════════════════════════════════════
 #  CURATOR AI – MEGA CSS
@@ -634,6 +646,8 @@ button[data-testid="stBaseButton-headerNoPadding"] {
 </style>
 """, unsafe_allow_html=True)
 
+inject_selcuk_ai_theme(st)
+
 
 # ─────────────────── API KEY KONTROLÜ ───────────────────
 if not os.environ.get("GROQ_API_KEY"):
@@ -670,31 +684,137 @@ def get_engine():
     return SelcukRAGEngine()
 
 
+def reset_chat_session():
+    st.session_state.mesajlar = []
+    st.session_state.yeni_dokumanlar = []
+    st.session_state.oneriler = []
+    st.session_state.web_hatalari = []
+    st.session_state.aktif_sayfa = "chat"
+
+
+def set_session_source(source, chunks, status_message: str | None = None):
+    st.session_state.session_source = source
+    st.session_state.session_source_store = build_session_vector_store(source, chunks) if chunks else None
+    st.session_state.session_source_enabled = bool(chunks)
+    st.session_state.session_source_status = status_message or (
+        f"{source.source_label or source.title} hazır: {source.chunk_count} chunk"
+        if source.status == "ready"
+        else source.error_message
+    )
+
+
+def clear_session_source():
+    st.session_state.session_source = None
+    st.session_state.session_source_store = None
+    st.session_state.session_source_enabled = False
+    st.session_state.session_source_status = "Geçici kaynak temizlendi."
+    st.session_state.session_pdf_key = ""
+
+
+def render_session_source_status(prefix: str):
+    source = st.session_state.session_source
+    if source and source.status == "ready":
+        st.success(st.session_state.session_source_status or f"Aktif kaynak: {source.source_label}")
+        st.session_state.session_source_enabled = st.toggle(
+            "Geçici kaynağı cevaplarda kullan",
+            value=st.session_state.session_source_enabled,
+            key=f"{prefix}_session_source_toggle",
+        )
+    elif source:
+        st.warning(source.error_message)
+    else:
+        st.caption("Aktif geçici kaynak yok.")
+
+
+def render_session_source_controls(prefix: str, show_diagnostics: bool = False):
+    st.caption("PDF, PDF URL, web linki veya yapıştırılan metin yalnızca bu oturumda kullanılır; ana ChromaDB'ye eklenmez.")
+    uploaded_pdf = st.file_uploader("PDF yükle", type=["pdf"], key=f"{prefix}_session_pdf_upload")
+    if uploaded_pdf is not None:
+        current_key = f"{prefix}:{uploaded_pdf.name}:{uploaded_pdf.size}"
+        if st.session_state.get("session_pdf_key") != current_key:
+            source, chunks = build_pdf_session_source(uploaded_pdf.getvalue(), uploaded_pdf.name)
+            st.session_state.session_pdf_key = current_key
+            set_session_source(
+                source,
+                chunks,
+                f"PDF işlendi: {source.document_count} sayfa, {source.chunk_count} chunk"
+                if source.status == "ready"
+                else source.error_message,
+            )
+            st.rerun()
+
+    manual_url = st.text_input("Link ekle / PDF URL işle", key=f"{prefix}_session_url_input", placeholder="https://...")
+    if st.button("Linki işle", use_container_width=True, key=f"{prefix}_process_session_url"):
+        result = load_url_source(manual_url)
+        set_session_source(
+            result.source,
+            result.chunks,
+            f"{'PDF linki' if result.source.source_type == 'pdf_url' else 'Link'} başarıyla işlendi: {result.source.chunk_count} chunk. Bu kaynak ana ChromaDB'ye eklenmedi."
+            if result.source.status == "ready"
+            else result.source.error_message,
+        )
+        st.rerun()
+
+    pasted_title = st.text_input("Metin başlığı", value="Yapıştırılan metin", key=f"{prefix}_session_pasted_title")
+    pasted_text = st.text_area(
+        "PDF veya sayfa içeriğini buraya yapıştır",
+        key=f"{prefix}_session_pasted_text",
+        height=120,
+        placeholder="PDF upload çalışmazsa PDF içeriğini metin olarak yapıştırabilirsin.",
+    )
+    if st.button("Metni geçici kaynak yap", use_container_width=True, key=f"{prefix}_process_session_text"):
+        source, chunks = build_text_session_source(pasted_text, pasted_title or "Yapıştırılan metin")
+        set_session_source(
+            source,
+            chunks,
+            "Metin geçici kaynak olarak işlendi. Bu kaynak yalnızca oturumda tutulur."
+            if source.status == "ready"
+            else source.error_message,
+        )
+        st.rerun()
+
+    render_session_source_status(prefix)
+    if st.session_state.session_source:
+        if st.button("Geçici kaynağı temizle", use_container_width=True, key=f"{prefix}_clear_session_source"):
+            clear_session_source()
+            st.rerun()
+
+    if show_diagnostics:
+        with st.expander("Upload tanılama", expanded=False):
+            st.json(collect_upload_diagnostics(st))
+
+
+def nav_button(label: str, page: str, icon: str):
+    active = "● " if st.session_state.aktif_sayfa == page else ""
+    if st.button(f"{icon}  {active}{label}", use_container_width=True, key=f"nav_{page}"):
+        st.session_state.aktif_sayfa = page
+        st.rerun()
+
+
 # ══════════════════════════════════════════════════════════
 #  SIDEBAR
 # ══════════════════════════════════════════════════════════
 with st.sidebar:
-    # ─── Logo ───
-    st.markdown("""
-    <div class="sidebar-logo">
-        <div class="logo-icon">🎓</div>
-        <div class="logo-text">
-            <h3>Curator AI</h3>
-            <span>Academic Research Lab</span>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    render_brand(st)
 
     # ─── + New Chat Butonu ───
     st.markdown('<div class="new-chat-btn">', unsafe_allow_html=True)
-    if st.button("＋  Yeni Sohbet", use_container_width=True, key="new_chat"):
-        st.session_state.mesajlar = []
-        st.session_state.yeni_dokumanlar = []
-        st.session_state.oneriler = []
-        st.session_state.web_hatalari = []
-        st.session_state.aktif_sayfa = "chat"
+    if st.button("＋  Yeni Araştırma Oturumu", use_container_width=True, key="new_chat"):
+        reset_chat_session()
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
+
+    st.text_input("Sohbetlerde ara", key="sidebar_chat_search", placeholder="Ara...")
+    st.markdown('<p class="nav-label">SON SOHBETLER</p>', unsafe_allow_html=True)
+    recent_items = recent_user_questions(st.session_state.mesajlar, limit=4)
+    search_term = str(st.session_state.get("sidebar_chat_search", "") or "").casefold()
+    if search_term:
+        recent_items = [item for item in recent_items if search_term in item.casefold()]
+    if recent_items:
+        for item in recent_items:
+            st.markdown(f'<div class="selcuk-mini-item">↺ {item}</div>', unsafe_allow_html=True)
+    else:
+        st.caption("Henüz sohbet geçmişi yok.")
 
     # ─── Mode Selection ───
     st.markdown('<p class="nav-label">ASİSTAN MODU</p>', unsafe_allow_html=True)
@@ -705,107 +825,23 @@ with st.sidebar:
         label_visibility="collapsed"
     )
 
-    st.markdown('<p class="nav-label">GEÇİCİ KAYNAK ALANI</p>', unsafe_allow_html=True)
-    st.caption("PDF/link içerikleri ana Selçuk veritabanına eklenmez; yalnızca bu oturumda kullanılır.")
-    st.caption("HF ortamında dosya yükleme engellenirse PDF linki veya metin yapıştırma yöntemini kullanabilirsin.")
-    uploaded_pdf = st.file_uploader("PDF yükle", type=["pdf"], key="session_pdf_upload")
-    if uploaded_pdf is not None:
-        current_key = f"{uploaded_pdf.name}:{uploaded_pdf.size}"
-        if st.session_state.get("session_pdf_key") != current_key:
-            source, chunks = build_pdf_session_source(uploaded_pdf.getvalue(), uploaded_pdf.name)
-            st.session_state.session_pdf_key = current_key
-            st.session_state.session_source = source
-            st.session_state.session_source_store = build_session_vector_store(source, chunks) if chunks else None
-            st.session_state.session_source_enabled = bool(chunks)
-            st.session_state.session_source_status = (
-                f"PDF işlendi: {source.document_count} sayfa, {source.chunk_count} chunk"
-                if source.status == "ready"
-                else source.error_message
-            )
-            st.rerun()
-
-    manual_url = st.text_input("Link ekle / PDF URL işle", key="session_url_input", placeholder="https://...")
-    if st.button("Linki işle", use_container_width=True, key="process_session_url"):
-        result = load_url_source(manual_url)
-        st.session_state.session_source = result.source
-        st.session_state.session_source_store = build_session_vector_store(result.source, result.chunks) if result.chunks else None
-        st.session_state.session_source_enabled = bool(result.chunks)
-        st.session_state.session_source_status = (
-            f"{'PDF linki' if result.source.source_type == 'pdf_url' else 'Link'} başarıyla işlendi: {result.source.chunk_count} chunk. Bu kaynak ana ChromaDB'ye eklenmedi."
-            if result.source.status == "ready"
-            else result.source.error_message
-        )
-        st.rerun()
-
-    with st.expander("PDF yükleme alternatifi: Metin olarak ekle", expanded=False):
-        pasted_title = st.text_input("Metin başlığı", value="Yapıştırılan metin", key="session_pasted_title")
-        pasted_text = st.text_area(
-            "PDF veya sayfa içeriğini buraya yapıştır",
-            key="session_pasted_text",
-            height=140,
-            placeholder="PDF upload çalışmazsa PDF içeriğini metin olarak yapıştırabilirsin.",
-        )
-        if st.button("Metni geçici kaynak yap", use_container_width=True, key="process_session_text"):
-            source, chunks = build_text_session_source(pasted_text, pasted_title or "Yapıştırılan metin")
-            st.session_state.session_source = source
-            st.session_state.session_source_store = build_session_vector_store(source, chunks) if chunks else None
-            st.session_state.session_source_enabled = bool(chunks)
-            st.session_state.session_source_status = (
-                "Metin geçici kaynak olarak işlendi. Bu kaynak yalnızca oturumda tutulur."
-                if source.status == "ready"
-                else source.error_message
-            )
-            st.rerun()
-
-    with st.expander("Geliştirici / Upload Tanılama", expanded=False):
-        st.json(collect_upload_diagnostics(st))
-
-    active_source = st.session_state.session_source
-    if active_source:
-        if active_source.status == "ready":
-            st.success(st.session_state.session_source_status or f"Aktif kaynak: {active_source.source_label}")
-            st.session_state.session_source_enabled = st.toggle(
-                "Soruları geçici kaynak üzerinden cevapla",
-                value=st.session_state.session_source_enabled,
-                key="session_source_toggle",
-            )
-        else:
-            st.warning(active_source.error_message)
-        if st.button("Geçici kaynağı temizle", use_container_width=True, key="clear_session_source"):
-            st.session_state.session_source = None
-            st.session_state.session_source_store = None
-            st.session_state.session_source_enabled = False
-            st.session_state.session_source_status = "Geçici kaynak temizlendi."
-            st.session_state.session_pdf_key = ""
-            st.rerun()
+    st.markdown('<p class="nav-label">GEÇİCİ KAYNAK</p>', unsafe_allow_html=True)
+    st.markdown(f'<div class="selcuk-mini-item">◎ {session_source_label(st.session_state.session_source)}</div>', unsafe_allow_html=True)
+    with st.expander("Dosya, link veya metin ekle", expanded=False):
+        render_session_source_controls("sidebar", show_diagnostics=True)
 
     # ─── Navigation ───
     st.markdown('<p class="nav-label">NAVİGASYON</p>', unsafe_allow_html=True)
-
-    if st.button("💬  Sohbet Geçmişi", use_container_width=True, key="nav_history"):
-        st.session_state.aktif_sayfa = "chat"
-        st.rerun()
-
-    if st.button("ℹ️  Hakkında", use_container_width=True, key="nav_about"):
-        st.session_state.aktif_sayfa = "hakkinda"
-        st.rerun()
-
-    # ─── Administration ───
-    st.markdown('<p class="nav-label">YÖNETİM</p>', unsafe_allow_html=True)
-    
-    if st.button("🔑 Yönetici Paneli", use_container_width=True, key="nav_admin"):
-        st.session_state.aktif_sayfa = "admin"
-        st.rerun()
-
-
+    for page, label, icon in NAV_ITEMS:
+        nav_button(label, page, icon)
 
     # ─── Alt Profil ───
     st.markdown("""
     <div class="sidebar-profile">
-        <div class="profile-icon">🏛️</div>
+        <div class="profile-icon">◈</div>
         <div class="profile-text">
-            <h4>Selçuk Üni.</h4>
-            <span>Yönetmelik Asistanı</span>
+            <h4>Selçuk-AI</h4>
+            <span>Güvenli RAG · Kaynaklı cevap</span>
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -817,12 +853,9 @@ with st.sidebar:
 
 # ─── Hakkında Sayfası ───
 if st.session_state.aktif_sayfa == "hakkinda":
-    st.markdown("""
-    <div style="max-width:600px; margin:40px auto; text-align:center;">
-        <div style="font-size:3rem; margin-bottom:16px;">ℹ️</div>
-        <h2 style="color:#F1F5F9; font-weight:700; margin-bottom:8px;">Hakkında</h2>
-    </div>
-    """, unsafe_allow_html=True)
+    render_topbar(st, "Yardım")
+    render_page_title(st, "Selçuk-AI Hakkında", "Kaynaklı cevap, kaynak keşfi, dinamik yemekhane menüsü ve geçici oturum kaynaklarını tek arayüzde sunan araştırma asistanı.")
+    render_status_badges(st, [("Static RAG", ""), ("Source Discovery", ""), ("Dynamic Source", ""), ("Session Source", "")])
 
     st.markdown("""
     Bu asistan, Selçuk Üniversitesi yönetmeliklerini yapay zeka ile sorgulayan
@@ -854,12 +887,8 @@ if st.session_state.aktif_sayfa == "hakkinda":
 
 # ─── Admin Sayfası ───
 elif st.session_state.aktif_sayfa == "admin":
-    st.markdown("""
-    <div style="max-width:600px; margin:40px auto; text-align:center;">
-        <div style="font-size:3rem; margin-bottom:16px;">🔑</div>
-        <h2 style="color:#F1F5F9; font-weight:700; margin-bottom:8px;">Yönetici Paneli</h2>
-    </div>
-    """, unsafe_allow_html=True)
+    render_topbar(st, "Admin Paneli")
+    render_page_title(st, "Yönetici Paneli", "Sistem sağlığı, index durumu ve geri bildirim kayıtları için güvenli yönetim alanı.")
 
     admin_password = os.getenv("ADMIN_PASSWORD")
     if not admin_password:
@@ -924,28 +953,93 @@ elif st.session_state.aktif_sayfa == "admin":
 
         st.divider()
         render_quality_dashboard()
+
+elif st.session_state.aktif_sayfa == "dashboard":
+    render_topbar(st, "Kontrol Paneli")
+    render_page_title(st, "Sistem Analitiği Genel Bakış", "ChromaDB sağlığı, regression çıktıları ve kalite sinyalleri için read-only gösterge paneli.")
+    try:
+        from data_ingestion import DB_DIR
+        chroma_health = check_chroma_health(DB_DIR)
+    except Exception:
+        chroma_health = {}
+    c1, c2, c3, c4 = st.columns(4)
+    c1.metric("ChromaDB", "OK" if chroma_health.get("ok") else "Kontrol gerekli")
+    c2.metric("Kaynak", chroma_health.get("unique_source_count", 157))
+    c3.metric("Chunk", chroma_health.get("document_count", 3092))
+    c4.metric("Geçici kaynak", "Aktif" if st.session_state.session_source_enabled else "Yok")
+    st.divider()
+    render_quality_dashboard()
+
+elif st.session_state.aktif_sayfa == "sources":
+    render_topbar(st, "Veri Kaynakları")
+    render_page_title(st, "Veri Kaynakları", "Ana indekslenmiş kaynaklar, dinamik kaynaklar ve yalnızca bu oturumda kullanılan geçici PDF/link/metin kaynakları.")
+    try:
+        from data_ingestion import DB_DIR
+        chroma_health = check_chroma_health(DB_DIR)
+    except Exception:
+        chroma_health = {}
+    col_a, col_b, col_c = st.columns(3)
+    col_a.metric("Ana kaynak", chroma_health.get("unique_source_count", 157))
+    col_b.metric("Chunk/document", chroma_health.get("document_count", 3092))
+    col_c.metric("Dinamik kaynak", "Yemekhane")
+    st.markdown("### Geçici oturum kaynağı")
+    render_status_badges(st, [("Ana ChromaDB'ye yazılmaz", "selcuk-badge-neutral"), ("PDF · PDF URL · URL · Metin", "")])
+    render_session_source_controls("sources", show_diagnostics=True)
+    st.markdown("### Kaynak aileleri")
+    s1, s2, s3 = st.columns(3)
+    with s1:
+        st.markdown('<div class="selcuk-card"><h3>Ana indeks</h3><p class="selcuk-muted">Yönetmelik, yönerge, web PDF ve resmi web kaynakları üzerinden static RAG.</p></div>', unsafe_allow_html=True)
+    with s2:
+        st.markdown('<div class="selcuk-card"><h3>Geçici oturum</h3><p class="selcuk-muted">Kullanıcı PDF/link/metin içeriği yalnızca session belleğinde tutulur.</p></div>', unsafe_allow_html=True)
+    with s3:
+        st.markdown('<div class="selcuk-card"><h3>Dinamik kaynak</h3><p class="selcuk-muted">Yemekhane menüsü güncel endpoint üzerinden okunur; uydurma yapılmaz.</p></div>', unsafe_allow_html=True)
+
+elif st.session_state.aktif_sayfa == "ai_tools":
+    render_topbar(st, "YZ Araçları")
+    render_page_title(st, "Yapay Zeka Araçları", "Gerçek sistem ayarları, routing öncelikleri ve demo güvenlik notları. Backend'de olmayan kontroller çalışır gibi gösterilmez.")
+    mode = st.radio(
+        "Cevap modu tonu",
+        ["Akademik Rehber", "Kampüs Yaşamı", "Hızlı Arama"],
+        index=["Akademik Rehber", "Kampüs Yaşamı", "Hızlı Arama"].index(st.session_state.asistan_modu),
+        horizontal=True,
+        key="ai_tools_mode",
+    )
+    st.session_state.asistan_modu = mode
+    st.markdown("### Routing önceliği")
+    st.code("source_discovery -> dynamic_dining_menu -> session_upload_rag -> rag", language="text")
+    col_a, col_b = st.columns(2)
+    with col_a:
+        st.markdown('<div class="selcuk-card"><h3>Aktif model</h3><p class="selcuk-muted">Groq üzerinden Llama 3.1 8B. Provider/model bu ekrandan değiştirilmez.</p></div>', unsafe_allow_html=True)
+    with col_b:
+        st.markdown('<div class="selcuk-card"><h3>Sesli komut</h3><p class="selcuk-muted">Mikrofon backend desteği yok. Bu nedenle özellik pasif ve demo için “hazırlanıyor” durumunda gösterilir.</p></div>', unsafe_allow_html=True)
+    if st.button("🎙 Sesli komut hazırlanıyor", disabled=True, use_container_width=True):
+        pass
 # ─── Sohbet Sayfası (Ana Sayfa) ───
 else:
+    render_topbar(st, "İsimsiz Araştırma")
     # ─── KARŞILAMA EKRANI ───
     if len(st.session_state.mesajlar) == 0:
-        st.markdown("""
-        <div class="welcome-container">
-            <span class="welcome-wave">👋</span>
-            <div class="welcome-title">
-                Selçuk Üniversitesi Yönetmelik<br>Asistanı'na hoş geldiniz.
-            </div>
-            <div class="welcome-subtitle">
-                "Size nasıl yardımcı olabilirim? Akademik mevzuat ve yönergeler hakkında her şeyi sorabilirsiniz."
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
+        render_page_title(
+            st,
+            "Bugün araştırmanıza nasıl yardımcı olabilirim?",
+            "Belge yükleyin, PDF URL ekleyin, kaynak arayın veya Selçuk Üniversitesi kaynakları hakkında yazmaya başlayın.",
+        )
+        render_status_badges(
+            st,
+            [
+                ("RAG", ""),
+                ("Kaynak keşfi", ""),
+                ("Yemekhane menüsü", ""),
+                ("Geçici PDF/URL/metin", "selcuk-badge-neutral"),
+            ],
+        )
 
         # 4 Adet Öneri Kartı
         ornek_sorular = [
-            ("☑️  Staj Muafiyeti\n📋 Staj muafiyet şartları nelerdir?", "Staj muafiyet şartları nelerdir?"),
-            ("🎓  Çift Ana Dal\n📘 Çift ana dal nasıl yapılır?", "Çift ana dal programına başvuru şartları nelerdir?"),
-            ("💰  Burs Başvuruları\n💳 Burs başvuru koşulları nelerdir?", "Burs başvuru koşulları nelerdir?"),
-            ("📑  Diploma Eki\n📄 Diploma eki nedir?", "Diploma eki nedir ve nasıl düzenlenir?"),
+            ("Staj yönergesi var mı?", "Staj yönergesi var mı?"),
+            ("Teknoloji Fakültesi staj kaynakları nelerdir?", "Teknoloji Fakültesi staj kaynakları nelerdir?"),
+            ("Bugün yemekte ne var?", "Bugün yemekte ne var?"),
+            ("AKTS nedir?", "AKTS nedir?"),
         ]
 
         col1, col2 = st.columns(2)
@@ -961,7 +1055,9 @@ else:
 
     # ─── GEÇMİŞ MESAJLAR ───
     for idx, m in enumerate(st.session_state.mesajlar):
-        with st.chat_message(m["rol"], avatar="🎓" if m["rol"] == "assistant" else "👤"):
+        with st.chat_message(m["rol"], avatar="◈" if m["rol"] == "assistant" else "P"):
+            if m["rol"] == "assistant":
+                st.caption(route_badge_for_message(m))
             st.markdown(m["icerik"])
             
             if m["rol"] == "assistant":
@@ -1022,7 +1118,25 @@ else:
                 st.markdown('</div>', unsafe_allow_html=True)
 
     # ─── KULLANICI GİRDİSİ ───
-    kullanici_sorusu = st.chat_input("Selçuk Üniversitesi yönetmeliği hakkında bir soru sorun...")
+    st.markdown('<div class="selcuk-composer-tools">', unsafe_allow_html=True)
+    tool_cols = st.columns([1, 1, 1, 5])
+    with tool_cols[0]:
+        if st.button("＋ Kaynak", key="composer_open_sources", help="PDF, PDF URL, link veya metin ekle"):
+            st.session_state.aktif_sayfa = "sources"
+            st.rerun()
+    with tool_cols[1]:
+        st.button("🎙 Ses", key="composer_voice_disabled", help="Sesli komut backend desteği hazırlanıyor.", disabled=True)
+    with tool_cols[2]:
+        if st.button("↺ Yeni", key="composer_new_chat"):
+            reset_chat_session()
+            st.rerun()
+    with tool_cols[3]:
+        st.caption(f"Aktif geçici kaynak: {session_source_label(st.session_state.session_source)}")
+    with st.expander("Dosya, link veya metin ekle", expanded=False):
+        render_session_source_controls("composer", show_diagnostics=False)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    kullanici_sorusu = st.chat_input("Selçuk-AI'ye mesaj gönder...")
     if "ornek_soru" in st.session_state:
         kullanici_sorusu = st.session_state.ornek_soru
         del st.session_state.ornek_soru
@@ -1030,10 +1144,10 @@ else:
     if kullanici_sorusu:
         # Kullanıcı mesajını ekle
         st.session_state.mesajlar.append({"rol": "user", "icerik": kullanici_sorusu})
-        with st.chat_message("user", avatar="👤"):
+        with st.chat_message("user", avatar="P"):
             st.markdown(kullanici_sorusu)
 
-        with st.chat_message("assistant", avatar="🎓"):
+        with st.chat_message("assistant", avatar="◈"):
             try:
                 # 1. Sohbet geçmişi
                 if SelcukRAGEngine.is_source_inventory_question(kullanici_sorusu):
@@ -1175,6 +1289,6 @@ else:
 
 # ─────────────────── FOOTER ───────────────────
 st.markdown(
-    '<div class="curator-footer">Yönetmelik Asistanı hata yapabilir. Önemli bilgileri her zaman resmi gazeteden kontrol edin.</div>',
+    '<div class="curator-footer">Selçuk-AI hata yapabilir. Önemli bilgileri resmi kaynaklardan doğrulayın.</div>',
     unsafe_allow_html=True
 )

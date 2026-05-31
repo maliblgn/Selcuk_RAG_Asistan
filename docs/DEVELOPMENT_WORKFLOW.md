@@ -466,3 +466,21 @@ python evaluation/evaluate_session_source.py --questions evaluation/session_sour
 ```
 
 Tanılama çıktıları secret-safe olmalı; `HF_TOKEN`, `GROQ_API_KEY`, `.env`, local reports ve kullanıcı PDF/metinleri commit edilmez.
+
+## Selçuk-AI UI Shell
+
+Arayüz geliştirmelerinde backend davranışı değiştirilmeden şu alanlar korunur:
+
+- `query_router.py` routing sırası: `source_discovery -> dynamic_dining_menu -> session_upload_rag -> rag`
+- Session-only PDF/PDF URL/URL/metin kaynakları ana ChromaDB snapshot'a yazılmaz.
+- Kontrol paneli ve kalite paneli read-only kalır.
+- Backend'i olmayan kontroller, örneğin sesli komut, çalışır gibi gösterilmez; pasif/hazırlanıyor durumunda kalır.
+
+UI değişikliklerinden sonra önerilen kontroller:
+
+```bash
+python -m py_compile app.py app_ui.py app_chat_handlers.py query_router.py
+python -m pytest tests/test_app_ui.py tests/test_query_router.py tests/test_query_router_session_source.py -v
+python evaluation/run_regression_suite.py --profile fast --use-local-chroma-copy
+python -m pytest tests/ -v
+```

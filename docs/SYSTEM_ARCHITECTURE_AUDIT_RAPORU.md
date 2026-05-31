@@ -410,3 +410,11 @@ ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, quer
 - PDF URL'leri `pdf_url`, yapıştırılan metinler `pasted_text` session source olarak işlenir; cevap citation ve source noun üretimi bu source type'ları destekler.
 - Secret-safe upload diagnostics eklendi; token/API key/env secret değerleri UI veya local report içinde gösterilmez.
 - ChromaDB snapshot, ingestion, dependency/provider/model, query routing sırası, dynamic menu ve static RAG davranışı değiştirilmedi.
+
+## Faz UI-1 Selçuk-AI Chat Interface Refresh
+
+- Uygulama markası `Selçuk-AI` olarak güncellendi ve koyu tema `#121212`, metin `#e0e0e0`, vurgu `#00a8cc` paletine taşındı.
+- ChatGPT benzeri sol sidebar, sohbet arama/son sohbetler, veri kaynakları, kontrol paneli, YZ araçları, admin ve yardım navigasyonu eklendi.
+- Session kaynak kontrolleri PDF, PDF URL, web URL ve metin yapıştırma akışlarını görünür kılar; ana ChromaDB snapshot'a yazmaz.
+- Kontrol paneli read-only kalite/health katmanını göstermeye devam eder. YZ araçları ekranı gerçek routing ve mevcut mod bilgisini gösterir; backend'i olmayan sesli komut pasif kalır.
+- Query routing, dynamic source registry, ChromaDB snapshot, ingestion, dependency/provider/model ve static RAG scoring/rerank davranışı değiştirilmedi.

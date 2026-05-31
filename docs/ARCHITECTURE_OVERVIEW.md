@@ -4,6 +4,12 @@
 
 Selçuk RAG Asistan, Streamlit arayüzünden gelen kullanıcı sorularını önce routing katmanında sınıflandırır, ardından kaynak keşfi, dinamik kaynak veya static ChromaDB RAG akışlarından birine yönlendirir. Sistem final cevabı kullanıcıya göstermeden önce post-processing ve guardrail katmanlarından geçirir.
 
+## UI Shell
+
+Faz UI yenilemesiyle ürün adı `Selçuk-AI` olarak güncellendi. Streamlit kabuğu ChatGPT benzeri bir akışa yaklaştırıldı: sol sidebar, sohbet geçmişi araması, veri kaynakları ekranı, kontrol paneli, yapay zeka araçları ekranı, admin paneli ve altta gelişmiş composer alanı.
+
+Arayüz yalnızca mevcut backend yeteneklerini görünür kılar. PDF upload, PDF URL, web URL ve pasted text session source akışları ana ChromaDB snapshot'a yazmadan çalışır. Mikrofon gibi backend'i olmayan kontroller pasif/hazırlanıyor durumunda gösterilir.
+
 ## Query Flow
 
 ```mermaid

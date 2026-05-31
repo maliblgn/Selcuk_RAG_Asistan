@@ -19,8 +19,13 @@ Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 - Regression suite runner
 - ChromaDB local runtime copy
 - Safe fallback / no hallucination yaklaşımı
+- ChatGPT benzeri Selçuk-AI arayüz kabuğu
 
 Session-only PDF, PDF URL, manual URL & pasted text RAG, yüklenen PDF, PDF linki, manuel link veya yapıştırılan metin sorularında ham metin/chunk dökmek yerine soru odaklı cevap üretir. E-posta, telefon, dil seviyesi, proje listesi ve başvuru şartları gibi hedef bilgiler kaynak içinden ayıklanır; kaynakta yoksa bilgi uydurulmaz. Hugging Face ortamında dosya yükleme engellenirse PDF URL veya metin yapıştırma fallback yolu kullanılabilir.
+
+## Arayüz Deneyimi
+
+Selçuk-AI arayüzü koyu tema, sol sohbet/geçmiş navigasyonu ve altta ChatGPT benzeri mesaj yazma alanı ile çalışır. Dosya/link/metin ekleme kontrolleri hem veri kaynakları ekranında hem de sohbet composer alanında bulunur. Mikrofon kontrolü backend desteği olmadığı için pasif “hazırlanıyor” durumundadır; çalışan özellik gibi gösterilmez.
 - Hugging Face Spaces deploy workflow
 
 ## Canlı Durum
