@@ -791,6 +791,10 @@ def nav_button(label: str, page: str, icon: str):
         st.rerun()
 
 
+def safe_chat_avatar(role: str) -> str:
+    return "🤖" if role == "assistant" else "👤"
+
+
 # ══════════════════════════════════════════════════════════
 #  SIDEBAR
 # ══════════════════════════════════════════════════════════
@@ -1055,7 +1059,7 @@ else:
 
     # ─── GEÇMİŞ MESAJLAR ───
     for idx, m in enumerate(st.session_state.mesajlar):
-        with st.chat_message(m["rol"], avatar="◈" if m["rol"] == "assistant" else "P"):
+        with st.chat_message(m["rol"], avatar=safe_chat_avatar(m["rol"])):
             if m["rol"] == "assistant":
                 st.caption(route_badge_for_message(m))
             st.markdown(m["icerik"])
@@ -1144,10 +1148,10 @@ else:
     if kullanici_sorusu:
         # Kullanıcı mesajını ekle
         st.session_state.mesajlar.append({"rol": "user", "icerik": kullanici_sorusu})
-        with st.chat_message("user", avatar="P"):
+        with st.chat_message("user", avatar=safe_chat_avatar("user")):
             st.markdown(kullanici_sorusu)
 
-        with st.chat_message("assistant", avatar="◈"):
+        with st.chat_message("assistant", avatar=safe_chat_avatar("assistant")):
             try:
                 # 1. Sohbet geçmişi
                 if SelcukRAGEngine.is_source_inventory_question(kullanici_sorusu):
