@@ -1,16 +1,90 @@
 [
   {
-    "id": "session_pdf_topic",
+    "id": "session_pdf_email",
     "source_type": "pdf",
-    "query": "Bu belgede başvuru nereye yapılır?",
+    "query": "mail adresi nedir?",
     "expected_status": "answered",
-    "expected_terms": ["enstitü", "başvuru"],
-    "requires_citation": true
+    "expected_terms": ["aday@example.com"],
+    "forbidden_terms": ["Telefon", "Projeler"],
+    "requires_citation": true,
+    "forbid_raw_dump": true,
+    "max_answer_chars": 350
   },
   {
-    "id": "session_pdf_missing",
+    "id": "session_pdf_phone",
     "source_type": "pdf",
-    "query": "Bu belgede yemekhane menüsü var mı?",
+    "query": "telefon numarası nedir?",
+    "expected_status": "answered",
+    "expected_terms": ["+90 555 111 22 33"],
+    "requires_citation": true,
+    "forbid_raw_dump": true,
+    "max_answer_chars": 350
+  },
+  {
+    "id": "session_pdf_language_level",
+    "source_type": "pdf",
+    "query": "İngilizce seviyesi nedir?",
+    "expected_status": "answered",
+    "expected_terms": ["İngilizce", "B2"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_projects",
+    "source_type": "pdf",
+    "query": "projeler nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Kaynak Analiz Sistemi", "Akademik Takvim Uygulaması"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_skills",
+    "source_type": "pdf",
+    "query": "beceriler nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Python", "Veri analizi"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_gpa",
+    "source_type": "pdf",
+    "query": "GPA kaç?",
+    "expected_status": "answered",
+    "expected_terms": ["3.42"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_requirements",
+    "source_type": "pdf",
+    "query": "başvuru şartları nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Transkript", "Başvuru formu"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_summary",
+    "source_type": "pdf",
+    "query": "Bu PDF ne hakkında?",
+    "expected_status": "answered",
+    "expected_terms": ["bilgisayar mühendisliği", "Yapay zeka"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_pdf_missing_birth_date",
+    "source_type": "pdf",
+    "query": "Bu belgede doğum tarihi var mı?",
+    "expected_status": "no_relevant_context",
+    "requires_citation": false
+  },
+  {
+    "id": "session_pdf_missing_salary",
+    "source_type": "pdf",
+    "query": "Bu PDF'de maaş bilgisi var mı?",
     "expected_status": "no_relevant_context",
     "requires_citation": false
   },
@@ -19,8 +93,18 @@
     "source_type": "url",
     "query": "Bu sayfanın ana konusu nedir?",
     "expected_status": "answered",
-    "expected_terms": ["duyuru", "başlık"],
-    "requires_citation": true
+    "expected_terms": ["duyuru", "başvuru"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
+  },
+  {
+    "id": "session_url_headings",
+    "source_type": "url",
+    "query": "sayfadaki başlıklar nelerdir?",
+    "expected_status": "answered",
+    "expected_terms": ["Sayfa Başlığı"],
+    "requires_citation": true,
+    "forbid_raw_dump": true
   },
   {
     "id": "session_url_missing",

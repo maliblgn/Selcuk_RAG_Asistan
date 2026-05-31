@@ -19,6 +19,8 @@ Canlı demo: [Hugging Face Space](https://maliblgn-selcuk-rag-asistan.hf.space)
 - Regression suite runner
 - ChromaDB local runtime copy
 - Safe fallback / no hallucination yaklaşımı
+
+Session-only PDF & URL RAG, yüklenen PDF veya manuel link sorularında ham metin/chunk dökmek yerine soru odaklı cevap üretir. E-posta, telefon, dil seviyesi, proje listesi ve başvuru şartları gibi hedef bilgiler kaynak içinden ayıklanır; kaynakta yoksa bilgi uydurulmaz.
 - Hugging Face Spaces deploy workflow
 
 ## Canlı Durum

@@ -392,3 +392,12 @@ ChromaDB snapshot, ingestion, provider/model, dependency, source discovery, quer
 - URL loader SSRF/private-host koruması, robots.txt kontrolü, boyut sınırı, HTML/text/PDF ayrımı ve güvenli hata mesajları içerir.
 - Geçici kaynakta kanıt yoksa sistem ana RAG'e otomatik düşmez; bilgi uydurmadan güvenli fallback verir ve kullanıcı isterse normal Selçuk kaynaklarında yeniden sorabilir.
 - ChromaDB snapshot, ingestion, provider/model, dependency, dynamic source endpoint ve static RAG scoring/rerank davranışı değiştirilmedi.
+
+## Faz 11A-2 Session RAG Answer Quality Hardening
+
+- PDF/URL session kaynaklarında text quality cleanup, section-aware chunking ve metadata-aware retrieval güçlendirildi.
+- E-posta, telefon, URL, dil seviyesi, GPA, tarih, proje listesi, beceri listesi ve şart/gerekli belge listesi gibi sorularda ham chunk dökmek yerine hedefli extractor ve structured answer synthesis kullanılır.
+- CV, yönerge, yönetmelik, duyuru, ders izlencesi, akademik takvim, rapor ve web sayfası gibi genel belge türleri için bölüm sinyalleri (`section_title`, `section_type`) ve içerik bayrakları eklenir.
+- Session kaynaklarında ana ChromaDB'ye fallback yapılmadı; kaynakta olmayan bilgi güvenli fallback ile karşılanır.
+- Prompt injection cümleleri belge verisi kabul edilir, sistem talimatı olarak uygulanmaz.
+- ChromaDB snapshot, ingestion, dependency/provider/model, query routing sırası, dynamic menu ve static RAG davranışı değiştirilmedi.

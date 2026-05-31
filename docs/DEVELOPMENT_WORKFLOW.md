@@ -442,3 +442,6 @@ Kurallar:
 - robots.txt veya 401/403/429 erişim engelinde içerik uydurulmaz.
 - OCR yoktur; metin çıkarılamayan PDF için güvenli hata mesajı verilir.
 - Yeni PDF/link tek aktif kaynak olarak önceki geçici kaynağın yerini alır.
+- Session answer quality testleri fixture tabanlıdır; gerçek kullanıcı PDF/CV dosyası commit edilmez.
+- Session cevapları ham chunk olarak basılmamalı; hedef bilgi ayıklanmalı veya madde madde sentezlenmelidir.
+- Kaynakta olmayan bilgi için ana RAG'e otomatik fallback yapılmaz.

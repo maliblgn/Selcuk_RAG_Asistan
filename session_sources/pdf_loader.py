@@ -10,6 +10,7 @@ from pypdf import PdfReader
 
 from .chunker import chunk_page_texts
 from .models import SessionSource, utc_now
+from .text_quality import choose_best_page_text, clean_extracted_text
 
 
 def _read_bytes(pdf_file: bytes | BinaryIO) -> bytes:
@@ -20,14 +21,45 @@ def _read_bytes(pdf_file: bytes | BinaryIO) -> bytes:
     return pdf_file.read()
 
 
+def _extract_with_pypdf(data: bytes) -> list[str]:
+    reader = PdfReader(BytesIO(data))
+    return [(page.extract_text() or "") for page in reader.pages]
+
+
+def _extract_with_pypdf2(data: bytes) -> list[str]:
+    try:
+        from PyPDF2 import PdfReader as PyPDF2Reader  # type: ignore
+    except Exception:
+        return []
+    try:
+        reader = PyPDF2Reader(BytesIO(data))
+        return [(page.extract_text() or "") for page in reader.pages]
+    except Exception:
+        return []
+
+
+def _extract_with_pdfplumber(data: bytes) -> list[str]:
+    try:
+        import pdfplumber  # type: ignore
+    except Exception:
+        return []
+    try:
+        with pdfplumber.open(BytesIO(data)) as pdf:
+            return [(page.extract_text() or "") for page in pdf.pages]
+    except Exception:
+        return []
+
+
 def load_pdf_pages(pdf_file: bytes | BinaryIO) -> list[dict]:
     data = _read_bytes(pdf_file)
-    reader = PdfReader(BytesIO(data))
+    candidate_sets = [_extract_with_pypdf(data), _extract_with_pypdf2(data), _extract_with_pdfplumber(data)]
+    max_pages = max((len(items) for items in candidate_sets), default=0)
     pages = []
-    for index, page in enumerate(reader.pages, start=1):
-        text = (page.extract_text() or "").strip()
+    for index in range(max_pages):
+        candidates = [items[index] for items in candidate_sets if index < len(items)]
+        text = choose_best_page_text(candidates)
         if text:
-            pages.append({"page_number": index, "text": text})
+            pages.append({"page_number": index + 1, "text": clean_extracted_text(text)})
     return pages
 
 

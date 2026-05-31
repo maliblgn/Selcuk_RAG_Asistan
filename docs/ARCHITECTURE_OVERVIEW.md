@@ -219,3 +219,11 @@ Query flow:
 `User Query -> query_router.py -> source_discovery -> dynamic_dining_menu -> session_upload_rag -> normal RAG`
 
 Geçici kaynak modu aktifken cevap yalnızca yüklenen PDF/link chunk'larından üretilir. Bağlam yetersizse ana Selçuk RAG'e otomatik düşülmez; kullanıcıya geçici kaynakta bilgi bulunamadığı ve genel kaynaklarda ayrıca sorabileceği söylenir. URL yükleme katmanı sadece `http/https` kabul eder, localhost/private/internal IP adreslerini ve unsupported scheme'leri engeller, redirect sonrası final URL'yi yeniden kontrol eder ve robots.txt engelini kullanıcıya açıkça bildirir.
+
+### Session Answer Quality
+
+Faz 11A-2 ile session kaynakları için section-aware chunking ve metadata-aware retrieval eklendi. PDF/web metni önce Unicode/PDF extraction cleanup katmanından geçer, ardından `İletişim`, `Özet`, `Eğitim`, `Projeler`, `Beceriler`, `Diller`, `Başvuru Şartları`, `Gerekli Belgeler` ve `Madde` benzeri bölümler ayrı chunk sinyalleri olarak tutulur.
+
+Session retrieval artık yalnız token overlap'e dayanmaz; section title, section type, email/telefon/tarih/language/project/requirement metadata bayrakları ve phrase match birlikte skorlanır. Cevap üretiminde e-posta, telefon, URL, dil seviyesi, GPA, tarih, proje listesi, beceri listesi ve şart/gerekli belge listesi gibi bilgiler deterministic extractor'larla ayıklanır. Bu yüzden session cevapları ham chunk dump yerine kısa, hedefli ve kaynak gösterimli cevap üretir.
+
+PDF/web içeriğindeki prompt injection cümleleri veri kabul edilir; session answer prompt'u veya ana RAG talimatları değiştirilmez. Kaynakta kanıt yoksa ana ChromaDB'ye fallback yapılmaz.

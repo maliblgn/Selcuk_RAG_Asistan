@@ -18,14 +18,42 @@ from session_sources.vector_store import build_session_vector_store
 
 
 FIXTURES = {
-    "pdf": (
-        "Bu geçici PDF belgesi lisansüstü başvuru sürecini açıklar. "
-        "Başvuru ilgili enstitü müdürlüğüne yapılır. Adaylar başvuru formu, diploma ve transkript belgelerini teslim eder."
-    ),
-    "url": (
-        "Bu web sayfasının ana konusu duyuru başlıklarıdır. "
-        "Sayfada başlık, açıklama ve iletişim bilgileri yer alır. Duyuru içeriği yalnızca bu sayfa kapsamındadır."
-    ),
+    "pdf": """
+    İletişim
+    E-posta: aday@example.com
+    Telefon: +90 555 111 22 33
+
+    Özet
+    Aday, bilgisayar mühendisliği öğrencisidir. Yapay zeka, veri analizi ve web uygulamaları üzerinde çalışır.
+
+    Eğitim
+    Selçuk Üniversitesi Bilgisayar Mühendisliği. GPA: 3.42
+
+    Projeler
+    - Kaynak Analiz Sistemi
+    - Akademik Takvim Uygulaması
+    - Makine Öğrenmesi Portfolyosu
+
+    Beceriler
+    Python: ileri
+    Veri analizi: orta
+
+    Diller
+    İngilizce: B2
+
+    Başvuru Şartları
+    a) Transkript teslim edilir.
+    b) Başvuru formu doldurulur.
+    """,
+    "url": """
+    Sayfa Başlığı
+    Bu web sayfası akademik duyuru başlıklarını ve başvuru sürecini açıklar.
+
+    Başlıklar
+    - Duyuru takvimi
+    - Başvuru belgeleri
+    - İletişim
+    """,
 }
 
 
@@ -40,7 +68,7 @@ def _source(source_type: str) -> tuple[SessionSource, list]:
         chunk_count=0,
         source_label=f"Fixture {source_type.upper()}",
     )
-    chunks = chunk_text(source.id, FIXTURES[source_type], metadata={"source_type": source_type, "title": source.title, "page_number": 1})
+    chunks = chunk_text(source.id, FIXTURES[source_type], metadata={"source_type": source_type, "title": source.title, "page_number": 1}, min_chars=10)
     source = SessionSource(**{**source.to_dict(), "chunk_count": len(chunks)})
     return source, chunks
 
@@ -68,10 +96,15 @@ def build_report(questions: list[dict]) -> dict:
         for term in item.get("expected_terms", []):
             if term.casefold() not in answer_norm:
                 reasons.append(f"missing_term={term}")
+        for term in item.get("forbidden_terms", []):
+            if term.casefold() in answer_norm:
+                reasons.append(f"forbidden_term={term}")
         if item.get("requires_citation") and not result.citations:
             reasons.append("missing_citation")
+        if item.get("forbid_raw_dump") and len(result.answer) > item.get("max_answer_chars", 900):
+            reasons.append("answer_too_long_possible_raw_dump")
         if reasons:
-            failures.append({"id": item["id"], "query": item["query"], "failure_reasons": reasons})
+            failures.append({"id": item["id"], "query": item["query"], "failure_reasons": reasons, "answer": result.answer})
 
     total = len(questions)
     return {

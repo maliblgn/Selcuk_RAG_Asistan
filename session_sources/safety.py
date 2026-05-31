@@ -59,9 +59,9 @@ def validate_url_safety(url: str) -> URLSafetyResult:
     if parsed.scheme not in {"http", "https"}:
         return URLSafetyResult(False, "Sadece http/https linkleri desteklenir.")
     if not parsed.hostname:
-        return URLSafetyResult(False, "URL icinde geçerli bir host bulunamadi.")
+        return URLSafetyResult(False, "URL içinde geçerli bir host bulunamadı.")
     if _resolve_host_private(parsed.hostname):
-        return URLSafetyResult(False, "Guvenlik nedeniyle localhost/private/internal adresler engellenir.")
+        return URLSafetyResult(False, "Güvenlik nedeniyle localhost/private/internal adresler engellenir.")
     return URLSafetyResult(True)
 
 
@@ -78,13 +78,12 @@ def robots_allowed(url: str, user_agent: str = "*", timeout_sec: int = 5) -> URL
     try:
         response = requests.get(robots_url, timeout=timeout_sec, headers={"User-Agent": "SelcukRAGSessionSource/1.0"})
     except Exception:
-        return URLSafetyResult(True, "robots.txt okunamadi; erisim denemesi normal HTTP sonucuna birakildi.")
+        return URLSafetyResult(True, "robots.txt okunamadı; erişim denemesi normal HTTP sonucuna bırakıldı.")
     if response.status_code >= 400:
-        return URLSafetyResult(True, "robots.txt bulunamadi veya okunamadi.")
+        return URLSafetyResult(True, "robots.txt bulunamadı veya okunamadı.")
     parser = RobotFileParser()
     parser.set_url(robots_url)
     parser.parse(response.text.splitlines())
     if not parser.can_fetch(user_agent, url):
-        return URLSafetyResult(False, "Bu site otomatik erisime robots.txt tarafindan izin vermiyor.")
+        return URLSafetyResult(False, "Bu site otomatik erişime robots.txt tarafından izin vermiyor.")
     return URLSafetyResult(True)
-
